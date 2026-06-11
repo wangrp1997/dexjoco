@@ -131,6 +131,52 @@ dexjoco-openpi-eval \
   --port=8000
 ```
 
+> **本地测试备忘（附加）**
+>
+> 评测需要开两个终端：终端 1 保持 `serve_policy` 运行，看到
+> `server listening on 0.0.0.0:8000` 后再在终端 2 跑 `dexjoco-openpi-eval`。
+>
+> **下载 checkpoint（附加）** — HuggingFace 上的 `water_plant` 实际路径是
+> `pi05_dexjoco_ckpt/water_plant/`（Orbax 格式，推理只需 `params/` + `assets/`）：
+>
+> ```bash
+> conda activate openpi
+> export HF_ENDPOINT=https://hf-mirror.com   # 国内可选
+>
+> hf download DexJoCo/DexJoCo-Pi05 \
+>   --include "pi05_dexjoco_ckpt/water_plant/params/**" \
+>   --include "pi05_dexjoco_ckpt/water_plant/assets/**" \
+>   --include "pi05_dexjoco_ckpt/water_plant/_CHECKPOINT_METADATA" \
+>   --local-dir checkpoints
+> ```
+>
+> 若 `hf download` 后 `serve_policy.py` 报 `huggingface-hub` 版本冲突：
+>
+> ```bash
+> pip install "huggingface-hub>=0.30.0,<1.0"
+> ```
+>
+> **16 GB 显卡起服务（附加）** — 在官方命令前加环境变量，并把 `--policy.dir`
+> 改为 HF 下载路径（无需 `<exp_name>/<step>`）：
+>
+> ```bash
+> cd openpi
+> conda activate openpi
+> XLA_PYTHON_CLIENT_PREALLOCATE=false \
+> XLA_PYTHON_CLIENT_MEM_FRACTION=0.85 \
+> CUDA_VISIBLE_DEVICES=0 \
+> python scripts/serve_policy.py --port=8000 policy:checkpoint \
+>   --policy.config water_plant \
+>   --policy.dir ../checkpoints/pi05_dexjoco_ckpt/water_plant
+> ```
+>
+> - `XLA_PYTHON_CLIENT_PREALLOCATE=false`：启动时不预占满显存
+> - `XLA_PYTHON_CLIENT_MEM_FRACTION=0.85`：给 JAX 足够显存加载 π0.5
+> - `CUDA_VISIBLE_DEVICES=0`：使用第一块 GPU
+>
+> 默认评测为无头模式（`rgb_array`），视频保存在 `outputs/water_plant_seed0/`；
+> 需要弹窗时加 `--render-mode=human`。
+
 For `rand_full` evaluation, use a config under `configs/rand_full/` and pass
 `--rand-full`:
 
