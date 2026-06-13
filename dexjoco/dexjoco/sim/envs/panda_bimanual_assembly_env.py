@@ -9,7 +9,7 @@ from gymnasium import spaces
 from scipy.spatial.transform import Rotation as R
 
 from ..controllers import opspace
-from ..mujoco_gym_env import GymRenderingSpec, MujocoGymEnv
+from ..mujoco_gym_env import GymRenderingSpec, MujocoGymEnv, mj_scalar
 from ..rendering import MujocoRenderer
 
 
@@ -118,16 +118,16 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
         self._allegro_ctrl_ids = np.asarray(allegro_ids, dtype=int)
 
         self._allegro_dof_right_ids = np.asarray(
-            [int(self._model.joint(n).qposadr) for n in self._allegro_joint_right_names],
+            [mj_scalar(self._model.joint(n).qposadr) for n in self._allegro_joint_right_names],
             dtype=int,
         )
         self._allegro_dof_left_ids = np.asarray(
-            [int(self._model.joint(n).qposadr) for n in self._allegro_joint_left_names],
+            [mj_scalar(self._model.joint(n).qposadr) for n in self._allegro_joint_left_names],
             dtype=int,
         )
 
-        self._mocap_right_id = int(self._model.body("target_right").mocapid)
-        self._mocap_left_id = int(self._model.body("target_left").mocapid)
+        self._mocap_right_id = mj_scalar(self._model.body("target_right").mocapid)
+        self._mocap_left_id = mj_scalar(self._model.body("target_left").mocapid)
 
         # Object handles
         self._peg_joint_id = self._model.joint("industreal_round_peg_8mm_joint").id

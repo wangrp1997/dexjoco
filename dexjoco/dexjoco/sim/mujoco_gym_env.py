@@ -7,6 +7,11 @@ import mujoco
 import numpy as np
 
 
+def mj_scalar(x) -> int:
+    """Convert a MuJoCo index to int (NumPy 2.x may return arrays)."""
+    return int(np.asarray(x).item())
+
+
 @dataclass(frozen=True)
 class GymRenderingSpec:
     height: int = 640

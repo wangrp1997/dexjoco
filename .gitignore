@@ -31,3 +31,4 @@ AGENTS.md
 repomix-output.xml
 repomix.config.json
 converted_datasets/
+logs/
