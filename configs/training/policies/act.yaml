@@ -1,0 +1,13 @@
+# ACT overrides (LeRobot). Temporal chunk aligned to pi0.5 action_horizon=30.
+
+policy_type: act
+
+policy:
+  chunk_size: 30
+  n_action_steps: 30
+  n_obs_steps: 1
+  vision_backbone: resnet18
+  # LeRobot ACT defaults: optimizer_lr=1e-5 (differs from pi0.5 peak_lr=5e-5)
+
+eval:
+  actions_per_chunk: 30

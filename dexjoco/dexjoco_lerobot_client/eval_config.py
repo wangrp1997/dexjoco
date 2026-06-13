@@ -2,17 +2,84 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 from typing import Any
 
 import yaml
 
 IMAGE_SHAPE = [640, 640, 3]
+_TRAINING_POLICIES_DIR = Path(__file__).resolve().parents[2] / "configs/training/policies"
+_TRAINING_BASELINE_DIR = Path(__file__).resolve().parents[2] / "configs/training"
 
 
 def load_eval_yaml(config_path: Path) -> dict[str, Any]:
     with open(config_path, "r") as f:
         return yaml.safe_load(f)
+
+
+def load_training_policy_yaml(policy_type: str) -> dict[str, Any]:
+    path = _TRAINING_POLICIES_DIR / f"{policy_type}.yaml"
+    if not path.exists():
+        raise FileNotFoundError(f"Training policy config not found: {path}")
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+
+
+def load_training_baseline_yaml(robot_type: str) -> dict[str, Any]:
+    name = "dual_arm_baseline.yaml" if robot_type == "dual_arm" else "single_arm_baseline.yaml"
+    path = _TRAINING_BASELINE_DIR / name
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+
+
+def _actions_per_chunk_from_checkpoint(policy_type: str, checkpoint: Path) -> int | None:
+    config_path = checkpoint / "config.json"
+    if not config_path.exists():
+        return None
+    with open(config_path, "r") as f:
+        cfg = json.load(f)
+    if policy_type == "act":
+        key = "chunk_size"
+    elif policy_type == "diffusion":
+        key = "horizon"
+    else:
+        return None
+    value = cfg.get(key)
+    return int(value) if value is not None else None
+
+
+def resolve_actions_per_chunk(policy_type: str, checkpoint: Path) -> int:
+    """Match policy server chunk size to the trained checkpoint when possible."""
+    from_ckpt = _actions_per_chunk_from_checkpoint(policy_type, checkpoint)
+    if from_ckpt is not None:
+        return from_ckpt
+
+    policy_cfg = load_training_policy_yaml(policy_type)
+    if "eval" in policy_cfg and "actions_per_chunk" in policy_cfg["eval"]:
+        return int(policy_cfg["eval"]["actions_per_chunk"])
+
+    if policy_type == "act":
+        return int(policy_cfg["policy"]["chunk_size"])
+    if policy_type == "diffusion":
+        return int(policy_cfg["policy"]["horizon"])
+    raise ValueError(f"Cannot resolve actions_per_chunk for policy_type={policy_type!r}")
+
+
+def default_replan_ratio(robot_type: str) -> float:
+    baseline = load_training_baseline_yaml(robot_type)
+    return float(baseline["eval"]["replan_ratio"])
+
+
+def default_eval_output_dir(
+    policy_type: str,
+    env_name: str,
+    seed: int,
+    *,
+    rand_full: bool = False,
+) -> Path:
+    suffix = "_rand_full" if rand_full else ""
+    return Path("outputs") / policy_type / f"{env_name}{suffix}_seed{seed}"
 
 
 def lerobot_image_map(camera_mapping: dict[str, str], dual_arm: bool) -> dict[str, str]:

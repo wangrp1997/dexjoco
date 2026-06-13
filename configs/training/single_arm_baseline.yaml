@@ -1,0 +1,37 @@
+# DexJoCo single-arm IL training budget aligned with OpenPI pi0.5 (openpi/config.yaml).
+
+reference:
+  openpi_config: openpi/config.yaml
+  pi05_single_arm:
+    batch_size: 32
+    steps: 30000
+    action_horizon: 30
+    action_dim: 22
+
+robot_type: single_arm
+
+dataset:
+  root: /mnt/public/datasets/dexjoco_lerobot_datasets
+  video_backend: pyav
+
+training:
+  batch_size: 32
+  steps: 30000
+  seed: 0
+  save_freq: 10000
+  log_freq: 100
+  num_workers: 4
+  push_to_hub: false
+
+state_dim: 23
+action_dim: 22
+action_horizon: 30
+
+eval:
+  episodes: 50
+  replan_ratio: 0.8
+  fps: 30
+  seed: 0
+
+output:
+  root: checkpoints  # <dexjoco_repo>/checkpoints/{policy}_dexjoco_ckpt/{task}/

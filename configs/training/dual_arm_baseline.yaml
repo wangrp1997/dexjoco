@@ -1,0 +1,45 @@
+# DexJoCo dual-arm IL training budget aligned with OpenPI pi0.5 (openpi/config.yaml).
+#
+# Shared across LeRobot policies (ACT, Diffusion, ...). Policy-specific knobs live under
+# configs/training/policies/*.yaml.
+#
+# Usage:
+#   python scripts/train_dexjoco_lerobot.py --policy act --task bimanual_assembly
+#   python scripts/train_dexjoco_lerobot.py --policy diffusion --task bimanual_assembly
+
+reference:
+  openpi_config: openpi/config.yaml
+  pi05_dual_arm:
+    batch_size: 32
+    steps: 60000
+    action_horizon: 30
+    action_dim: 44
+    peak_lr: 5.0e-5  # pi0.5 only; LeRobot policies use their own optimizer presets
+
+robot_type: dual_arm
+
+dataset:
+  root: /mnt/public/datasets/dexjoco_lerobot_datasets
+  video_backend: pyav
+
+training:
+  batch_size: 32
+  steps: 60000
+  seed: 0
+  save_freq: 10000
+  log_freq: 100
+  num_workers: 4
+  push_to_hub: false
+
+state_dim: 46
+action_dim: 44
+action_horizon: 30  # matches pi0.5; Diffusion uses horizon=32 (UNet downsample constraint)
+
+eval:
+  episodes: 50
+  replan_ratio: 0.8
+  fps: 30
+  seed: 0
+
+output:
+  root: checkpoints  # <dexjoco_repo>/checkpoints/{policy}_dexjoco_ckpt/{task}/

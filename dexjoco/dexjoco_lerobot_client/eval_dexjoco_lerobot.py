@@ -21,7 +21,10 @@ from .async_observation_robot_client import AsyncObservationRobotClient
 from .config_dexjoco_robot import DexJoCoRobotConfig  # noqa: F401 — registers robot config
 from .dexjoco_robot import DexJoCoRobot
 from .eval_config import (
+    default_eval_output_dir,
+    default_replan_ratio,
     load_eval_yaml,
+    resolve_actions_per_chunk,
     video_camera_names,
     write_robot_config_yaml,
 )
@@ -175,11 +178,12 @@ def main(
     output: Path | None = None,
     overwrite: bool = False,
     render_mode: Literal["rgb_array", "human"] = "rgb_array",
-    replan_ratio: float = 0.8,
+    replan_ratio: float | None = None,
     episodes: int = 50,
     pad_state_dim46: bool = False,
-    policy_type: Literal["act"] = "act",
+    policy_type: Literal["act", "diffusion"] = "act",
     policy_device: str = "cuda",
+    actions_per_chunk: int | None = None,
 ):
     if render_mode == "rgb_array":
         os.environ.setdefault("MUJOCO_GL", "egl")
@@ -190,12 +194,14 @@ def main(
     eval_cfg = load_eval_yaml(config)
     env_name = eval_cfg["env_name"]
     task = eval_cfg["prompt"]
+    robot_type = eval_cfg.get("robot_type", "dual_arm")
+
+    if replan_ratio is None:
+        replan_ratio = default_replan_ratio(robot_type)
 
     if output is None:
-        output_dir = (
-            Path("outputs")
-            / "act"
-            / f"{env_name}{'_rand_full' if rand_full else ''}_seed{seed}"
+        output_dir = default_eval_output_dir(
+            policy_type, env_name, seed, rand_full=rand_full
         )
     else:
         output_dir = output
@@ -215,6 +221,13 @@ def main(
             f"Checkpoint directory must contain config.json: {checkpoint}"
         )
 
+    if actions_per_chunk is None:
+        actions_per_chunk = resolve_actions_per_chunk(policy_type, checkpoint)
+    print(
+        f"Eval policy={policy_type} | actions_per_chunk={actions_per_chunk} | "
+        f"replan_ratio={replan_ratio}"
+    )
+
     with tempfile.TemporaryDirectory(prefix="dexjoco_lerobot_robot_cfg_") as tmp_dir:
         robot_cfg_path = Path(tmp_dir) / "robot.yaml"
         write_robot_config_yaml(eval_cfg, robot_cfg_path)
@@ -228,11 +241,6 @@ def main(
             pad_state_dim46=pad_state_dim46,
             render_mode=render_mode,
         )
-
-        if policy_type == "act":
-            actions_per_chunk = 100
-        else:
-            raise ValueError(f"Unsupported policy_type: {policy_type}")
 
         server_address = f"{host}:{port}"
         robot_client_cfg = RobotClientConfig(

@@ -1,0 +1,17 @@
+# Diffusion Policy overrides (LeRobot classic DP / Chi et al.).
+#
+# horizon=32 is the nearest valid UNet horizon (downsample factor 8) to pi0.5 action_horizon=30.
+# Execution length n_action_steps=30 matches pi0.5 replan window.
+
+policy_type: diffusion
+
+policy:
+  horizon: 32
+  n_action_steps: 30
+  n_obs_steps: 2
+  drop_n_last_frames: 1  # horizon - n_action_steps - n_obs_steps + 1
+  vision_backbone: resnet18
+  use_separate_rgb_encoder_per_camera: true
+
+eval:
+  actions_per_chunk: 32
