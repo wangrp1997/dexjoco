@@ -35,3 +35,7 @@ eval:
 
 output:
   root: checkpoints  # <dexjoco_repo>/checkpoints/{policy}_dexjoco_ckpt/{task}/
+
+wandb:
+  enable: true
+  project: dexjoco

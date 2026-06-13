@@ -40,12 +40,18 @@ def _robot_type_for_task(task: str, eval_cfg: dict[str, Any]) -> str:
 
 def _build_lerobot_args(
     cfg: dict[str, Any],
+    policy: str,
     task: str,
     device: str,
     output_dir: Path,
     dataset_dir: Path,
+    *,
+    wandb_enable: bool | None = None,
 ) -> list[str]:
     repo_id = cfg.get("dataset", {}).get("repo_id_template", "DexJoCo/{task}").format(task=task)
+    wandb_cfg = cfg.get("wandb", {})
+    if wandb_enable is None:
+        wandb_enable = bool(wandb_cfg.get("enable", True))
 
     args = [
         "lerobot-train",
@@ -62,8 +68,14 @@ def _build_lerobot_args(
         f"--log_freq={cfg['training']['log_freq']}",
         f"--num_workers={cfg['training']['num_workers']}",
         f"--output_dir={output_dir}",
-        "--wandb.enable=false",
+        f"--job_name={policy}_{task}",
+        f"--wandb.enable={str(wandb_enable).lower()}",
     ]
+
+    if wandb_enable:
+        args.append(f"--wandb.project={wandb_cfg.get('project', 'dexjoco')}")
+        if entity := wandb_cfg.get("entity"):
+            args.append(f"--wandb.entity={entity}")
 
     for key, value in cfg.get("policy", {}).items():
         if isinstance(value, bool):
@@ -108,6 +120,11 @@ def main() -> None:
         help="Override default checkpoints/<policy>_dexjoco_ckpt/<task>/ under dexjoco repo",
     )
     parser.add_argument(
+        "--no-wandb",
+        action="store_true",
+        help="Disable Weights & Biases logging (enabled by default in baseline yaml)",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Print the lerobot-train command without running it",
@@ -142,7 +159,15 @@ def main() -> None:
     else:
         output_dir = args.output_dir.expanduser()
 
-    lerobot_args = _build_lerobot_args(cfg, args.task, args.device, output_dir, dataset_dir)
+    lerobot_args = _build_lerobot_args(
+        cfg,
+        args.policy,
+        args.task,
+        args.device,
+        output_dir,
+        dataset_dir,
+        wandb_enable=False if args.no_wandb else None,
+    )
     cmd = " ".join(str(a) for a in lerobot_args)
     print(f"Task: {args.task} ({robot_type})")
     print(f"Baseline: {baseline_path.relative_to(_REPO_ROOT)}")
