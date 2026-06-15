@@ -1,4 +1,4 @@
-"""Evaluate LeRobot policies (ACT, Diffusion, Multi-Task DiT) on DexJoCo simulation."""
+"""Evaluate LeRobot policies (ACT, Diffusion, Multi-Task DiT, GR00T) on DexJoCo simulation."""
 
 from __future__ import annotations
 
@@ -181,7 +181,7 @@ def main(
     replan_ratio: float | None = None,
     episodes: int = 50,
     pad_state_dim46: bool = False,
-    policy_type: Literal["act", "diffusion", "multi_task_dit"] = "act",
+    policy_type: Literal["act", "diffusion", "multi_task_dit", "groot"] = "act",
     policy_device: str = "cuda",
     actions_per_chunk: int | None = None,
 ):

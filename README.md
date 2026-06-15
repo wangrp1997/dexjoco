@@ -123,7 +123,7 @@ dexjoco-openpi-eval \
 > - `XLA_PYTHON_CLIENT_MEM_FRACTION=0.85`：给 JAX 足够显存加载 π0.5
 > - `CUDA_VISIBLE_DEVICES=0`：使用第一块 GPU
 >
-> 默认评测为无头模式（`rgb_array`），视频保存在 `outputs/water_plant_seed0/`；
+> 默认评测为无头模式（`rgb_array`），视频保存在 `outputs/pi0.5/water_plant_seed0/`；
 > 需要弹窗时加 `--render-mode=human`。
 
 For `rand_full` evaluation, use a config under `configs/rand_full/` and pass

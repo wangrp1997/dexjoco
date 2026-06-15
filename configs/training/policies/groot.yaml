@@ -1,0 +1,28 @@
+# GR00T N1.5 overrides for DexJoCo dual-arm IL (44-d rotvec actions).
+#
+# Pretrained GR00T-N1.5-3B uses action_dim=32. For dual-arm (44-d), run once:
+#   python scripts/convert_groot_to_action_dim_44.py \
+#     --output-path /mnt/ssd/checkpoints/groot_base_action_dim_44
+#
+# Pretrained GR00T action heads use action_horizon <= 16 (see lerobot processor_groot).
+# Requires: pip install "lerobot[async,groot]"
+
+policy_type: groot
+
+policy:
+  base_model_path: /mnt/ssd/checkpoints/groot_base_action_dim_44
+  chunk_size: 16
+  n_action_steps: 16
+  n_obs_steps: 1
+  max_state_dim: 64
+  max_action_dim: 44
+  embodiment_tag: new_embodiment
+  tune_llm: false
+  tune_visual: false
+  tune_projector: true
+  tune_diffusion_model: true
+  use_bf16: true
+  image_size: [224, 224]
+
+eval:
+  actions_per_chunk: 16

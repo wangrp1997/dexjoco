@@ -46,6 +46,9 @@ dependencies = [
 lerobot = [
     "lerobot[async]>=0.5.0",
 ]
+lerobot-groot = [
+    "lerobot[async,groot]>=0.5.0",
+]
 
 [project.scripts]
 dexjoco-openpi-eval = "dexjoco_openpi_client.cli.evaluate:main"

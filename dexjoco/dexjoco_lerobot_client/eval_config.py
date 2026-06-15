@@ -12,6 +12,13 @@ IMAGE_SHAPE = [640, 640, 3]
 _TRAINING_POLICIES_DIR = Path(__file__).resolve().parents[2] / "configs/training/policies"
 _TRAINING_BASELINE_DIR = Path(__file__).resolve().parents[2] / "configs/training"
 
+# Pretrained GR00T N1.5 action heads are built for action_horizon <= 16.
+_GROOT_MAX_ACTION_HORIZON = 16
+
+
+def _cap_groot_chunk_size(n: int) -> int:
+    return min(int(n), _GROOT_MAX_ACTION_HORIZON)
+
 
 def load_eval_yaml(config_path: Path) -> dict[str, Any]:
     with open(config_path, "r") as f:
@@ -43,6 +50,11 @@ def _actions_per_chunk_from_checkpoint(policy_type: str, checkpoint: Path) -> in
         key = "chunk_size"
     elif policy_type in ("diffusion", "multi_task_dit"):
         key = "horizon"
+    elif policy_type == "groot":
+        for key in ("n_action_steps", "chunk_size"):
+            if key in cfg:
+                return _cap_groot_chunk_size(cfg[key])
+        return None
     else:
         return None
     value = cfg.get(key)
@@ -63,6 +75,12 @@ def resolve_actions_per_chunk(policy_type: str, checkpoint: Path) -> int:
         return int(policy_cfg["policy"]["chunk_size"])
     if policy_type in ("diffusion", "multi_task_dit"):
         return int(policy_cfg["policy"]["horizon"])
+    if policy_type == "groot":
+        if "eval" in policy_cfg and "actions_per_chunk" in policy_cfg["eval"]:
+            return _cap_groot_chunk_size(policy_cfg["eval"]["actions_per_chunk"])
+        policy = policy_cfg["policy"]
+        n = policy.get("n_action_steps", policy.get("chunk_size", _GROOT_MAX_ACTION_HORIZON))
+        return _cap_groot_chunk_size(n)
     raise ValueError(f"Cannot resolve actions_per_chunk for policy_type={policy_type!r}")
 
 

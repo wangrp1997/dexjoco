@@ -254,10 +254,8 @@ def main(
 
     # Write episode videos under a temporary name before assigning the result suffix.
     if output is None:
-        output_dir = (
-            Path("outputs")
-            / f"{env_name}{'_rand_full' if rand_full else ''}_seed{seed}"
-        )
+        suffix = "_rand_full" if rand_full else ""
+        output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}_seed{seed}"
     else:
         output_dir = output
     output_dir.mkdir(parents=True, exist_ok=True)
