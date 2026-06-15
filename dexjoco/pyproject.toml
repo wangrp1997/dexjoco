@@ -50,6 +50,7 @@ lerobot = [
 [project.scripts]
 dexjoco-openpi-eval = "dexjoco_openpi_client.cli.evaluate:main"
 dexjoco-lerobot-eval = "dexjoco_lerobot_client.cli.evaluate:main"
+dexjoco-lerobot-serve = "dexjoco_lerobot_client.cli.serve_policy:main"
 
 [project.urls]
 Homepage = "https://dexjoco.github.io"

@@ -1,4 +1,4 @@
-"""Evaluate LeRobot ACT (and compatible) policies on DexJoCo simulation environments."""
+"""Evaluate LeRobot policies (ACT, Diffusion, Multi-Task DiT) on DexJoCo simulation."""
 
 from __future__ import annotations
 
@@ -181,7 +181,7 @@ def main(
     replan_ratio: float | None = None,
     episodes: int = 50,
     pad_state_dim46: bool = False,
-    policy_type: Literal["act", "diffusion"] = "act",
+    policy_type: Literal["act", "diffusion", "multi_task_dit"] = "act",
     policy_device: str = "cuda",
     actions_per_chunk: int | None = None,
 ):
@@ -199,9 +199,15 @@ def main(
     if replan_ratio is None:
         replan_ratio = default_replan_ratio(robot_type)
 
+    checkpoint = Path(checkpoint).expanduser().resolve()
+    if not (checkpoint / "config.json").exists():
+        raise FileNotFoundError(
+            f"Checkpoint directory must contain config.json: {checkpoint}"
+        )
+
     if output is None:
         output_dir = default_eval_output_dir(
-            policy_type, env_name, seed, rand_full=rand_full
+            policy_type, env_name, seed, checkpoint, rand_full=rand_full
         )
     else:
         output_dir = output
@@ -215,17 +221,12 @@ def main(
             )
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    checkpoint = Path(checkpoint).expanduser().resolve()
-    if not (checkpoint / "config.json").exists():
-        raise FileNotFoundError(
-            f"Checkpoint directory must contain config.json: {checkpoint}"
-        )
-
     if actions_per_chunk is None:
         actions_per_chunk = resolve_actions_per_chunk(policy_type, checkpoint)
     print(
-        f"Eval policy={policy_type} | actions_per_chunk={actions_per_chunk} | "
-        f"replan_ratio={replan_ratio}"
+        f"Eval policy={policy_type} | checkpoint={checkpoint} | "
+        f"actions_per_chunk={actions_per_chunk} | replan_ratio={replan_ratio} | "
+        f"output={output_dir.resolve()}"
     )
 
     with tempfile.TemporaryDirectory(prefix="dexjoco_lerobot_robot_cfg_") as tmp_dir:

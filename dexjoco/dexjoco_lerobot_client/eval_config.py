@@ -41,7 +41,7 @@ def _actions_per_chunk_from_checkpoint(policy_type: str, checkpoint: Path) -> in
         cfg = json.load(f)
     if policy_type == "act":
         key = "chunk_size"
-    elif policy_type == "diffusion":
+    elif policy_type in ("diffusion", "multi_task_dit"):
         key = "horizon"
     else:
         return None
@@ -61,9 +61,30 @@ def resolve_actions_per_chunk(policy_type: str, checkpoint: Path) -> int:
 
     if policy_type == "act":
         return int(policy_cfg["policy"]["chunk_size"])
-    if policy_type == "diffusion":
+    if policy_type in ("diffusion", "multi_task_dit"):
         return int(policy_cfg["policy"]["horizon"])
     raise ValueError(f"Cannot resolve actions_per_chunk for policy_type={policy_type!r}")
+
+
+def resolve_checkpoint_step_label(checkpoint: Path) -> str:
+    """Return a stable folder suffix such as ``ckpt060000`` for eval output paths."""
+    checkpoint = checkpoint.expanduser().resolve()
+    step_dir = checkpoint.parent
+    if step_dir.name == "pretrained_model":
+        step_dir = step_dir.parent
+
+    step_name = step_dir.resolve().name
+    if step_name.isdigit():
+        return f"ckpt{int(step_name):06d}"
+
+    training_step_path = step_dir / "training_state" / "training_step.json"
+    if training_step_path.exists():
+        with open(training_step_path, "r") as f:
+            step = json.load(f).get("step")
+        if step is not None:
+            return f"ckpt{int(step):06d}"
+
+    return f"ckpt_{step_name}"
 
 
 def default_replan_ratio(robot_type: str) -> float:
@@ -75,11 +96,13 @@ def default_eval_output_dir(
     policy_type: str,
     env_name: str,
     seed: int,
+    checkpoint: Path,
     *,
     rand_full: bool = False,
 ) -> Path:
     suffix = "_rand_full" if rand_full else ""
-    return Path("outputs") / policy_type / f"{env_name}{suffix}_seed{seed}"
+    ckpt_label = resolve_checkpoint_step_label(checkpoint)
+    return Path("outputs") / policy_type / f"{env_name}{suffix}_seed{seed}_{ckpt_label}"
 
 
 def lerobot_image_map(camera_mapping: dict[str, str], dual_arm: bool) -> dict[str, str]:

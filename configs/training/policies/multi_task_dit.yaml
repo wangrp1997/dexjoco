@@ -1,0 +1,13 @@
+# Multi-Task DiT overrides (LeRobot). Aligned with Diffusion / pi0.5 action window.
+
+policy_type: multi_task_dit
+
+policy:
+  horizon: 32
+  n_action_steps: 30
+  n_obs_steps: 2
+  objective: diffusion
+  use_separate_rgb_encoder_per_camera: true
+
+eval:
+  actions_per_chunk: 32
