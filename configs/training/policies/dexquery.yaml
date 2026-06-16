@@ -1,0 +1,6 @@
+# DexQuery policy launcher config (custom training loop; not lerobot-train).
+
+policy_type: dexquery
+
+eval:
+  actions_per_chunk: 30

@@ -159,6 +159,34 @@ def main() -> None:
     else:
         output_dir = args.output_dir.expanduser()
 
+    if args.policy == "dexquery":
+        dexquery_train = _REPO_ROOT / "dexquery" / "scripts" / "train.py"
+        cmd = [
+            sys.executable,
+            str(dexquery_train),
+            "--task",
+            args.task,
+            "--device",
+            args.device,
+            "--output-dir",
+            str(output_dir),
+        ]
+        if args.dataset_root is not None:
+            cmd.extend(["--dataset-root", str(args.dataset_root.expanduser())])
+        if args.no_wandb:
+            cmd.append("--no-wandb")
+        if args.dry_run:
+            cmd.append("--dry-run")
+        print(f"Task: {args.task} ({robot_type})")
+        print(f"Policy config: {policy_path.relative_to(_REPO_ROOT)}")
+        print(f"Dataset: {dataset_dir}")
+        print(f"Output: {output_dir}")
+        print(f"Command:\n  {' '.join(cmd)}\n")
+        if args.dry_run:
+            return
+        subprocess.run(cmd, check=True)
+        return
+
     lerobot_args = _build_lerobot_args(
         cfg,
         args.policy,

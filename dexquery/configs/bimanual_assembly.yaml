@@ -1,0 +1,39 @@
+# DexQuery model + training overrides for bimanual_assembly.
+# Merged with configs/training/dual_arm_baseline.yaml via train_dexjoco_lerobot.py.
+
+task: bimanual_assembly
+
+subtask_prompts:
+  tray: "Grasp the tray with the left hand."
+  peg: "Grasp the peg with the right hand."
+  insert: "Insert the peg into the hole."
+
+model:
+  vision_backbone: siglip  # siglip | clip
+  action_head_type: act  # act | diffusion | flow_matching | dit
+  cross_attn_layers: 2
+  outcome_loss_weight: 0.1
+  freeze_vision: false
+  lora_vision: true
+
+training:
+  batch_size: 32
+  steps: 60000
+  seed: 0
+  save_freq: 10000
+  log_freq: 100
+  lr: 1.0e-4
+  lr_backbone: 1.0e-5
+
+dataset:
+  root: /mnt/ssd/datasets/dexjoco_lerobot_datasets
+  outcome_fields:
+    - tray_ok
+    - peg_ok
+
+inference:
+  replan_ratio: 0.8
+  phase_controller:
+    threshold_high: 0.6
+    threshold_low: 0.4
+    confirm_frames: 5
