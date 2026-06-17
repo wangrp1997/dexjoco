@@ -28,6 +28,19 @@ MUJOCO_GL=egl python -u dexquery/scripts/label_contact.py \
   --zarr-input-dir /mnt/ssd/datasets/dexjoco_raw/dexjoco_raw_datasets/bimanual_assembly
 ```
 
+## Step 1b：指尖力 / 腕部 FT 标注
+
+写入 `<dataset>/force_labels/`（sidecar，不改原 LeRobot 数据）：
+
+```bash
+MUJOCO_GL=egl python -u dexquery/scripts/label_forces.py \
+  --task bimanual_assembly \
+  --dataset-root /mnt/ssd/datasets/dexjoco_lerobot_datasets \
+  --zarr-input-dir /mnt/ssd/datasets/dexjoco_raw/dexjoco_raw_datasets/bimanual_assembly
+```
+
+每处理完一个 episode 会打印：`insert_ok` 帧比例、各指接触帧占比、力分布摘要。输出 `forces.parquet` 含 `right_finger_force(12)`、`left_finger_force(12)`、`wrist_ft_right(6)`、`wrist_ft_left(6)`。
+
 ## Step 2：训练
 
 ```bash

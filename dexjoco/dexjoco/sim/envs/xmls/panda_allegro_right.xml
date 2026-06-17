@@ -529,6 +529,7 @@
     <torque name="panda/joint7_torque_right" site="joint7_right" />
 
     <force name="panda/wrist_force_right" site="attachment_site_right" />
+    <torque name="panda/wrist_torque_right" site="attachment_site_right" />
 
       <!-- allegro sensors -->
     <jointpos name="allegro_right/ffj0_pos" joint="ffj0_right"/>

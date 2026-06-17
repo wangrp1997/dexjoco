@@ -9,7 +9,7 @@ dependencies:
   - glfw
   - gymnasium=1.0.0
   - mujoco=3.4.0
-  - numcodecs
+  - "numcodecs<0.16"
   - numpy==1.26.4
   - scipy
   - "zarr<3"
