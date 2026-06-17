@@ -55,6 +55,17 @@ class CheckpointWeightLoader(WeightLoader):
 
 
 @dataclasses.dataclass(frozen=True)
+class Pi0GuidanceWeightLoader(WeightLoader):
+    """Load pi0/pi0.5 checkpoint and keep randomly-init ForceVLA heads (force/limoe/LoRA)."""
+
+    params_path: str
+
+    def load(self, params: at.Params) -> at.Params:
+        loaded_params = _model.restore_params(download.maybe_download(self.params_path), restore_type=np.ndarray)
+        return _merge_params(loaded_params, params, missing_regex=".*lora.*|.*limoe.*|.*force.*|.*joint.*")
+
+
+@dataclasses.dataclass(frozen=True)
 class PaliGemmaWeightLoader(WeightLoader):
     """Loads weights from the official PaliGemma checkpoint.
 

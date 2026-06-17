@@ -5,6 +5,8 @@ will compute the mean and standard deviation of the data in the dataset and save
 to the config assets directory.
 """
 
+import pathlib
+
 import numpy as np
 import tqdm
 
@@ -98,15 +100,27 @@ def main(config, max_frames: int | None = None):
         )
 
     keys = ["state", "actions"]
+    if data_config.force_mode is not None:
+        keys.append("force")
+
     stats = {key: normalize.RunningStats() for key in keys}
 
     for batch in tqdm.tqdm(data_loader, total=num_batches, desc="Computing stats"):
         for key in keys:
+            if key not in batch:
+                raise KeyError(
+                    f"Missing key {key!r} while computing norm stats. "
+                    "For ForceVLA, ensure force_labels exist and the config matches the force mode."
+                )
             stats[key].update(np.asarray(batch[key]))
 
     norm_stats = {key: stats.get_statistics() for key, stats in stats.items()}
 
-    output_path = config.assets_dirs / data_config.repo_id
+    assets_dir = getattr(config.data, "assets", None)
+    if data_config.force_mode is not None and assets_dir is not None and assets_dir.assets_dir:
+        output_path = pathlib.Path(assets_dir.assets_dir) / data_config.repo_id
+    else:
+        output_path = config.assets_dirs / data_config.repo_id
     print(f"Writing stats to: {output_path}")
     normalize.save(output_path, norm_stats)
 

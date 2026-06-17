@@ -152,6 +152,16 @@ def create_torch_dataset(
     if data_config.prompt_from_task:
         dataset = TransformedDataset(dataset, [_transforms.PromptFromLeRobotTask(dataset_meta.tasks)])
 
+    if data_config.force_mode is not None:
+        from openpi.forcevla.data.force_dataset import ForceAugmentedDataset
+        from openpi.forcevla.data.force_labels import ForceInputMode
+
+        dataset = ForceAugmentedDataset(
+            dataset,
+            dataset_root=data_config.root,
+            mode=ForceInputMode(data_config.force_mode),
+        )
+
     return dataset
 
 
@@ -184,15 +194,34 @@ def transform_dataset(dataset: Dataset, data_config: _config.DataConfig, *, skip
             )
         norm_stats = data_config.norm_stats
 
-    return TransformedDataset(
-        dataset,
-        [
-            *data_config.repack_transforms.inputs,
-            *data_config.data_transforms.inputs,
-            _transforms.Normalize(norm_stats, use_quantiles=data_config.use_quantile_norm),
-            *data_config.model_transforms.inputs,
-        ],
-    )
+    transform_steps: list[_transforms.DataTransformFn] = [
+        *data_config.repack_transforms.inputs,
+        *data_config.data_transforms.inputs,
+    ]
+    if data_config.force_mode is not None:
+        from openpi.forcevla.training.transforms import NormalizeProprioAndForce
+
+        transform_steps.append(
+            NormalizeProprioAndForce(
+                norm_stats,
+                proprio_dim=data_config.proprio_dim,
+                use_quantiles=data_config.use_quantile_norm,
+            )
+        )
+        if "actions" in norm_stats:
+            transform_steps.append(
+                _transforms.Normalize(
+                    {"actions": norm_stats["actions"]},
+                    use_quantiles=data_config.use_quantile_norm,
+                )
+            )
+    else:
+        transform_steps.append(
+            _transforms.Normalize(norm_stats, use_quantiles=data_config.use_quantile_norm)
+        )
+    transform_steps.extend(data_config.model_transforms.inputs)
+
+    return TransformedDataset(dataset, transform_steps)
 
 
 def transform_iterable_dataset(

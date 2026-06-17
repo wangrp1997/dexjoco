@@ -102,6 +102,10 @@ class DataConfig:
     # List of datasets to sample from: name, version, weight, and optionally filter_dict_path
     datasets: Sequence[droid_rlds_dataset.RLDSDataset] = ()
 
+    # Optional DexJoCo force sidecar settings (see openpi.forcevla).
+    force_mode: str | None = None
+    proprio_dim: int = 44
+
 
 class GroupFactory(Protocol):
     def __call__(self, model_config: _model.BaseModelConfig) -> _transforms.Group:
@@ -655,6 +659,8 @@ class TrainConfig:
     assets_base_dir: str = "./assets"
     # Base directory for checkpoints.
     checkpoint_base_dir: str = "./checkpoints"
+    # Optional subdirectory under checkpoint_base_dir (defaults to ``name``).
+    checkpoint_subdir: str | None = None
 
     # Random seed that will be used by random generators during training.
     seed: int = 42
@@ -700,7 +706,8 @@ class TrainConfig:
         """Get the checkpoint directory for this config."""
         if not self.exp_name:
             raise ValueError("--exp_name must be set")
-        return (pathlib.Path(self.checkpoint_base_dir) / self.name / self.exp_name).resolve()
+        checkpoint_subdir = self.checkpoint_subdir or self.name
+        return (pathlib.Path(self.checkpoint_base_dir) / checkpoint_subdir / self.exp_name).resolve()
 
     @property
     def trainable_filter(self) -> nnx.filterlib.Filter:
@@ -710,6 +717,12 @@ class TrainConfig:
     def __post_init__(self) -> None:
         if self.resume and self.overwrite:
             raise ValueError("Cannot resume and overwrite at the same time.")
+
+
+def _get_forcevla_dexjoco_configs():
+    from openpi.forcevla.training.dexjoco_force_configs import get_forcevla_dexjoco_configs
+
+    return get_forcevla_dexjoco_configs()
 
 
 # Use `get_config` if you need to get a config by name in your code.
@@ -1125,8 +1138,11 @@ _CONFIGS = [
     *roboarena_config.get_roboarena_configs(),
     *polaris_config.get_polaris_configs(),
     # DexJoCo configs.
-    *get_dexjoco_configs()
+    *get_dexjoco_configs(),
+    # DexJoCo ForceVLA configs (wrist / finger / both ablations).
+    *_get_forcevla_dexjoco_configs(),
 ]
+
 
 if len({config.name for config in _CONFIGS}) != len(_CONFIGS):
     raise ValueError("Config names must be unique.")
