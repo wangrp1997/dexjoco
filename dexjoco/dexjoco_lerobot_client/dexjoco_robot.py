@@ -10,7 +10,14 @@ from lerobot.utils.decorators import check_if_already_connected, check_if_not_co
 from scipy.spatial.transform import Rotation as R
 from typing_extensions import override
 
+from hybrid_insert.integration import state_to_dual_arm_action44
+
 from .config_dexjoco_robot import DexJoCoRobotConfig
+
+
+def _observation_dict_to_state46(observation: dict) -> np.ndarray:
+    values = [float(observation[f"state_{i}"]) for i in range(46)]
+    return np.asarray(values, dtype=np.float64)
 
 
 class DexJoCoRobot(Robot):
@@ -39,6 +46,7 @@ class DexJoCoRobot(Robot):
         self.randomize = config.randomize
         self.randomize_dynamics = config.randomize_dynamics
         self.render_mode = config.render_mode
+        self.hybrid_insert = None
 
     @check_if_not_connected
     def reset(self) -> None:
@@ -46,6 +54,8 @@ class DexJoCoRobot(Robot):
         self.observation = self._process_observation(obs)
         self.done = False
         self.success = False
+        if self.hybrid_insert is not None:
+            self.hybrid_insert.on_reset(self.env)
 
     @check_if_already_connected
     @override
@@ -122,6 +132,11 @@ class DexJoCoRobot(Robot):
     def send_action(self, action: RobotAction) -> RobotAction:
         action_array = np.array([float(action[k]) for k in self.action_features.keys()])
 
+        if self.hybrid_insert is not None and self.hybrid_insert.enabled:
+            if not self.hybrid_insert.active:
+                self.hybrid_insert.observe(self.env, action_array)
+            action_array = self.hybrid_insert.merge(self.env, action_array).astype(np.float64)
+
         if self.single_arm:
             xyz = action_array[:3]
             rot_vec = action_array[3:6]
@@ -157,6 +172,37 @@ class DexJoCoRobot(Robot):
         return action
 
     def stay(self, continue_stay: bool):
+        if self.hybrid_insert is not None and self.hybrid_insert.active:
+            if continue_stay and hasattr(self, "last_stay_action"):
+                hold_action = self.last_stay_action
+            else:
+                hold_action = state_to_dual_arm_action44(
+                    _observation_dict_to_state46(self.observation)
+                )
+                self.last_stay_action = hold_action
+            action_array = self.hybrid_insert.merge(self.env, hold_action).astype(np.float64)
+            if self.single_arm:
+                xyz = action_array[:3]
+                rot_vec = action_array[3:6]
+                hand = action_array[6:]
+                quat = R.from_rotvec(rot_vec).as_quat(scalar_first=True)
+                env_action = np.concatenate([xyz, quat, hand])
+            else:
+                r_xyz = action_array[:3]
+                r_rot_vec = action_array[3:6]
+                r_hand = action_array[6:22]
+                l_xyz = action_array[22:25]
+                l_rot_vec = action_array[25:28]
+                l_hand = action_array[28:44]
+                r_quat = R.from_rotvec(r_rot_vec).as_quat(scalar_first=True)
+                l_quat = R.from_rotvec(l_rot_vec).as_quat(scalar_first=True)
+                env_action = np.concatenate([r_xyz, r_quat, l_xyz, l_quat, r_hand, l_hand])
+            obs, reward, terminated, truncated, info = self.env.step(env_action)
+            self.observation = self._process_observation(obs)
+            self.done = bool(terminated)
+            self.success = info["succeed"]
+            return
+
         if continue_stay:
             assert hasattr(self, "last_stay_action"), (
                 "last_stay_action not found, cannot continue stay"

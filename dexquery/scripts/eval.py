@@ -19,6 +19,9 @@ _DEXQUERY_ROOT = Path(__file__).resolve().parents[1]
 _DEXJOCo_ROOT = _DEXQUERY_ROOT.parent
 if str(_DEXJOCo_ROOT) not in sys.path:
     sys.path.insert(0, str(_DEXJOCo_ROOT))
+_DEXJOCo_PKG = _DEXJOCo_ROOT / "dexjoco"
+if str(_DEXJOCo_PKG) not in sys.path:
+    sys.path.insert(0, str(_DEXJOCo_PKG))
 
 from dexjoco.tasks import CONFIG_MAPPING  # noqa: E402
 from dexjoco_lerobot_client.eval_config import (  # noqa: E402
@@ -29,6 +32,7 @@ from dexjoco_lerobot_client.eval_config import (  # noqa: E402
 )
 from dexquery.inference.phase_controller import PhaseControllerConfig  # noqa: E402
 from dexquery.policy.dexquery_policy import load_checkpoint  # noqa: E402
+from hybrid_insert import EvalHybridInsert  # noqa: E402
 
 SIM_ORACLE_TASKS = frozenset({"bimanual_assembly"})
 
@@ -170,6 +174,7 @@ def eval_dexquery(
     output_dir: Path,
     randomize: bool,
     save_attn_videos: bool = False,
+    hybrid_insert: bool = False,
 ) -> float:
     policy = load_checkpoint(
         checkpoint,
@@ -193,6 +198,10 @@ def eval_dexquery(
 
         contact_labeler = AssemblyContactLabeler(raw_env)
 
+    hybrid = EvalHybridInsert(task=task, enabled=hybrid_insert)
+    if hybrid.enabled:
+        print("hybrid_insert: enabled for bimanual_assembly insert phase", flush=True)
+
     successes: list[bool] = []
     traces: list[dict] = []
     try:
@@ -200,6 +209,7 @@ def eval_dexquery(
             print(f"Episode {episode + 1}/{episodes}", flush=True)
             obs, _ = env.reset()
             policy.reset()
+            hybrid.on_reset(env)
             if contact_labeler is not None:
                 contact_labeler.reset_reference(raw_env)
             done = False
@@ -226,27 +236,37 @@ def eval_dexquery(
                         peg_ok_sim = sim_outcome.peg_ok
 
                     policy_obs = _observation_from_env(obs)
+                    state46 = policy_obs["state"]
                     action44, info = policy.select_action(
                         policy_obs,
                         tray_ok_sim=tray_ok_sim,
                         peg_ok_sim=peg_ok_sim,
                     )
+                    if hybrid.enabled and not hybrid.active:
+                        hybrid.observe(env, action44)
+                    action44 = hybrid.merge(env, action44)
                     env_action = _policy_action_to_env(action44)
                     obs, _reward, terminated, truncated, info_out = env.step(env_action)
                     done = bool(terminated or truncated)
                     success = bool(info_out.get("succeed", False))
                     _record_observation_frames(video_writers, obs)
-                    if save_attn_videos:
+                    if save_attn_videos and info is not None:
                         _record_attn_frames(video_writers, info.attn_overlays)
                     step_record = {
                         "step": step,
-                        "tray_prob": info.tray_prob,
-                        "peg_prob": info.peg_prob,
-                        "tray_ok": info.tray_ok,
-                        "peg_ok": info.peg_ok,
-                        "subtask_phase": info.subtask_phase,
-                        "replanned": info.replanned,
+                        "hybrid_insert_active": hybrid.active,
                     }
+                    if info is not None:
+                        step_record.update(
+                            {
+                                "tray_prob": info.tray_prob,
+                                "peg_prob": info.peg_prob,
+                                "tray_ok": info.tray_ok,
+                                "peg_ok": info.peg_ok,
+                                "subtask_phase": info.subtask_phase,
+                                "replanned": info.replanned,
+                            }
+                        )
                     if tray_ok_sim is not None:
                         step_record["tray_ok_sim"] = tray_ok_sim
                         step_record["peg_ok_sim"] = peg_ok_sim
@@ -294,6 +314,7 @@ def eval_dexquery(
             "use_sim_guard": phase_controller.use_sim_guard if phase_controller else None,
         },
         "save_attn_videos": save_attn_videos,
+        "hybrid_insert": hybrid_insert,
     }
     with open(output_dir / "eval_summary.json", "w", encoding="utf-8") as f:
         json.dump(summary, f, indent=2)
@@ -329,6 +350,11 @@ def main() -> None:
         action="store_true",
         help="Save per-camera cross-attention heatmap videos under each episode directory",
     )
+    parser.add_argument(
+        "--hybrid-insert",
+        action="store_true",
+        help="Use privileged geometry controller for insert after grasp (bimanual_assembly)",
+    )
     args = parser.parse_args()
 
     os.environ.setdefault("MUJOCO_GL", "egl")
@@ -355,6 +381,7 @@ def main() -> None:
             args.seed,
             checkpoint,
             rand_full=args.rand_full,
+            hybrid_insert=args.hybrid_insert,
         )
     else:
         output_dir = args.output_dir.expanduser()
@@ -403,6 +430,7 @@ def main() -> None:
         output_dir=output_dir,
         randomize=args.rand_full,
         save_attn_videos=args.save_attn_videos,
+        hybrid_insert=args.hybrid_insert,
     )
 
 

@@ -184,6 +184,7 @@ def main(
     policy_type: Literal["act", "diffusion", "multi_task_dit", "groot"] = "act",
     policy_device: str = "cuda",
     actions_per_chunk: int | None = None,
+    hybrid_insert: bool = False,
 ):
     if render_mode == "rgb_array":
         os.environ.setdefault("MUJOCO_GL", "egl")
@@ -207,7 +208,7 @@ def main(
 
     if output is None:
         output_dir = default_eval_output_dir(
-            policy_type, env_name, seed, checkpoint, rand_full=rand_full
+            policy_type, env_name, seed, checkpoint, rand_full=rand_full, hybrid_insert=hybrid_insert
         )
     else:
         output_dir = output
@@ -259,6 +260,11 @@ def main(
         )
 
         client = AsyncObservationRobotClient(robot_client_cfg)
+        if hybrid_insert:
+            from hybrid_insert import EvalHybridInsert
+
+            client.robot.hybrid_insert = EvalHybridInsert(task=env_name, enabled=True)
+            print("hybrid_insert: enabled for bimanual_assembly insert phase", flush=True)
         client.start()
 
         action_receiver_thread = threading.Thread(

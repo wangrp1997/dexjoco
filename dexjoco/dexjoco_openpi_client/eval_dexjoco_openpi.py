@@ -3,7 +3,9 @@
 import multiprocessing as mp
 import os
 import random
+import shutil
 import signal
+import sys
 import time
 from collections import deque
 from dataclasses import dataclass
@@ -11,6 +13,10 @@ from multiprocessing.synchronize import Event as MpEvent
 from pathlib import Path
 from queue import Empty
 from typing import Literal
+
+_PKG_ROOT = Path(__file__).resolve().parents[1]
+if str(_PKG_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PKG_ROOT))
 
 import imageio
 import numpy as np
@@ -230,6 +236,8 @@ def main(
     episodes: int = 50,
     pad_state_dim46: bool = False,
     record_pressed_digits: bool | None = None,
+    hybrid_insert: bool = False,
+    overwrite: bool = False,
 ):
     if render_mode == "rgb_array":
         os.environ.setdefault("MUJOCO_GL", "egl")
@@ -255,9 +263,18 @@ def main(
     # Write episode videos under a temporary name before assigning the result suffix.
     if output is None:
         suffix = "_rand_full" if rand_full else ""
-        output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}_seed{seed}"
+        hybrid_suffix = "_hybrid" if hybrid_insert else ""
+        output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}"
     else:
         output_dir = output
+    if output_dir.exists() and any(output_dir.iterdir()):
+        if overwrite:
+            shutil.rmtree(output_dir)
+        else:
+            raise FileExistsError(
+                f"Output path {output_dir} already exists and is not empty. "
+                "Remove it, pass --overwrite, or choose another --output path."
+            )
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Create the DexJoCo environment wrapper used by the OpenPI policy.
@@ -274,6 +291,12 @@ def main(
         password=cfg.get("password", None),  # Pass password from config if available
     )
     env.start()
+
+    from hybrid_insert import EvalHybridInsert, state_to_dual_arm_action44
+
+    hybrid = EvalHybridInsert(task=env_name, enabled=hybrid_insert)
+    if hybrid.enabled:
+        print("hybrid_insert: enabled for bimanual_assembly insert phase", flush=True)
 
     # Queues connect the control loop with the asynchronous inference worker.
     obs_queue = mp.Queue()
@@ -303,6 +326,7 @@ def main(
             }
 
             env.reset()
+            hybrid.on_reset(env.env)
 
             timestamp = 0
             actions_buffer = deque()
@@ -338,12 +362,22 @@ def main(
             while True:
                 receive_actions(action_queue, actions_buffer, timestamp, dual_arm)
 
-                # Execute the scheduled action for this timestamp, or hold the pose.
+                state46 = env.obs["state"]
+
                 if actions_buffer:
-                    assert actions_buffer[0].timestamp == timestamp, (
-                        "Buffer head timestamp must match current timestamp"
+                    policy_action = actions_buffer.popleft().action
+                    if hybrid.enabled and not hybrid.active:
+                        hybrid.observe(env.env, policy_action)
+                    action = (
+                        hybrid.merge(env.env, policy_action)
+                        if hybrid.enabled
+                        else policy_action
                     )
-                    action = actions_buffer.popleft().action
+                    pressed_digits = env.step(action)
+                    in_stay_state = False
+                elif hybrid.active:
+                    hold_action = state_to_dual_arm_action44(state46)
+                    action = hybrid.merge(env.env, hold_action)
                     pressed_digits = env.step(action)
                     in_stay_state = False
                 else:
@@ -379,6 +413,8 @@ def main(
                         print("Success!")
                     else:
                         print("Failed")
+                    if hybrid.enabled:
+                        print(f"  hybrid_insert: {hybrid.episode_summary()}", flush=True)
                     break
 
             for writer in video_writers.values():
