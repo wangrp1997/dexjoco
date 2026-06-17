@@ -13,6 +13,7 @@ import torch
 import yaml
 
 from dexquery.data.subtask_prompts import SubtaskPrompts
+from dexquery.inference.attn_viz import build_attn_overlay_frames
 from dexquery.inference.phase_controller import PhaseController, PhaseControllerConfig, PhaseControllerState
 from dexquery.models.dexquery_model import DexQueryModel, DexQueryModelConfig
 from lerobot.utils.constants import ACTION, OBS_STATE
@@ -31,7 +32,7 @@ class DexQueryPolicyConfig:
     task: str
     device: str = "cuda"
     chunk_size: int = 30
-    replan_ratio: float = 0.8
+    replan_ratio: float = 0.4
     phase_controller: PhaseControllerConfig | None = None
     subtask_prompts: SubtaskPrompts | None = None
 
@@ -44,6 +45,9 @@ class DexQueryStepInfo:
     peg_ok: bool
     subtask_phase: int
     replanned: bool
+    tray_ok_sim: bool | None = None
+    peg_ok_sim: bool | None = None
+    attn_overlays: dict[str, np.ndarray] | None = None
 
 
 class DexQueryPolicy:
@@ -57,8 +61,9 @@ class DexQueryPolicy:
         subtask_prompts: SubtaskPrompts,
         device: str,
         chunk_size: int = 30,
-        replan_ratio: float = 0.8,
+        replan_ratio: float = 0.4,
         phase_controller: PhaseControllerConfig | None = None,
+        save_attn_videos: bool = False,
     ) -> None:
         self.model = model.eval()
         self.device = torch.device(device)
@@ -67,12 +72,14 @@ class DexQueryPolicy:
         self.chunk_size = int(chunk_size)
         self.replan_steps = max(1, int(round(self.chunk_size * float(replan_ratio))))
         self.phase_controller = PhaseController(phase_controller)
+        self.save_attn_videos = bool(save_attn_videos)
         self._state_mean = _stats_vector(dataset_stats, OBS_STATE, "mean")
         self._state_std = _stats_vector(dataset_stats, OBS_STATE, "std")
         self._action_mean = _stats_vector(dataset_stats, ACTION, "mean")
         self._action_std = _stats_vector(dataset_stats, ACTION, "std")
         self._action_queue: deque[np.ndarray] = deque()
         self._last_phase_state: PhaseControllerState | None = None
+        self._last_attn_overlays: dict[str, np.ndarray] | None = None
 
     @classmethod
     def from_checkpoint(
@@ -81,9 +88,10 @@ class DexQueryPolicy:
         *,
         task: str,
         device: str = "cuda",
-        replan_ratio: float = 0.8,
+        replan_ratio: float = 0.4,
         phase_controller: PhaseControllerConfig | None = None,
         subtask_prompts: SubtaskPrompts | None = None,
+        save_attn_videos: bool = False,
     ) -> DexQueryPolicy:
         checkpoint_path = Path(checkpoint_path).expanduser()
         payload = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
@@ -114,22 +122,34 @@ class DexQueryPolicy:
             chunk_size=model.config.chunk_size,
             replan_ratio=replan_ratio,
             phase_controller=phase_cfg,
+            save_attn_videos=save_attn_videos,
         )
 
     def reset(self) -> None:
         self.phase_controller.reset()
         self._action_queue.clear()
         self._last_phase_state = None
+        self._last_attn_overlays = None
 
     @property
     def last_phase_state(self) -> PhaseControllerState | None:
         return self._last_phase_state
 
-    def select_action(self, observation: dict[str, Any]) -> tuple[np.ndarray, DexQueryStepInfo]:
+    def select_action(
+        self,
+        observation: dict[str, Any],
+        *,
+        tray_ok_sim: bool | None = None,
+        peg_ok_sim: bool | None = None,
+    ) -> tuple[np.ndarray, DexQueryStepInfo]:
         """Return one 44d action and debug info for the current observation."""
         replanned = False
         if not self._action_queue:
-            chunk = self._predict_action_chunk(observation)
+            chunk = self._predict_action_chunk(
+                observation,
+                tray_ok_sim=tray_ok_sim,
+                peg_ok_sim=peg_ok_sim,
+            )
             for action in chunk[: self.replan_steps]:
                 self._action_queue.append(action)
             replanned = True
@@ -143,10 +163,19 @@ class DexQueryPolicy:
             peg_ok=self._last_phase_state.peg_ok,
             subtask_phase=self._last_phase_state.subtask_phase,
             replanned=replanned,
+            tray_ok_sim=tray_ok_sim,
+            peg_ok_sim=peg_ok_sim,
+            attn_overlays=self._last_attn_overlays,
         )
         return action, info
 
-    def _predict_action_chunk(self, observation: dict[str, Any]) -> np.ndarray:
+    def _predict_action_chunk(
+        self,
+        observation: dict[str, Any],
+        *,
+        tray_ok_sim: bool | None = None,
+        peg_ok_sim: bool | None = None,
+    ) -> np.ndarray:
         images = _observation_to_images(observation).unsqueeze(0).to(self.device)
         state = _normalize_vector(
             _observation_to_state(observation),
@@ -156,12 +185,33 @@ class DexQueryPolicy:
 
         prompts = self.subtask_prompts.as_list()
         patch_tokens = self.model.backbone(images)
-        z_subtasks = self.model.subtask_encoder(patch_tokens, prompts)
+        if self.save_attn_videos:
+            z_subtasks, attn_weights = self.model.subtask_encoder(
+                patch_tokens,
+                prompts,
+                return_attn_weights=True,
+            )
+        else:
+            z_subtasks = self.model.subtask_encoder(patch_tokens, prompts)
         tray_logit, peg_logit = self.model.outcome_head(z_subtasks[:, 0, :], z_subtasks[:, 1, :])
         tray_prob = torch.sigmoid(tray_logit)[0].item()
         peg_prob = torch.sigmoid(peg_logit)[0].item()
-        phase_state = self.phase_controller.update(tray_prob, peg_prob)
+        phase_state = self.phase_controller.update(
+            tray_prob,
+            peg_prob,
+            tray_ok_sim=tray_ok_sim,
+            peg_ok_sim=peg_ok_sim,
+        )
         self._last_phase_state = phase_state
+
+        if self.save_attn_videos:
+            phase_attn = attn_weights[0, phase_state.subtask_phase].detach().cpu().numpy()
+            self._last_attn_overlays = build_attn_overlay_frames(
+                observation,
+                phase_attn,
+                camera_names=POLICY_CAMERA_KEYS,
+                num_cameras=self.model.config.num_cameras,
+            )
 
         z_action = z_subtasks[:, phase_state.subtask_phase, :]
         pred_actions = self.model.action_head(z_action, state).pred_actions[0].detach().cpu()
@@ -242,7 +292,10 @@ def _observation_to_images(observation: dict[str, Any]) -> torch.Tensor:
 
 
 def _to_image_tensor(value: Any) -> torch.Tensor:
-    tensor = value if isinstance(value, torch.Tensor) else torch.as_tensor(value)
+    if isinstance(value, torch.Tensor):
+        tensor = value.detach()
+    else:
+        tensor = torch.from_numpy(np.ascontiguousarray(value))
     if tensor.dtype == torch.uint8:
         tensor = tensor.float() / 255.0
     else:
@@ -257,8 +310,9 @@ def load_checkpoint(
     *,
     task: str,
     device: str = "cuda",
-    replan_ratio: float = 0.8,
+    replan_ratio: float = 0.4,
     phase_controller: PhaseControllerConfig | None = None,
+    save_attn_videos: bool = False,
 ) -> DexQueryPolicy:
     return DexQueryPolicy.from_checkpoint(
         checkpoint_path,
@@ -266,4 +320,5 @@ def load_checkpoint(
         device=device,
         replan_ratio=replan_ratio,
         phase_controller=phase_controller,
+        save_attn_videos=save_attn_videos,
     )

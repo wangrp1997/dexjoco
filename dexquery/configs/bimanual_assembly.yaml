@@ -32,8 +32,10 @@ dataset:
     - peg_ok
 
 inference:
-  replan_ratio: 0.8
+  replan_ratio: 0.4
   phase_controller:
-    threshold_high: 0.6
-    threshold_low: 0.4
-    confirm_frames: 5
+    threshold_high: 0.8
+    threshold_low: 0.6
+    confirm_frames: 8
+    insert_min_prob: 0.8
+    use_sim_guard: true

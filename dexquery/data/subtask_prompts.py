@@ -55,10 +55,19 @@ class SubtaskPrompts:
         return cls.from_mapping(mapping)
 
 
-def infer_subtask_phase(tray_ok: float, peg_ok: float) -> int:
+def infer_subtask_phase(
+    tray_ok: bool,
+    peg_ok: bool,
+    *,
+    tray_prob: float = 1.0,
+    peg_prob: float = 1.0,
+    insert_min_prob: float = 0.8,
+) -> int:
     """Return active subtask index: 0=tray, 1=peg, 2=insert."""
-    if tray_ok < 0.5:
+    if not tray_ok:
         return 0
-    if peg_ok < 0.5:
+    if not peg_ok:
         return 1
-    return 2
+    if tray_prob >= insert_min_prob and peg_prob >= insert_min_prob:
+        return 2
+    return 1

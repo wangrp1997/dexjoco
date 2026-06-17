@@ -87,6 +87,14 @@ def resolve_actions_per_chunk(policy_type: str, checkpoint: Path) -> int:
 def resolve_checkpoint_step_label(checkpoint: Path) -> str:
     """Return a stable folder suffix such as ``ckpt060000`` for eval output paths."""
     checkpoint = checkpoint.expanduser().resolve()
+    if checkpoint.is_file() and checkpoint.suffix == ".pt":
+        stem = checkpoint.stem
+        if stem.startswith("checkpoint_step_"):
+            step_str = stem.removeprefix("checkpoint_step_")
+            if step_str.isdigit():
+                return f"ckpt{int(step_str):06d}"
+        return f"ckpt_{stem}"
+
     step_dir = checkpoint.parent
     if step_dir.name == "pretrained_model":
         step_dir = step_dir.parent

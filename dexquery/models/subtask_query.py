@@ -23,12 +23,26 @@ class CrossAttentionBlock(nn.Module):
             nn.Linear(hidden, embed_dim),
         )
 
-    def forward(self, query: torch.Tensor, context: torch.Tensor) -> torch.Tensor:
+    def forward(
+        self,
+        query: torch.Tensor,
+        context: torch.Tensor,
+        *,
+        return_attn_weights: bool = False,
+    ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
         q = self.norm_q(query)
         kv = self.norm_kv(context)
-        attn_out, _ = self.attn(q, kv, kv, need_weights=False)
+        attn_out, attn_weights = self.attn(
+            q,
+            kv,
+            kv,
+            need_weights=return_attn_weights,
+            average_attn_weights=True,
+        )
         query = query + attn_out
         query = query + self.ff(query)
+        if return_attn_weights:
+            return query, attn_weights
         return query
 
 
@@ -70,18 +84,36 @@ class SubtaskQueryEncoder(nn.Module):
         query = self.text_proj(pooled)
         return query.unsqueeze(0).expand(batch_size, len(prompts), -1)
 
-    def forward(self, patch_tokens: torch.Tensor, prompts: list[str]) -> torch.Tensor:
+    def forward(
+        self,
+        patch_tokens: torch.Tensor,
+        prompts: list[str],
+        *,
+        return_attn_weights: bool = False,
+    ) -> torch.Tensor | tuple[torch.Tensor, torch.Tensor]:
         """Cross-attend each prompt query over shared patch tokens.
 
         Returns:
-            Tensor of shape ``(B, num_prompts, embed_dim)``.
+            Tensor of shape ``(B, num_prompts, embed_dim)``, or with attention weights
+            ``(B, num_prompts, num_patches)`` when ``return_attn_weights=True``.
         """
         batch_size = patch_tokens.shape[0]
         queries = self.encode_prompts(prompts, batch_size)
         outputs: list[torch.Tensor] = []
+        attn_outputs: list[torch.Tensor] = []
         for prompt_idx in range(queries.shape[1]):
             q = queries[:, prompt_idx : prompt_idx + 1, :]
+            last_attn: torch.Tensor | None = None
             for layer in self.layers:
-                q = layer(q, patch_tokens)
+                if return_attn_weights:
+                    q, last_attn = layer(q, patch_tokens, return_attn_weights=True)
+                else:
+                    q = layer(q, patch_tokens)
             outputs.append(self.output_norm(q))
-        return torch.cat(outputs, dim=1)
+            if return_attn_weights:
+                assert last_attn is not None
+                attn_outputs.append(last_attn.squeeze(1))
+        encoded = torch.cat(outputs, dim=1)
+        if return_attn_weights:
+            return encoded, torch.stack(attn_outputs, dim=1)
+        return encoded

@@ -47,16 +47,20 @@ python -u scripts/train_dexjoco_lerobot.py \
 
 ## Step 3：评估
 
-推理用 **预测的** `tray_ok/peg_ok` + phase 切换（见 `inference/phase_controller.py`）：
+与 ACT/GR00T 相同目录结构：`outputs/dexquery/<task>_seed<N>_ckptXXXXXX/episode_XX_{success|failure}/*.mp4`
 
 ```bash
+export CUDA_VISIBLE_DEVICES=1   # 按需指定 GPU
+export MUJOCO_GL=egl
+
 python -u dexquery/scripts/eval.py \
   --task bimanual_assembly \
-  --checkpoint /mnt/ssd/checkpoints/dexquery_dexjoco_ckpt/bimanual_assembly/checkpoint_last.pt \
+  --checkpoint /mnt/ssd/checkpoints/dexquery_dexjoco_ckpt/bimanual_assembly/checkpoint_step_060000.pt \
   --episodes 50 \
-  --seed 0 \
-  --output-dir outputs/dexquery/bimanual_assembly_seed0
+  --seed 0
 ```
 
-- 输出：`eval_summary.json`（成功率）、`phase_traces.json`（每步 phase / `p_tray` / `p_peg`）
-- phase 滞后阈值：`configs/bimanual_assembly.yaml` → `inference.phase_controller`
+- 默认输出：`outputs/dexquery/bimanual_assembly_seed0_ckpt060000/`（可用 `--output` 覆盖）
+- 每个 episode 保存 `ego.mp4`、`wrist_left.mp4`、`wrist_right.mp4`
+- 另含 `success_rate_*_*.txt`、`eval_summary.json`、`phase_traces.json`
+- rand-obj 全随机：加 `--rand-full`；覆盖已有目录：加 `--overwrite`
