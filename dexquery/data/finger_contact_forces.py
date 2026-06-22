@@ -217,3 +217,16 @@ def format_episode_force_summary(episode_index: int, stats: dict) -> str:
 def _finger_vec(frame: ForceFrame, side: str, finger_idx: int) -> np.ndarray:
     arr = frame.right_finger_force if side == "right" else frame.left_finger_force
     return arr[finger_idx * 3 : (finger_idx + 1) * 3]
+
+
+def force_vector_from_frame(frame: ForceFrame, mode: str) -> np.ndarray:
+    """Pack privileged sim forces into the flat vector used by ForceVLA training."""
+    wrist = np.concatenate([frame.wrist_ft_right, frame.wrist_ft_left]).astype(np.float32)
+    finger = np.concatenate([frame.right_finger_force, frame.left_finger_force]).astype(np.float32)
+    if mode == "wrist":
+        return wrist
+    if mode == "finger":
+        return finger
+    if mode == "both":
+        return np.concatenate([wrist, finger], axis=0)
+    raise ValueError(f"Unknown force mode: {mode!r} (expected wrist, finger, or both)")

@@ -24,6 +24,8 @@ import yaml
 from openpi_client import websocket_client_policy
 from scipy.spatial.transform import Rotation as R
 
+from dexjoco_lerobot_client.eval_config import default_eval_output_dir
+
 from .dexjoco_openpi_env import DexJoCoOpenPIEnv
 
 
@@ -231,6 +233,7 @@ def main(
     port: int = 8000,
     host: str = "0.0.0.0",
     output: Path | None = None,
+    checkpoint: Path | None = None,
     render_mode: Literal["rgb_array", "human"] = "rgb_array",
     replan_ratio: float = 0.8,
     episodes: int = 50,
@@ -238,6 +241,7 @@ def main(
     record_pressed_digits: bool | None = None,
     hybrid_insert: bool = False,
     overwrite: bool = False,
+    force_mode: Literal["wrist", "finger", "both"] | None = None,
 ):
     if render_mode == "rgb_array":
         os.environ.setdefault("MUJOCO_GL", "egl")
@@ -264,9 +268,25 @@ def main(
     if output is None:
         suffix = "_rand_full" if rand_full else ""
         hybrid_suffix = "_hybrid" if hybrid_insert else ""
-        output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}"
+        if force_mode is not None:
+            if checkpoint is None:
+                raise ValueError(
+                    "ForceVLA eval requires --checkpoint (same path as serve --policy.dir) "
+                    "when --output is not set."
+                )
+            output_dir = default_eval_output_dir(
+                "forcevla",
+                env_name,
+                seed,
+                checkpoint,
+                rand_full=rand_full,
+                hybrid_insert=hybrid_insert,
+            )
+        else:
+            output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}"
     else:
         output_dir = output
+    print(f"Eval output: {output_dir.resolve()}")
     if output_dir.exists() and any(output_dir.iterdir()):
         if overwrite:
             shutil.rmtree(output_dir)
@@ -289,8 +309,11 @@ def main(
         render_mode=render_mode,
         pad_state_dim46=pad_state_dim46,
         password=cfg.get("password", None),  # Pass password from config if available
+        force_mode=force_mode,
     )
     env.start()
+    if force_mode is not None:
+        print(f"force_mode={force_mode}: reading wrist/finger sensors from sim", flush=True)
 
     from hybrid_insert import EvalHybridInsert, state_to_dual_arm_action44
 

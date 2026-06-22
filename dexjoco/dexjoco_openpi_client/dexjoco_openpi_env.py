@@ -8,6 +8,15 @@ from openpi_client import image_tools
 from scipy.spatial.transform import Rotation as R
 from typing import Literal
 
+ForceInputMode = Literal["wrist", "finger", "both"]
+
+
+def _get_raw_env(env):
+    current = env
+    while hasattr(current, "env"):
+        current = current.env
+    return current.unwrapped if hasattr(current, "unwrapped") else current
+
 
 class DexJoCoOpenPIEnv:
     """Adapt a DexJoCo simulation environment to the OpenPI client interface.
@@ -30,6 +39,7 @@ class DexJoCoOpenPIEnv:
         render_mode: Literal["rgb_array", "human"],
         pad_state_dim46: bool = False,
         password: list[int] | None = None,
+        force_mode: ForceInputMode | None = None,
     ):
         """Create a wrapper for one DexJoCo task environment.
 
@@ -56,8 +66,10 @@ class DexJoCoOpenPIEnv:
         self.render_mode: Literal["rgb_array", "human"] = render_mode
         self.pad_state_dim46 = pad_state_dim46
         self.password = password
+        self.force_mode = force_mode
 
         self.env = None
+        self._force_labeler = None
         # Processed one-frame observation used as OpenPI policy input.
         self.obs = {}
         # Latest raw camera frames, kept at original resolution for recording.
@@ -87,6 +99,15 @@ class DexJoCoOpenPIEnv:
             **env_kwargs,
         )
 
+        if self.force_mode is not None:
+            if not self.dual_arm:
+                raise ValueError("force_mode requires dual_arm tasks with wrist/finger sensors")
+            from dexquery.data.finger_contact_forces import FingerForceLabeler
+
+            self._force_labeler = FingerForceLabeler(_get_raw_env(self.env))
+        else:
+            self._force_labeler = None
+
     def close(self):
         """Close the underlying simulation environment."""
         if self.env is not None:
@@ -99,6 +120,9 @@ class DexJoCoOpenPIEnv:
         obs, _ = self.env.reset()
         self._done = False
         self._success = False
+
+        if self._force_labeler is not None:
+            self._force_labeler.reset_reference(_get_raw_env(self.env))
 
         self._update_raw_obs(obs)
         self.obs = self._process_obs(obs)
@@ -198,6 +222,12 @@ class DexJoCoOpenPIEnv:
                 state = np.concatenate([state, np.zeros(46 - len(state))])
         obs_dict["state"] = state
         obs_dict["prompt"] = self.prompt
+
+        if self._force_labeler is not None and self.force_mode is not None:
+            from dexquery.data.finger_contact_forces import force_vector_from_frame
+
+            frame = self._force_labeler.compute(_get_raw_env(self.env))
+            obs_dict["force"] = force_vector_from_frame(frame, self.force_mode)
 
         return obs_dict
 

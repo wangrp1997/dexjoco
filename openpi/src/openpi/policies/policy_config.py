@@ -72,18 +72,51 @@ def create_trained_policy(
         except ImportError:
             pytorch_device = "cpu"
 
+    if data_config.force_mode is not None:
+        from openpi.forcevla.training.transforms import NormalizeProprioAndForce
+
+        norm_input_transforms: list[transforms.DataTransformFn] = [
+            NormalizeProprioAndForce(
+                norm_stats,
+                proprio_dim=data_config.proprio_dim,
+                use_quantiles=data_config.use_quantile_norm,
+            )
+        ]
+        if norm_stats and "actions" in norm_stats:
+            norm_input_transforms.append(
+                transforms.Normalize(
+                    {"actions": norm_stats["actions"]},
+                    use_quantiles=data_config.use_quantile_norm,
+                )
+            )
+        norm_output_transforms: list[transforms.DataTransformFn] = []
+        if norm_stats and "actions" in norm_stats:
+            norm_output_transforms.append(
+                transforms.Unnormalize(
+                    {"actions": norm_stats["actions"]},
+                    use_quantiles=data_config.use_quantile_norm,
+                )
+            )
+    else:
+        norm_input_transforms = [
+            transforms.Normalize(norm_stats, use_quantiles=data_config.use_quantile_norm)
+        ]
+        norm_output_transforms = [
+            transforms.Unnormalize(norm_stats, use_quantiles=data_config.use_quantile_norm)
+        ]
+
     return _policy.Policy(
         model,
         transforms=[
             *repack_transforms.inputs,
             transforms.InjectDefaultPrompt(default_prompt),
             *data_config.data_transforms.inputs,
-            transforms.Normalize(norm_stats, use_quantiles=data_config.use_quantile_norm),
+            *norm_input_transforms,
             *data_config.model_transforms.inputs,
         ],
         output_transforms=[
             *data_config.model_transforms.outputs,
-            transforms.Unnormalize(norm_stats, use_quantiles=data_config.use_quantile_norm),
+            *norm_output_transforms,
             *data_config.data_transforms.outputs,
             *repack_transforms.outputs,
         ],

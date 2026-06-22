@@ -95,6 +95,10 @@ def resolve_checkpoint_step_label(checkpoint: Path) -> str:
                 return f"ckpt{int(step_str):06d}"
         return f"ckpt_{stem}"
 
+    # OpenPI / LeRobot checkpoints are often passed as the step directory itself (e.g. .../59999).
+    if checkpoint.is_dir() and checkpoint.name.isdigit():
+        return f"ckpt{int(checkpoint.name):06d}"
+
     step_dir = checkpoint.parent
     if step_dir.name == "pretrained_model":
         step_dir = step_dir.parent

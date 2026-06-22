@@ -102,8 +102,37 @@ Checkpoint 目录（均在 SSD，与 `dexquery_dexjoco_ckpt` 等同层）：
 
 ## 4. 评估
 
-纯视觉与力模型均用现有 DexJoCo eval 流程（`dexjoco-openpi-eval` / `serve_policy.py`）。  
-**力模型推理**需在 sim 中提供与训练一致的力输入（腕部 sensor）；eval 侧接线若未完成，先以训练 loss / 少量 sim rollout 验证。
+与纯视觉 π0.5 相同的两终端流程；**ForceVLA 必须加 `--force-mode`**，从 sim 实时读腕力/指力（与 `label_forces.py` 同源传感器），再经训练同款 norm stats 归一化。
+
+**终端 1（serve）**
+```bash
+cd ~/dexjoco/openpi
+conda activate openpi
+export CUDA_VISIBLE_DEVICES=3
+
+python scripts/serve_policy.py --port=8000 policy:checkpoint \
+  --policy.config=bimanual_assembly_forcevla_both \
+  --policy.dir=/mnt/ssd/checkpoints/forcevla_dexjoco_ckpt/bimanual_assembly/forcevla_both/59999
+```
+
+**终端 2（eval，`--force-mode` 须与训练一致）**
+```bash
+cd ~/dexjoco
+conda activate dexjoco
+export PYTHONPATH=/home/wangrenpeng/dexjoco:/home/wangrenpeng/dexjoco/dexjoco
+export MUJOCO_GL=egl
+
+dexjoco-openpi-eval \
+  --config=./configs/rand_obj/bimanual_assembly.yaml \
+  --seed=2 \
+  --port=8000 \
+  --episodes=50 \
+  --force-mode=both \
+  --checkpoint=/mnt/ssd/checkpoints/forcevla_dexjoco_ckpt/bimanual_assembly/forcevla_both/59999 \
+  --overwrite
+```
+
+输出目录自动：`outputs/forcevla/bimanual_assembly_seed0_ckpt059999/`（由 `--seed` + `--checkpoint` 步数决定；换 seed/ckpt 不会互相覆盖）
 
 ## 5. 建议实验顺序
 
