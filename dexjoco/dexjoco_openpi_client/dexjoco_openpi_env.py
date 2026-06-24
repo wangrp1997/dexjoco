@@ -72,6 +72,7 @@ class DexJoCoOpenPIEnv:
         self._force_labeler = None
         # Processed one-frame observation used as OpenPI policy input.
         self.obs = {}
+        self._sim_state_full: np.ndarray | None = None
         # Latest raw camera frames, kept at original resolution for recording.
         self._raw_obs: dict = {}
         self._done = False
@@ -148,6 +149,14 @@ class DexJoCoOpenPIEnv:
 
         return info.get("pressed_digits")
 
+    def get_sim_state(self, *, privileged: bool = False) -> np.ndarray:
+        """Return proprio state for RL (46-dim BC layout or full sim state)."""
+        if self._sim_state_full is None:
+            raise RuntimeError("No sim state cached yet. Call reset/step first.")
+        if privileged:
+            return self._sim_state_full.copy()
+        return self._sim_state_full[:46].copy()
+
     def get_obs(self) -> dict[str, np.ndarray]:
         """Return a copy of the latest processed policy observation."""
         return copy.deepcopy(self.obs)
@@ -216,8 +225,10 @@ class DexJoCoOpenPIEnv:
 
         if self.dual_arm:
             state = env_obs["state"][:46]
+            self._sim_state_full = np.asarray(env_obs["state"], dtype=np.float64).copy()
         else:
             state = env_obs["state"][:23]
+            self._sim_state_full = np.asarray(env_obs["state"], dtype=np.float64).copy()
             if self.pad_state_dim46:
                 state = np.concatenate([state, np.zeros(46 - len(state))])
         obs_dict["state"] = state
