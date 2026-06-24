@@ -281,6 +281,7 @@ def main(
                 checkpoint,
                 rand_full=rand_full,
                 hybrid_insert=hybrid_insert,
+                force_mode=force_mode,
             )
         else:
             output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}"

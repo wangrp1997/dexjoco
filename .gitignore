@@ -33,3 +33,4 @@ repomix.config.json
 converted_datasets/
 logs/
 refs/
+third_party*

@@ -130,11 +130,17 @@ def default_eval_output_dir(
     *,
     rand_full: bool = False,
     hybrid_insert: bool = False,
+    force_mode: str | None = None,
 ) -> Path:
     suffix = "_rand_full" if rand_full else ""
     hybrid_suffix = "_hybrid" if hybrid_insert else ""
+    force_suffix = f"_{force_mode}" if force_mode else ""
     ckpt_label = resolve_checkpoint_step_label(checkpoint)
-    return Path("outputs") / policy_type / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}_{ckpt_label}"
+    return (
+        Path("outputs")
+        / policy_type
+        / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}_{ckpt_label}{force_suffix}"
+    )
 
 
 def lerobot_image_map(camera_mapping: dict[str, str], dual_arm: bool) -> dict[str, str]:

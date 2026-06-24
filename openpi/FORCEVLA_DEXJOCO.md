@@ -132,7 +132,7 @@ dexjoco-openpi-eval \
   --overwrite
 ```
 
-输出目录自动：`outputs/forcevla/bimanual_assembly_seed0_ckpt059999/`（由 `--seed` + `--checkpoint` 步数决定；换 seed/ckpt 不会互相覆盖）
+输出目录自动：`outputs/forcevla/bimanual_assembly_seed0_ckpt059999_both/`（含 `--force-mode` + `--seed` + ckpt 步数；wrist/finger/both 不会互相覆盖）
 
 ## 5. 建议实验顺序
 
