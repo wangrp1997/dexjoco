@@ -38,6 +38,44 @@ class MilestoneRewardInfo:
         }
 
 
+@dataclass
+class MilestoneAwardState:
+    tray: bool = False
+    peg: bool = False
+    insert: bool = False
+    success: bool = False
+
+
+def milestone_reward_from_flags(
+    *,
+    tray_ok: bool,
+    peg_ok: bool,
+    insert_ok: bool,
+    awarded: MilestoneAwardState,
+    config: MilestoneRewardConfig | None = None,
+    terminated: bool = False,
+    succeed: bool = False,
+) -> tuple[float, MilestoneAwardState]:
+    """Award milestone bonuses at most once per episode (shared online/offline)."""
+    cfg = config or MilestoneRewardConfig()
+    reward = 0.0
+
+    if tray_ok and not awarded.tray:
+        reward += cfg.tray_reward
+        awarded.tray = True
+    if peg_ok and not awarded.peg:
+        reward += cfg.peg_reward
+        awarded.peg = True
+    if insert_ok and not awarded.insert:
+        reward += cfg.insert_reward
+        awarded.insert = True
+    if terminated and succeed and not awarded.success:
+        reward += cfg.success_reward
+        awarded.success = True
+
+    return reward, awarded
+
+
 class AssemblyMilestoneReward:
     """Dense milestone reward using ``AssemblyContactLabeler``."""
 
@@ -69,20 +107,24 @@ class AssemblyMilestoneReward:
         succeed: bool,
     ) -> tuple[float, MilestoneRewardInfo]:
         outcome = self.labeler.compute(_get_raw_env(wrapped_env))
-        reward = 0.0
-
-        if outcome.tray_ok and not self._awarded_tray:
-            reward += self.config.tray_reward
-            self._awarded_tray = True
-        if outcome.peg_ok and not self._awarded_peg:
-            reward += self.config.peg_reward
-            self._awarded_peg = True
-        if outcome.insert_ok and not self._awarded_insert:
-            reward += self.config.insert_reward
-            self._awarded_insert = True
-        if terminated and succeed and not self._awarded_success:
-            reward += self.config.success_reward
-            self._awarded_success = True
+        reward, awarded = milestone_reward_from_flags(
+            tray_ok=outcome.tray_ok,
+            peg_ok=outcome.peg_ok,
+            insert_ok=outcome.insert_ok,
+            awarded=MilestoneAwardState(
+                tray=self._awarded_tray,
+                peg=self._awarded_peg,
+                insert=self._awarded_insert,
+                success=self._awarded_success,
+            ),
+            config=self.config,
+            terminated=terminated,
+            succeed=succeed,
+        )
+        self._awarded_tray = awarded.tray
+        self._awarded_peg = awarded.peg
+        self._awarded_insert = awarded.insert
+        self._awarded_success = awarded.success
 
         info = MilestoneRewardInfo(
             step_reward=reward,

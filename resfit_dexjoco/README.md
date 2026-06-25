@@ -14,6 +14,7 @@ resfit_dexjoco/
   scripts/
     smoke_zero_residual.py
     train_residual_td3.py
+    eval_residual_td3.py
 ```
 
 ## Smoke test (Δa=0)
@@ -60,6 +61,30 @@ W&B：project **`dexjoco`**，run 名 **`resfit_forcevla_both`**（对标 `force
 | 离线 base | GT-as-base，sparse terminal reward |
 | 在线 reward | milestone（ResiP 三阶段 + success） |
 | 算法 | proprio TD3（ResFiT Actor/Critic/normalization 复用） |
+
+## Eval
+
+```bash
+cd ~/dexjoco && conda activate dexjoco
+export MUJOCO_GL=egl CUDA_VISIBLE_DEVICES=""
+export PYTHONPATH=~/dexjoco:~/dexjoco/dexjoco:~/dexjoco/third_party/residual-offpolicy-rl
+
+# 1) BC 基线（Δa=0，对标纯 ForceVLA）
+python resfit_dexjoco/scripts/eval_residual_td3.py \
+  --zero-residual --episodes 10 --seed 0 --port 8000 --force-mode both --overwrite --video-encoder cpu
+
+# 2) 残差 ckpt（50k）→ 输出与 ForceVLA eval 同结构
+python resfit_dexjoco/scripts/eval_residual_td3.py \
+  --checkpoint /mnt/ssd/checkpoints/resfit_dexjoco_ckpt/bimanual_assembly/forcevla_both/checkpoint_step_050000.pt \
+  --episodes 10 --seed 0 --port 8000 --force-mode both --overwrite --video-encoder cpu
+
+# 3) 可选：对比 5k ckpt 是否更差
+python resfit_dexjoco/scripts/eval_residual_td3.py \
+  --checkpoint /mnt/ssd/checkpoints/resfit_dexjoco_ckpt/bimanual_assembly/forcevla_both/checkpoint_step_005000.pt \
+  --episodes 10 --seed 0 --port 8000 --force-mode both --overwrite --video-encoder cpu
+```
+
+默认 `--video-encoder auto`：episode 结束后用 NVENC 编码（子进程单独指定 GPU，与 `CUDA_VISIBLE_DEVICES=""` 不冲突）；纯看成功率可加 `--record-video=False`。
 
 ## Dependencies
 

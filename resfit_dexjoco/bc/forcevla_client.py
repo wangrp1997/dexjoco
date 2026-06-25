@@ -151,26 +151,65 @@ class ForceVLAClient:
             return None
         return timed.action
 
-    def drain_after_episode(self, *, timeout_s: float = 120.0) -> None:
+    def drain_after_episode(
+        self,
+        *,
+        timeout_s: float = 120.0,
+        raise_on_timeout: bool = True,
+    ) -> None:
         """Wait for in-flight inference before the next episode."""
         assert self._inferencing_event is not None
         assert self._obs_queue is not None
         assert self._action_queue is not None
-        while True:
-            try:
-                self._obs_queue.get_nowait()
-            except Empty:
-                break
+        self._drain_queues()
+        if not raise_on_timeout:
+            if self._inferencing_event.is_set() or (
+                self._process is not None and not self._process.is_alive()
+            ):
+                print("ForceVLA: skipping pending inference between episodes.", flush=True)
+                self._restart_worker()
+            return
+
         deadline = time.monotonic() + timeout_s
         while self._inferencing_event.is_set():
+            if self._process is not None and not self._process.is_alive():
+                print("ForceVLA worker died; restarting inference process.", flush=True)
+                self._restart_worker()
+                return
+            self._buffer.ingest_queue(self._action_queue, self._timestamp)
             if time.monotonic() >= deadline:
                 raise TimeoutError(
-                    f"ForceVLA inference did not finish within {timeout_s:.0f}s. "
-                    f"Check serve_policy on port {self.port} and kill duplicate train processes."
+                    f"ForceVLA inference did not finish within {timeout_s:.0f}s "
+                    f"(port {self.port}). Check serve_policy and kill duplicate clients."
                 )
             time.sleep(0.1)
         while not self._action_queue.empty():
             self._action_queue.get()
+
+    def _restart_worker(self) -> None:
+        """Kill and respawn the websocket worker after a stuck or dead inference."""
+        if self._inferencing_event is not None:
+            self._inferencing_event.clear()
+        self._buffer.clear()
+        if self._process is not None:
+            assert self._stop_event is not None
+            self._stop_event.set()
+            self._process.join(timeout=1)
+            if self._process.is_alive():
+                self._process.kill()
+                self._process.join(timeout=1)
+            if self._obs_queue is not None:
+                self._obs_queue.cancel_join_thread()
+                self._obs_queue.close()
+            if self._action_queue is not None:
+                self._action_queue.cancel_join_thread()
+                self._action_queue.close()
+        self._process = None
+        self._obs_queue = None
+        self._action_queue = None
+        self._stop_event = None
+        self._inferencing_event = None
+        self.start()
 
     def _drain_queues(self) -> None:
         if self._obs_queue is None or self._action_queue is None:

@@ -149,8 +149,8 @@ class ResidualEnvWrapper:
             combined_action=combined_action,
         )
 
-    def end_episode(self) -> None:
-        self.bc.drain_after_episode()
+    def end_episode(self, *, strict_drain: bool = True) -> None:
+        self.bc.drain_after_episode(raise_on_timeout=strict_drain)
 
     def close(self) -> None:
         self.bc.close()

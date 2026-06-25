@@ -40,6 +40,7 @@ class TrainConfig:
     offline_fraction: float = 0.5
     use_offline_data: bool = True
     offline_num_episodes: int | None = None
+    offline_reward_mode: str = "milestone"
     privileged_sim_state: bool = False
 
     log_freq: int = 100
@@ -188,8 +189,13 @@ def main(cfg: TrainConfig) -> None:
             scale_action=scale_action,
             standardize_state=standardize_state,
             num_episodes=cfg.offline_num_episodes,
+            offline_reward_mode=cfg.offline_reward_mode,
         )
-        print(f"Offline buffer: {added} transitions (GT-as-base, sparse reward)", flush=True)
+        print(
+            f"Offline buffer: {added} transitions "
+            f"(GT-as-base, {cfg.offline_reward_mode} reward)",
+            flush=True,
+        )
     else:
         print("Offline buffer disabled", flush=True)
 

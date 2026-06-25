@@ -52,8 +52,8 @@ class NormalizedTrainEnv:
         result.info["prev_base_normalized"] = prev_base_n
         return next_obs, result
 
-    def end_episode(self) -> None:
-        self.rollout.end_episode()
+    def end_episode(self, *, strict_drain: bool = True) -> None:
+        self.rollout.end_episode(strict_drain=strict_drain)
 
     def close(self) -> None:
         self.rollout.close()

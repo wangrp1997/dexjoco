@@ -1,10 +1,16 @@
-"""Offline demo loader (GT-as-base, sparse terminal reward) for DexJoCo LeRobot data."""
+"""Offline demo loader (GT-as-base) for DexJoCo LeRobot data."""
 
 from __future__ import annotations
 
 from pathlib import Path
 
 import numpy as np
+
+from resfit_dexjoco.env.assembly_reward import (
+    MilestoneAwardState,
+    MilestoneRewardConfig,
+    milestone_reward_from_flags,
+)
 
 from .replay_buffer import ReplayBuffer, Transition
 
@@ -46,6 +52,51 @@ def _load_episode_frames(dataset_root: Path, num_episodes: int | None) -> dict[i
     return episodes
 
 
+def _load_dexquery_outcomes(dataset_root: Path) -> dict[tuple[int, int], tuple[bool, bool, bool]]:
+    label_path = dataset_root / "dexquery_labels" / "outcomes.parquet"
+    if not label_path.exists():
+        raise FileNotFoundError(
+            f"Missing {label_path}. Run dexquery/scripts/label_contact.py first."
+        )
+
+    try:
+        import pyarrow.parquet as pq
+    except ImportError as exc:
+        raise ImportError("Offline milestone labels require pyarrow.") from exc
+
+    table = pq.read_table(
+        label_path,
+        columns=["episode_index", "frame_index", "tray_ok", "peg_ok", "insert_ok"],
+    )
+    lookup: dict[tuple[int, int], tuple[bool, bool, bool]] = {}
+    for ep_idx, frame_idx, tray, peg, insert in zip(
+        table.column("episode_index").to_pylist(),
+        table.column("frame_index").to_pylist(),
+        table.column("tray_ok").to_pylist(),
+        table.column("peg_ok").to_pylist(),
+        table.column("insert_ok").to_pylist(),
+        strict=True,
+    ):
+        lookup[(int(ep_idx), int(frame_idx))] = (
+            bool(tray),
+            bool(peg),
+            bool(insert),
+        )
+    return lookup
+
+
+def _flags_for_frame(
+    lookup: dict[tuple[int, int], tuple[bool, bool, bool]],
+    *,
+    episode_index: int,
+    frame_index: int,
+) -> tuple[bool, bool, bool]:
+    key = (episode_index, frame_index)
+    if key not in lookup:
+        raise KeyError(f"Missing dexquery label for episode={episode_index} frame={frame_index}")
+    return lookup[key]
+
+
 def populate_offline_buffer_gt_as_base(
     replay: ReplayBuffer,
     dataset_root: Path,
@@ -54,49 +105,70 @@ def populate_offline_buffer_gt_as_base(
     scale_action,
     standardize_state,
     num_episodes: int | None = None,
+    offline_reward_mode: str = "milestone",
+    milestone_config: MilestoneRewardConfig | None = None,
 ) -> int:
-    """Fill replay using ResFiT GT-as-base: base_action = demo action, sparse terminal reward."""
+    """Fill replay using ResFiT GT-as-base: base_action = demo action."""
     episodes = _load_episode_frames(dataset_root, num_episodes)
+    milestone_cfg = milestone_config or MilestoneRewardConfig()
+    outcome_lookup = (
+        _load_dexquery_outcomes(dataset_root) if offline_reward_mode == "milestone" else None
+    )
     added = 0
 
-    for frames in episodes.values():
-        if len(frames) < 2:
+    for ep_idx, frames in episodes.items():
+        if len(frames) < 1:
             continue
 
-        for idx in range(len(frames) - 1):
-            curr = frames[idx]
-            nxt = frames[idx + 1]
+        awarded = MilestoneAwardState()
+        for idx, curr in enumerate(frames):
             state_n = standardize_state(curr["state"][:state_dim])
-            next_state_n = standardize_state(nxt["state"][:state_dim])
             base_n = scale_action(curr["action"])
-            next_base_n = scale_action(nxt["action"])
+
+            if idx + 1 < len(frames):
+                nxt = frames[idx + 1]
+                next_state_n = standardize_state(nxt["state"][:state_dim])
+                next_base_n = scale_action(nxt["action"])
+                done = False
+                succeed = False
+            else:
+                next_state_n = state_n
+                next_base_n = base_n
+                done = True
+                succeed = True
+
+            if offline_reward_mode == "milestone":
+                assert outcome_lookup is not None
+                tray_ok, peg_ok, insert_ok = _flags_for_frame(
+                    outcome_lookup,
+                    episode_index=ep_idx,
+                    frame_index=curr["frame_index"],
+                )
+                reward, awarded = milestone_reward_from_flags(
+                    tray_ok=tray_ok,
+                    peg_ok=peg_ok,
+                    insert_ok=insert_ok,
+                    awarded=awarded,
+                    config=milestone_cfg,
+                    terminated=done,
+                    succeed=succeed,
+                )
+            elif offline_reward_mode == "sparse":
+                reward = 1.0 if done else 0.0
+            else:
+                raise ValueError(f"Unknown offline_reward_mode: {offline_reward_mode!r}")
+
             replay.add(
                 Transition(
                     state=state_n,
                     base_action=base_n,
                     combined_action=base_n,
-                    reward=0.0,
+                    reward=float(reward),
                     next_state=next_state_n,
                     next_base_action=next_base_n,
-                    done=False,
+                    done=done,
                 )
             )
             added += 1
-
-        last = frames[-1]
-        last_state_n = standardize_state(last["state"][:state_dim])
-        last_base_n = scale_action(last["action"])
-        replay.add(
-            Transition(
-                state=last_state_n,
-                base_action=last_base_n,
-                combined_action=last_base_n,
-                reward=1.0,
-                next_state=last_state_n,
-                next_base_action=last_base_n,
-                done=True,
-            )
-        )
-        added += 1
 
     return added
