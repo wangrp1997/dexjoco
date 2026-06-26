@@ -18,8 +18,8 @@ from interaction_retarget.constants import (
     RIGHT_HAND_BODIES,
     TRAY_BODY,
 )
-from interaction_retarget.contact import AssemblyContactDetector, FrameContact
-from interaction_retarget.hand_geom import hand_keypoints_world
+from interaction_retarget.sim.contact import AssemblyContactDetector, FrameContact
+from interaction_retarget.sim.hand_geom import hand_keypoints_world
 
 
 def rotvec_dual_arm_to_policy(action44: np.ndarray) -> np.ndarray:

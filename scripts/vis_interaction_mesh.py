@@ -25,11 +25,11 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from interaction_retarget.constants import LEFT_HAND_ROOT, PEG_MESH_PATH, RIGHT_HAND_ROOT, TRAY_MESH_PATH
-from interaction_retarget.hand_geom import hand_collision_segments_world
-from interaction_retarget.replay import make_assembly_env, raw_flat_to_dict, replay_episode
+from interaction_retarget.sim.hand_geom import hand_collision_segments_world
+from interaction_retarget.sim.replay import make_assembly_env, raw_flat_to_dict, replay_episode
 from interaction_retarget.transforms import object_to_world
-from interaction_retarget.vis_mesh import (
-    load_interaction_npz,
+from interaction_retarget.io.npz import load_interaction_npz
+from interaction_retarget.vis.mesh import (
     object_mesh_edge_segments,
     object_mesh_edge_segments_world,
     write_interaction_html,
@@ -134,7 +134,7 @@ def _hand_mesh_at_grasp_frame(
 ) -> np.ndarray:
     from dexjoco.tasks import CONFIG_MAPPING
     from dexjoco.tasks.state_restorers import restore_initial_state
-    from interaction_retarget.zarr_io import load_zarr_episode
+    from interaction_retarget.io.zarr_io import load_zarr_episode
 
     actions, _, initial_state = load_zarr_episode(zarr_path)
     env = make_assembly_env(seed=int(meta["episode_index"]))
@@ -161,8 +161,8 @@ def _render_world_scene(
     prefix: str,
     out: Path,
 ) -> None:
-    from interaction_retarget.replay import replay_episode
-    from interaction_retarget.zarr_io import load_zarr_episode
+    from interaction_retarget.sim.replay import replay_episode
+    from interaction_retarget.io.zarr_io import load_zarr_episode
 
     meta = json.loads((sidecar_dir / "meta.json").read_text(encoding="utf-8"))
     snap = load_interaction_npz(npz_path, prefix=prefix)

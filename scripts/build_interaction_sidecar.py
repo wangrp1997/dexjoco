@@ -18,10 +18,10 @@ if str(_DEXJOJO_ROOT) not in sys.path:
     sys.path.insert(0, str(_DEXJOJO_ROOT))
 
 from interaction_retarget.constants import TASK_ID, default_sidecar_dir
-from interaction_retarget.grasp_timing import timing_warnings
-from interaction_retarget.replay import make_assembly_env, replay_episode
-from interaction_retarget.sidecar import build_episode_sidecar, save_episode_sidecar
-from interaction_retarget.zarr_io import discover_zarr_demos, load_zarr_episode
+from interaction_retarget.sim.grasp_timing import timing_warnings
+from interaction_retarget.sim.replay import make_assembly_env, replay_episode
+from interaction_retarget.io.sidecar import build_episode_sidecar, save_episode_sidecar
+from interaction_retarget.io.zarr_io import discover_zarr_demos, load_zarr_episode
 
 
 def _parse_args() -> argparse.Namespace:
@@ -60,8 +60,8 @@ def _write_manifest(out_dir: Path, entries: list[dict]) -> None:
 def _run_vis(episode_index: int, zarr_path: Path, seed: int, initial_state, no_trim: bool) -> None:
     import mujoco.viewer
 
-    from interaction_retarget.replay import raw_flat_to_dict, replay_episode
-    from interaction_retarget.sidecar import timing_from_trace
+    from interaction_retarget.sim.replay import raw_flat_to_dict, replay_episode
+    from interaction_retarget.io.sidecar import timing_from_trace
 
     actions, _, initial_state_loaded = load_zarr_episode(zarr_path, trim_static=not no_trim)
     if initial_state is None:

@@ -23,10 +23,10 @@ from interaction_retarget.constants import (
     TRAY_BODY,
     TRAY_MESH_PATH,
 )
-from interaction_retarget.grasp_timing import GraspTiming, detect_grasp_timing
+from interaction_retarget.sim.grasp_timing import GraspTiming, detect_grasp_timing
 from interaction_retarget.laplacian import create_interaction_adjacency, laplacian_coordinates
-from interaction_retarget.mesh_sampling import contact_weighted_surface_sampling, load_object_mesh
-from interaction_retarget.replay import ReplayTrace, ReplayStep
+from interaction_retarget.mesh.sampling import contact_weighted_surface_sampling, load_object_mesh
+from interaction_retarget.sim.replay import ReplayStep, ReplayTrace
 from interaction_retarget.transforms import world_to_object
 
 @dataclass

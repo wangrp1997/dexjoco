@@ -4,18 +4,46 @@
 
 完整计划见 [`docs/phase1_grasp_plan.md`](../docs/phase1_grasp_plan.md)。
 
+## 目录结构
+
+```
+interaction_retarget/
+  constants.py          # 任务常量、路径、阈值
+  transforms.py         # 物体系 ↔ world
+  laplacian.py          # Delaunay + Laplacian（核心表示）
+  distill_grasp.py      # Step2：many ep → canonical δ*
+
+  io/                   # 数据读写
+    zarr_io.py          # replay.zarr
+    sidecar.py          # 逐 ep sidecar 导出
+    npz.py              # sidecar/canonical npz 加载
+
+  sim/                  # MuJoCo 仿真与抓取检测
+    replay.py
+    contact.py
+    grasp_timing.py
+    hand_geom.py
+
+  mesh/                 # 物体表面采样
+    sampling.py
+
+  vis/                  # 3D 可视化 HTML
+    mesh.py
+```
+
 ## 已完成
 
 | 模块 | 作用 |
 |------|------|
-| `zarr_io.py` | 读取 `replay.zarr`（action / state） |
-| `replay.py` | sim replay + 每帧 kinematics / contact |
-| `contact.py` | 左–tray / 右–peg MuJoCo 接触检测 |
-| `grasp_timing.py` | grasp 稳定帧、lift 起点（规则） |
-| `mesh_sampling.py` | 物体 mesh 接触加权采样（holosoma 思路） |
+| `io/zarr_io.py` | 读取 `replay.zarr`（action / state） |
+| `sim/replay.py` | sim replay + 每帧 kinematics / contact |
+| `sim/contact.py` | 左–tray / 右–peg MuJoCo 接触检测 |
+| `sim/grasp_timing.py` | grasp 稳定帧、lift 起点（规则） |
+| `mesh/sampling.py` | 物体 mesh 接触加权采样（holosoma 思路） |
 | `laplacian.py` | Delaunay 邻接 + Laplacian 坐标 |
-| `sidecar.py` | 汇总导出 npz / meta / manifest |
-| `vis_mesh.py` | 3D interaction mesh HTML 可视化 |
+| `io/sidecar.py` | 汇总导出 npz / meta / manifest |
+| `distill_grasp.py` | 100 ep → canonical δ\*（tray/peg 各一条） |
+| `vis/mesh.py` | 3D interaction mesh HTML 可视化 |
 
 脚本：
 
@@ -107,9 +135,27 @@ scp 到本机浏览器打开。
 
 阈值见 `constants.py`。
 
+## distill canonical δ*（Step 2）
+
+```bash
+python scripts/distill_grasp.py \
+  --sidecar-dir /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+
+# 可选：去掉 manifest 里 fallback 的 episode
+python scripts/distill_grasp.py --exclude-fallback
+```
+
+输出（与 sidecar 同目录）：
+
+- `canonical_tray_grasp.npz` / `canonical_peg_grasp.npz`
+- `canonical_*_grasp.json`（质量报告）
+- `canonical_grasp_summary.json`
+
+**归纳规则**：21 手点逐点中位；物面 50 点用全部 episode 接触中心 pooled 后加权重采样（固定 seed）；再 Delaunay → Laplacian。
+
 ## 未做（后续步骤）
 
-1. `distill_grasp.py` — 100 ep → canonical δ\*
+1. ~~`distill_grasp.py` — 100 ep → canonical δ\*~~ ✅
 2. `laplacian_ik.py` — δ\* → q_grasp
 3. `grasp_repair.py` — contact 修 + 验稳
 4. `validate_grasp_openloop.py` — random init 开环 grasp
