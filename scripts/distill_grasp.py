@@ -13,7 +13,7 @@ if str(_REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(_REPO_ROOT))
 
 from interaction_retarget.constants import TASK_ID, default_sidecar_dir
-from interaction_retarget.distill_grasp import distill_from_sidecar_dir
+from interaction_retarget.grasp.distill import distill_from_sidecar_dir
 
 
 def _parse_args() -> argparse.Namespace:

@@ -11,7 +11,14 @@ interaction_retarget/
   constants.py          # 任务常量、路径、阈值
   transforms.py         # 物体系 ↔ world
   laplacian.py          # Delaunay + Laplacian（核心表示）
-  distill_grasp.py      # Step2：many ep → canonical δ*
+
+  grasp/                # Step2–4：δ* 归纳、IK、pre-grasp
+    distill.py          # many ep → canonical δ*
+    ik.py               # δ* → 23-d arm action
+    pre_grasp.py        # GenHand 式 pre-grasp offset
+    repair.py           # contact 修 + hold 验稳
+    approach.py         # GenHand pre-grasp → grasp 轨迹（MVP 线性）
+    pipeline.py         # random seed 推理链
 
   io/                   # 数据读写
     zarr_io.py          # replay.zarr
@@ -23,6 +30,7 @@ interaction_retarget/
     contact.py
     grasp_timing.py
     hand_geom.py
+    settle.py
 
   mesh/                 # 物体表面采样
     sampling.py
@@ -42,12 +50,18 @@ interaction_retarget/
 | `mesh/sampling.py` | 物体 mesh 接触加权采样（holosoma 思路） |
 | `laplacian.py` | Delaunay 邻接 + Laplacian 坐标 |
 | `io/sidecar.py` | 汇总导出 npz / meta / manifest |
-| `distill_grasp.py` | 100 ep → canonical δ\*（tray/peg 各一条） |
+| `grasp/distill.py` | 100 ep → canonical δ\*（tray/peg 各一条） |
+| `grasp/ik.py` | δ\* → 23-d arm action（Laplacian IK，MuJoCo settle） |
+| `grasp/repair.py` | contact 修 + 开环 hold 验稳 |
 | `vis/mesh.py` | 3D interaction mesh HTML 可视化 |
 
 脚本：
 
 - `scripts/build_interaction_sidecar.py` — 批量导出 sidecar
+- `scripts/distill_grasp.py` — 归纳 canonical δ\*
+- `scripts/solve_grasp_ik.py` — δ\* → q_grasp（建议 `--warm-start-ep`）
+- `scripts/validate_grasp_openloop.py` — demo grasp 帧验稳（回归）
+- `scripts/validate_grasp_random.py` — **随机物体位姿** IK + approach + repair
 - `scripts/vis_interaction_mesh.py` — 从 sidecar 生成交互式 3D HTML
 
 ## 表示（对齐 TopoRetarget）
@@ -153,17 +167,66 @@ python scripts/distill_grasp.py --exclude-fallback
 
 **归纳规则**：21 手点逐点中位；物面 50 点用全部 episode 接触中心 pooled 后加权重采样（固定 seed）；再 Delaunay → Laplacian。
 
+## Laplacian grasp IK（step 3）
+
+无屏服务器先设 MuJoCo 用 EGL，否则会卡 GLFW：
+
+```bash
+export MUJOCO_GL=egl
+export PYTHONPATH=~/dexjoco:~/dexjoco/dexjoco
+python scripts/solve_grasp_ik.py \
+  --sidecar-dir /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly \
+  --object both --warm-start-ep 79
+```
+
+## 开环 grasp 验证（step 4）
+
+```bash
+export MUJOCO_GL=egl
+export PYTHONPATH=~/dexjoco:~/dexjoco/dexjoco
+python scripts/validate_grasp_openloop.py \
+  --sidecar-dir /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly \
+  --warm-start-ep 79
+```
+
+成功时 `success=True`，且 `stable_tray` / `stable_peg` 均为 True（连续 contact、物体未掉落）。
+
+默认执行 **demo grasp 帧** 姿态并验稳；要试 IK 混合执行加 `--apply-ik`（实验性，mocap 偏差大时 contact 可能不足）。
+
+## 随机物体位姿抓取（推理 MVP）
+
+物体 xy/yaw 由 dexjoco `PandaBimanualAssemblyGymEnv.reset(seed)` 采样（见 `panda_bimanual_assembly_env.py` 的 `_PEG/_SOCKET_SAMPLING_BOUNDS`），**不查 demo**。
+
+```bash
+export MUJOCO_GL=egl
+export PYTHONPATH=~/dexjoco:~/dexjoco/dexjoco
+python scripts/validate_grasp_random.py \
+  --sidecar-dir /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly \
+  --seed 0
+
+# 批量
+python scripts/validate_grasp_random.py --seeds 0 1 2 3 4
+```
+
+链路（对应 refs + plan）：
+1. `reset(seed)` — dexjoco 物体位姿随机
+2. `grasp/ik.py` — T_world_obj × δ* Laplacian IK（pyroki 09）
+3. `grasp/pre_grasp.py` + `grasp/approach.py` — GenHand 退距 + 线性靠近
+4. `grasp/repair.py` — spider 式 contact 微调 + hold 验稳
+
 ## 未做（后续步骤）
 
-1. ~~`distill_grasp.py` — 100 ep → canonical δ\*~~ ✅
-2. `laplacian_ik.py` — δ\* → q_grasp
-3. `grasp_repair.py` — contact 修 + 验稳
-4. `validate_grasp_openloop.py` — random init 开环 grasp
-5. lift clip + OpenTrack 式 tracking
+1. ~~`grasp/distill.py` — 100 ep → canonical δ\*~~ ✅
+2. ~~`grasp/ik.py` — δ\* → q_grasp~~ ✅（MVP：demo warm-start + Laplacian 验证）
+3. ~~`grasp/pre_grasp.py` — GenHand 式 pre-grasp~~ ✅（offset 定义）
+4. ~~`grasp/repair.py` — contact 修 + 验稳~~ ✅
+5. ~~`validate_grasp_openloop.py` — 开环 grasp~~ ✅
+6. lift clip + OpenTrack 式 tracking
 
 ## 参考
 
 - **TopoRetarget**：21 手 + 50 物 interaction mesh
 - **holosoma**：mesh 采样、Laplacian
 - **spider**：指尖 contact 检测
-- **pyroki**：后续 IK（未接入）
+- **pyroki**：Laplacian / local-global alignment cost（`refs/pyroki/examples/09_hand_retargeting.py`）
+- **GenHand**：pre-grasp offset（`refs/GenHand/simulation/robot_base.py`）

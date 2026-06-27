@@ -52,6 +52,8 @@ demo 只用于 **离线总结技能**，推理 **不查 demo 模板**。
               T_world_obj × δ_lift*(t)  →  OpenTrack 式跟 lift
 ```
 
+> reach 用 pyroki trajopt；grasp 构型用 pyroki 09；contact/抓稳用 dexjoco sim + spider，三块拼起来才是完整 answer。
+
 - **不做 regrasp**
 - **不查最近邻 demo**
 
@@ -61,11 +63,11 @@ demo 只用于 **离线总结技能**，推理 **不查 demo 模板**。
 
 ```
 interaction_retarget/
-  sidecar.py              # demo → δ* 导出
-  distill_grasp.py        # 100 ep → canonical δ*
-  distill_lift.py         # 100 ep → lift clip
-  laplacian_ik.py         # δ* → q（参考 pyroki/holosoma）
-  grasp_repair.py           # contact 修 + 验稳（参考 spider）
+  io/                     # sidecar 导出
+  grasp/
+    distill.py            # 100 ep → canonical δ*
+    ik.py                 # δ* → q（参考 pyroki/holosoma）
+    repair.py             # contact 修 + 验稳（参考 spider）
 scripts/
   build_interaction_sidecar.py
   validate_grasp_openloop.py
@@ -83,7 +85,7 @@ demo 读取：**zarr + dexjoco env replay**（`scripts/replay_demos_zarr.py` 或
 |---|------|----------|
 | 1 | sidecar 导出 δ* | 100 ep 可读 |
 | 2 | distill canonical δ* | tray / peg 各一条 |
-| 3 | laplacian_ik + grasp_repair | random init → q_grasp |
+| 3 | grasp/ik + grasp/repair | random init → q_grasp |
 | 4 | 开环 grasp 验证 | L/R contact 不断、不掉物 |
 | 5 | distill lift clip | 物体系 clip 就绪 |
 | 6 | lift ref tracking | 提起达标 |
