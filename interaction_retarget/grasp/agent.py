@@ -76,6 +76,9 @@ class GraspArmAgent:
         ik: GraspIkResult | None = None,
         side_cfg: GraspSideConfig | None = None,
         skip_approach: bool = False,
+        skip_repair: bool = False,
+        finger_repair_only: bool = False,
+        direct_reach_steps: int | None = None,
     ) -> tuple[np.ndarray, np.ndarray, int, dict]:
         cfg = side_cfg or self._cfg()
         return execute_side_grasp(
@@ -91,18 +94,30 @@ class GraspArmAgent:
             grasp_steps=cfg.approach_grasp_steps,
             max_repair_iters=cfg.max_repair_iters,
             skip_approach=skip_approach,
+            skip_repair=skip_repair,
+            finger_repair_only=finger_repair_only,
+            direct_reach_steps=direct_reach_steps,
             repair_hold_steps=cfg.repair_hold_steps,
-            skip_repair=skip_approach,
         )
 
 
-def make_tray_agent(canonical: dict) -> GraspArmAgent:
-    from interaction_retarget.grasp.ik_config import TRAY_SIDE
+def make_tray_agent(canonical: dict, *, fast: bool = False) -> GraspArmAgent:
+    from interaction_retarget.grasp.ik_config import side_config
 
-    return GraspArmAgent(side="left", object_name="tray", canonical=canonical, side_cfg=TRAY_SIDE)
+    return GraspArmAgent(
+        side="left",
+        object_name="tray",
+        canonical=canonical,
+        side_cfg=side_config("tray", fast=fast),
+    )
 
 
-def make_peg_agent(canonical: dict) -> GraspArmAgent:
-    from interaction_retarget.grasp.ik_config import PEG_SIDE
+def make_peg_agent(canonical: dict, *, fast: bool = False) -> GraspArmAgent:
+    from interaction_retarget.grasp.ik_config import side_config
 
-    return GraspArmAgent(side="right", object_name="peg", canonical=canonical, side_cfg=PEG_SIDE)
+    return GraspArmAgent(
+        side="right",
+        object_name="peg",
+        canonical=canonical,
+        side_cfg=side_config("peg", fast=fast),
+    )

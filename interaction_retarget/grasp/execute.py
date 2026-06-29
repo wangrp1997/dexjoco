@@ -6,7 +6,7 @@ from typing import Any, Literal
 
 import numpy as np
 
-from interaction_retarget.grasp.approach import execute_side_approach
+from interaction_retarget.grasp.approach import execute_side_approach, reach_arm_then_close, reach_side_via_env
 from interaction_retarget.grasp.metrics import measure_reach
 from interaction_retarget.grasp.pre_grasp import derive_pre_grasp_from_grasp
 from interaction_retarget.grasp.repair import repair_side_grasp
@@ -34,6 +34,7 @@ def execute_side_grasp(
     repair_hold_steps: int = 5,
     skip_repair: bool = False,
     finger_repair_only: bool = False,
+    direct_reach_steps: int | None = None,
 ) -> tuple[np.ndarray, np.ndarray, int, dict[str, Any]]:
     """GenHand: home→pre→grasp→close; spider: repair until contact.
 
@@ -48,7 +49,20 @@ def execute_side_grasp(
     pre_n = max(int(pre_steps), 1)
     grasp_n = max(int(grasp_steps), 1)
     total_steps = 0
-    if not skip_approach:
+    if direct_reach_steps is not None:
+        reach_n = max(int(direct_reach_steps), 1)
+        close_n = max(int(repair_hold_steps) * 3, 16)
+        reach_arm_then_close(
+            raw_env,
+            side=side,
+            target23=grasp23,
+            hold_right=hold_right,
+            hold_left=hold_left,
+            reach_steps=reach_n,
+            close_steps=close_n,
+        )
+        total_steps = reach_n + close_n
+    elif not skip_approach:
         pre23 = derive_pre_grasp_from_grasp(grasp23, side=side, offset_scale=0.55).action23
         execute_side_approach(
             raw_env,
@@ -109,8 +123,9 @@ def execute_side_grasp(
         "laplacian_rmse_m": m.laplacian_rmse_m,
         "contact_count": m.contact_count,
         "reach_steps": total_steps,
-        "pre_steps": pre_n if not skip_approach else 0,
-        "grasp_steps": grasp_n if not skip_approach else 0,
+        "pre_steps": pre_n if not skip_approach and direct_reach_steps is None else 0,
+        "grasp_steps": grasp_n if not skip_approach and direct_reach_steps is None else 0,
+        "direct_reach_steps": int(direct_reach_steps) if direct_reach_steps is not None else 0,
         "skip_approach": skip_approach,
         "lap_converged": m.laplacian_converged,
         "hand_converged": m.hand_converged,

@@ -17,6 +17,7 @@ from scipy.optimize import minimize
 from scipy.spatial.transform import Rotation as R
 
 from interaction_retarget.constants import (
+    FINGERTIP_KEYPOINT_INDICES,
     LEFT_HAND_BODIES,
     MIN_GRASP_CONTACT_COUNT,
     PEG_BODY,
@@ -59,6 +60,17 @@ class IkWeights:
     joint_regularization: float = 0.01
     inactive_arm_hold: float = 0.05
     contact: float = 0.0
+    contact_site: float = 0.0
+
+
+def _contact_site_rmse_m(hand_obj: np.ndarray, contact_sites_obj: np.ndarray | None) -> float:
+    """SPIDER mjwp contact_pos: demo sites vs fingertip keypoints in object frame."""
+    sites = np.asarray(contact_sites_obj, dtype=np.float64).reshape(-1, 3) if contact_sites_obj is not None else None
+    if sites is None or sites.size == 0:
+        return 0.0
+    tips = np.asarray(hand_obj, dtype=np.float64)[list(FINGERTIP_KEYPOINT_INDICES)]
+    dists = [float(np.min(np.linalg.norm(tips - s, axis=1))) for s in sites]
+    return float(np.sqrt(np.mean(np.square(dists))))
 
 
 @dataclass
@@ -70,6 +82,8 @@ class GraspIkResult:
     cost: float
     laplacian_rmse_m: float
     hand_rmse_m: float
+    contact_count: int
+    contact_site_rmse_m: float
     success: bool
 
 
@@ -282,7 +296,7 @@ def initial_active_from_canonical(
     *,
     object_name: ObjectName,
 ) -> np.ndarray:
-    """IK seed: palm target in world + mocap–palm offset from current arm + median fingers."""
+    """IK seed: palm at T×hand[0] + mocap–palm offset; quat/fingers from rep-frame δ*."""
     side = _active_side(object_name)
     home = read_arm_action(raw_env, side)
     palm_target = palm_world_from_canonical(raw_env, canonical, object_name=object_name)
@@ -309,7 +323,7 @@ def compose_grasp_action_from_canonical(
     *,
     object_name: ObjectName,
 ) -> np.ndarray:
-    """Alias: prefer palm from hand_points_obj (same as demo sidecar alignment)."""
+    """Alias: T_world_obj × mocap + rep-frame finger joints from δ*."""
     return initial_active_from_canonical(raw_env, canonical, object_name=object_name)
 
 
@@ -391,7 +405,7 @@ def _physics_hold_active(
     arm_cmd = active23[0:7]
     target_hand = active23[7:23]
     warmup = max(int(hold_steps) // 2, 0)
-    min_contact = 10**9
+    final_contact = 0
     n_hold = max(int(hold_steps), 1)
     for i in range(n_hold):
         t = (i + 1) / n_hold
@@ -413,9 +427,10 @@ def _physics_hold_active(
             )
         if detector is not None and i >= warmup:
             c = detector.compute(raw_env)
-            count = int(c.tray_contact_count if side == "left" else c.peg_contact_count)
-            min_contact = min(min_contact, count)
-    return 0 if min_contact == 10**9 else min_contact
+            final_contact = int(
+                c.tray_contact_count if side == "left" else c.peg_contact_count
+            )
+    return final_contact
 
 
 def _reach_active(
@@ -493,6 +508,7 @@ def solve_grasp_ik(
     target_obj = np.asarray(canonical["object_samples_obj"], dtype=np.float64)
     target_lap = np.asarray(canonical["laplacian_coords"], dtype=np.float64)
     adjacency = canonical["adjacency"]
+    contact_sites_obj = canonical.get("contact_sites_obj")
 
     model = raw_env._model
     hand_lo, hand_hi = _hand_joint_bounds(model, side)
@@ -528,6 +544,9 @@ def solve_grasp_ik(
             adjacency=adjacency,
         )
         metrics["site_tracking_rmse_m"] = _site_tracking_rmse_m(raw_env, side, achieved[0:3])
+        hand_world = hand_keypoints_world(model, raw_env._data, _hand_bodies(side))
+        hand_obj = world_to_object(hand_world, *_object_pose(raw_env, obj_body))
+        metrics["contact_site_rmse_m"] = _contact_site_rmse_m(hand_obj, contact_sites_obj)
         if detector is not None:
             c = detector.compute(raw_env)
             metrics["contact_count"] = float(
@@ -597,6 +616,9 @@ def solve_grasp_ik(
             )
         else:
             metrics["contact_count"] = 0.0
+        hand_world = hand_keypoints_world(model, raw_env._data, _hand_bodies(side))
+        hand_obj = world_to_object(hand_world, *_object_pose(raw_env, obj_body))
+        metrics["contact_site_rmse_m"] = _contact_site_rmse_m(hand_obj, contact_sites_obj)
         return metrics, site_rmse
 
     def _result_from_current(metrics: dict[str, float], *, cost: float) -> GraspIkResult:
@@ -612,6 +634,8 @@ def solve_grasp_ik(
             cost=cost,
             laplacian_rmse_m=metrics["laplacian_rmse_m"],
             hand_rmse_m=metrics["hand_rmse_m"],
+            contact_count=int(metrics.get("contact_count", 0)),
+            contact_site_rmse_m=float(metrics.get("contact_site_rmse_m", 0.0)),
             success=_ik_success(
                 metrics,
                 success_hand_rmse_m=success_hand_rmse_m,
@@ -621,12 +645,18 @@ def solve_grasp_ik(
         )
 
     def _finalize_result(x_vec: np.ndarray, *, cost: float) -> GraspIkResult:
-        fin_steps = max(12, settle_steps_opt // 3) if rollout_opt == "settle" else settle_steps_opt
-        metrics, _ = _metrics_after_x22(x_vec, n_steps=fin_steps)
+        if rollout_opt == "physics" and detector is not None:
+            metrics, _ = _metrics_after_x22(x_vec, rollout="physics", n_steps=settle_steps_opt)
+        else:
+            fin_steps = max(12, settle_steps_opt // 3)
+            metrics, _ = _metrics_after_x22(x_vec, n_steps=fin_steps)
         return _result_from_current(metrics, cost=cost)
 
     restore_sim(raw_env, sim_work)
-    init_metrics = _metrics_at_current()
+    if rollout_opt == "physics" and detector is not None:
+        init_metrics, _ = _metrics_after_x22(x, rollout="physics", n_steps=settle_steps_opt)
+    else:
+        init_metrics = _metrics_at_current()
     if _ik_success(
         init_metrics,
         success_hand_rmse_m=success_hand_rmse_m,
@@ -651,6 +681,7 @@ def solve_grasp_ik(
         reg = float(np.sum((x_vec[6:22] - _ALLEGRO_HOME) ** 2))
         contact_gap = max(0.0, float(MIN_GRASP_CONTACT_COUNT) - metrics.get("contact_count", 0.0))
         contact_term = contact_gap**2
+        contact_site_term = float(metrics.get("contact_site_rmse_m", 0.0)) ** 2
         return (
             weights.laplacian * lap_term
             + weights.global_hand * global_term
@@ -658,6 +689,7 @@ def solve_grasp_ik(
             + weights.site_tracking * site_term
             + weights.joint_regularization * reg
             + weights.contact * contact_term
+            + weights.contact_site * contact_site_term
         )
 
     last_cost = np.inf

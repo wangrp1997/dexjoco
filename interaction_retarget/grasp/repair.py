@@ -8,6 +8,7 @@ and the object does not drop.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from collections.abc import Callable
 from typing import Literal
 
 import mujoco
@@ -25,14 +26,14 @@ from interaction_retarget.grasp.ik import GraspIkResult
 from interaction_retarget.laplacian import laplacian_coordinates
 from interaction_retarget.sim.contact import AssemblyContactDetector, FrameContact
 from interaction_retarget.sim.hand_geom import hand_keypoints_world
-from interaction_retarget.sim.settle import settle_bimanual_actions, vec_to_arm_action
+from interaction_retarget.sim.settle import read_arm_action, settle_bimanual_actions, vec_to_arm_action
 from interaction_retarget.transforms import object_to_world
 
 ObjectName = Literal["tray", "peg"]
 Side = Literal["left", "right"]
 
 _REPAIR_FINGER_DELTAS = (-0.05, -0.03, -0.02, -0.01, -0.008, -0.004, 0.004, 0.008, 0.01, 0.02, 0.03, 0.05)
-_REPAIR_MOCAP_STEPS_M = (0.001, 0.002, 0.005, 0.008, 0.012)
+_REPAIR_MOCAP_STEPS_M = (0.001, 0.002, 0.005, 0.008, 0.012, 0.018, 0.025)
 _OBJECT_DROP_MARGIN_M = 0.010
 
 
@@ -161,7 +162,14 @@ def _side_metrics(
 
 
 def _step_bimanual(raw_env, right23: np.ndarray, left23: np.ndarray) -> None:
-    raw_env.step(bimanual_actions_to_dict(right23, left23))
+    """Physics step without env.step sleep (same opspace as teleop, see settle.py)."""
+    n = max(int(getattr(raw_env, "_n_substeps", 1)), 1)
+    settle_bimanual_actions(
+        raw_env,
+        right23=vec_to_arm_action(right23),
+        left23=vec_to_arm_action(left23),
+        n_substeps=n,
+    )
 
 
 def _step_side(
@@ -180,6 +188,9 @@ def _step_side(
         _step_bimanual(raw_env, hold_right, active23)
     else:
         _step_bimanual(raw_env, active23, hold_left)
+    from interaction_retarget.sim.video import maybe_capture_frame
+
+    maybe_capture_frame()
 
 
 def _apply_and_measure_side(
@@ -227,6 +238,49 @@ def _close_fingers(action23: np.ndarray, delta: float, hand_lo: np.ndarray, hand
     action23 = vec_to_arm_action(action23)
     hand = np.clip(action23[7:23] + delta, hand_lo, hand_hi)
     return np.concatenate([action23[0:7], hand], axis=0)
+
+
+def side_contact_count(detector: AssemblyContactDetector, raw_env, *, object_name: ObjectName) -> int:
+    contact = detector.compute(raw_env)
+    return _contact_count(contact, object_name)
+
+
+def prepare_lift_grasp(
+    raw_env,
+    *,
+    side: Side,
+    grasp_arm: np.ndarray,
+    hold_other: np.ndarray,
+    detector: AssemblyContactDetector | None = None,
+    object_name: ObjectName | None = None,
+    finger_deltas: tuple[float, ...] = (-0.006, -0.012, -0.018, -0.024),
+    settle_steps: int = 12,
+    min_contact: int = MIN_GRASP_CONTACT_COUNT,
+) -> np.ndarray:
+    """GenHand-style: settle + progressive finger squeeze before liftup."""
+    if object_name is None:
+        object_name = "tray" if side == "left" else "peg"
+    grasp_arm = vec_to_arm_action(grasp_arm)
+    hold_other = vec_to_arm_action(hold_other)
+    lo, hi = _hand_joint_bounds(raw_env._model, side)
+    active = grasp_arm.copy()
+
+    for _ in range(max(int(settle_steps), 1)):
+        if side == "left":
+            settle_bimanual_actions(raw_env, right23=hold_other, left23=active, n_substeps=1)
+        else:
+            settle_bimanual_actions(raw_env, right23=active, left23=hold_other, n_substeps=1)
+
+    for delta in finger_deltas:
+        active = _close_fingers(active, delta, lo, hi)
+        if side == "left":
+            settle_bimanual_actions(raw_env, right23=hold_other, left23=active, n_substeps=2)
+        else:
+            settle_bimanual_actions(raw_env, right23=active, left23=hold_other, n_substeps=2)
+        if detector is not None and side_contact_count(detector, raw_env, object_name=object_name) >= min_contact:
+            break
+
+    return read_arm_action(raw_env, side) if side == "left" else read_arm_action(raw_env, "right")
 
 
 def _nudge_mocap_toward_object(
@@ -286,10 +340,11 @@ def repair_side_grasp(
     max_iters: int = 24,
     min_contact_count: int = MIN_GRASP_CONTACT_COUNT,
     hold_steps: int = 1,
-    max_laplacian_drift_m: float = 0.045,
+    max_laplacian_drift_m: float = 0.065,
     canonical: dict | None = None,
     require_on_table: bool = True,
     finger_only: bool = False,
+    accept_fn: Callable[[], bool] | None = None,
 ) -> tuple[np.ndarray, np.ndarray, int]:
     """Greedy repair for one hand; the other arm holds at hold_right/hold_left."""
     model = raw_env._model
@@ -337,6 +392,8 @@ def repair_side_grasp(
                     return
             metrics = _side_metrics(raw_env, detector, c, object_name=object_name)
             if require_on_table and not metrics.on_table:
+                return
+            if accept_fn is not None and not accept_fn():
                 return
             candidates.append((tc, new_left.copy(), new_right.copy()))
 
@@ -386,7 +443,7 @@ def repair_bimanual_grasp(
     max_iters: int = 24,
     min_contact_count: int = MIN_GRASP_CONTACT_COUNT,
     hold_steps: int = 1,
-    max_laplacian_drift_m: float = 0.045,
+    max_laplacian_drift_m: float = 0.065,
     canonical_tray: dict | None = None,
     canonical_peg: dict | None = None,
     require_on_table: bool = True,
@@ -443,10 +500,17 @@ def verify_grasp_hold(
     warmup_steps: int = 10,
     contact_window: int = CONTACT_WINDOW,
     min_contact_count: int = MIN_GRASP_CONTACT_COUNT,
+    tray_lifted: bool = False,
+    adjust_left: bool = True,
+    adjust_right: bool = True,
+    require_tray: bool = True,
+    require_peg: bool = True,
 ) -> GraspRepairResult:
     """Hold grasp pose in sim; require sustained contact and no object drop."""
     right23 = vec_to_arm_action(action_right)
     left23 = vec_to_arm_action(action_left)
+    left_lo, left_hi = _hand_joint_bounds(raw_env._model, "left")
+    right_lo, right_hi = _hand_joint_bounds(raw_env._model, "right")
 
     for _ in range(max(int(warmup_steps), 0)):
         settle_bimanual_actions(
@@ -462,6 +526,11 @@ def verify_grasp_hold(
     peg_z_delta: list[float] = []
 
     for _ in range(int(hold_steps)):
+        contact_pre = detector.compute(raw_env)
+        if adjust_left and tray_lifted and _contact_count(contact_pre, "tray") < min_contact_count:
+            left23 = _close_fingers(left23, -0.006, left_lo, left_hi)
+        if adjust_right and _contact_count(contact_pre, "peg") < min_contact_count:
+            right23 = _close_fingers(right23, -0.006, right_lo, right_hi)
         settle_bimanual_actions(
             raw_env,
             right23=right23,
@@ -480,26 +549,36 @@ def verify_grasp_hold(
     tray = _side_metrics(raw_env, detector, contact, object_name="tray")
     peg = _side_metrics(raw_env, detector, contact, object_name="peg")
 
-    def _stable(counts: list[int], z_delta: list[float]) -> bool:
-        if len(counts) < contact_window:
+    tray_min = max(2, min_contact_count - 1) if tray_lifted else min_contact_count
+
+    window = min(int(contact_window), len(tray_counts))
+    eval_from = max(0, len(tray_counts) - window)
+
+    def _stable(counts: list[int], z_delta: list[float], *, min_c: int) -> bool:
+        if len(counts) < window:
             return False
-        recent_counts = counts[-contact_window:]
-        recent_z = z_delta[-contact_window:]
+        recent_counts = counts[-window:]
+        recent_z = z_delta[-window:]
         if any(z < -_OBJECT_DROP_MARGIN_M for z in recent_z):
             return False
-        return all(c >= min_contact_count for c in recent_counts)
+        return all(c >= min_c for c in recent_counts)
 
     tray_dropped = tray.object_z < (tray.object_rest_z - _OBJECT_DROP_MARGIN_M)
     peg_dropped = peg.object_z < (peg.object_rest_z - _OBJECT_DROP_MARGIN_M)
 
-    stable_tray = _stable(tray_counts, tray_z_delta) and not tray_dropped
-    stable_peg = _stable(peg_counts, peg_z_delta) and not peg_dropped
-    success = (
-        stable_tray
-        and stable_peg
-        and tray.contact_count >= min_contact_count
-        and peg.contact_count >= min_contact_count
+    stable_tray = (
+        _stable(tray_counts[eval_from:], tray_z_delta[eval_from:], min_c=tray_min) and not tray_dropped
     )
+    stable_peg = (
+        _stable(peg_counts[eval_from:], peg_z_delta[eval_from:], min_c=min_contact_count) and not peg_dropped
+    )
+    tray_ok = (not require_tray) or (
+        stable_tray and tray.contact_count >= tray_min
+    )
+    peg_ok = (not require_peg) or (
+        stable_peg and peg.contact_count >= min_contact_count
+    )
+    success = tray_ok and peg_ok
 
     return GraspRepairResult(
         action_right=right23,
@@ -511,6 +590,62 @@ def verify_grasp_hold(
         stable_tray=stable_tray,
         stable_peg=stable_peg,
         success=success,
+    )
+
+
+@dataclass
+class SideHoldResult:
+    object_name: ObjectName
+    contact_count: int
+    stable: bool
+    hold_steps: int
+
+
+def verify_side_hold(
+    raw_env,
+    detector: AssemblyContactDetector,
+    *,
+    action_right: np.ndarray,
+    action_left: np.ndarray,
+    object_name: ObjectName,
+    hold_steps: int,
+    warmup_steps: int = 8,
+    contact_window: int = CONTACT_WINDOW,
+    min_contact_count: int = MIN_GRASP_CONTACT_COUNT,
+) -> SideHoldResult:
+    """Spider-style hold for one grasped object while the other arm stays fixed (GenHand phase gap)."""
+    right23 = vec_to_arm_action(action_right)
+    left23 = vec_to_arm_action(action_left)
+    for _ in range(max(int(warmup_steps), 0)):
+        settle_bimanual_actions(raw_env, right23=right23, left23=left23, n_substeps=1)
+
+    counts: list[int] = []
+    z_delta: list[float] = []
+    for _ in range(max(int(hold_steps), 1)):
+        settle_bimanual_actions(raw_env, right23=right23, left23=left23, n_substeps=1)
+        contact = detector.compute(raw_env)
+        m = _side_metrics(raw_env, detector, contact, object_name=object_name)
+        counts.append(m.contact_count)
+        z_delta.append(m.object_z - m.object_rest_z)
+
+    contact = detector.compute(raw_env)
+    m = _side_metrics(raw_env, detector, contact, object_name=object_name)
+
+    def _stable() -> bool:
+        if len(counts) < contact_window:
+            return False
+        recent_c = counts[-contact_window:]
+        recent_z = z_delta[-contact_window:]
+        if any(z < -_OBJECT_DROP_MARGIN_M for z in recent_z):
+            return False
+        return all(c >= min_contact_count for c in recent_c)
+
+    dropped = m.object_z < (m.object_rest_z - _OBJECT_DROP_MARGIN_M)
+    return SideHoldResult(
+        object_name=object_name,
+        contact_count=int(m.contact_count),
+        stable=bool(_stable() and not dropped),
+        hold_steps=int(hold_steps),
     )
 
 

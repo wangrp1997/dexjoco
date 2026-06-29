@@ -30,10 +30,11 @@ def _parse_args() -> argparse.Namespace:
         default=None,
         help="Output dir for canonical_*.npz (default: same as --sidecar-dir)",
     )
+    p.add_argument("--exclude-fallback", action="store_true", help="Skip episodes with tray/peg grasp_used_fallback in manifest")
     p.add_argument(
-        "--exclude-fallback",
+        "--no-filter-peg-off-table",
         action="store_true",
-        help="Skip episodes with tray/peg grasp_used_fallback in manifest",
+        help="Do not exclude peg grasp frames where peg z > rest + margin",
     )
     p.add_argument("--sample-seed", type=int, default=0, help="Seed for canonical object surface sampling")
     return p.parse_args()
@@ -46,6 +47,7 @@ def main() -> None:
         sidecar_dir,
         out_dir=args.out_dir,
         exclude_fallback=args.exclude_fallback,
+        filter_peg_off_table=not args.no_filter_peg_off_table,
         sample_seed=args.sample_seed,
     )
     for name, proto in prototypes.items():
@@ -55,6 +57,7 @@ def main() -> None:
             f"(excluded {len(r.excluded_episode_indices)}); "
             f"hand_std_mean={r.hand_points_std_mean_m*1e3:.2f}mm "
             f"laplacian_spread={r.laplacian_spread_mean_m*1e3:.2f}mm "
+            f"contact_sites={proto.contact_sites_obj.shape[0]} "
             f"rep=ep{r.representative_episode_index}"
         )
     out_dir = args.out_dir if args.out_dir is not None else sidecar_dir

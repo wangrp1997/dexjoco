@@ -11,11 +11,14 @@ import numpy as np
 
 from interaction_retarget.constants import (
     CONTACT_SAMPLE_SIGMA_M,
+    CONTACT_SITE_CLUSTER_RADIUS_M,
+    MAX_CANONICAL_CONTACT_SITES,
     NUM_HAND_KEYPOINTS,
     NUM_INTERACTION_VERTICES,
     NUM_OBJECT_SAMPLES,
     PEG_BODY,
     PEG_MESH_PATH,
+    PEG_ON_TABLE_MARGIN_M,
     TRAY_BODY,
     TRAY_MESH_PATH,
 )
@@ -24,7 +27,7 @@ from interaction_retarget.mesh.sampling import contact_weighted_surface_sampling
 from interaction_retarget.io.npz import adjacency_from_padded, load_interaction_npz
 from interaction_retarget.io.zarr_io import load_zarr_episode
 from interaction_retarget.sim.replay import raw_flat_to_dict, make_assembly_env
-from interaction_retarget.sim.settle import read_arm_action
+from interaction_retarget.sim.settle import read_arm_action, settle_bimanual_actions
 from interaction_retarget.transforms import relative_mocap_in_object_frame
 
 
@@ -54,6 +57,7 @@ class CanonicalGraspPrototype:
     hand_joint_median: np.ndarray
     mocap_pos_obj: np.ndarray
     mocap_quat_obj: np.ndarray
+    contact_sites_obj: np.ndarray
     per_episode_laplacian_rmse: np.ndarray
     source_episode_indices: np.ndarray
     report: DistillReport
@@ -69,6 +73,28 @@ def _mesh_path(object_name: str) -> Path:
 
 def _hand_side(object_name: str) -> str:
     return "left" if object_name == "tray" else "right"
+
+
+def _cluster_contact_sites(
+    points: np.ndarray,
+    *,
+    max_sites: int = MAX_CANONICAL_CONTACT_SITES,
+    radius_m: float = CONTACT_SITE_CLUSTER_RADIUS_M,
+) -> np.ndarray:
+    """SPIDER contact_pos style: merge demo contact centers into few object-frame sites."""
+    pts = np.asarray(points, dtype=np.float64).reshape(-1, 3)
+    if pts.size == 0:
+        return np.zeros((0, 3), dtype=np.float64)
+    remaining = pts.copy()
+    centers: list[np.ndarray] = []
+    while remaining.shape[0] > 0 and len(centers) < int(max_sites):
+        seed = remaining[0]
+        d = np.linalg.norm(remaining - seed, axis=1)
+        mask = d <= float(radius_m)
+        cluster = remaining[mask]
+        centers.append(np.mean(cluster, axis=0))
+        remaining = remaining[~mask]
+    return np.stack(centers, axis=0) if centers else np.zeros((0, 3), dtype=np.float64)
 
 
 def _pooled_contact_centers(contact_list: list[np.ndarray], *, max_points: int = 256) -> np.ndarray:
@@ -106,11 +132,47 @@ def _episode_excluded(entry: dict[str, Any], *, object_name: str, exclude_fallba
     return flag in warnings
 
 
+def _peg_z_delta_at_grasp_m(entry: dict[str, Any], *, seed_base: int = 0) -> float | None:
+    """Peg height above rest at manifest right_grasp_frame (None if frame missing)."""
+    from dexjoco.tasks import CONFIG_MAPPING
+    from dexjoco.tasks.state_restorers import has_restorer, restore_initial_state
+
+    timing = entry.get("timing", {})
+    if timing.get("right_grasp_frame") is None:
+        return None
+    frame = int(timing["right_grasp_frame"])
+    actions, _, initial_state = load_zarr_episode(Path(entry["zarr_path"]))
+    ep_idx = int(entry["episode_index"])
+    env = make_assembly_env(seed=int(seed_base) + ep_idx, randomize=False)
+    raw = env.unwrapped
+    try:
+        env.reset()
+        config = CONFIG_MAPPING["bimanual_assembly"]()
+        if initial_state is not None and has_restorer("bimanual_assembly"):
+            restore_initial_state(env, "bimanual_assembly", config, initial_state)
+        peg_id = raw._model.body(PEG_BODY).id
+        rest_z = float(raw._data.xpos[peg_id, 2])
+        for action in actions[: frame + 1]:
+            act = raw_flat_to_dict(action)
+            settle_bimanual_actions(
+                raw,
+                right23=np.asarray(act["right"], dtype=np.float64).reshape(23),
+                left23=np.asarray(act["left"], dtype=np.float64).reshape(23),
+                n_substeps=max(int(getattr(raw, "_n_substeps", 1)), 1),
+            )
+        return float(raw._data.xpos[peg_id, 2]) - rest_z
+    finally:
+        env.close()
+
+
 def load_episode_snapshots(
     sidecar_dir: Path,
     *,
     object_name: str,
     exclude_fallback: bool = False,
+    filter_peg_off_table: bool = True,
+    peg_grasp_max_z_delta_m: float = PEG_ON_TABLE_MARGIN_M,
+    seed_base: int = 0,
 ) -> tuple[list[int], list[dict[str, np.ndarray | list[list[int]]]], list[int]]:
     """Return (used_indices, snapshots, excluded_indices)."""
     manifest_path = sidecar_dir / "manifest.json"
@@ -125,6 +187,11 @@ def load_episode_snapshots(
         if _episode_excluded(entry, object_name=object_name, exclude_fallback=exclude_fallback):
             excluded.append(ep_idx)
             continue
+        if object_name == "peg" and filter_peg_off_table:
+            z_delta = _peg_z_delta_at_grasp_m(entry, seed_base=seed_base)
+            if z_delta is None or z_delta > float(peg_grasp_max_z_delta_m):
+                excluded.append(ep_idx)
+                continue
         npz_path = Path(entry["npz_path"])
         if not npz_path.is_file():
             npz_path = sidecar_dir / f"episode_{ep_idx:03d}" / "interaction_sidecar.npz"
@@ -162,7 +229,11 @@ def _replay_grasp_arm23(
         if initial_state is not None and has_restorer("bimanual_assembly"):
             restore_initial_state(env, "bimanual_assembly", config, initial_state)
         for action in actions[: frame + 1]:
-            raw.step(raw_flat_to_dict(action))
+            act = raw_flat_to_dict(action)
+            right23 = np.asarray(act["right"], dtype=np.float64).reshape(23)
+            left23 = np.asarray(act["left"], dtype=np.float64).reshape(23)
+            n_sub = max(int(getattr(raw, "_n_substeps", 1)), 1)
+            settle_bimanual_actions(raw, right23=right23, left23=left23, n_substeps=n_sub)
         obj_id = raw._model.body(obj_body).id
         obj_pos = np.asarray(raw._data.xpos[obj_id], dtype=np.float64).copy()
         obj_quat = np.asarray(raw._data.xquat[obj_id], dtype=np.float64).copy()
@@ -207,6 +278,7 @@ def distill_canonical_grasp(
 
     contacts = [np.asarray(s["contact_centers_obj"], dtype=np.float64) for s in snapshots]
     pooled_contacts = _pooled_contact_centers(contacts)
+    contact_sites_obj = _cluster_contact_sites(pooled_contacts)
     mesh = load_object_mesh(_mesh_path(object_name))
     object_samples = contact_weighted_surface_sampling(
         mesh,
@@ -234,6 +306,12 @@ def distill_canonical_grasp(
     rmse_arr = np.asarray(rmse_list, dtype=np.float64)
     best_i = int(np.argmin(rmse_arr))
 
+    # Self-consistent δ*: rep grasp frame for hand + Laplacian (mocap/fingers filled in distill_from_sidecar_dir).
+    hand_rep = np.asarray(snapshots[best_i]["hand_obj"], dtype=np.float64)
+    vertices = np.concatenate([hand_rep, object_samples], axis=0)
+    adjacency = create_interaction_adjacency(vertices)
+    laplacian = laplacian_coordinates(vertices, adjacency)
+
     report = DistillReport(
         object_name=object_name,
         num_episodes_used=len(snapshots),
@@ -249,7 +327,7 @@ def distill_canonical_grasp(
     return CanonicalGraspPrototype(
         object_name=object_name,
         hand_side=_hand_side(object_name),
-        hand_points_obj=hand_median,
+        hand_points_obj=hand_rep,
         object_samples_obj=object_samples,
         interaction_vertices_obj=vertices,
         laplacian_coords=laplacian,
@@ -258,6 +336,7 @@ def distill_canonical_grasp(
         hand_joint_median=np.asarray(hand_joint_median, dtype=np.float64),
         mocap_pos_obj=np.zeros(3, dtype=np.float64),
         mocap_quat_obj=np.array([1.0, 0.0, 0.0, 0.0], dtype=np.float64),
+        contact_sites_obj=contact_sites_obj,
         per_episode_laplacian_rmse=rmse_arr,
         source_episode_indices=np.asarray(episode_indices, dtype=np.int32),
         report=report,
@@ -281,6 +360,7 @@ def save_canonical_grasp(prototype: CanonicalGraspPrototype, out_path: Path) -> 
         hand_joint_median=prototype.hand_joint_median,
         mocap_pos_obj=prototype.mocap_pos_obj,
         mocap_quat_obj=prototype.mocap_quat_obj,
+        contact_sites_obj=prototype.contact_sites_obj,
         per_episode_laplacian_rmse=prototype.per_episode_laplacian_rmse,
         source_episode_indices=prototype.source_episode_indices,
         num_hand_keypoints=np.asarray([NUM_HAND_KEYPOINTS], dtype=np.int32),
@@ -314,6 +394,9 @@ def load_canonical_grasp(npz_path: Path) -> dict[str, np.ndarray | list[list[int
         ) if "hand_joint_median" in data else None,
         "mocap_pos_obj": np.asarray(data["mocap_pos_obj"], dtype=np.float64) if "mocap_pos_obj" in data else None,
         "mocap_quat_obj": np.asarray(data["mocap_quat_obj"], dtype=np.float64) if "mocap_quat_obj" in data else None,
+        "contact_sites_obj": np.asarray(data["contact_sites_obj"], dtype=np.float64)
+        if "contact_sites_obj" in data
+        else np.zeros((0, 3), dtype=np.float64),
         "per_episode_laplacian_rmse": np.asarray(data["per_episode_laplacian_rmse"], dtype=np.float64),
         "source_episode_indices": np.asarray(data["source_episode_indices"], dtype=np.int32),
     }
@@ -324,6 +407,9 @@ def distill_from_sidecar_dir(
     *,
     out_dir: Path | None = None,
     exclude_fallback: bool = False,
+    filter_peg_off_table: bool = True,
+    peg_grasp_max_z_delta_m: float = PEG_ON_TABLE_MARGIN_M,
+    seed_base: int = 0,
     sample_seed: int = 0,
 ) -> dict[str, CanonicalGraspPrototype]:
     sidecar_dir = Path(sidecar_dir)
@@ -338,6 +424,9 @@ def distill_from_sidecar_dir(
             sidecar_dir,
             object_name=object_name,
             exclude_fallback=exclude_fallback,
+            filter_peg_off_table=filter_peg_off_table if object_name == "peg" else False,
+            peg_grasp_max_z_delta_m=peg_grasp_max_z_delta_m,
+            seed_base=seed_base,
         )
         proto = distill_canonical_grasp(
             snaps,
@@ -365,6 +454,7 @@ def distill_from_sidecar_dir(
             hand_joint_median=hand_joint,
             mocap_pos_obj=mocap_pos,
             mocap_quat_obj=mocap_quat,
+            contact_sites_obj=proto.contact_sites_obj,
             per_episode_laplacian_rmse=proto.per_episode_laplacian_rmse,
             source_episode_indices=proto.source_episode_indices,
             report=proto.report,

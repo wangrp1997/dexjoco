@@ -47,6 +47,10 @@ RIGHT_TIP_BODIES = ("th_tip_right", "ff_tip_right", "mf_tip_right", "rf_tip_righ
 NUM_HAND_KEYPOINTS = 21
 NUM_OBJECT_SAMPLES = 50  # TopoRetarget appendix N_o=50
 NUM_INTERACTION_VERTICES = NUM_HAND_KEYPOINTS + NUM_OBJECT_SAMPLES
+# palm(0) + per-finger chains; tips at 5,10,15,20 (spider contact_pos / mjwp sites)
+FINGERTIP_KEYPOINT_INDICES: tuple[int, ...] = (5, 10, 15, 20)
+MAX_CANONICAL_CONTACT_SITES = 12
+CONTACT_SITE_CLUSTER_RADIUS_M = 0.012
 
 # Palm(0) + 4 fingers × 5 links; chain edges within each finger only.
 HAND_SKELETON_EDGES: tuple[tuple[int, int], ...] = tuple(
@@ -65,6 +69,7 @@ CONTACT_WINDOW = 10
 GRIPPER_VEL_EPS = 0.02
 LIFT_HEIGHT_M = 0.02  # above rest z at replay start (spider uses 0.05 for success label)
 ON_TABLE_MARGIN_M = 0.015  # object still on table when grasp snapshot is taken
+PEG_ON_TABLE_MARGIN_M = 0.008  # peg δ*: must be on table (not pre-lift / in-air)
 MIN_GRASP_CONTACT_COUNT = 3  # ignore brief brush contacts (tray often reaches 6-8)
 
 TASK_ID = "bimanual_assembly"

@@ -82,6 +82,53 @@ def reach_side_via_env(
         )
 
 
+def reach_arm_then_close(
+    raw_env,
+    *,
+    side: Side,
+    target23: np.ndarray,
+    hold_right: np.ndarray,
+    hold_left: np.ndarray,
+    reach_steps: int = 60,
+    close_steps: int = 16,
+    start23: np.ndarray | None = None,
+) -> None:
+    """Direct reach: arm moves with open hand, then GenHand finger-close phase."""
+    from interaction_retarget.sim.settle import read_arm_action
+
+    target23 = vec_to_arm_action(target23)
+    hold_right = vec_to_arm_action(hold_right)
+    hold_left = vec_to_arm_action(hold_left)
+    start = read_arm_action(raw_env, side) if start23 is None else vec_to_arm_action(start23)
+    open_hand = start[7:23].copy()
+
+    n_reach = max(int(reach_steps), 1)
+    for i in range(n_reach):
+        t = (i + 1) / n_reach
+        cmd = interpolate_arm_only(start, target23, t, hand=open_hand)
+        _step_side(
+            raw_env,
+            side=side,
+            active23=cmd,
+            hold_right=hold_right,
+            hold_left=hold_left,
+        )
+
+    arm_at = read_arm_action(raw_env, side)
+    arm_open = np.concatenate([arm_at[0:7], open_hand], axis=0)
+    n_close = max(int(close_steps), 1)
+    for i in range(n_close):
+        t = (i + 1) / n_close
+        cmd = interpolate_fingers_only(arm_open, target23, t)
+        _step_side(
+            raw_env,
+            side=side,
+            active23=cmd,
+            hold_right=hold_right,
+            hold_left=hold_left,
+        )
+
+
 def execute_side_approach(
     raw_env,
     *,

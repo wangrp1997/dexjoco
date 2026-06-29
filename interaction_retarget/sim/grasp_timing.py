@@ -12,6 +12,7 @@ from interaction_retarget.constants import (
     LIFT_HEIGHT_M,
     MIN_GRASP_CONTACT_COUNT,
     ON_TABLE_MARGIN_M,
+    PEG_ON_TABLE_MARGIN_M,
 )
 
 
@@ -44,6 +45,8 @@ def timing_warnings(timing: GraspTiming) -> list[str]:
             warnings.append("peg_grasp_after_lift")
         elif gap > 40:
             warnings.append(f"peg_grasp_lift_gap_{gap}")
+        elif gap <= 2:
+            warnings.append(f"peg_grasp_too_close_to_lift_{gap}")
     if timing.left_grasp_fallback:
         warnings.append("tray_grasp_used_fallback")
     if timing.right_grasp_fallback:
@@ -58,6 +61,42 @@ def _first_true(mask: np.ndarray) -> int | None:
     return idx if mask[idx] else None
 
 
+def _sustained_grasp_window_ok(
+    contact_counts: np.ndarray,
+    t: int,
+    *,
+    min_contact_count: int,
+    settle_window: int,
+) -> bool:
+    w0 = max(0, t - settle_window + 1)
+    window = contact_counts[w0 : t + 1]
+    if window.size < settle_window:
+        return False
+    return int((window >= min_contact_count).sum()) >= settle_window - 2
+
+
+def _earliest_sustained_grasp_before_lift(
+    contact_counts: np.ndarray,
+    on_table: np.ndarray,
+    lift_start: int | None,
+    *,
+    min_contact_count: int,
+    settle_window: int = CONTACT_WINDOW,
+) -> int | None:
+    """First on-table frame with sustained contact (peg: table grasp, not pre-lift peak)."""
+    end = int(lift_start) if lift_start is not None else len(contact_counts)
+    for t in range(end):
+        if not on_table[t]:
+            continue
+        if int(contact_counts[t]) < min_contact_count:
+            continue
+        if _sustained_grasp_window_ok(
+            contact_counts, t, min_contact_count=min_contact_count, settle_window=settle_window
+        ):
+            return t
+    return None
+
+
 def _peak_grasp_before_lift(
     contact_counts: np.ndarray,
     on_table: np.ndarray,
@@ -66,7 +105,7 @@ def _peak_grasp_before_lift(
     min_contact_count: int,
     settle_window: int = CONTACT_WINDOW,
 ) -> int | None:
-    """Pick the last on-table frame before lift with strong sustained contact."""
+    """Pick the last on-table frame before lift with strong sustained contact (tray hold)."""
     end = int(lift_start) if lift_start is not None else len(contact_counts)
     best_t: int | None = None
     best_c = 0
@@ -76,9 +115,9 @@ def _peak_grasp_before_lift(
         count = int(contact_counts[t])
         if count < min_contact_count:
             continue
-        w0 = max(0, t - settle_window + 1)
-        window = contact_counts[w0 : t + 1]
-        if window.size < settle_window or (window >= min_contact_count).sum() < settle_window - 2:
+        if not _sustained_grasp_window_ok(
+            contact_counts, t, min_contact_count=min_contact_count, settle_window=settle_window
+        ):
             continue
         if count > best_c or (count == best_c and (best_t is None or t > best_t)):
             best_c = count
@@ -88,17 +127,28 @@ def _peak_grasp_before_lift(
 
 def _fallback_grasp_near_lift(
     contact_counts: np.ndarray,
+    on_table: np.ndarray,
     lift_start: int | None,
     *,
     lookback: int = 25,
     min_contact_count: int = 2,
+    prefer_earliest: bool = True,
 ) -> int | None:
-    """When sustained on-table grasp is missed, take peak contact just before lift."""
+    """Peak / earliest on-table contact just before lift (never in-air frames)."""
     end = int(lift_start) if lift_start is not None else len(contact_counts)
     start = max(0, end - lookback)
+    if prefer_earliest:
+        for t in range(start, end):
+            if not on_table[t]:
+                continue
+            if int(contact_counts[t]) >= min_contact_count:
+                return t
+        return None
     best_t: int | None = None
     best_c = 0
     for t in range(start, end):
+        if not on_table[t]:
+            continue
         count = int(contact_counts[t])
         if count < min_contact_count:
             continue
@@ -123,13 +173,15 @@ def detect_grasp_timing(
     gripper_vel_eps: float = GRIPPER_VEL_EPS,
     lift_height_m: float = LIFT_HEIGHT_M,
     on_table_margin_m: float = ON_TABLE_MARGIN_M,
+    peg_on_table_margin_m: float = PEG_ON_TABLE_MARGIN_M,
     min_grasp_contact_count: int = MIN_GRASP_CONTACT_COUNT,
 ) -> GraspTiming:
     """Detect grasp (peak contact before lift) and lift onset relative to rest height."""
+    _ = (left_gripper_speed, right_gripper_speed, gripper_vel_eps)
     tray_contact = tray_contact.astype(bool)
     peg_contact = peg_contact.astype(bool)
     tray_on_table = (tray_z - tray_rest_z) <= on_table_margin_m
-    peg_on_table = (peg_z - peg_rest_z) <= on_table_margin_m
+    peg_on_table = (peg_z - peg_rest_z) <= peg_on_table_margin_m
 
     tray_lifted = (tray_z - tray_rest_z) >= lift_height_m
     peg_lifted = (peg_z - peg_rest_z) >= lift_height_m
@@ -142,7 +194,7 @@ def detect_grasp_timing(
         tray_lift,
         min_contact_count=min_grasp_contact_count,
     )
-    right_grasp = _peak_grasp_before_lift(
+    right_grasp = _earliest_sustained_grasp_before_lift(
         peg_contact_count,
         peg_on_table,
         peg_lift,
@@ -153,15 +205,19 @@ def detect_grasp_timing(
     if left_grasp is None and tray_lift is not None:
         left_grasp = _fallback_grasp_near_lift(
             tray_contact_count,
+            tray_on_table,
             tray_lift,
             min_contact_count=max(2, min_grasp_contact_count - 1),
+            prefer_earliest=False,
         )
         left_fallback = left_grasp is not None
     if right_grasp is None and peg_lift is not None:
         right_grasp = _fallback_grasp_near_lift(
             peg_contact_count,
+            peg_on_table,
             peg_lift,
             min_contact_count=max(2, min_grasp_contact_count - 1),
+            prefer_earliest=True,
         )
         right_fallback = right_grasp is not None
 
