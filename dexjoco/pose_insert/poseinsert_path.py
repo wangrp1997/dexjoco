@@ -2,16 +2,35 @@
 
 from __future__ import annotations
 
+import os
 import sys
 from pathlib import Path
 
 _POSEINSERT_ROOT: Path | None = None
 
 
+def _candidate_poseinsert_roots(repo_root: Path) -> tuple[Path, ...]:
+    return (
+        repo_root / "PoseInsert",
+        repo_root / "interaction_retarget" / "PoseInsert",
+        repo_root / "refs" / "PoseInsert",
+    )
+
+
 def poseinsert_root() -> Path:
     global _POSEINSERT_ROOT
     if _POSEINSERT_ROOT is None:
-        _POSEINSERT_ROOT = Path(__file__).resolve().parents[2] / "PoseInsert"
+        env_root = os.environ.get("DEXJOECO_POSEINSERT_ROOT", "").strip()
+        if env_root:
+            _POSEINSERT_ROOT = Path(env_root).expanduser().resolve()
+        else:
+            repo_root = Path(__file__).resolve().parents[2]
+            for candidate in _candidate_poseinsert_roots(repo_root):
+                if (candidate / "policy").is_dir():
+                    _POSEINSERT_ROOT = candidate.resolve()
+                    break
+            else:
+                _POSEINSERT_ROOT = repo_root / "PoseInsert"
     return _POSEINSERT_ROOT
 
 

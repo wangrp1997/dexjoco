@@ -130,16 +130,18 @@ def default_eval_output_dir(
     *,
     rand_full: bool = False,
     hybrid_insert: bool = False,
+    skill_graph_recovery: bool = False,
     force_mode: str | None = None,
 ) -> Path:
     suffix = "_rand_full" if rand_full else ""
     hybrid_suffix = "_hybrid" if hybrid_insert else ""
+    skill_graph_suffix = "_skill_graph" if skill_graph_recovery else ""
     force_suffix = f"_{force_mode}" if force_mode else ""
     ckpt_label = resolve_checkpoint_step_label(checkpoint)
     return (
         Path("outputs")
         / policy_type
-        / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}_{ckpt_label}{force_suffix}"
+        / f"{env_name}{suffix}{hybrid_suffix}{skill_graph_suffix}_seed{seed}_{ckpt_label}{force_suffix}"
     )
 
 

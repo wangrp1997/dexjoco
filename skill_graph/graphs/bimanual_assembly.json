@@ -1,0 +1,109 @@
+{
+  "task_graph": {
+    "task": "bimanual_assembly",
+    "start": "v0_start",
+    "goal": "v5_done",
+    "nodes": [
+      {"id": "v0_start", "semantic": "Tray and peg on table; hands free."},
+      {"id": "v1_tray_held", "semantic": "Left hand holds tray."},
+      {"id": "v2_both_held", "semantic": "Left holds tray; right holds peg."},
+      {"id": "v3_lifted", "semantic": "Peg lifted above tray."},
+      {"id": "v4_aligned", "semantic": "Peg aligned with socket."},
+      {"id": "v5_done", "semantic": "Peg inserted successfully."}
+    ],
+    "edges": [
+      {
+        "id": "e01_L_grasp",
+        "source": "v0_start",
+        "target": "v1_tray_held",
+        "left_arm_action": {
+          "fn": "grasp",
+          "kwargs": {"robot_name": "left_arm", "obj_name": "tray"}
+        },
+        "right_arm_action": null
+      },
+      {
+        "id": "e02_R_grasp",
+        "source": "v1_tray_held",
+        "target": "v2_both_held",
+        "left_arm_action": null,
+        "right_arm_action": {
+          "fn": "grasp",
+          "kwargs": {"robot_name": "right_arm", "obj_name": "peg"}
+        }
+      },
+      {
+        "id": "e03_lift",
+        "source": "v2_both_held",
+        "target": "v3_lifted",
+        "left_arm_action": {
+          "fn": "demo_replay",
+          "kwargs": {"segment": "peg_lift", "side": "both"}
+        },
+        "right_arm_action": null
+      },
+      {
+        "id": "e04_align",
+        "source": "v3_lifted",
+        "target": "v4_aligned",
+        "left_arm_action": {
+          "fn": "demo_replay",
+          "kwargs": {"segment": "align", "side": "both"}
+        },
+        "right_arm_action": null
+      },
+      {
+        "id": "e05_insert",
+        "source": "v4_aligned",
+        "target": "v5_done",
+        "left_arm_action": {
+          "fn": "pose_insert",
+          "kwargs": {"mode": "action44", "side": "both"}
+        },
+        "right_arm_action": null
+      }
+    ]
+  },
+  "recovery_spec": {
+    "task": "bimanual_assembly",
+    "recovery_bindings": [
+      {
+        "edge_id": "e05_insert",
+        "failure_name": "peg_lost",
+        "monitors": [
+          {"type": "hold_lost", "objects": ["peg"]}
+        ],
+        "recovery": [
+          {
+            "type": "regrasp",
+            "robot_name": "right_arm",
+            "obj_name": "peg"
+          }
+        ],
+        "merge": "source",
+        "repeat_until_success": true
+      },
+      {
+        "edge_id": "e05_insert",
+        "failure_name": "tray_hold_lost",
+        "monitors": [
+          {"type": "hold_lost", "objects": ["tray"]}
+        ],
+        "recovery": [
+          {
+            "type": "regrasp",
+            "robot_name": "left_arm",
+            "obj_name": "tray"
+          },
+          {
+            "type": "regrasp",
+            "robot_name": "right_arm",
+            "obj_name": "peg"
+          }
+        ],
+        "merge": "source",
+        "repeat_until_success": true
+      }
+    ]
+  }
+}

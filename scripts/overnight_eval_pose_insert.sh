@@ -7,6 +7,13 @@ VIDEO_DIR="/mnt/hdd/dexjoco/outputs/poseinsert_sim/videos"
 LOG="/mnt/hdd/dexjoco/outputs/poseinsert_sim/overnight_eval.log"
 mkdir -p "$VIDEO_DIR"
 cd "$ROOT"
+export PYTHONPATH="$ROOT:$ROOT/dexjoco"
+export MUJOCO_GL=egl
+
+PYTHON="${PYTHON:-python}"
+if command -v conda >/dev/null 2>&1; then
+  PYTHON="conda run -n dexjoco --no-capture-output python"
+fi
 
 last_ckpt=""
 while true; do
@@ -19,7 +26,7 @@ while true; do
   tag="$(basename "$ckpt" .ckpt)"
   out="$VIDEO_DIR/ep35_${tag}_seed0.mp4"
   echo "$(date -Is) eval $ckpt" | tee -a "$LOG"
-  if python scripts/eval_pose_insert_sim.py --ep 35 --insert-mode action44 --ckpt "$ckpt" \
+  if $PYTHON scripts/eval_pose_insert_sim.py --ep 35 --insert-mode action44 --ckpt "$ckpt" \
     --video --video-out "$out" 2>&1 | tee -a "$LOG"; then
     echo "$(date -Is) SUCCESS $out" | tee -a "$LOG"
     exit 0

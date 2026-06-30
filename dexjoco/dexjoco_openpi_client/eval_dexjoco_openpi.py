@@ -28,6 +28,9 @@ from dexjoco_lerobot_client.eval_config import default_eval_output_dir
 
 from .dexjoco_openpi_env import DexJoCoOpenPIEnv
 
+# pi0.5 bimanual_assembly: ego.mp4 capped at 1500 policy frames (~50 s @ 30 Hz).
+EVAL_MAX_VIDEO_FRAMES = 1500
+
 
 @dataclass
 class Observation:
@@ -220,9 +223,19 @@ def receive_actions(
             break
 
 
-def _append_video_frames(video_writers: dict, raw_images: dict):
+def _append_video_frames(video_writers: dict, raw_images: dict, frame_count: list[int]) -> bool:
+    """Append one frame per camera; return False when the 50 s cap is reached."""
+    if frame_count[0] >= EVAL_MAX_VIDEO_FRAMES:
+        return False
     for cam_name, writer in video_writers.items():
         writer.append_data(raw_images[cam_name])
+    frame_count[0] += 1
+    return frame_count[0] < EVAL_MAX_VIDEO_FRAMES
+
+
+def _sync_eval_time_limit(env: DexJoCoOpenPIEnv, frame_count: list[int]) -> None:
+    if frame_count[0] >= EVAL_MAX_VIDEO_FRAMES:
+        env._done = True
 
 
 def main(
@@ -242,6 +255,7 @@ def main(
     hybrid_insert: bool = False,
     overwrite: bool = False,
     force_mode: Literal["wrist", "finger", "both"] | None = None,
+    skill_graph_recovery: bool = False,
 ):
     if render_mode == "rgb_array":
         os.environ.setdefault("MUJOCO_GL", "egl")
@@ -268,6 +282,7 @@ def main(
     if output is None:
         suffix = "_rand_full" if rand_full else ""
         hybrid_suffix = "_hybrid" if hybrid_insert else ""
+        skill_graph_suffix = "_skill_graph" if skill_graph_recovery else ""
         if force_mode is not None:
             if checkpoint is None:
                 raise ValueError(
@@ -281,10 +296,15 @@ def main(
                 checkpoint,
                 rand_full=rand_full,
                 hybrid_insert=hybrid_insert,
+                skill_graph_recovery=skill_graph_recovery,
                 force_mode=force_mode,
             )
         else:
-            output_dir = Path("outputs") / "pi0.5" / f"{env_name}{suffix}{hybrid_suffix}_seed{seed}"
+            output_dir = (
+                Path("outputs")
+                / "pi0.5"
+                / f"{env_name}{suffix}{hybrid_suffix}{skill_graph_suffix}_seed{seed}"
+            )
     else:
         output_dir = output
     print(f"Eval output: {output_dir.resolve()}")
@@ -322,6 +342,21 @@ def main(
     if hybrid.enabled:
         print("hybrid_insert: enabled for bimanual_assembly insert phase", flush=True)
 
+    regrasp_hook = None
+    if skill_graph_recovery:
+        if env_name != "bimanual_assembly":
+            raise ValueError("skill_graph_recovery only supports bimanual_assembly")
+        repo = Path(__file__).resolve().parents[2]
+        if str(repo) not in sys.path:
+            sys.path.insert(0, str(repo))
+        from skill_graph.hooks.vla_recovery import RegraspRecoveryHook
+
+        regrasp_hook = RegraspRecoveryHook()
+        print(
+            "skill_graph: regrasp recovery enabled (after pre-insert ready, hold_lost -> demo_warp regrasp)",
+            flush=True,
+        )
+
     # Queues connect the control loop with the asynchronous inference worker.
     obs_queue = mp.Queue()
     action_queue = mp.Queue()
@@ -351,9 +386,12 @@ def main(
 
             env.reset()
             hybrid.on_reset(env.env)
+            if regrasp_hook is not None:
+                regrasp_hook.reset_episode(env.env)
 
             timestamp = 0
             actions_buffer = deque()
+            video_frame_count = [0]
 
             if env_name == "click_mouse":
                 # Align with dataset.
@@ -375,7 +413,7 @@ def main(
 
             # Save the reset frame.
             raw_images = env.get_raw_images()
-            _append_video_frames(video_writers, raw_images)
+            _append_video_frames(video_writers, raw_images, video_frame_count)
 
             in_stay_state = (
                 False  # Track whether the previous step already used stay().
@@ -384,6 +422,29 @@ def main(
 
             # Episode loop.
             while True:
+                if regrasp_hook is not None and regrasp_hook.is_busy():
+                    recovery_done = regrasp_hook.step_recovery(env, timestamp=timestamp)
+                    timestamp += 1
+                    raw_images = env.get_raw_images()
+                    _append_video_frames(video_writers, raw_images, video_frame_count)
+                    if recovery_done:
+                        actions_buffer.clear()
+                        inferencing_event.set()
+                        obs_queue.put(Observation(env.get_obs(), timestamp))
+                    _sync_eval_time_limit(env, video_frame_count)
+                    if env.is_done:
+                        if env.is_success:
+                            num_success += 1
+                            print("Success!")
+                        else:
+                            print("Failed")
+                        if hybrid.enabled:
+                            print(f"  hybrid_insert: {hybrid.episode_summary()}", flush=True)
+                        if regrasp_hook is not None:
+                            print(f"  skill_graph: {regrasp_hook.episode_summary()}", flush=True)
+                        break
+                    continue
+
                 receive_actions(action_queue, actions_buffer, timestamp, dual_arm)
 
                 state46 = env.obs["state"]
@@ -414,7 +475,14 @@ def main(
                 timestamp += 1
 
                 raw_images = env.get_raw_images()
-                _append_video_frames(video_writers, raw_images)
+                _append_video_frames(video_writers, raw_images, video_frame_count)
+
+                if regrasp_hook is not None and timestamp > 0 and (timestamp % 10 == 0):
+                    regrasp_hook.log_status(env.env, timestamp=timestamp)
+                    if regrasp_hook.maybe_start_recovery(env.env, timestamp=timestamp):
+                        actions_buffer.clear()
+                        inferencing_event.set()
+                        obs_queue.put(Observation(env.get_obs(), timestamp))
 
                 # Request a replan when the buffered action horizon is below threshold
                 # and no observation, inference request, or action chunk is pending.
@@ -430,7 +498,8 @@ def main(
                     obs_queue.put(Observation(env.get_obs(), timestamp))
                     # inferencing_event is cleared in the inference process after inference finishes.
 
-                # Stop after the environment reports terminal state.
+                # Stop after the environment reports terminal state or eval time cap.
+                _sync_eval_time_limit(env, video_frame_count)
                 if env.is_done:
                     if env.is_success:
                         num_success += 1
@@ -439,6 +508,8 @@ def main(
                         print("Failed")
                     if hybrid.enabled:
                         print(f"  hybrid_insert: {hybrid.episode_summary()}", flush=True)
+                    if regrasp_hook is not None:
+                        print(f"  skill_graph: {regrasp_hook.episode_summary()}", flush=True)
                     break
 
             for writer in video_writers.values():
