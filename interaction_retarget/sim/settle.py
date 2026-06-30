@@ -43,11 +43,15 @@ def vec_to_arm_action(vec23: np.ndarray) -> np.ndarray:
 def read_arm_action(raw_env, side: Side) -> np.ndarray:
     arrays = _arm_arrays(raw_env)
     mocap_id = int(arrays["mocap_right" if side == "right" else "mocap_left"])
-    hand_ids = arrays["allegro_dof_right" if side == "right" else "allegro_dof_left"]
     data = raw_env._data
     pos = np.asarray(data.mocap_pos[mocap_id], dtype=np.float64)
     quat = np.asarray(data.mocap_quat[mocap_id], dtype=np.float64)
-    hand = np.asarray(data.qpos[hand_ids], dtype=np.float64)
+    # Use allegro ctrl targets (what env.step applies), not qpos.
+    ctrl_ids = np.asarray(raw_env._allegro_ctrl_ids, dtype=int)
+    if side == "right":
+        hand = np.asarray(data.ctrl[ctrl_ids[:16]], dtype=np.float64)
+    else:
+        hand = np.asarray(data.ctrl[ctrl_ids[16:32]], dtype=np.float64)
     return np.concatenate([pos, quat, hand], axis=0)
 
 

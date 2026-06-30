@@ -59,6 +59,14 @@ def raw_flat_to_dict(action_flat: np.ndarray) -> dict[str, np.ndarray]:
     raise ValueError(f"Unsupported action dim {action_flat.shape[0]}")
 
 
+def zarr_action_to_policy46(action_flat: np.ndarray) -> np.ndarray:
+    """Zarr [right23, left23] -> policy 46d for gym env.step."""
+    action = raw_flat_to_dict(action_flat)
+    right = np.asarray(action["right"], dtype=np.float32)
+    left = np.asarray(action["left"], dtype=np.float32)
+    return np.concatenate([right[:7], left[:7], right[7:], left[7:]], axis=0)
+
+
 def make_assembly_env(*, seed: int, randomize: bool = False, render_mode: str = "rgb_array"):
     config = CONFIG_MAPPING["bimanual_assembly"]()
     return config.get_environment(
