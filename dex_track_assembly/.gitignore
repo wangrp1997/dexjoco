@@ -1,0 +1,7 @@
+.venv/
+.env
+__pycache__/
+*.py[cod]
+storage/logs/
+wandb/
+MUJOCO_LOG.TXT
