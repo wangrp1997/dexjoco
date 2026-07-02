@@ -19,6 +19,7 @@ See: https://arxiv.org/pdf/1707.06347.pdf
 
 import functools
 import time
+from pathlib import Path
 from typing import Any, Callable, Optional, Tuple
 
 from absl import logging
@@ -62,6 +63,16 @@ class TrainingState:
 
 def _unpmap(v):
     return jax.tree_util.tree_map(lambda x: x[0], v)
+
+
+def _checkpoint_step_from_path(path: Optional[str]) -> int:
+    if path is None:
+        return 0
+    name = Path(path).name
+    if name.isdigit():
+        return int(name)
+    logging.warning("Could not parse env step from checkpoint path %s; starting at 0", path)
+    return 0
 
 
 def _strip_weak_type(tree):
@@ -490,12 +501,17 @@ def train(
     )
 
     if restore_checkpoint_path is not None:
+        restored_step = _checkpoint_step_from_path(restore_checkpoint_path)
         params = checkpoint.load(restore_checkpoint_path)
         value_params = params[2] if restore_value_fn else init_params.value
         training_state = training_state.replace(
             normalizer_params=params[0],
             params=training_state.params.replace(policy=params[1], value=value_params),
+            env_steps=types.UInt64(hi=0, lo=restored_step),
         )
+        logging.info("Restored policy weights and env_steps=%s from %s", restored_step, restore_checkpoint_path)
+    else:
+        restored_step = 0
 
     if restore_params is not None:
         logging.info("Restoring TrainingState from `restore_params`.")
@@ -504,6 +520,8 @@ def train(
             normalizer_params=restore_params[0],
             params=training_state.params.replace(policy=restore_params[1], value=value_params),
         )
+        if restore_checkpoint_path is None:
+            restored_step = 0
 
     if num_timesteps == 0:
         return (
@@ -518,11 +536,41 @@ def train(
 
     training_state = jax.device_put_replicated(training_state, jax.local_devices()[:local_devices_to_use])
 
+    if restored_step >= num_timesteps:
+        logging.info(
+            "Checkpoint step %s already reached num_timesteps=%s; skipping training.",
+            restored_step,
+            num_timesteps,
+        )
+        params = _unpmap(
+            (
+                training_state.normalizer_params,
+                training_state.params.policy,
+                training_state.params.value,
+            )
+        )
+        pmap.synchronize_hosts()
+        return (make_policy, params, {})
+
+    steps_per_iteration = int(
+        num_training_steps_per_epoch * env_step_per_training_step * max(num_resets_per_eval, 1)
+    )
+    start_it = 0
+    if restored_step > 0 and steps_per_iteration > 0:
+        start_it = min(restored_step // steps_per_iteration, num_evals_after_init)
+        logging.info(
+            "Resuming from iteration %s/%s at env step %s (~%s steps/iteration)",
+            start_it,
+            num_evals_after_init,
+            restored_step,
+            steps_per_iteration,
+        )
+
     # Run initial eval
     training_metrics = {}
     training_walltime = 0
-    current_step = 0
-    for it in range(num_evals_after_init):
+    current_step = restored_step
+    for it in range(start_it, num_evals_after_init):
         logging.info("starting iteration %s %s", it, time.time() - xt)
 
         for _ in range(max(num_resets_per_eval, 1)):

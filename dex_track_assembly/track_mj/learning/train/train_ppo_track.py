@@ -49,6 +49,8 @@ class Args:
     
     # ====== policy ======
     num_timesteps: int = 2_000_000_000
+    restore_checkpoint_path: Optional[str] = None
+    resume_ckpt_dir: Optional[str] = None
 
     obs_noise_level: float = 1.0
     history_len: int = 0
@@ -184,10 +186,11 @@ def _init_wandb(args: Args, exp_name, env_class, task_cfg, ckpt_path, config_fna
     config_path.write_text(task_cfg.to_json_best_effort(indent=4))
 
 
-def _make_progress_fn(total_steps: int, debug_mode: bool, times: list):
+def _make_progress_fn(total_steps: int, debug_mode: bool, times: list, initial_step: int = 0):
     """Return progress callback with tqdm bar + wandb + ETA logging."""
     pbar = tqdm.tqdm(
         total=total_steps,
+        initial=initial_step,
         unit="env_step",
         desc="PPO",
         dynamic_ncols=True,
@@ -287,7 +290,7 @@ def _make_eval_env(training_env, env_class, env_cfg, policy_cfg, num_eval_envs: 
 
 def _build_eval_make_policy(eval_env, policy_cfg, trajectory_data):
     """Build inference fn with same network layout as training (for eval JIT warmup)."""
-    from brax.training.agents.ppo import losses as ppo_losses
+    from brax.training.acme import running_statistics, specs
     from brax.training.agents.ppo import networks as ppo_networks
 
     key_envs = jax.random.split(jax.random.PRNGKey(0), EVAL_NUM_ENVS)
@@ -295,18 +298,25 @@ def _build_eval_make_policy(eval_env, policy_cfg, trajectory_data):
     obs_shape = jax.tree_util.tree_map(lambda x: x.shape[1:], state.obs)
     nf = policy_cfg.network_factory
     network_factory = functools.partial(make_ppo_networks, **dict(nf))
+    normalize = lambda x, y: x
+    if policy_cfg.normalize_observations:
+        normalize = running_statistics.normalize
     ppo_network = network_factory(
-        obs_shape,
-        eval_env.action_size,
-        preprocess_observations_fn=lambda x, y: x,
+        observation_size=obs_shape,
+        action_size=eval_env.action_size,
+        preprocess_observations_fn=normalize,
     )
     make_policy = ppo_networks.make_inference_fn(ppo_network)
     key_policy, key_value = jax.random.split(jax.random.PRNGKey(0))
-    init_params = ppo_losses.PPONetworkParams(
-        policy=ppo_network.policy_network.init(key_policy),
-        value=ppo_network.value_network.init(key_value),
+    policy_params = ppo_network.policy_network.init(key_policy)
+    value_params = ppo_network.value_network.init(key_value)
+    obs_shape_norm = jax.tree_util.tree_map(
+        lambda x: specs.Array(x.shape[-1:], jp.dtype("float32")), state.obs
     )
-    return make_policy, init_params
+    normalizer_params = running_statistics.init_state(obs_shape_norm)
+    # Brax make_policy expects (normalizer, policy, value), same as train_tracking checkpoints.
+    eval_init_params = (normalizer_params, policy_params, value_params)
+    return make_policy, eval_init_params
 
 
 def _make_policy_params_fn(
@@ -343,9 +353,24 @@ def train(args: Args):
         _enable_debug_mode()
 
     logdir, ckpt_path = _setup_paths(exp_name)
+    restored_step = 0
+    if args.resume_ckpt_dir:
+        ckpt_path = Path(args.resume_ckpt_dir)
+        ckpt_path.mkdir(parents=True, exist_ok=True)
+        if args.restore_checkpoint_path is None:
+            from track_mj.eval.tracking.run_eval import get_latest_ckpt
+
+            args.restore_checkpoint_path = get_latest_ckpt(ckpt_path)
+    if args.restore_checkpoint_path:
+        step_name = Path(args.restore_checkpoint_path).name
+        if step_name.isdigit():
+            restored_step = int(step_name)
     _log_checkpoint_path(ckpt_path)
 
     _apply_policy_args_to_config(args, policy_cfg, debug_mode, smoke_mode)
+    policy_cfg.restore_checkpoint_path = args.restore_checkpoint_path
+    if restored_step > 0:
+        logging.info("Will resume training from env step %s", restored_step)
     _apply_env_args_to_config(args, env_cfg)
     if debug_mode and args.task == "AssemblyTrackingGeneral":
         from track_mj.envs.assembly_tracking import assembly_tracking_constants as asm_consts
@@ -384,7 +409,7 @@ def train(args: Args):
 
     train_fn = functools.partial(ppo.train, **policy_params)
     times = [time.monotonic()]
-    progress_fn = _make_progress_fn(policy_cfg.num_timesteps, debug_mode, times)
+    progress_fn = _make_progress_fn(policy_cfg.num_timesteps, debug_mode, times, restored_step)
 
     env: AssemblyEnv = env_class(terrain_type=env_cfg.terrain_type, config=env_cfg)
 

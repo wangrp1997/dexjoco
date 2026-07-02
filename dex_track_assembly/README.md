@@ -125,6 +125,8 @@ CUDA_VISIBLE_DEVICES=2 python -m track_mj.learning.train.train_ppo_track \
   --num-timesteps 200000000
 ```
 
+断点续训：加 `--resume-ckpt-dir /mnt/hdd/dexjoco/dex_track_assembly/checkpoints/{原run目录}`，会自动加载最新 ckpt、恢复 env step 并接着训到 `--num-timesteps` 总目标（如 2 亿）。
+
 checkpoint：`/mnt/hdd/dexjoco/dex_track_assembly/checkpoints/{时间戳}_AssemblyTrackingGeneral_{exp_name}/`
 
 训练日志：`/mnt/hdd/dexjoco/outputs/dex_track_assembly/logs/track/{同上}/`
