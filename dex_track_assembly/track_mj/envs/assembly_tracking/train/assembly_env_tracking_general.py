@@ -123,7 +123,7 @@ def assembly_tracking_general_task_config() -> config_dict.ConfigDict:
             value_obs_key="privileged_state",
         ),
         seed=0,
-        num_evals=51,  # 50 段 checkpoint（每段 ~4M env step）
+        num_evals=201,  # 200 段 checkpoint（每段 ~1M env step，约 24h/次 @12 step/s）
         log_training_metrics=True,
         training_metrics_steps=10_240,  # 每 1 次 PPO 更新打 log / 刷新进度
         progress_fn=lambda *args: None,
