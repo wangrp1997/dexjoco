@@ -1,0 +1,15 @@
+# Single-GPU post-train without DeepSpeed (DexJoCo local).
+# Upstream sft_qwen.yaml uses DeepSpeed ZeRO-2; install deepspeed to use that instead.
+compute_environment: LOCAL_MACHINE
+distributed_type: 'NO'
+downcast_bf16: 'no'
+machine_rank: 0
+main_training_function: main
+mixed_precision: bf16
+num_machines: 1
+num_processes: 1
+rdzv_backend: static
+same_network: true
+tpu_use_cluster: false
+tpu_use_sudo: false
+use_cpu: false
