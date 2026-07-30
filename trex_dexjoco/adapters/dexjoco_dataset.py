@@ -113,7 +113,12 @@ class DexJoCoSftDataset(torch.utils.data.Dataset):
         )
         from lerobot.datasets.lerobot_dataset import LeRobotDataset
 
-        self.ds = LeRobotDataset(repo_id, root=root, episodes=None)
+        video_backend = getattr(config, "video_backend", None) or None
+        if video_backend == "":
+            video_backend = None
+        self.ds = LeRobotDataset(
+            repo_id, root=root, episodes=None, video_backend=video_backend
+        )
         if len(self.ds) != self.actions.shape[0]:
             accelerator.print(
                 f"[DexJoCo] warn: LeRobot len {len(self.ds)} != actions "

@@ -1,6 +1,6 @@
 #!/bin/bash
 # DexJoCo post-train (B: action 44 + T1: native tactile VQ-VAE).
-# Cascaded flags copied from upstream train.sh — do not invent.
+# Short fine-tune: few epochs, save every epoch, lower LR (anti-overfit).
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -23,9 +23,16 @@ RUN_NAME="${EXPERIMENT_NAME}_$(date +%m%d_%H%M)"
 
 ACTION_DIM=44
 NUM_PROCESSES="${NUM_PROCESSES:-1}"
-# Align with upstream per-GPU batch (train.sh TRAIN_BSZ=16). Single-GPU: global batch=16, not 128.
 TRAIN_BSZ="${TRAIN_BSZ:-16}"
-LR="${LR:-1e-4}"
+# Lower LR + short schedule: val peaked ~epoch0–1 under 1e-4×100ep.
+LR="${LR:-3e-5}"
+N_EPOCHS="${N_EPOCHS:-10}"
+# Few epochs → save every epoch so we can pick best by val.
+SAVE_FREQ="${SAVE_FREQ:-1}"
+WEIGHT_DECAY="${WEIGHT_DECAY:-0.01}"
+
+NUM_WORKERS="${NUM_WORKERS:-4}"
+VIDEO_BACKEND="${VIDEO_BACKEND:-pyav}"
 
 if [[ ! -f "${NORM_STATS}" ]]; then
   echo "Missing ${NORM_STATS}; run: python -m adapters.compute_norm_stats"
@@ -38,6 +45,8 @@ fi
 
 ACCEL_CONFIG="${ACCEL_CONFIG:-../config/sft_qwen_single.yaml}"
 
+echo "post-train: epochs=${N_EPOCHS} save_freq=${SAVE_FREQ} lr=${LR} wd=${WEIGHT_DECAY} run=${RUN_NAME}"
+
 accelerate launch \
   --config_file "${ACCEL_CONFIG}" \
   --num_processes "${NUM_PROCESSES}" \
@@ -48,14 +57,14 @@ accelerate launch \
   --lerobot_root "${LEROBOT_ROOT}" \
   --force_labels_path "${FORCE_LABELS}" \
   --norm_stats_path "${NORM_STATS}" \
-  --n_epochs 100 \
-  --save_freq 10 \
+  --n_epochs "${N_EPOCHS}" \
+  --save_freq "${SAVE_FREQ}" \
   --action_dim "${ACTION_DIM}" \
   --action_chunk 16 \
   --train_bsz_per_gpu "${TRAIN_BSZ}" \
   --learning_rate "${LR}" \
   --min_lr_ratio 0 \
-  --weight_decay 0 \
+  --weight_decay "${WEIGHT_DECAY}" \
   --gradient_accumulation_steps 1 \
   --output_dir "${OUTPUT_DIR}" \
   --log_dir "${OUTPUT_DIR}" \
@@ -82,6 +91,9 @@ accelerate launch \
   --flare_frame_stride 4 \
   --flare_layer_index -1 \
   --image_size 384 288 \
+  --num_workers "${NUM_WORKERS}" \
+  --video_backend "${VIDEO_BACKEND}" \
   --val_ratio 0.05 \
   --val_freq 500 \
-  --max_val_batches 30
+  --max_val_batches 30 \
+  --save_best 1

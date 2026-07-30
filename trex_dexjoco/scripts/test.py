@@ -34,9 +34,10 @@ import traceback
 import numpy as np
 import torch
 from PIL import Image
-import zmq
 from transformers import AutoProcessor
 from qwen_vla import Qwen3VLVLAModel, extend_position_ids_for_flare, split_slow_fast_embeds
+# zmq only needed for the REP server in main(); sim eval imports this module
+# without pyzmq installed.
 
 
 def _normalize(values, mask, vmin, vmax):
@@ -740,7 +741,8 @@ def main(args):
           f"{np.array(result['actions']).shape}, "
           f"latency {result['latency_ms']:.1f} ms")
 
-    # ZMQ Server
+    # ZMQ Server (lazy import so CascadedServer can be used without pyzmq)
+    import zmq
     context = zmq.Context()
     socket = context.socket(zmq.REP)
     socket.bind(f"tcp://0.0.0.0:{args.port}")

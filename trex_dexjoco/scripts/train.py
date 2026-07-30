@@ -503,15 +503,24 @@ class SftDataset(Dataset):
         }
 
 
-def save_checkpoint(model, processor, accelerator, args, epoch, global_step, stats_data):
-    save_dir = os.path.join(args.output_dir, f"checkpoint-{epoch}-{global_step}")
+def save_checkpoint(model, processor, accelerator, args, epoch, global_step, stats_data,
+                    *, tag: str | None = None, extra_meta: dict | None = None):
+    """Save under ``checkpoint-{epoch}-{step}`` or a fixed ``tag`` (e.g. checkpoint-best)."""
+    name = tag if tag else f"checkpoint-{epoch}-{global_step}"
+    save_dir = os.path.join(args.output_dir, name)
 
     if accelerator.is_main_process:
-        ckpts = [f for f in os.listdir(args.output_dir) if f.startswith("checkpoint-")]
-        if args.max_ckpts > 0 and len(ckpts) >= args.max_ckpts:
+        # Rotate numbered checkpoints only; never delete checkpoint-best.
+        ckpts = [
+            f for f in os.listdir(args.output_dir)
+            if f.startswith("checkpoint-") and f != "checkpoint-best"
+        ]
+        if tag is None and args.max_ckpts > 0 and len(ckpts) >= args.max_ckpts:
             oldest = min(ckpts, key=lambda f: os.path.getctime(os.path.join(args.output_dir, f)))
             shutil.rmtree(os.path.join(args.output_dir, oldest))
 
+        if os.path.isdir(save_dir):
+            shutil.rmtree(save_dir)
         os.makedirs(save_dir, exist_ok=True)
 
         sd = accelerator.get_state_dict(model)
@@ -523,35 +532,40 @@ def save_checkpoint(model, processor, accelerator, args, epoch, global_step, sta
         if os.path.exists(src_config):
             shutil.copy(src_config, os.path.join(save_dir, "config.json"))
 
+        ta = {
+            "model_path": args.model_path,
+            "action_dim": args.action_dim,
+            "action_chunk": args.action_chunk,
+            "use_robot_state": args.use_robot_state,
+            "use_tactile_deform": args.use_tactile_deform,
+            "use_tactile_vec": getattr(args, "use_tactile_vec", 0),
+            "tactile_intermediate_size": getattr(args, "tactile_intermediate_size", 0),
+            "training_stage": args.training_stage,
+            "use_flare": args.use_flare,
+            "n_flare_tokens_per_frame": args.n_flare_tokens_per_frame,
+            "n_flare_steps": args.n_flare_steps,
+            "flare_layer_index": args.flare_layer_index,
+            "use_tactile_code": getattr(args, "use_tactile_code", 0),
+            "vqvae_codebook_size": getattr(args, "vqvae_codebook_size", 64),
+            "use_tactile_vqvae": getattr(args, "use_tactile_vqvae", 0),
+            "vqvae_config": getattr(args, "vqvae_config_dict", None),
+            "paradigm": "cascaded",
+            "cascaded_total_steps": getattr(args, "cascaded_total_steps", 10),
+            "cascaded_split_step":  getattr(args, "cascaded_split_step", 6),
+            "flare_frame_stride": getattr(args, "flare_frame_stride", 2),
+            "epoch": epoch,
+            "global_step": global_step,
+        }
+        if extra_meta:
+            ta.update(extra_meta)
         with open(os.path.join(save_dir, "training_args.json"), "w") as f:
-            json.dump({
-                "model_path": args.model_path,
-                "action_dim": args.action_dim,
-                "action_chunk": args.action_chunk,
-                "use_robot_state": args.use_robot_state,
-                "use_tactile_deform": args.use_tactile_deform,
-                "use_tactile_vec": getattr(args, "use_tactile_vec", 0),
-                "tactile_intermediate_size": getattr(args, "tactile_intermediate_size", 0),
-                "training_stage": args.training_stage,
-                "use_flare": args.use_flare,
-                "n_flare_tokens_per_frame": args.n_flare_tokens_per_frame,
-                "n_flare_steps": args.n_flare_steps,
-                "flare_layer_index": args.flare_layer_index,
-                "use_tactile_code": getattr(args, "use_tactile_code", 0),
-                "vqvae_codebook_size": getattr(args, "vqvae_codebook_size", 64),
-                "use_tactile_vqvae": getattr(args, "use_tactile_vqvae", 0),
-                "vqvae_config": getattr(args, "vqvae_config_dict", None),
-                "paradigm": "cascaded",
-                "cascaded_total_steps": getattr(args, "cascaded_total_steps", 10),
-                "cascaded_split_step":  getattr(args, "cascaded_split_step", 6),
-                "flare_frame_stride": getattr(args, "flare_frame_stride", 2),
-            }, f, indent=2)
+            json.dump(ta, f, indent=2)
 
         with open(os.path.join(save_dir, "stats_data.json"), "w") as f:
             json.dump(stats_data, f, indent=2)
 
     accelerator.wait_for_everyone()
-    logger.info(f"Checkpoint {epoch}-{global_step} saved.")
+    logger.info(f"Checkpoint {name} saved.")
 
 
 class TrainingMetrics:
@@ -930,6 +944,18 @@ def train(args):
     else:
         dataset = SftDataset(args, processor, accelerator)
 
+    # LeRobot video decode + multi-worker can segfault (lerobot#2488).
+    # Do NOT use multiprocessing_context=spawn here: DexJoCo/LeRobot datasets
+    # hold accelerator/processor weakrefs and fail to pickle.
+    num_workers = int(getattr(args, "num_workers", 4))
+    loader_kw = dict(
+        pin_memory=True,
+        num_workers=num_workers,
+        persistent_workers=False,
+    )
+    if num_workers > 0:
+        loader_kw["prefetch_factor"] = 2
+
     val_dataloader = None
     if getattr(args, "val_ratio", 0) > 0:
         val_dataset = dataset.create_val_split(
@@ -937,11 +963,11 @@ def train(args):
         val_dataloader = DataLoader(
             val_dataset, batch_size=args.train_bsz_per_gpu, shuffle=False,
             drop_last=True, collate_fn=val_dataset.collate_fn,
-            num_workers=2, pin_memory=True)
+            **loader_kw)
 
     dataloader = DataLoader(
         dataset, batch_size=args.train_bsz_per_gpu, shuffle=True,
-        collate_fn=dataset.collate_fn, num_workers=4, pin_memory=True,
+        collate_fn=dataset.collate_fn, **loader_kw,
     )
 
     world_size = accelerator.num_processes
@@ -974,6 +1000,10 @@ def train(args):
     use_flare = bool(args.use_flare and K > 0)
     flare_layer_idx = args.flare_layer_index
     model.train()
+
+    save_best = bool(getattr(args, "save_best", 1)) and val_dataloader is not None
+    best_val_act = float("inf")
+    best_meta = None
 
     for epoch in range(args.n_epochs):
         from tqdm import tqdm
@@ -1257,6 +1287,28 @@ def train(args):
                         f"act={val_m['val/action_loss']:.6f} "
                         f"tac={val_m['val/tactile_loss']:.6f}")
                     wandb.log(val_m, step=global_step)
+                if save_best:
+                    val_act = float(val_m["val/action_loss"])
+                    improved = val_act < best_val_act - 1e-12
+                    if improved:
+                        best_val_act = val_act
+                        best_meta = {
+                            "best_metric": "val/action_loss",
+                            "best_val_action_loss": val_act,
+                            "best_val_tactile_loss": float(
+                                val_m["val/tactile_loss"]),
+                            "epoch": epoch,
+                            "global_step": global_step,
+                        }
+                        accelerator.print(
+                            f"  [Best] val/action_loss={val_act:.6f} "
+                            f"→ checkpoint-best (epoch={epoch}, step={global_step})")
+                        accelerator.wait_for_everyone()
+                        save_checkpoint(
+                            model, processor, accelerator, args,
+                            epoch, global_step, dataset.stats_data,
+                            tag="checkpoint-best", extra_meta=best_meta)
+                        model.train()
 
             global_step += 1
             if getattr(args, "max_train_steps", 0) and global_step >= args.max_train_steps:
@@ -1270,6 +1322,17 @@ def train(args):
             accelerator.wait_for_everyone()
             save_checkpoint(model, processor, accelerator, args,
                             epoch, global_step, dataset.stats_data)
+
+    if save_best and accelerator.is_main_process:
+        if best_meta is not None:
+            accelerator.print(
+                f"Training done. Best checkpoint: checkpoint-best "
+                f"(val/action_loss={best_meta['best_val_action_loss']:.6f}, "
+                f"epoch={best_meta['epoch']}, step={best_meta['global_step']})")
+        else:
+            accelerator.print(
+                "Training done. No validation improvement recorded "
+                "(check --val_freq / val split).")
 
 
 if __name__ == "__main__":
@@ -1379,6 +1442,16 @@ if __name__ == "__main__":
     parser.add_argument("--val_ratio", type=float, default=0.0, help="Fraction of samples for validation (0=disable)")
     parser.add_argument("--val_freq", type=int, default=0, help="Run validation every N steps (0=disable)")
     parser.add_argument("--max_val_batches", type=int, default=50, help="Max batches per validation run")
+    parser.add_argument("--save_best", type=int, default=1,
+                        help="1: whenever val/action_loss improves, overwrite checkpoint-best")
+
+    # DataLoader / video decode (LeRobot AV1 + multi-worker can segfault)
+    parser.add_argument("--num_workers", type=int, default=4,
+                        help="DataLoader workers. Use 0/1 if video decode segfaults.")
+    parser.add_argument("--video_backend", type=str, default="",
+                        choices=["", "pyav", "torchcodec", "video_reader"],
+                        help="LeRobot video decode backend. Empty=library default; "
+                             "pyav is more stable under multi-process loading.")
 
     args = parser.parse_args()
 

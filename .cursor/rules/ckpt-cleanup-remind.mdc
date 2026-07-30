@@ -1,0 +1,15 @@
+---
+description: 训练相关提问时提醒清理旧 checkpoint
+alwaysApply: true
+---
+
+# Checkpoint 清理提醒
+
+用户问训练进度、是否有权重、wandb、跑训状态等问题时：
+
+1. 先答问题。
+2. 再补一句提醒：是否只保留最新 checkpoint、删掉更早的以省空间。
+3. 不要擅自删除；用户确认后再删。
+4. 当前 post-train 目录通常在：
+   `/mnt/hdd/checkpoints/trex_dexjoco_ckpt/bimanual_assembly/trex_posttrain_bimanual_assembly/`
+5. 每个 ckpt 约 6G；`save_freq` 应为 10，不要改成每 epoch 存。
