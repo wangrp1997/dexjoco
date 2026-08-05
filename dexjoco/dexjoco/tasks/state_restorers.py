@@ -5,13 +5,76 @@ splits the recorded flat proprio vector by `config.proprio_keys`, dispatches to
 the task-specific restorer, runs an `mj_forward`, and returns the refreshed
 wrapped observation.
 
-Each restorer only writes the fields recorded as proprio (object poses + table
-height). Everything else (lighting, table texture, third-person camera) is left
-to whatever `env.reset()` produced, so visual randomization stays effective.
+Object restorers write peg/socket/table from proprio. For bimanual_assembly we
+also restore robot TCP mocap + Allegro qpos and settle via opspace, otherwise
+open-loop mocap replay starts from home and drifts on contact-heavy demos.
+
+Lighting / textures stay whatever ``env.reset()`` sampled.
 """
 
 import mujoco
 import numpy as np
+
+
+def restore_robot_proprio(raw_env, parts, *, settle_steps: int = 80) -> None:
+    """Restore dual-arm mocap + Allegro from recorded ``tcp_pose`` / ``gripper_pose``.
+
+    Does not touch free joints (peg/socket). Uses opspace settle (no env sleep).
+    """
+    from interaction_retarget.sim.settle import settle_bimanual_actions
+
+    if "tcp_pose" not in parts or "gripper_pose" not in parts:
+        return
+
+    tcp = np.asarray(parts["tcp_pose"], dtype=np.float64).ravel()
+    grip = np.asarray(parts["gripper_pose"], dtype=np.float64).ravel()
+    if tcp.size < 14 or grip.size < 32:
+        raise ValueError(
+            f"Expected tcp_pose>=14 and gripper_pose>=32, got {tcp.size}/{grip.size}"
+        )
+
+    data = raw_env._data
+    model = raw_env._model
+
+    # Hands: set qpos + ctrl targets to recorded angles.
+    data.qpos[raw_env._allegro_dof_right_ids] = grip[:16]
+    data.qpos[raw_env._allegro_dof_left_ids] = grip[16:32]
+    ctrl_ids = np.asarray(raw_env._allegro_ctrl_ids, dtype=int)
+    data.ctrl[ctrl_ids[:16]] = grip[:16]
+    data.ctrl[ctrl_ids[16:32]] = grip[16:32]
+
+    # Arms: drive mocap to recorded flange TCP (sensor frame ≈ teleop target).
+    rid = int(raw_env._mocap_right_id)
+    lid = int(raw_env._mocap_left_id)
+    data.mocap_pos[rid] = tcp[:3]
+    data.mocap_quat[rid] = tcp[3:7]
+    data.mocap_pos[lid] = tcp[7:10]
+    data.mocap_quat[lid] = tcp[10:14]
+
+    # Clear velocities before settle.
+    for jid in list(raw_env._panda_right_dof_ids) + list(raw_env._panda_left_dof_ids):
+        adr = int(model.jnt_dofadr[int(jid)])
+        data.qvel[adr : adr + 7] = 0.0
+    for jid in list(raw_env._allegro_dof_right_ids) + list(raw_env._allegro_dof_left_ids):
+        # allegro_*_dof_ids are qpos indices in this env; zero matching qvel via joint.
+        pass
+    for name_list in (
+        getattr(raw_env, "_allegro_joint_right_names", ()),
+        getattr(raw_env, "_allegro_joint_left_names", ()),
+    ):
+        for n in name_list:
+            j = model.joint(n)
+            data.qvel[int(j.dofadr)] = 0.0
+
+    right23 = np.concatenate([tcp[:7], grip[:16]], axis=0)
+    left23 = np.concatenate([tcp[7:14], grip[16:32]], axis=0)
+    settle_bimanual_actions(
+        raw_env,
+        right23=right23,
+        left23=left23,
+        n_substeps=int(settle_steps),
+    )
+    mujoco.mj_forward(model, data)
 
 
 def _split_state_by_proprio(state_vec, proprio_keys, ref_state):
@@ -175,6 +238,9 @@ def _restore_bimanual_assembly(raw_env, parts):
         raw_env._peg_qpos_adr, raw_env._peg_qvel_adr, peg[:3], peg[3:7]
     )
     raw_env._peg_ori_pose = peg.copy()
+    # Critical for open-loop mocap replay: start arms/hands at recorded proprio,
+    # not Panda/Allegro home (otherwise grasp/insert demos diverge).
+    restore_robot_proprio(raw_env, parts, settle_steps=80)
 
 
 def _restore_bimanual_hanoi(raw_env, parts):

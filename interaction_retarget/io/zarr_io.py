@@ -51,8 +51,13 @@ def load_zarr_episode(
     zarr_path: Path,
     *,
     trim_static: bool = True,
-) -> tuple[np.ndarray, str, np.ndarray | None]:
-    """Return ``(actions, action_key, initial_state)``."""
+    return_states: bool = False,
+) -> tuple:
+    """Return ``(actions, action_key, initial_state[, states])``.
+
+    When ``return_states=True`` and state exists, also returns trimmed states
+    with the same length as ``actions`` (for mid-episode robot resync).
+    """
     root = zarr.open(str(zarr_path), mode="r")
     data = root["data"]
     action_key = _resolve_action_key(data)
@@ -61,14 +66,24 @@ def load_zarr_episode(
         actions = actions.reshape(1, -1)
 
     initial_state = None
+    states_out = None
     if "state" in data:
         states = np.asarray(data["state"][:], dtype=np.float64)
         if trim_static:
-            actions, initial_state = _trim_static_prefix(actions, states)
+            start_idx = _find_first_non_static_frame(actions)
+            if start_idx < actions.shape[0] and np.all(actions[start_idx] == 0):
+                start_idx += 1
+            actions = actions[start_idx:]
+            initial_state = np.asarray(states[start_idx], dtype=np.float64).ravel()
+            states_out = np.asarray(states[start_idx:], dtype=np.float64)
         else:
             initial_state = np.asarray(states[0], dtype=np.float64).ravel()
+            states_out = states
     elif trim_static:
         actions, _ = _trim_static_prefix(actions, None)
+
+    if return_states:
+        return actions, action_key, initial_state, states_out
     return actions, action_key, initial_state
 
 

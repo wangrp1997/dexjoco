@@ -38,6 +38,7 @@ _DEFAULT_APPROACH_XY_M = 0.06
 _DEFAULT_APPROACH_Z_MIN_M = 0.01
 _DEFAULT_MAX_LAST_TIP_DIST_MM = 20.0
 _DEFAULT_MAX_MIN_TIP_DIST_MM = 15.0
+_DEFAULT_MAX_SUCCESS_XY_MM = 10.0
 
 
 @dataclass
@@ -51,6 +52,9 @@ class ExportReport:
     last_tip_socket_dist_mm: float
     min_tip_socket_dist_mm: float
     has_insert_ok: bool
+    min_rel_xy_mm: float
+    last_rel_xy_mm: float
+    last_rel_z_mm: float
 
 
 @dataclass(frozen=True)
@@ -61,6 +65,9 @@ class ExportSkip:
     has_insert_ok: bool
     min_tip_socket_dist_mm: float
     last_tip_socket_dist_mm: float
+    min_rel_xy_mm: float = float("nan")
+    last_rel_xy_mm: float = float("nan")
+    last_rel_z_mm: float = float("nan")
 
 
 @dataclass
@@ -154,9 +161,24 @@ def replay_pose_sequence(
     entry: dict[str, Any],
     *,
     seed: int = 0,
+    resync_every: int = 0,
 ) -> tuple[list[_FrameRecord], ReplayTrace]:
-    """Privileged replay of one zarr episode; record peg/socket/flange poses each step."""
-    actions, _, initial_state = load_zarr_episode(Path(entry["zarr_path"]))
+    """Privileged replay of one zarr episode; record peg/socket/flange poses each step.
+
+    Restores robot TCP+hands from ``initial_state`` (not just peg/socket).
+    ``resync_every`` mid-episode robot sync is off by default — it often breaks
+    grasps; keep 0 unless debugging.
+    """
+    from dexjoco.tasks.state_restorers import restore_robot_proprio, _split_state_by_proprio
+
+    need_states = resync_every > 0
+    if need_states:
+        actions, _, initial_state, states = load_zarr_episode(
+            Path(entry["zarr_path"]), return_states=True
+        )
+    else:
+        actions, _, initial_state = load_zarr_episode(Path(entry["zarr_path"]))
+        states = None
     env = make_assembly_env(seed=int(seed), randomize=False)
     raw = env.unwrapped
     model = raw._model
@@ -177,12 +199,39 @@ def replay_pose_sequence(
     trace = ReplayTrace()
     try:
         env.reset()
+        # Batch export: skip realtime sleep (physics unchanged).
+        raw.hz = 0
         if initial_state is not None and has_restorer("bimanual_assembly"):
             restore_initial_state(env, "bimanual_assembly", config, initial_state)
+            # Nudge toward first action target after proprio restore.
+            if len(actions) > 0:
+                from interaction_retarget.sim.settle import settle_bimanual_actions
+
+                first = raw_flat_to_dict(actions[0])
+                settle_bimanual_actions(
+                    raw,
+                    right23=first["right"],
+                    left23=first["left"],
+                    n_substeps=20,
+                )
         labeler.reset_reference(raw)
         detector.reset_reference(raw)
 
-        for action in actions:
+        ref_state = raw._compute_observation()["state"] if need_states else None
+        for t, action in enumerate(actions):
+            if (
+                need_states
+                and states is not None
+                and t > 0
+                and t % int(resync_every) == 0
+                and t < len(states)
+            ):
+                parts = _split_state_by_proprio(
+                    np.asarray(states[t], dtype=np.float64).ravel(),
+                    config.proprio_keys,
+                    ref_state,
+                )
+                restore_robot_proprio(raw, parts, settle_steps=15)
             raw.step(raw_flat_to_dict(action))
             frames.append(_record_frame(raw, labeler))
             data = raw._data
@@ -207,6 +256,7 @@ def replay_pose_sequence(
             "num_steps": len(trace.steps),
             "seed": int(seed),
             "used_initial_state": initial_state is not None,
+            "resync_every": int(resync_every),
         }
         return frames, trace
     finally:
@@ -218,14 +268,38 @@ def _validate_export(
     insert_ok: np.ndarray,
     tip_socket_dist_m: np.ndarray,
     segment: InsertSegment,
+    rel_xyz_m: np.ndarray,
     require_insert_ok: bool,
     max_last_tip_dist_mm: float,
     max_min_tip_dist_mm: float,
+    max_success_xy_mm: float,
+    success_mode: str,
 ) -> ExportSkip | None:
     has_ok = bool(insert_ok.any())
     min_mm = float(segment.min_tip_dist_m * 1000.0)
     last_mm = float(tip_socket_dist_m[segment.end_frame] * 1000.0)
+    rel = np.asarray(rel_xyz_m, dtype=np.float64).reshape(-1, 3)
+    xy = np.linalg.norm(rel[:, :2], axis=1)
+    min_xy_mm = float(xy.min() * 1000.0)
+    last_xy_mm = float(xy[segment.end_frame] * 1000.0)
+    last_z_mm = float(rel[segment.end_frame, 2] * 1000.0)
 
+    if success_mode == "xy":
+        if min_xy_mm > float(max_success_xy_mm):
+            return ExportSkip(
+                episode_index=-1,
+                zarr_path="",
+                reason=f"min_rel_xy>{max_success_xy_mm:.1f}mm",
+                has_insert_ok=has_ok,
+                min_tip_socket_dist_mm=min_mm,
+                last_tip_socket_dist_mm=last_mm,
+                min_rel_xy_mm=min_xy_mm,
+                last_rel_xy_mm=last_xy_mm,
+                last_rel_z_mm=last_z_mm,
+            )
+        return None
+
+    # Legacy tip / contact checks.
     if require_insert_ok and not has_ok:
         return ExportSkip(
             episode_index=-1,
@@ -234,6 +308,9 @@ def _validate_export(
             has_insert_ok=False,
             min_tip_socket_dist_mm=min_mm,
             last_tip_socket_dist_mm=last_mm,
+            min_rel_xy_mm=min_xy_mm,
+            last_rel_xy_mm=last_xy_mm,
+            last_rel_z_mm=last_z_mm,
         )
     if min_mm > max_min_tip_dist_mm:
         return ExportSkip(
@@ -243,6 +320,9 @@ def _validate_export(
             has_insert_ok=has_ok,
             min_tip_socket_dist_mm=min_mm,
             last_tip_socket_dist_mm=last_mm,
+            min_rel_xy_mm=min_xy_mm,
+            last_rel_xy_mm=last_xy_mm,
+            last_rel_z_mm=last_z_mm,
         )
     if has_ok and last_mm > max_last_tip_dist_mm:
         return ExportSkip(
@@ -252,6 +332,9 @@ def _validate_export(
             has_insert_ok=True,
             min_tip_socket_dist_mm=min_mm,
             last_tip_socket_dist_mm=last_mm,
+            min_rel_xy_mm=min_xy_mm,
+            last_rel_xy_mm=last_xy_mm,
+            last_rel_z_mm=last_z_mm,
         )
     return None
 
@@ -309,32 +392,50 @@ def export_episode(
     split: str = "train",
     demo_folder: str | None = None,
     seed: int = 0,
-    require_insert_ok: bool = True,
+    require_insert_ok: bool = False,
     max_last_tip_dist_mm: float = _DEFAULT_MAX_LAST_TIP_DIST_MM,
     max_min_tip_dist_mm: float = _DEFAULT_MAX_MIN_TIP_DIST_MM,
+    max_success_xy_mm: float = _DEFAULT_MAX_SUCCESS_XY_MM,
+    success_mode: str = "xy",
 ) -> ExportReport | ExportSkip:
-    """Export one manifest episode; skip when replay insert validation fails."""
+    """Export one manifest episode; default success = peg-socket |xy| alignment."""
+    if success_mode not in ("xy", "tip"):
+        raise ValueError(f"success_mode must be 'xy' or 'tip', got {success_mode!r}")
     zarr_actions, _, _ = load_zarr_episode(Path(entry["zarr_path"]))
     frames, trace = replay_pose_sequence(entry, seed=seed)
     timing = _timing_from_entry(entry)
     insert_ok = np.asarray([f.insert_ok for f in frames], dtype=bool)
     approach_ready = np.asarray([f.approach_ready for f in frames], dtype=bool)
     tip_socket_dist_m = np.asarray([f.tip_socket_dist_m for f in frames], dtype=np.float64)
+    source_pose = np.stack([f.source_pose7 for f in frames], axis=0)
+    target_pose = np.stack([f.target_pose7 for f in frames], axis=0)
+    rel7 = source_in_target_poses(source_pose, target_pose)
+    rel_xyz = rel7[:, :3]
+    xy = np.linalg.norm(rel_xyz[:, :2], axis=1)
+    min_xy_mm = float(xy.min() * 1000.0)
+
     segment = detect_insert_segment(
         trace,
         timing,
         insert_ok=insert_ok,
         approach_ready=approach_ready,
         tip_socket_dist_m=tip_socket_dist_m,
+        rel_xyz_m=rel_xyz if success_mode == "xy" else None,
+        max_success_xy_m=float(max_success_xy_mm) / 1000.0,
     )
+    last_xy_mm = float(xy[segment.end_frame] * 1000.0)
+    last_z_mm = float(rel_xyz[segment.end_frame, 2] * 1000.0)
 
     skip = _validate_export(
         insert_ok=insert_ok,
         tip_socket_dist_m=tip_socket_dist_m,
         segment=segment,
+        rel_xyz_m=rel_xyz,
         require_insert_ok=require_insert_ok,
         max_last_tip_dist_mm=max_last_tip_dist_mm,
         max_min_tip_dist_mm=max_min_tip_dist_mm,
+        max_success_xy_mm=max_success_xy_mm,
+        success_mode=success_mode,
     )
     if skip is not None:
         return ExportSkip(
@@ -344,6 +445,9 @@ def export_episode(
             has_insert_ok=bool(insert_ok.any()),
             min_tip_socket_dist_mm=float(segment.min_tip_dist_m * 1000.0),
             last_tip_socket_dist_mm=float(tip_socket_dist_m[segment.end_frame] * 1000.0),
+            min_rel_xy_mm=min_xy_mm,
+            last_rel_xy_mm=last_xy_mm,
+            last_rel_z_mm=last_z_mm,
         )
 
     folder = demo_folder if demo_folder is not None else str(int(entry["episode_index"]))
@@ -368,6 +472,9 @@ def export_episode(
         last_tip_socket_dist_mm=float(subset[-1].tip_socket_dist_m * 1000.0),
         min_tip_socket_dist_mm=float(segment.min_tip_dist_m * 1000.0),
         has_insert_ok=bool(insert_ok.any()),
+        min_rel_xy_mm=min_xy_mm,
+        last_rel_xy_mm=last_xy_mm,
+        last_rel_z_mm=last_z_mm,
     )
 
 
@@ -378,9 +485,11 @@ def export_manifest(
     episode_indices: list[int] | None = None,
     split: str = "train",
     seed: int = 0,
-    require_insert_ok: bool = True,
+    require_insert_ok: bool = False,
     max_last_tip_dist_mm: float = _DEFAULT_MAX_LAST_TIP_DIST_MM,
     max_min_tip_dist_mm: float = _DEFAULT_MAX_MIN_TIP_DIST_MM,
+    max_success_xy_mm: float = _DEFAULT_MAX_SUCCESS_XY_MM,
+    success_mode: str = "xy",
     show_progress: bool = True,
 ) -> tuple[list[ExportReport], list[ExportSkip]]:
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
@@ -415,13 +524,16 @@ def export_manifest(
             require_insert_ok=require_insert_ok,
             max_last_tip_dist_mm=max_last_tip_dist_mm,
             max_min_tip_dist_mm=max_min_tip_dist_mm,
+            max_success_xy_mm=max_success_xy_mm,
+            success_mode=success_mode,
         )
         if isinstance(result, ExportSkip):
             skipped.append(result)
             msg = (
                 f"skip ep{ep}: {result.reason} "
-                f"min={result.min_tip_socket_dist_mm:.1f}mm "
-                f"last={result.last_tip_socket_dist_mm:.1f}mm "
+                f"min_xy={result.min_rel_xy_mm:.1f}mm "
+                f"last_xy={result.last_rel_xy_mm:.1f}mm "
+                f"last_z={result.last_rel_z_mm:.1f}mm "
                 f"insert_ok={result.has_insert_ok}"
             )
             if show_progress and hasattr(iterator, "write"):
@@ -429,13 +541,13 @@ def export_manifest(
             else:
                 print(msg, flush=True)
             continue
-
         reports.append(result)
         msg = (
-            f"ok ep{ep}: frames={result.num_frames} "
+            f"ok ep{ep} frames={result.num_frames} "
             f"[{result.segment.start_frame},{result.segment.end_frame}] "
-            f"tip {result.first_tip_socket_dist_mm:.1f}->{result.last_tip_socket_dist_mm:.1f}mm "
-            f"min={result.min_tip_socket_dist_mm:.1f}mm"
+            f"min_xy={result.min_rel_xy_mm:.1f}mm "
+            f"end_xy={result.last_rel_xy_mm:.1f}mm "
+            f"end_z={result.last_rel_z_mm:.1f}mm"
         )
         if show_progress and hasattr(iterator, "write"):
             iterator.write(msg)
@@ -446,6 +558,8 @@ def export_manifest(
         "task": manifest.get("task", "bimanual_assembly"),
         "num_exported": len(reports),
         "num_skipped": len(skipped),
+        "success_mode": success_mode,
+        "max_success_xy_mm": max_success_xy_mm,
         "require_insert_ok": require_insert_ok,
         "episodes": [
             {
@@ -455,6 +569,9 @@ def export_manifest(
                 "segment": asdict(r.segment),
                 "min_tip_socket_dist_mm": r.min_tip_socket_dist_mm,
                 "last_tip_socket_dist_mm": r.last_tip_socket_dist_mm,
+                "min_rel_xy_mm": r.min_rel_xy_mm,
+                "last_rel_xy_mm": r.last_rel_xy_mm,
+                "last_rel_z_mm": r.last_rel_z_mm,
                 "has_insert_ok": r.has_insert_ok,
             }
             for r in reports

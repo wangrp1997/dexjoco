@@ -30,9 +30,15 @@ def detect_insert_segment(
     insert_ok: np.ndarray | None = None,
     approach_ready: np.ndarray | None = None,
     tip_socket_dist_m: np.ndarray | None = None,
+    rel_xyz_m: np.ndarray | None = None,
+    max_success_xy_m: float = 0.01,
     min_segment_frames: int = 8,
 ) -> InsertSegment:
-    """Pick [start, end] for PoseInsert export from a full demo replay trace."""
+    """Pick [start, end] for PoseInsert export from a full demo replay trace.
+
+    Prefer peg-in-socket lateral alignment (|xy|) over tip-contact flags: end at the
+    most-inserted frame (min z) among frames with |xy| <= ``max_success_xy_m``.
+    """
     lift_frames = detect_lift_end_frames(trace, timing)
     peg_lift_end = int(lift_frames.peg_lift_end_frame)
     n = len(trace.steps)
@@ -52,19 +58,31 @@ def detect_insert_segment(
             raise ValueError(f"tip_socket_dist_m length {tip_socket_dist_m.shape[0]} != trace steps {n}")
 
     search_start = int(np.clip(peg_lift_end, 0, max(0, n - 1)))
-    search_end = n - 1
     min_tip_frame = search_start + int(np.argmin(tip_socket_dist_m[search_start:]))
     min_tip_dist = float(tip_socket_dist_m[min_tip_frame])
 
-    first_insert: int | None
-    if insert_ok.any():
+    first_insert: int | None = None
+    end: int
+    if rel_xyz_m is not None:
+        rel = np.asarray(rel_xyz_m, dtype=np.float64).reshape(-1, 3)
+        if rel.shape[0] != n:
+            raise ValueError(f"rel_xyz_m length {rel.shape[0]} != trace steps {n}")
+        xy = np.linalg.norm(rel[search_start:, :2], axis=1)
+        aligned = np.flatnonzero(xy <= float(max_success_xy_m))
+        if aligned.size:
+            # Most inserted while laterally aligned (z more negative = deeper).
+            local = int(aligned[int(np.argmin(rel[search_start + aligned, 2]))])
+            end = search_start + local
+            first_insert = search_start + int(aligned[0])
+        else:
+            end = search_start + int(np.argmin(xy))
+    elif insert_ok.any():
         first_insert = int(np.argmax(insert_ok))
         end = int(first_insert)
         for t in range(first_insert, n):
             if insert_ok[t]:
                 end = t
     else:
-        first_insert = None
         end = int(min_tip_frame)
 
     first_approach: int | None = None

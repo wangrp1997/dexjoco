@@ -25,14 +25,12 @@ pip install einops diffusers
 
 ```bash
 python scripts/export_insert_poses.py --all
+# 默认 success-mode=xy：min|peg相对孔 xy|<=10mm 即成功（不依赖 tip/接触）
 # -> /mnt/hdd/dexjoco/poseinsert_sim/bimanual_assembly/train/{ep}/
 # 主要用 source_in_target.npy；dual_wrist_action.npy 仅 --wrist12 训练需要
-```
 
-删旧失败 ep（若还在）：
-
-```bash
-rm -rf /mnt/hdd/dexjoco/poseinsert_sim/bimanual_assembly/train/{0,1,2,7}
+# 旧 tip/接触判定：
+# python scripts/export_insert_poses.py --all --success-mode tip --require-insert-ok
 ```
 
 ## 2. 训练（9D pose，默认）

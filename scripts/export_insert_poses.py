@@ -37,21 +37,40 @@ def _parse_args() -> argparse.Namespace:
     p.add_argument("--split", type=str, default="train")
     p.add_argument("--seed", type=int, default=0, help="env.reset seed for privileged replay")
     p.add_argument(
+        "--success-mode",
+        type=str,
+        default="xy",
+        choices=["xy", "tip"],
+        help="xy: success if min |peg-in-socket xy| <= threshold (default). "
+        "tip: legacy tip-distance / insert_ok contact checks.",
+    )
+    p.add_argument(
+        "--max-success-xy-mm",
+        type=float,
+        default=10.0,
+        help="xy-mode: reject if min |rel xy| exceeds this (default: 10)",
+    )
+    p.add_argument(
+        "--require-insert-ok",
+        action="store_true",
+        help="tip-mode only: require insert_ok contact in replay",
+    )
+    p.add_argument(
         "--include-failed",
         action="store_true",
-        help="Also export episodes without replay insert contact (not recommended)",
+        help="Deprecated alias: tip-mode without require_insert_ok",
     )
     p.add_argument(
         "--max-last-tip-dist-mm",
         type=float,
         default=20.0,
-        help="Reject if segment end tip distance exceeds this (default: 20)",
+        help="tip-mode: reject if segment end tip distance exceeds this (default: 20)",
     )
     p.add_argument(
         "--max-min-tip-dist-mm",
         type=float,
         default=15.0,
-        help="Reject if closest tip distance in segment search exceeds this (default: 15)",
+        help="tip-mode: reject if closest tip distance exceeds this (default: 15)",
     )
     p.add_argument("--no-progress", action="store_true", help="Disable tqdm progress bar")
     return p.parse_args()
@@ -74,8 +93,15 @@ def main() -> int:
         print(f"manifest not found: {manifest_path}", file=sys.stderr)
         return 1
 
+    require_insert_ok = bool(args.require_insert_ok) and not bool(args.include_failed)
+    if args.success_mode == "tip" and not args.require_insert_ok and not args.include_failed:
+        # Preserve old tip-mode default: require contact unless --include-failed.
+        require_insert_ok = True
+
     export_kwargs = {
-        "require_insert_ok": not args.include_failed,
+        "success_mode": args.success_mode,
+        "max_success_xy_mm": args.max_success_xy_mm,
+        "require_insert_ok": require_insert_ok,
         "max_last_tip_dist_mm": args.max_last_tip_dist_mm,
         "max_min_tip_dist_mm": args.max_min_tip_dist_mm,
     }
@@ -90,10 +116,11 @@ def main() -> int:
             **export_kwargs,
         )
         print(
-            f"done: exported={len(reports)} skipped={len(skipped)} -> {output_dir}",
+            f"done: exported={len(reports)} skipped={len(skipped)} "
+            f"mode={args.success_mode} -> {output_dir}",
             flush=True,
         )
-        return 0
+        return 0 if not skipped else 0
 
     entry = _manifest_entry(sidecar_dir, args.ep)
     result = export_episode(
@@ -106,8 +133,9 @@ def main() -> int:
     if isinstance(result, ExportSkip):
         print(
             f"skip ep{result.episode_index}: {result.reason}\n"
-            f"  min_tip={result.min_tip_socket_dist_mm:.1f}mm "
-            f"last_tip={result.last_tip_socket_dist_mm:.1f}mm "
+            f"  min_xy={result.min_rel_xy_mm:.1f}mm "
+            f"last_xy={result.last_rel_xy_mm:.1f}mm "
+            f"last_z={result.last_rel_z_mm:.1f}mm "
             f"insert_ok={result.has_insert_ok}",
             flush=True,
         )
@@ -119,8 +147,8 @@ def main() -> int:
         f"segment=[{result.segment.start_frame},{result.segment.end_frame}] "
         f"peg_lift_end={result.segment.peg_lift_end_frame} "
         f"approach={result.segment.first_approach_frame}\n"
-        f"  tip_mm: {result.first_tip_socket_dist_mm:.1f} -> "
-        f"{result.last_tip_socket_dist_mm:.1f} (min={result.min_tip_socket_dist_mm:.1f})",
+        f"  xy_mm: min={result.min_rel_xy_mm:.1f} end={result.last_rel_xy_mm:.1f} "
+        f"end_z={result.last_rel_z_mm:.1f}",
         flush=True,
     )
     return 0

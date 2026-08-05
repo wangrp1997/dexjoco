@@ -538,7 +538,8 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
                 pass
 
         dt = time.time() - start_time
-        time.sleep(max(0.0, (1.0 / self.hz) - dt))
+        if getattr(self, "hz", 0) and self.hz > 0:
+            time.sleep(max(0.0, (1.0 / self.hz) - dt))
 
         reward = 1.0 if success else 0.0
         terminated = terminated or success
