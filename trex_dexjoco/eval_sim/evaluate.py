@@ -44,6 +44,42 @@ class TimedAction:
     timestamp: int
 
 
+# action44: Right(xyz3+rotvec3+hand16) + Left(same)
+_WRIST_BASES = (0, 22)
+
+
+def clamp_wrist_action(
+    prev: np.ndarray | None,
+    curr: np.ndarray,
+    *,
+    max_wrist_step_m: float,
+    max_wrist_rot_step_rad: float,
+) -> np.ndarray:
+    """Rate-limit absolute wrist xyz/rotvec vs previous executed action."""
+    out = np.asarray(curr, dtype=np.float64).copy()
+    if prev is None or (
+        max_wrist_step_m <= 0 and max_wrist_rot_step_rad <= 0
+    ):
+        return out.astype(np.float32)
+    prev = np.asarray(prev, dtype=np.float64)
+    for base in _WRIST_BASES:
+        if max_wrist_step_m > 0:
+            d = out[base : base + 3] - prev[base : base + 3]
+            n = float(np.linalg.norm(d))
+            if n > max_wrist_step_m:
+                out[base : base + 3] = prev[base : base + 3] + d * (
+                    max_wrist_step_m / n
+                )
+        if max_wrist_rot_step_rad > 0:
+            dr = out[base + 3 : base + 6] - prev[base + 3 : base + 6]
+            nr = float(np.linalg.norm(dr))
+            if nr > max_wrist_rot_step_rad:
+                out[base + 3 : base + 6] = prev[base + 3 : base + 6] + dr * (
+                    max_wrist_rot_step_rad / nr
+                )
+    return out.astype(np.float32)
+
+
 def _set_seed(seed: int):
     np.random.seed(seed)
     random.seed(seed)
@@ -100,6 +136,9 @@ def main(
     image_h: int = 288,
     base_model_path: str = "/mnt/hdd/checkpoints/trex/Qwen3-VL-2B-Instruct",
     progress_every: int = 50,
+    action_smooth: bool = True,
+    max_wrist_step_m: float = 0.003,
+    max_wrist_rot_step_rad: float = 0.012,
 ):
     """Run DexJoCo sim eval for a T-Rex checkpoint.
 
@@ -110,6 +149,9 @@ def main(
     ``replan_ratio`` low (default 0.25) so most of the 16-step chunk is used
     before the next slow_and_fast call; 0.8 would replan every ~4 steps and
     make one episode take tens of minutes.
+
+    ``action_smooth`` rate-limits wrist xyz/rotvec vs the previous executed
+    action (fingers unchanged). Use ``action_smooth=False`` for ablation.
     """
     if render_mode == "rgb_array":
         os.environ.setdefault("MUJOCO_GL", "egl")
@@ -186,6 +228,14 @@ def main(
     hybrid = EvalHybridInsert(task=env_name, enabled=hybrid_insert)
     if hybrid.enabled:
         print("hybrid_insert: enabled", flush=True)
+    if action_smooth:
+        print(
+            f"action_smooth: wrist step≤{max_wrist_step_m}m "
+            f"rot≤{max_wrist_rot_step_rad}rad",
+            flush=True,
+        )
+    else:
+        print("action_smooth: off", flush=True)
 
     regrasp_hook = None
     if skill_graph_recovery:
@@ -219,6 +269,7 @@ def main(
             actions_buffer: deque[TimedAction] = deque()
             video_frame_count = [0]
             in_stay_state = False
+            prev_exec_action: np.ndarray | None = None
 
             raw_images = env.get_raw_images()
             _append_video_frames(video_writers, raw_images, video_frame_count)
@@ -265,6 +316,13 @@ def main(
                 state46 = env.obs["state"]
                 if actions_buffer:
                     policy_action = actions_buffer.popleft().action
+                    if action_smooth:
+                        policy_action = clamp_wrist_action(
+                            prev_exec_action,
+                            policy_action,
+                            max_wrist_step_m=max_wrist_step_m,
+                            max_wrist_rot_step_rad=max_wrist_rot_step_rad,
+                        )
                     if hybrid.enabled and not hybrid.active:
                         hybrid.observe(env.env, policy_action)
                     action = (
@@ -273,11 +331,13 @@ def main(
                         else policy_action
                     )
                     env.step(action)
+                    prev_exec_action = np.asarray(action, dtype=np.float32).copy()
                     in_stay_state = False
                 elif hybrid.active:
                     hold_action = state_to_dual_arm_action44(state46)
                     action = hybrid.merge(env.env, hold_action)
                     env.step(action)
+                    prev_exec_action = np.asarray(action, dtype=np.float32).copy()
                     in_stay_state = False
                 else:
                     env.stay(continue_stay=in_stay_state)

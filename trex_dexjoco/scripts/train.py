@@ -771,11 +771,43 @@ def train(args):
     set_seed(args.seed)
 
     if accelerator.is_main_process:
-        wandb.init(project=args.experiment_name, 
-                   name=args.run_name,
-                   config=args, 
-                   dir=args.log_dir
+        # Keep one wandb curve across resume_continue: WANDB_RUN_ID env >
+        # output_dir/wandb_run_id.txt > new run.
+        wandb_id_file = os.path.join(args.output_dir, "wandb_run_id.txt")
+        wandb_id = (os.environ.get("WANDB_RUN_ID") or "").strip() or None
+        if (
+            wandb_id is None
+            and bool(int(getattr(args, "resume_continue", 0)))
+            and os.path.isfile(wandb_id_file)
+        ):
+            with open(wandb_id_file, "r", encoding="utf-8") as f:
+                wandb_id = f.read().strip() or None
+        wandb_kwargs = dict(
+            project=args.experiment_name,
+            name=args.run_name,
+            config=args,
+            dir=args.log_dir,
+        )
+        if wandb_id:
+            wandb_kwargs["id"] = wandb_id
+            wandb_kwargs["resume"] = "allow"
+        try:
+            run = wandb.init(**wandb_kwargs)
+        except Exception as e:
+            # Deleted / invalid id -> HTTP 409; fall back to a fresh run.
+            if wandb_id:
+                print(
+                    f"[wandb] resume id={wandb_id} failed ({e}); starting a new run",
+                    flush=True,
                 )
+                wandb_kwargs.pop("id", None)
+                wandb_kwargs.pop("resume", None)
+                run = wandb.init(**wandb_kwargs)
+            else:
+                raise
+        os.makedirs(args.output_dir, exist_ok=True)
+        with open(wandb_id_file, "w", encoding="utf-8") as f:
+            f.write(run.id)
 
     if accelerator.state.deepspeed_plugin is not None:
         accelerator.state.deepspeed_plugin.deepspeed_config["train_micro_batch_size_per_gpu"] = args.train_bsz_per_gpu
@@ -884,7 +916,10 @@ def train(args):
         missing, unexpected = model.load_state_dict(filtered_sd, strict=False)
         accelerator.print(f"Resumed: missing={len(missing)}, unexpected={len(unexpected)}")
 
-    resumed_tactile = bool(args.resume_checkpoint) and args.resume_source == "midtrain"
+    resume_continue = bool(int(getattr(args, "resume_continue", 0)))
+    resumed_tactile = bool(args.resume_checkpoint) and (
+        args.resume_source in ("midtrain", "posttrain") or resume_continue
+    )
     if not freeze_tactile and not resumed_tactile:
         # Tactile expert is a velocity predictor under cascaded flow matching,
         # so the head must start non-trivial (no final-layer zero-init here).
@@ -898,14 +933,33 @@ def train(args):
     elif resumed_tactile:
         accelerator.print("Tactile expert weights kept from resumed midtrain checkpoint.")
 
+    freeze_llm = bool(int(getattr(args, "freeze_llm", 0)))
+    # Heads / experts to keep trainable when freeze_llm=1
+    _head_markers = (
+        "_action", "_tactile", "final_layer", "flare",
+        "x_embedder", "t_embedder", "tacf6_embedder",
+        "tactile_code_embedder",
+    )
+
+    def _is_head_param(n: str) -> bool:
+        return any(m in n for m in _head_markers)
+
     for name, param in model.named_parameters():
         if (name.startswith("visual") or name.startswith("deform_encoder")
                 or name.startswith("tactile_vqvae")):
             param.requires_grad = False   # embedded VQ-VAE stays frozen
+        elif freeze_llm and not _is_head_param(name):
+            param.requires_grad = False   # freeze latent LLM / base expert
         elif "_tactile" in name or "final_layer_tactile" in name:
             param.requires_grad = (not freeze_tactile)
         else:
             param.requires_grad = True
+
+    if freeze_llm:
+        accelerator.print(
+            "freeze_llm=1: trainable = action/tactile/flare heads "
+            "(latent LLM + visual frozen)."
+        )
 
     # Upstream DeepSpeed stores params in bf16. Single-GPU path without
     # DeepSpeed must match collated bf16 tensors or Linear matmul fails.
@@ -993,7 +1047,25 @@ def train(args):
         device=torch.cuda.current_device(),
         world_size=accelerator.num_processes,
     )
+    # Default: load weights only, restart epoch/step (midtrain → post-train).
+    # resume_continue=1: pick up epoch/global_step from training_args.json.
+    start_epoch = 0
     global_step = 0
+    if resume_continue and resume_ta:
+        start_epoch = int(resume_ta.get("epoch", -1)) + 1
+        global_step = int(resume_ta.get("global_step", 0))
+        if start_epoch < 0:
+            start_epoch = 0
+        if start_epoch >= args.n_epochs:
+            raise ValueError(
+                f"resume_continue: start_epoch={start_epoch} >= n_epochs="
+                f"{args.n_epochs}; raise --n_epochs or disable --resume_continue")
+        accelerator.print(
+            f"resume_continue=1: resume from epoch={start_epoch} "
+            f"(after ckpt epoch={resume_ta.get('epoch')}), "
+            f"global_step={global_step}")
+        for _ in range(global_step):
+            lr_scheduler.step()
     T_per_frame = args.n_flare_tokens_per_frame
     S_steps = args.n_flare_steps
     K = T_per_frame * S_steps  # total flare tokens
@@ -1004,8 +1076,27 @@ def train(args):
     save_best = bool(getattr(args, "save_best", 1)) and val_dataloader is not None
     best_val_act = float("inf")
     best_meta = None
+    # Keep existing best when continuing the same run (don't overwrite with worse).
+    if resume_continue:
+        _best_ta = os.path.join(args.output_dir, "checkpoint-best", "training_args.json")
+        if os.path.isfile(_best_ta):
+            with open(_best_ta) as f:
+                _bm = json.load(f)
+            if "best_val_action_loss" in _bm:
+                best_val_act = float(_bm["best_val_action_loss"])
+                best_meta = {
+                    k: _bm[k] for k in (
+                        "best_metric", "best_val_action_loss",
+                        "best_val_tactile_loss", "epoch", "global_step",
+                    ) if k in _bm
+                }
+                accelerator.print(
+                    f"resume_continue: keep best val/action_loss={best_val_act:.6f}")
+    early_stop_patience = int(getattr(args, "early_stop_patience", 0) or 0)
+    val_no_improve = 0
+    stop_training = False
 
-    for epoch in range(args.n_epochs):
+    for epoch in range(start_epoch, args.n_epochs):
         from tqdm import tqdm
         it = (tqdm(dataloader, total=len(dataloader))
               if accelerator.is_main_process else dataloader)
@@ -1287,19 +1378,20 @@ def train(args):
                         f"act={val_m['val/action_loss']:.6f} "
                         f"tac={val_m['val/tactile_loss']:.6f}")
                     wandb.log(val_m, step=global_step)
-                if save_best:
-                    val_act = float(val_m["val/action_loss"])
-                    improved = val_act < best_val_act - 1e-12
-                    if improved:
-                        best_val_act = val_act
-                        best_meta = {
-                            "best_metric": "val/action_loss",
-                            "best_val_action_loss": val_act,
-                            "best_val_tactile_loss": float(
-                                val_m["val/tactile_loss"]),
-                            "epoch": epoch,
-                            "global_step": global_step,
-                        }
+                val_act = float(val_m["val/action_loss"])
+                improved = val_act < best_val_act - 1e-12
+                if improved:
+                    best_val_act = val_act
+                    val_no_improve = 0
+                    best_meta = {
+                        "best_metric": "val/action_loss",
+                        "best_val_action_loss": val_act,
+                        "best_val_tactile_loss": float(
+                            val_m["val/tactile_loss"]),
+                        "epoch": epoch,
+                        "global_step": global_step,
+                    }
+                    if save_best:
                         accelerator.print(
                             f"  [Best] val/action_loss={val_act:.6f} "
                             f"→ checkpoint-best (epoch={epoch}, step={global_step})")
@@ -1309,13 +1401,25 @@ def train(args):
                             epoch, global_step, dataset.stats_data,
                             tag="checkpoint-best", extra_meta=best_meta)
                         model.train()
+                else:
+                    val_no_improve += 1
+                    if (early_stop_patience > 0
+                            and val_no_improve >= early_stop_patience):
+                        accelerator.print(
+                            f"Early stop: val/action_loss no improve for "
+                            f"{val_no_improve} vals "
+                            f"(patience={early_stop_patience}, "
+                            f"best={best_val_act:.6f}, step={global_step})")
+                        stop_training = True
 
             global_step += 1
             if getattr(args, "max_train_steps", 0) and global_step >= args.max_train_steps:
                 accelerator.print(f"Reached --max_train_steps={args.max_train_steps}, stopping.")
+                stop_training = True
+            if stop_training:
                 break
 
-        if getattr(args, "max_train_steps", 0) and global_step >= args.max_train_steps:
+        if stop_training:
             break
 
         if (epoch + 1) % args.save_freq == 0 or epoch == args.n_epochs - 1:
@@ -1384,9 +1488,13 @@ if __name__ == "__main__":
     parser.add_argument("--training_stage", type=int, default=2, choices=[1, 2])
     parser.add_argument("--resume_checkpoint", type=str, default="")
     parser.add_argument("--resume_source", type=str, default="pretrain",
-                        choices=["pretrain", "midtrain"],
+                        choices=["pretrain", "midtrain", "posttrain"],
                         help="'pretrain': resumed ckpt did not train tactile (re-init); "
-                             "'midtrain': resumed ckpt already trained tactile (keep).")
+                             "'midtrain'/'posttrain': keep tactile weights.")
+    parser.add_argument("--resume_continue", type=int, default=0,
+                        help="1: continue epoch/global_step from resume "
+                             "training_args.json (for post-train resume). "
+                             "0: load weights only and restart counters.")
     parser.add_argument("--tactile_loss_weight", type=float, default=1.0)
     parser.add_argument("--image_size", type=int, nargs=2, default=None, metavar=("W", "H"))
 
@@ -1444,6 +1552,12 @@ if __name__ == "__main__":
     parser.add_argument("--max_val_batches", type=int, default=50, help="Max batches per validation run")
     parser.add_argument("--save_best", type=int, default=1,
                         help="1: whenever val/action_loss improves, overwrite checkpoint-best")
+    parser.add_argument("--early_stop_patience", type=int, default=0,
+                        help="Stop after N val runs without val/action_loss improve "
+                             "(0=disable). Counts validation events, not epochs.")
+    parser.add_argument("--freeze_llm", type=int, default=0,
+                        help="1: freeze latent LLM / base expert; train action/"
+                             "tactile/flare heads only (visual already frozen).")
 
     # DataLoader / video decode (LeRobot AV1 + multi-worker can segfault)
     parser.add_argument("--num_workers", type=int, default=4,

@@ -4,6 +4,8 @@ T-Rex post-train on DexJoCo **bimanual_assembly**（动作 44 + 原生触觉重�
 
 上游：`../refs/T-Rex`（`UPSTREAM_COMMIT.txt`）。细节见 [`docs/TRAIN_REPORT.md`](docs/TRAIN_REPORT.md)。
 
+**状态（2026-08）**：`0801_1306` 跑满 20ep 后，`checkpoint-best` 与 `checkpoint-19` 仿真均为 **0/50**。开环上 19 更好，但旋转/步长仍差；该 post-train 配方暂不继续。
+
 ---
 
 ## 0. 下载权重（必做，不能用 π0.5）
@@ -77,12 +79,39 @@ CUDA_VISIBLE_DEVICES=2 bash scripts_dexjoco/train_posttrain.sh
 # 2 号卡 + wandb 在线
 CUDA_VISIBLE_DEVICES=2 WANDB_MODE=online bash scripts_dexjoco/train_posttrain.sh
 
-# 短训默认：10 epoch、每 epoch 存盘、lr=3e-5、weight_decay=0.01
-# 可覆盖：N_EPOCHS=5 SAVE_FREQ=1 LR=1e-5
+# 短训默认：20 epoch、freeze_llm、lr=5e-5、wd=0.01、early_stop_patience=6、save_best
+# 可覆盖：N_EPOCHS=10 LR=3e-5 FREEZE_LLM=0 EARLY_STOP_PATIENCE=0
 
 # 若 DataLoader segfault：NUM_WORKERS=0（会变慢）；正常默认 NUM_WORKERS=4
 ```
 级联参数未改：`total_steps=10`，`split_step=6`。
+
+### 开环诊断（demo 上 action MSE，不跑 sim）
+
+```bash
+cd /home/wangrenpeng/dexjoco/trex_dexjoco
+conda activate dexjoco
+export PYTHONPATH=$PWD
+
+CKPT_ROOT=/mnt/hdd/checkpoints/trex_dexjoco_ckpt/bimanual_assembly/trex_posttrain_bimanual_assembly/trex_posttrain_bimanual_assembly_0730_1103
+CUDA_VISIBLE_DEVICES=2 CUDA_ID=0 \
+CHECKPOINTS="$CKPT_ROOT/checkpoint-best $CKPT_ROOT/checkpoint-4-15945" \
+N_TRAIN=64 N_VAL=64 \
+bash scripts_dexjoco/eval_openloop.sh
+```
+
+结果目录（与 sim 同级，后缀 `_openloop`，无视频）：
+
+```text
+outputs/trex/bimanual_assembly_seed0_ckpt_checkpoint-best_openloop/
+  metrics.txt
+  openloop_summary.json
+  sample_traj.json          # 一帧 GT vs pred
+outputs/trex/bimanual_assembly_seed0_ckpt000004_openloop/
+  ...
+```
+
+看 `mse_all` / `predΔxyz` vs `gtΔxyz`：MSE 高或预测步间抖动远大于 GT → 优先加训头，别先堆 sim episode。
 
 ---
 
@@ -104,11 +133,14 @@ conda activate dexjoco
 export PYTHONPATH=/home/wangrenpeng/dexjoco/trex_dexjoco:/home/wangrenpeng/dexjoco:/home/wangrenpeng/dexjoco/dexjoco
 export MUJOCO_GL=egl
 
-# 默认用 checkpoint-13；换权重设 CHECKPOINT=...
+# 默认 checkpoint-best；腕限速平滑默认开（ACTION_SMOOTH=0 可关）
 CUDA_VISIBLE_DEVICES=2 \
-CHECKPOINT=/mnt/hdd/checkpoints/trex_dexjoco_ckpt/bimanual_assembly/trex_posttrain_bimanual_assembly/trex_posttrain_bimanual_assembly_0728_2128/checkpoint-13-44646 \
+CHECKPOINT=/mnt/hdd/checkpoints/trex_dexjoco_ckpt/bimanual_assembly/trex_posttrain_bimanual_assembly/trex_posttrain_bimanual_assembly_0730_1103/checkpoint-best \
 SEED=0 EPISODES=50 OVERWRITE=1 \
 bash trex_dexjoco/scripts_dexjoco/eval_posttrain.sh
+
+# 对照：关掉腕限速
+ACTION_SMOOTH=0 ... bash trex_dexjoco/scripts_dexjoco/eval_posttrain.sh
 ```
 
-说明：读 sim 指力（`force_mode=finger`）→ 触觉 `[8,3]`；动作 chunk=16；协议对齐 π0.5（50s / 1500 帧封顶）。
+说明：读 sim 指力（`force_mode=finger`）→ 触觉 `[8,3]`；动作 chunk=16；协议对齐 π0.5（50s / 1500 帧封顶）。腕平滑只钳制 xyz/rotvec 步长，手指维不改。

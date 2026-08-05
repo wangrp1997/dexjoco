@@ -1,15 +1,19 @@
 #!/bin/bash
 # DexJoCo post-train (B: action 44 + T1: native tactile VQ-VAE).
-# Short fine-tune: few epochs, save every epoch, lower LR (anti-overfit).
+# Short FT: freeze LLM, train action/tactile/flare heads, early-stop on val.
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${PROJECT_ROOT}/scripts"
 export PYTHONPATH="${PROJECT_ROOT}:${PYTHONPATH:-}"
 export WANDB_MODE="${WANDB_MODE:-offline}"
+# 续跑同一条 wandb：export WANDB_RUN_ID=<id>，或依赖 output_dir/wandb_run_id.txt
 
 ORIGIN_MODEL_PATH="${ORIGIN_MODEL_PATH:-/mnt/hdd/checkpoints/trex/Qwen3-VL-2B-Instruct}"
 RESUME_CHECKPOINT="${RESUME_CHECKPOINT:-/mnt/hdd/checkpoints/trex/T-Rex_midtrain_mecka23k_ucb100_vqvae_epoch6}"
+RESUME_SOURCE="${RESUME_SOURCE:-midtrain}"
+# 1: continue epoch/step from resume training_args (post-train 续跑)
+RESUME_CONTINUE="${RESUME_CONTINUE:-0}"
 # REQUIRED: DexJoCo-retrained VQ-VAE (not midtrain F6)
 VQVAE_CKPT="${VQVAE_CKPT:-/mnt/hdd/checkpoints/trex/vqvae_dexjoco_allegro8x3/vqvae_f6_20260727_231133/latest.pt}"
 
@@ -19,17 +23,19 @@ NORM_STATS="${NORM_STATS:-/mnt/ssd/datasets/trex_dexjoco/bimanual_assembly/trex_
 
 OUTPUT_DIR="${OUTPUT_DIR:-/mnt/hdd/checkpoints/trex_dexjoco_ckpt/bimanual_assembly}"
 EXPERIMENT_NAME="trex_posttrain_bimanual_assembly"
-RUN_NAME="${EXPERIMENT_NAME}_$(date +%m%d_%H%M)"
+RUN_NAME="${RUN_NAME:-${EXPERIMENT_NAME}_$(date +%m%d_%H%M)}"
 
 ACTION_DIM=44
 NUM_PROCESSES="${NUM_PROCESSES:-1}"
 TRAIN_BSZ="${TRAIN_BSZ:-16}"
-# Lower LR + short schedule: val peaked ~epoch0–1 under 1e-4×100ep.
-LR="${LR:-3e-5}"
-N_EPOCHS="${N_EPOCHS:-10}"
-# Few epochs → save every epoch so we can pick best by val.
-SAVE_FREQ="${SAVE_FREQ:-1}"
+# Head-only FT: slightly higher LR than full 3e-5 short run.
+LR="${LR:-5e-5}"
+N_EPOCHS="${N_EPOCHS:-20}"
+SAVE_FREQ="${SAVE_FREQ:-5}"
 WEIGHT_DECAY="${WEIGHT_DECAY:-0.01}"
+FREEZE_LLM="${FREEZE_LLM:-1}"
+# 0=关闭早停，跑满 n_epochs；仍会按 val 更新 checkpoint-best
+EARLY_STOP_PATIENCE="${EARLY_STOP_PATIENCE:-0}"
 
 NUM_WORKERS="${NUM_WORKERS:-4}"
 VIDEO_BACKEND="${VIDEO_BACKEND:-pyav}"
@@ -45,7 +51,7 @@ fi
 
 ACCEL_CONFIG="${ACCEL_CONFIG:-../config/sft_qwen_single.yaml}"
 
-echo "post-train: epochs=${N_EPOCHS} save_freq=${SAVE_FREQ} lr=${LR} wd=${WEIGHT_DECAY} run=${RUN_NAME}"
+echo "post-train: epochs=${N_EPOCHS} save_freq=${SAVE_FREQ} lr=${LR} wd=${WEIGHT_DECAY} freeze_llm=${FREEZE_LLM} early_stop=${EARLY_STOP_PATIENCE} resume_continue=${RESUME_CONTINUE} run=${RUN_NAME}"
 
 accelerate launch \
   --config_file "${ACCEL_CONFIG}" \
@@ -83,7 +89,8 @@ accelerate launch \
   --cascaded_tactile_dropout 0.1 \
   --cascaded_loss_weight 1.0 \
   --resume_checkpoint "${RESUME_CHECKPOINT}" \
-  --resume_source midtrain \
+  --resume_source "${RESUME_SOURCE}" \
+  --resume_continue "${RESUME_CONTINUE}" \
   --use_flare 1 \
   --n_flare_tokens_per_frame 4 \
   --n_flare_steps 8 \
@@ -96,4 +103,6 @@ accelerate launch \
   --val_ratio 0.05 \
   --val_freq 500 \
   --max_val_batches 30 \
-  --save_best 1
+  --save_best 1 \
+  --freeze_llm "${FREEZE_LLM}" \
+  --early_stop_patience "${EARLY_STOP_PATIENCE}"
