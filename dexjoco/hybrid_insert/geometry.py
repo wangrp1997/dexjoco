@@ -142,6 +142,57 @@ def rotation_world_from_to(from_vec: np.ndarray, to_vec: np.ndarray) -> R:
     return R.from_rotvec(cross / cross_norm * float(np.arctan2(cross_norm, dot)))
 
 
+def pbvs_tip_feature_error(
+    tip: np.ndarray,
+    socket: np.ndarray,
+    hole_axis: np.ndarray,
+    peg_axis: np.ndarray,
+    *,
+    target_along_m: float,
+) -> dict[str, float | np.ndarray]:
+    """Privileged PBVS features: lateral, along-hole, axis-line error.
+
+    along > 0: tip is on the approach side of the socket (out of the hole).
+    target_along_m: desired along value (negative = deeper into hole).
+    """
+    lat_err, lat_vec = lateral_error(tip, socket, hole_axis)
+    along = height_along_axis(tip, socket, hole_axis)
+    axis_err = axis_parallel_error_rad(peg_axis, hole_axis)
+    e_along = float(along - target_along_m)
+    return {
+        "lat_err": float(lat_err),
+        "lat_vec": np.asarray(lat_vec, dtype=np.float64),
+        "along": float(along),
+        "e_along": e_along,
+        "axis_err": float(axis_err),
+        "tip_socket_dist": tip_socket_distance(tip, socket),
+    }
+
+
+def pbvs_tip_velocity(
+    feat: dict[str, float | np.ndarray],
+    hole_axis: np.ndarray,
+    *,
+    lambda_xy: float,
+    lambda_z: float,
+    max_step_m: float,
+    allow_z: bool,
+) -> np.ndarray:
+    """Classical PBVS: v_tip = -λ e (task-space tip velocity command)."""
+    lat_vec = np.asarray(feat["lat_vec"], dtype=np.float64)
+    e_along = float(feat["e_along"])
+    v = -lambda_xy * lat_vec
+    if allow_z:
+        axis = np.asarray(hole_axis, dtype=np.float64)
+        axis = axis / (np.linalg.norm(axis) + 1e-8)
+        # e_along>0 → tip too far out → move -hole_axis into the hole.
+        v = v - lambda_z * e_along * axis
+    n = float(np.linalg.norm(v))
+    if n > max_step_m and n > 1e-12:
+        v = v * (max_step_m / n)
+    return v
+
+
 def wrist_rotvec_align_peg_axis(
     peg_axis: np.ndarray,
     hole_axis: np.ndarray,
