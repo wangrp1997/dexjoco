@@ -1,8 +1,8 @@
 {
-  "phase": "p0_l1_observability_privileged_label_smoke",
+  "phase": "observability_data_design",
   "busy": false,
-  "updated_at": "2026-08-14T13:28:00Z",
-  "verdict": "privileged_label_smoke_pass",
+  "updated_at": "2026-08-14T13:50:00Z",
+  "verdict": "obs_data_design_draft_pending_review",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,9 @@
   "privileged_label_schema": "docs/PRIVILEGED_LABEL_SCHEMA_V1.md",
   "privileged_label_smoke_report": "docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md",
   "privileged_label_smoke_manifest": "data/manifests/observability_privileged_label_smoke_v1.json",
-  "next_action": "decide_observability_data_design_readiness_no_train_collect_or_write",
+  "privileged_label_smoke_overall_verdict": "pass",
+  "observability_data_design": "docs/OBSERVABILITY_DATA_DESIGN.md",
+  "next_action": "review_observability_data_design_no_train_collect_or_write",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",

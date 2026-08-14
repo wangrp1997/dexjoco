@@ -3,10 +3,20 @@
 ## 当前状态
 
 - 日期：2026-08-14
-- 阶段：**P0-L1 Observability Privileged Label Smoke = pass**
-- 冻结特权标签契约；非训练数据集；写盘仍关；不训模型；不重开 C0/C1/C1.1
-- 产物：`docs/PRIVILEGED_LABEL_SCHEMA_V1.md`、`docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md`、`data/manifests/observability_privileged_label_smoke_v1.json`
-- 下一步：可讨论 Observability **数据设计**条件；仍不直接训练
+- 阶段：**Observability 数据设计（只设计）**；P0-L1 仍为 pass
+- 已修：`/tmp` 输出路径 `path_for_manifest`；统一 `overall_verdict`
+- 设计：`docs/OBSERVABILITY_DATA_DESIGN.md`（部署输入/窗口/split/有效样本/消融）
+- 仍不：生成训练数据、训练、写盘、采集、重开 C0/C1/C1.1
+
+## 2026-08-14：Observability 数据设计
+
+- 文档：`docs/OBSERVABILITY_DATA_DESIGN.md`
+- 默认窗口 W=8；split 以 episode/root 为主；单几何不可宣称 Obs 硬门通过
+
+## 2026-08-14：P0-L1 path fix
+
+- `io_paths.path_for_manifest`：仓库内相对路径，仓库外（如 `/tmp`）回退绝对路径
+- 单测：`tests/test_io_paths.py`
 
 ## 2026-08-14：P0-L1 Privileged Label Smoke
 

@@ -21,6 +21,7 @@ for _p in (str(PROJECT_ROOT), str(PROJECT_ROOT.parent), str(PROJECT_ROOT.parent 
 os.environ.setdefault("MUJOCO_GL", "egl")
 os.environ.setdefault("CUDA_VISIBLE_DEVICES", "")
 
+from embodied_grasp_insertion.io_paths import path_for_manifest  # noqa: E402
 from embodied_grasp_insertion.labels.privileged_schema import (  # noqa: E402
     PROTOCOL,
     SCHEMA_VERSION,
@@ -271,8 +272,8 @@ def main() -> int:
         },
         "windows": slim,
         "schema": schema_document(),
-        "report": str(args.report.relative_to(PROJECT_ROOT)),
-        "schema_doc": str(args.schema_out.relative_to(PROJECT_ROOT)),
+        "report": path_for_manifest(args.report, project_root=PROJECT_ROOT),
+        "schema_doc": path_for_manifest(args.schema_out, project_root=PROJECT_ROOT),
     }
 
     args.manifest.parent.mkdir(parents=True, exist_ok=True)
@@ -317,19 +318,19 @@ def main() -> int:
         encoding="utf-8",
     )
 
-    # Report
+    # Report (always cite overall_verdict)
     lines = [
         "# Observability Privileged Label Smoke (P0-L1)",
         "",
         f"- 日期：{manifest['created_at']}",
-        f"- 结论：**{overall}**",
+        f"- overall_verdict：**{manifest['overall_verdict']}**",
         f"- episodes：{args.episodes}；window={args.window}",
         f"- bit-exact repeat：{bit_exact}",
         f"- snapshot restore labels：{restore_ok}",
         f"- timeline contiguous：{timeline_ok}",
         "- 未训练、未采集、未开写盘、未重开 C0/C1/C1.1",
         f"- schema：`{args.schema_out.name}`",
-        f"- manifest：`{args.manifest.relative_to(PROJECT_ROOT)}`",
+        f"- manifest：`{path_for_manifest(args.manifest, project_root=PROJECT_ROOT)}`",
         "",
         "## Per episode",
         "",
@@ -356,16 +357,16 @@ def main() -> int:
     print(
         json.dumps(
             {
-                "overall_verdict": overall,
+                "overall_verdict": manifest["overall_verdict"],
                 "bit_exact": bit_exact,
                 "restore_ok": restore_ok,
                 "timeline_ok": timeline_ok,
-                "manifest": str(args.manifest),
+                "manifest": path_for_manifest(args.manifest, project_root=PROJECT_ROOT),
             },
             indent=2,
         )
     )
-    return 0 if overall == "pass" else 1
+    return 0 if manifest["overall_verdict"] == "pass" else 1
 
 
 if __name__ == "__main__":
