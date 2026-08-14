@@ -1,8 +1,8 @@
 {
-  "phase": "micro_demo_pilot_write_design_review",
+  "phase": "micro_demo_pilot_mock_write_hardened",
   "busy": false,
-  "updated_at": "2026-08-14T09:04:42Z",
-  "verdict": "write_design_under_review",
+  "updated_at": "2026-08-14T10:00:00Z",
+  "verdict": "mock_writer_review_pass",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",

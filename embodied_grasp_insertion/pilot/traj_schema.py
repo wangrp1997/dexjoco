@@ -22,6 +22,7 @@ class PilotSchemaError(ValueError):
 
 
 _ROOT_SOURCES = frozenset({"demo_transport", "oracle_establish_formal"})
+_MANIFEST_VERDICTS = frozenset({"write_ok", "aborted", "refused", "incomplete"})
 
 
 def _require_uuid(traj_id: str) -> str:
@@ -82,17 +83,22 @@ def validate_meta(meta: Any, *, require_dry_run_false: bool = True) -> dict[str,
     if rs not in _ROOT_SOURCES:
         raise PilotSchemaError(f"root_source invalid: {rs}")
     _require_bool(meta, "matched_snapshot_branch", expected=True)
-    if int(meta.get("snap_call_count_after_establish", -1)) != 0:
-        raise PilotSchemaError("snap_call_count_after_establish must be 0")
+    snap_after = meta.get("snap_call_count_after_establish")
+    if type(snap_after) is not int or isinstance(snap_after, bool) or snap_after != 0:
+        raise PilotSchemaError("snap_call_count_after_establish must be int 0")
     _require_bool(meta, "is_insertion_demo", expected=False)
     _require_str(meta, "created_at")
-    _require_int(meta, "horizon_steps_used", minimum=0)
-    _require_int(
+    used = _require_int(meta, "horizon_steps_used", minimum=0, maximum=MAX_HORIZON_STEPS)
+    budget = _require_int(
         meta,
         "horizon_budget_max",
         minimum=MIN_HORIZON_STEPS,
         maximum=MAX_HORIZON_STEPS,
     )
+    if used > budget:
+        raise PilotSchemaError(
+            f"horizon_steps_used={used} exceeds horizon_budget_max={budget}"
+        )
     if "oracle_usage" not in meta or not isinstance(meta["oracle_usage"], dict):
         raise PilotSchemaError("oracle_usage must be object")
     if rs == "demo_transport":
@@ -155,10 +161,34 @@ def validate_run_manifest(man: Any) -> dict[str, Any]:
         raise PilotSchemaError("manifest.protocol mismatch")
     _require_uuid(str(man.get("run_id", "")))
     _require_str(man, "created_at")
+    _require_bool(man, "dry_run")
+    if "WRITE_IMPLEMENTATION_ENABLED" not in man or type(man["WRITE_IMPLEMENTATION_ENABLED"]) is not bool:
+        raise PilotSchemaError("WRITE_IMPLEMENTATION_ENABLED must be bool")
     if "trajectories" not in man or not isinstance(man["trajectories"], list):
         raise PilotSchemaError("manifest.trajectories must be list")
-    if man.get("verdict") not in ("write_ok", "aborted", "refused"):
+    verdict = man.get("verdict")
+    if verdict not in _MANIFEST_VERDICTS:
         raise PilotSchemaError("manifest.verdict invalid")
+    if verdict == "write_ok":
+        if not man["trajectories"]:
+            raise PilotSchemaError("write_ok manifest requires non-empty trajectories")
+        if man.get("dry_run") is not False:
+            raise PilotSchemaError("write_ok manifest dry_run must be false")
+    for i, row in enumerate(man["trajectories"]):
+        if not isinstance(row, dict):
+            raise PilotSchemaError(f"trajectories[{i}] must be object")
+        _require_uuid(str(row.get("traj_id", "")))
+        _require_str(row, "path")
+        if type(row.get("gates_ok")) is not bool:
+            raise PilotSchemaError(f"trajectories[{i}].gates_ok must be bool")
+    if "rollback" in man:
+        rb = man["rollback"]
+        if not isinstance(rb, dict):
+            raise PilotSchemaError("rollback must be object")
+        if "traj_path" in rb and (not isinstance(rb["traj_path"], str) or not rb["traj_path"]):
+            raise PilotSchemaError("rollback.traj_path must be non-empty str")
+    if "training_forbidden" in man and man["training_forbidden"] is not True:
+        raise PilotSchemaError("manifest.training_forbidden must be true when present")
     return man
 
 

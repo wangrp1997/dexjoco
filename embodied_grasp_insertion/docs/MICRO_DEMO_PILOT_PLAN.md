@@ -143,4 +143,4 @@ Manifest（未来）应含：代码版本、配置哈希、arena XML 哈希、se
 
 ---
 
-*文档版本：v0-dry-run · 2026-08-14 · 不授权任何 trajectory 落盘。*
+*文档版本：v0-write-hardening · 2026-08-14 · mock 评审通过；仍不授权真实 trajectory 落盘。*

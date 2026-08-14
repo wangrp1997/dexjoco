@@ -18,7 +18,12 @@ from embodied_grasp_insertion.pilot.atomic_write import (
     commit_trajectory_mock,
     simulate_mid_write_failure_then_cleanup,
 )
-from embodied_grasp_insertion.pilot.traj_schema import PilotSchemaError, validate_meta
+from embodied_grasp_insertion.pilot.paths import PilotPathError
+from embodied_grasp_insertion.pilot.traj_schema import (
+    PilotSchemaError,
+    validate_meta,
+    validate_run_manifest,
+)
 
 
 def _meta(**over):
@@ -85,6 +90,24 @@ class TestTrajSchema(unittest.TestCase):
         with self.assertRaises(PilotSchemaError):
             validate_meta(_meta(is_insertion_demo=True))
 
+    def test_meta_rejects_used_gt_budget(self):
+        with self.assertRaises(PilotSchemaError):
+            validate_meta(_meta(horizon_steps_used=81, horizon_budget_max=80))
+
+    def test_manifest_rejects_write_ok_empty_traj(self):
+        with self.assertRaises(PilotSchemaError):
+            validate_run_manifest(
+                {
+                    "protocol": "micro_demo_pilot_v0",
+                    "run_id": str(uuid.uuid4()),
+                    "created_at": "2026-08-14T00:00:00Z",
+                    "dry_run": False,
+                    "WRITE_IMPLEMENTATION_ENABLED": False,
+                    "trajectories": [],
+                    "verdict": "write_ok",
+                }
+            )
+
 
 class TestAtomicWriteMock(unittest.TestCase):
     def setUp(self):
@@ -110,7 +133,6 @@ class TestAtomicWriteMock(unittest.TestCase):
         self.assertTrue((res.traj_dir / "labels.json").is_file())
         self.assertTrue((res.traj_dir / "states.npz").is_file())
         self.assertTrue(res.manifest_path.is_file())
-        # no leftover tmp
         tmp = self.root / ".tmp"
         if tmp.exists():
             self.assertEqual(list(tmp.iterdir()), [])
@@ -156,6 +178,56 @@ class TestAtomicWriteMock(unittest.TestCase):
                 out_root=self.root,
                 meta=_meta(),
                 labels=_labels(insert_ok=True),
+                states=_states(),
+            )
+
+    def test_manifest_fail_rolls_back_traj(self):
+        meta = _meta()
+        with self.assertRaises(PilotWriteError) as ctx:
+            commit_trajectory_mock(
+                out_root=self.root,
+                meta=meta,
+                labels=_labels(),
+                states=_states(),
+                inject_fail_after="manifest_write",
+            )
+        self.assertIn("rolled_back=True", str(ctx.exception))
+        self.assertFalse((self.root / "trajectories" / meta["traj_id"]).exists())
+        incomplete = list((self.root / "manifests").glob("incomplete_run_*.json"))
+        self.assertEqual(len(incomplete), 1)
+        man = json.loads(incomplete[0].read_text(encoding="utf-8"))
+        self.assertEqual(man["verdict"], "incomplete")
+
+    def test_traj_rename_inject_rolls_back(self):
+        meta = _meta()
+        with self.assertRaises(PilotWriteError):
+            commit_trajectory_mock(
+                out_root=self.root,
+                meta=meta,
+                labels=_labels(),
+                states=_states(),
+                inject_fail_after="traj_rename",
+            )
+        self.assertFalse((self.root / "trajectories" / meta["traj_id"]).exists())
+
+    def test_reject_trajectories_symlink(self):
+        self.root.mkdir(parents=True)
+        (self.root / "manifests").mkdir()
+        (self.root / ".tmp").mkdir()
+        real = Path(self._td.name) / "evil_trajs"
+        real.mkdir()
+        (self.root / "trajectories").symlink_to(real)
+        with self.assertRaises((PilotPathError, PilotWriteError)):
+            commit_trajectory_mock(
+                out_root=self.root, meta=_meta(), labels=_labels(), states=_states()
+            )
+
+    def test_reject_dotdot_mock_path(self):
+        with self.assertRaises((PilotPathError, PilotWriteError)):
+            commit_trajectory_mock(
+                out_root="/tmp/../etc/passwd",
+                meta=_meta(),
+                labels=_labels(),
                 states=_states(),
             )
 

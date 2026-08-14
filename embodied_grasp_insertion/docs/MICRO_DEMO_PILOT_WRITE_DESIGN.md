@@ -73,7 +73,7 @@ embodied_grasp_insertion/data/pilot_micro_demo_v0/
 | `snap_call_count_after_establish` | int | 必须 `0` |
 | `is_insertion_demo` | bool | 必须 `false`（v0） |
 | `created_at` | str | UTC `...Z` |
-| `horizon_steps_used` | int | `>=0` |
+| `horizon_steps_used` | int | `>=0` 且 `<= horizon_budget_max` 且 `<= MAX` |
 | `horizon_budget_max` | int | `MIN..MAX` |
 | `oracle_usage` | object | 含 snap 计数说明 |
 | `episode_index` / `root_frame` | int\|null | demo 路径必填 |
@@ -107,8 +107,9 @@ embodied_grasp_insertion/data/pilot_micro_demo_v0/
 | `WRITE_IMPLEMENTATION_ENABLED` | 当时常量 |
 | `config_sha256` / `code_caps` / `seed` | 复现 |
 | `trajectories` | `[{traj_id, path, gates_ok}]` |
-| `verdict` | `write_ok` \| `aborted` \| `refused` |
-| `rollback` | 推荐命令（allowlist 脚本） |
+| `verdict` | `write_ok` \| `aborted` \| `refused` \| `incomplete` |
+| `rollback` | 推荐命令（allowlist 脚本）；`incomplete` 时含 `traj_path` |
+| `write_ok` 额外 | `trajectories` 非空；`dry_run=false` |
 
 校验实现：`pilot/traj_schema.py`。
 
@@ -119,17 +120,18 @@ embodied_grasp_insertion/data/pilot_micro_demo_v0/
 ```
 assert WRITE_IMPLEMENTATION_ENABLED  # 生产入口；当前恒 False → refused
 assert out_root allowlist + 无 symlink + 空/可初始化
+# scaffold：trajectories/ manifests/ .tmp/ 及 README/banner 均须为真实目录/文件（非 symlink）
 assert traj_id UUID 且最终路径不存在
-assert meta/labels schema + all_gates_passed
+assert meta/labels schema + all_gates_passed + used<=budget
 
 tmpdir = out_root/.tmp/<run_id>/traj_<uuid>/   # 先建 .tmp（同根 allowlist 内）
 write meta.json, labels.json, states.npz into tmpdir
 fsync each file + fsync tmpdir
 validate bytes on disk (re-read schema)
+write COMMITTED into tmpdir
 
 # 最终 traj 目录原子出现：
 os.rename(tmpdir, out_root/trajectories/<uuid>)   # 同文件系统
-write COMMITTED into final dir (或 rename 前写入 tmp 再整体 rename)
 fsync parent trajectories/
 
 # run manifest 最后写：
@@ -139,10 +141,12 @@ write manifests/run_....json.partial → fsync → rename → fsync manifests/
 失败：
 
 1. 任意步骤异常 → 删除本次 `.tmp/<run_id>/`（allowlist 校验后）。
-2. 若 `trajectories/<uuid>` 已出现但不含完整文件 → 视为脏；删除该 traj（仅当缺 `COMMITTED` 或 schema 失败）。
-3. **不**留下半条可被训练误读的轨迹（无 `COMMITTED` 的目录不算有效）。
+2. 若 traj 已 rename 发布但 manifest 失败 → **回滚删除**该 traj，并 best-effort 写 `manifests/incomplete_run_<run_id>.json`（`verdict=incomplete`）。
+3. 若 `trajectories/<uuid>` 已出现但不含 `COMMITTED` → 视为脏；删除该 traj。
+4. **不**留下「有 `COMMITTED` 却无完整 run manifest」的可训练轨迹。
 
 禁止覆盖：`rename` 目标存在则失败（`O_EXCL` 语义）；不 `rm` 后重写。
+Mock 失败注入：`inject_fail_after=traj_rename|manifest_write`（仅 `commit_trajectory_mock`）。
 
 ---
 

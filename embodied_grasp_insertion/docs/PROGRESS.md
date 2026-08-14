@@ -3,17 +3,24 @@
 ## 当前状态
 
 - 日期：2026-08-14
-- 阶段：**写入实现设计 + mock 单测** 已提交评审
+- 阶段：**mock 写入器加固评审通过**（真实写盘前最后安全审查）
 - `WRITE_IMPLEMENTATION_ENABLED=False`；正式 `out_root` 未创建；不采集/不训练
-- 下一步：评审 `docs/MICRO_DEMO_PILOT_WRITE_DESIGN.md`；通过后仍须单独授权才写 1 条
-- 接续验证：dry-run guard 22 项 + 写入 mock 12 项，共 34 项单测通过
+- 下一步：你明确授权真实写入 1 条 → 再单独开开关 → 只写 1 条并检查产物 → 仍不训练
+- 单测：dry-run 22 + atomic write 18 = 40 通过
+
+## 2026-08-14：mock 写入器 hardening
+
+- manifest 失败：回滚已发布 traj + `incomplete` run 记录
+- scaffold：`trajectories/`/`manifests/`/`.tmp`/banner 拒 symlink
+- schema：`horizon_steps_used <= horizon_budget_max`；manifest 约束加强
+- 单测：失败注入、symlink、`..` 路径攻击；仍仅 `/tmp` mock
 
 ## 2026-08-14：单条 trajectory 写入设计（mock）
 
 - 设计：`docs/MICRO_DEMO_PILOT_WRITE_DESIGN.md`
 - schema：`pilot/traj_schema.py`
 - 原子写入：`pilot/atomic_write.py`（生产入口拒绝；`commit_trajectory_mock` 仅 `/tmp`）
-- 单测：`tests/test_pilot_atomic_write.py`（12 通过）
+- 单测：`tests/test_pilot_atomic_write.py`
 
 ## 2026-08-14：Micro-demo pilot dry-run 安全加固
 
