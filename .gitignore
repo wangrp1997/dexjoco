@@ -36,3 +36,8 @@ refs/
 third_party*
 docs/current_issue.md
 MUJOCO_LOG.TXT
+
+# Falsified / demoted pre-policy lines (archive locally; do not track)
+contact_cmdp_recovery_policy/
+recovery_trajectory_policy/
+root_paired_recovery_policy/
