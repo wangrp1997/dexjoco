@@ -1,0 +1,225 @@
+{
+  "protocol": "P0-L0",
+  "created_at": "2026-08-14T13:13:00Z",
+  "overall_verdict": "ready_for_observability_label_smoke",
+  "counts": {
+    "derivable": 1,
+    "partial": 7,
+    "blocked": 0
+  },
+  "items": [
+    {
+      "name": "object_in_hand_pose_6d",
+      "verdict": "derivable",
+      "sources": [
+        "MjData.xpos/xmat peg_body",
+        "allegro_palm_right",
+        "grasp_metrics.object_in_hand_pose"
+      ],
+      "formula": "t_rel = R_palm^{-1}(p_peg-p_palm); rotvec(R_palm^{-1} R_peg)",
+      "units_frame": "m, rad; palm body frame",
+      "deployment_or_privilege": "privilege_label_only",
+      "snapshot_restore_consistent": true,
+      "ambiguities": [
+        "fixed right palm reference",
+        "body origin != tip"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "object_in_hand_velocity",
+      "verdict": "partial",
+      "sources": [
+        "finite difference of o2h",
+        "optional MjData.cvel (not wrapped)"
+      ],
+      "formula": "||Δt_rel||/dt_ctrl ; angular rate from Δrotvec/dt",
+      "units_frame": "m/s, rad/s; requires >=2 frames",
+      "deployment_or_privilege": "privilege_label_only",
+      "snapshot_restore_consistent": null,
+      "ambiguities": [
+        "finite-diff vs spatial velocity",
+        "single-frame blocked"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "per_finger_contact_retention",
+      "verdict": "partial",
+      "sources": [
+        "data.contact peg-hand counts",
+        "FingerForceLabeler cfrc_ext",
+        "retention vs root"
+      ],
+      "formula": "min(c_t/c_root,1); force_active = ||f_i||>=eps",
+      "units_frame": "unitless; force eps default 0.05",
+      "deployment_or_privilege": "privilege_label_only",
+      "snapshot_restore_consistent": true,
+      "ambiguities": [
+        "count vs force disagree",
+        "legacy retention vs first step"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "slip_proxy_or_truth",
+      "verdict": "partial",
+      "sources": [
+        "o2h finite difference proxies in grasp_metrics"
+      ],
+      "formula": "||Δ translation||/dt; drift rate vs root",
+      "units_frame": "m/s proxy; NOT contact tangential truth",
+      "deployment_or_privilege": "privilege_proxy_only",
+      "snapshot_restore_consistent": null,
+      "ambiguities": [
+        "explicitly not ground truth",
+        "slip truth blocked"
+      ],
+      "notes": "truth=blocked; proxy=derivable"
+    },
+    {
+      "name": "contact_mode",
+      "verdict": "partial",
+      "sources": [
+        "AssemblyContactLabeler tray_ok/peg_ok/insert_ok",
+        "contact counts"
+      ],
+      "formula": "boolean outcome flags only",
+      "units_frame": "boolean / counts",
+      "deployment_or_privilege": "privilege_label_only",
+      "snapshot_restore_consistent": true,
+      "ambiguities": [
+        "capture/rim/jam/backout undefined"
+      ],
+      "notes": "fine modes blocked until contract"
+    },
+    {
+      "name": "regrasp_needed_peg_loss_risk",
+      "verdict": "partial",
+      "sources": [
+        "FullEpisodeEnv._peg_lost",
+        "peg_ok",
+        "drift/drop thresholds",
+        "legacy peg_loss alias"
+      ],
+      "formula": "heuristics; legacy peg_loss := not terminal peg_ok",
+      "units_frame": "boolean / counters",
+      "deployment_or_privilege": "privilege_heuristic",
+      "snapshot_restore_consistent": null,
+      "ambiguities": [
+        "legacy peg_loss != physical drop",
+        "no horizon risk contract"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "object_target_mating_transform",
+      "verdict": "partial",
+      "sources": [
+        "_insert_geometry tip/socket/hole_axis",
+        "semantic_target_features",
+        "body poses"
+      ],
+      "formula": "tip-socket vector + axes; full SE(3) mating API not unified",
+      "units_frame": "m; world / site frames",
+      "deployment_or_privilege": "privilege_label_only",
+      "snapshot_restore_consistent": true,
+      "ambiguities": [
+        "85D tip/axis also privilege",
+        "no single T_mating export"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "provenance",
+      "verdict": "partial",
+      "sources": [
+        "FullEpisodeSnapshot.episode_index/zarr_path/t",
+        "names_from_raw family",
+        "target_hole instance/site"
+      ],
+      "formula": "root_id convention episode:frame:phase (not stored in snapshot)",
+      "units_frame": "ids / paths",
+      "deployment_or_privilege": "metadata",
+      "snapshot_restore_consistent": true,
+      "ambiguities": [
+        "root_id not a snapshot field",
+        "on-disk snapshot schema unset"
+      ],
+      "notes": "episode/family/instance/core snapshot fields derivable"
+    }
+  ],
+  "mujoco_smoke": {
+    "ran": true,
+    "episode_id": 0,
+    "frame": 287,
+    "control_dt_s": 0.02,
+    "o2h_translation": [
+      0.17916432225698506,
+      0.01748079058499501,
+      -0.1759855405177675
+    ],
+    "o2h_rotvec": [
+      -0.35953847934920313,
+      -0.6021602170255592,
+      0.16569041874237728
+    ],
+    "contact_total": 4,
+    "contact_by_class": {
+      "palm": 0,
+      "index": 2,
+      "middle": 0,
+      "ring": 0,
+      "thumb": 2
+    },
+    "finger_force_norm": [
+      3.3382553108429063,
+      0.0,
+      0.0,
+      2.940727257467162
+    ],
+    "contact_active": [
+      true,
+      false,
+      false,
+      true
+    ],
+    "tray_ok": true,
+    "peg_ok": true,
+    "insert_ok": false,
+    "target_hole": {
+      "geometry_family_id": "round_8mm",
+      "peg_body": "industreal_round_peg_8mm",
+      "socket_body": "industreal_tray_insert_round_peg_8mm",
+      "socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+      "socket_bottom": "industreal_tray_insert_round_peg_8mm_bottom_contact",
+      "peg_tip_site": "industreal_round_peg_8mm_tip_site",
+      "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site"
+    },
+    "tip_to_true_m": 0.3030351532828099,
+    "claim_matches_env": true,
+    "snapshot_fields": {
+      "episode_index": 0,
+      "zarr_path": "/mnt/ssd/datasets/dexjoco_raw/dexjoco_raw_datasets/bimanual_assembly/assembly_demo_10_2026-03-19_15-42-47_880265/replay.zarr",
+      "t": 287,
+      "raw_env_step": 287,
+      "peg_lost": 0
+    },
+    "restore_consistency": {
+      "o2h_pose": true,
+      "contact_counts": true,
+      "target_hole": true,
+      "outcome_flags": true,
+      "all_ok": true
+    },
+    "WRITE_IMPLEMENTATION_ENABLED": false
+  },
+  "guards": {
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "collect": false,
+    "train": false,
+    "reopen_c0_c1_c1_1": false
+  },
+  "next_branch": "observability_label_smoke_privileged_only",
+  "report": "docs/P0_LABEL_DERIVABILITY_AUDIT.md"
+}

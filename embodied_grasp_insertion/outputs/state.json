@@ -1,12 +1,14 @@
 {
-  "phase": "p0_label_derivability_audit",
+  "phase": "p0_l0_label_derivability_done",
   "busy": false,
-  "updated_at": "2026-08-14T13:10:00Z",
-  "verdict": "checklist_synced_next_label_derivability",
+  "updated_at": "2026-08-14T13:13:00Z",
+  "verdict": "ready_for_observability_label_smoke",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
-  "next_action": "p0_l0_label_derivability_audit_readonly_no_collect_train_or_write",
+  "label_derivability_report": "docs/P0_LABEL_DERIVABILITY_AUDIT.md",
+  "label_derivability_manifest": "data/manifests/label_derivability_audit_v1.json",
+  "next_action": "observability_label_smoke_privileged_only_no_train_collect_or_write",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",

@@ -3,10 +3,16 @@
 ## 当前状态
 
 - 日期：2026-08-14
-- 阶段：**P0-L0 标签可派生性审计**（只读）；真实写盘**暂不授权**
-- `WRITE_IMPLEMENTATION_ENABLED=False`；正式 `out_root` 未创建；不采集/不训练
-- pilot 单测：dry-run 22 + atomic 18 = **40**
-- 下一步：完成 `docs/P0_LABEL_DERIVABILITY_AUDIT.md` + 只读 smoke；不重开 C0/C1/C1.1；不训 Obs 模型
+- 阶段：**P0-L0 标签可派生性审计完成**（只读 smoke pass）
+- overall：`ready_for_observability_label_smoke`；写盘仍关；不训练；不重开 C0/C1/C1.1
+- 产物：`docs/P0_LABEL_DERIVABILITY_AUDIT.md`、`data/manifests/label_derivability_audit_v1.json`
+- 下一步：小型 Observability **label smoke**（特权标签契约）；仍不训模型
+
+## 2026-08-14：P0-L0 Label Derivability Audit
+
+- o2h pose：**derivable**；其余多为 **partial**（slip/细 mode 无真值契约）
+- restore 一致性：ep0 frame 287 all_ok
+- 禁止：采集、训练、写盘、重开旧 Controllability
 
 ## 2026-08-14：P0 验收清单（不写盘）
 
