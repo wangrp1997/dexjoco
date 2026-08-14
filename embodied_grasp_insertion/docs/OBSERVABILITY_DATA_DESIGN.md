@@ -1,9 +1,11 @@
 # Observability 数据设计（P0-Obs-Design，只设计不落盘）
 
 - 日期：2026-08-14
+- 状态：**设计评审通过**（2026-08-14）
 - 前置：P0-L0 pass；P0-L1 `overall_verdict=pass`（特权标签契约已冻结）
 - **本文件不生成训练数据集、不训练模型、不打开写盘、不采集新 episode**
-- 目的：定义部署输入、标签窗口、split、有效样本与消融，供后续单独授权后再实现导出
+- 目的：定义部署输入、标签窗口、split、有效样本与消融；下一步为 `P0-Obs-D0` 只读可行性盘点
+- 明确：**单几何 sidecar 覆盖 ≠ Observability P0 通过**
 
 ## 0. 边界
 
@@ -138,18 +140,20 @@ v0 评测优先：**A / B / B+privilege-finger-ablation(标注为非部署)**。
 | sidecar 100 ep | 候选源；单几何 |
 | formal multi-family arena | 未来 geometry held-out 前提；**尚未**进 Obs 导出 |
 | micro-demo pilot | 无关；写盘仍关 |
+| P0-Obs-D0 | 只读可行性盘点（统计 + 最多 /tmp 3-ep 样例） |
 
 ---
 
-## 7. 就绪检查（进入实现导出前）
+## 7. 就绪检查
 
 - [x] 特权标签契约冻结（L1）  
 - [x] `/tmp` 审计输出路径兼容（path helper）  
-- [ ] 本设计评审通过  
-- [ ] 明确授权「只读导出 Obs 评测包」（仍非训练）  
+- [x] 本设计评审通过  
+- [ ] P0-Obs-D0 可行性盘点完成  
+- [ ] 明确授权「完整只读 Obs 评测包导出」（仍非训练）  
 - [ ] 仍禁止：训练、全量采集、`WRITE_IMPLEMENTATION_ENABLED=True`、重开 C0/C1/C1.1  
 
-当前：**设计稿待审**；未授权导出。
+当前：**设计通过 → 执行 D0**；未授权完整评测包导出 / 训练。
 
 ---
 
@@ -158,7 +162,8 @@ v0 评测优先：**A / B / B+privilege-finger-ablation(标注为非部署)**。
 - `docs/P0_ACCEPTANCE_CHECKLIST.md`
 - `docs/PRIVILEGED_LABEL_SCHEMA_V1.md`
 - `docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md`
+- `docs/OBSERVABILITY_DATASET_FEASIBILITY.md`（D0 报告）
 - `labels/privileged_schema.py`
 - `docs/SEMANTIC_DATA_DESIGN.md`（几何 held-out 另线）
 
-*版本：v0-design · 2026-08-14 · no dataset / no train / no write*
+*版本：v0-design-approved · 2026-08-14 · no dataset / no train / no write*

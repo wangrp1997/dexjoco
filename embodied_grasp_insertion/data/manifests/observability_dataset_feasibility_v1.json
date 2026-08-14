@@ -1,0 +1,5015 @@
+{
+  "protocol": "P0-Obs-D0",
+  "created_at": "2026-08-14T16:41:40Z",
+  "overall_verdict": "feasibility_pass",
+  "n_episodes_scanned": 100,
+  "episode_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    75,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99
+  ],
+  "checks": {
+    "bit_exact_repeat": true,
+    "digest_pass1": "b129b1e1114b6ca3afdacaaa14a6991b3ea9c9ce5fbffc941ac473763900c51e",
+    "digest_pass2": "b129b1e1114b6ca3afdacaaa14a6991b3ea9c9ce5fbffc941ac473763900c51e",
+    "split_leakage_ok": true,
+    "split_leakage_issues": [],
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "formal_pilot_out_root_exists": false,
+    "training_dataset_written": false,
+    "collect_new_episodes": false,
+    "reopen_c0_c1_c1_1": false
+  },
+  "roots_summary": {
+    "n_roots_total": 200,
+    "episodes_with_early_grasp": 100,
+    "episodes_with_transport": 100,
+    "episodes_with_zero_roots": 0
+  },
+  "windows": {
+    "root_anchored": {
+      "H1": 200,
+      "H4": 200,
+      "H8": 200,
+      "H16": 200
+    },
+    "phase_contiguous": {
+      "H1": 3700,
+      "H4": 3400,
+      "H8": 3000,
+      "H16": 2200
+    },
+    "horizons": [
+      1,
+      4,
+      8,
+      16
+    ]
+  },
+  "exclusions_total": {
+    "frame_gaps": 0,
+    "early_terminate": 0,
+    "label_invalid": 0,
+    "no_contact_at_recorded": 23947
+  },
+  "split": {
+    "method": "sha256(seed:episode) ranked; episode-atomic 70/15/15",
+    "seed": 20260814,
+    "episodes": {
+      "train": [
+        79,
+        49,
+        45,
+        57,
+        16,
+        83,
+        86,
+        61,
+        78,
+        91,
+        97,
+        27,
+        71,
+        50,
+        22,
+        28,
+        18,
+        82,
+        62,
+        63,
+        31,
+        40,
+        12,
+        85,
+        67,
+        42,
+        58,
+        7,
+        36,
+        14,
+        29,
+        89,
+        6,
+        96,
+        33,
+        17,
+        8,
+        92,
+        10,
+        99,
+        15,
+        55,
+        74,
+        46,
+        24,
+        53,
+        68,
+        80,
+        72,
+        77,
+        87,
+        81,
+        30,
+        69,
+        34,
+        75,
+        98,
+        73,
+        1,
+        35,
+        21,
+        4,
+        38,
+        11,
+        88,
+        23,
+        65,
+        64,
+        70,
+        20
+      ],
+      "val": [
+        0,
+        59,
+        66,
+        39,
+        54,
+        5,
+        44,
+        41,
+        60,
+        56,
+        51,
+        48,
+        26,
+        93,
+        52
+      ],
+      "test": [
+        84,
+        13,
+        90,
+        32,
+        3,
+        19,
+        94,
+        43,
+        37,
+        76,
+        25,
+        95,
+        2,
+        47,
+        9
+      ]
+    },
+    "roots": {
+      "train": [
+        "1:254:early_grasp",
+        "1:269:transport",
+        "4:235:early_grasp",
+        "4:250:transport",
+        "6:256:early_grasp",
+        "6:271:transport",
+        "7:354:early_grasp",
+        "7:369:transport",
+        "8:229:early_grasp",
+        "8:244:transport",
+        "10:285:early_grasp",
+        "10:300:transport",
+        "11:258:early_grasp",
+        "11:273:transport",
+        "12:257:early_grasp",
+        "12:272:transport",
+        "14:307:early_grasp",
+        "14:322:transport",
+        "15:234:early_grasp",
+        "15:249:transport",
+        "16:316:early_grasp",
+        "16:331:transport",
+        "17:501:early_grasp",
+        "17:516:transport",
+        "18:243:early_grasp",
+        "18:258:transport",
+        "20:271:early_grasp",
+        "20:286:transport",
+        "21:285:early_grasp",
+        "21:300:transport",
+        "22:236:early_grasp",
+        "22:251:transport",
+        "23:260:early_grasp",
+        "23:275:transport",
+        "24:277:early_grasp",
+        "24:292:transport",
+        "27:257:early_grasp",
+        "27:272:transport",
+        "28:284:early_grasp",
+        "28:299:transport",
+        "29:265:early_grasp",
+        "29:280:transport",
+        "30:268:early_grasp",
+        "30:283:transport",
+        "31:264:early_grasp",
+        "31:279:transport",
+        "33:298:early_grasp",
+        "33:313:transport",
+        "34:288:early_grasp",
+        "34:303:transport",
+        "35:325:early_grasp",
+        "35:340:transport",
+        "36:242:early_grasp",
+        "36:257:transport",
+        "38:256:early_grasp",
+        "38:271:transport",
+        "40:259:early_grasp",
+        "40:274:transport",
+        "42:250:early_grasp",
+        "42:265:transport",
+        "45:400:early_grasp",
+        "45:415:transport",
+        "46:275:early_grasp",
+        "46:290:transport",
+        "49:311:early_grasp",
+        "49:326:transport",
+        "50:251:early_grasp",
+        "50:266:transport",
+        "53:274:early_grasp",
+        "53:289:transport",
+        "55:261:early_grasp",
+        "55:276:transport",
+        "57:409:early_grasp",
+        "57:424:transport",
+        "58:241:early_grasp",
+        "58:256:transport",
+        "61:260:early_grasp",
+        "61:275:transport",
+        "62:200:early_grasp",
+        "62:215:transport",
+        "63:302:early_grasp",
+        "63:317:transport",
+        "64:218:early_grasp",
+        "64:233:transport",
+        "65:263:early_grasp",
+        "65:278:transport",
+        "67:278:early_grasp",
+        "67:293:transport",
+        "68:330:early_grasp",
+        "68:345:transport",
+        "69:251:early_grasp",
+        "69:266:transport",
+        "70:303:early_grasp",
+        "70:318:transport",
+        "71:382:early_grasp",
+        "71:397:transport",
+        "72:228:early_grasp",
+        "72:243:transport",
+        "73:391:early_grasp",
+        "73:406:transport",
+        "74:258:early_grasp",
+        "74:273:transport",
+        "75:270:early_grasp",
+        "75:285:transport",
+        "77:287:early_grasp",
+        "77:302:transport",
+        "78:279:early_grasp",
+        "78:294:transport",
+        "79:332:early_grasp",
+        "79:347:transport",
+        "80:326:early_grasp",
+        "80:341:transport",
+        "81:263:early_grasp",
+        "81:278:transport",
+        "82:237:early_grasp",
+        "82:252:transport",
+        "83:286:early_grasp",
+        "83:301:transport",
+        "85:265:early_grasp",
+        "85:280:transport",
+        "86:250:early_grasp",
+        "86:265:transport",
+        "87:315:early_grasp",
+        "87:330:transport",
+        "88:242:early_grasp",
+        "88:257:transport",
+        "89:227:early_grasp",
+        "89:242:transport",
+        "91:277:early_grasp",
+        "91:292:transport",
+        "92:276:early_grasp",
+        "92:291:transport",
+        "96:227:early_grasp",
+        "96:242:transport",
+        "97:253:early_grasp",
+        "97:268:transport",
+        "98:260:early_grasp",
+        "98:275:transport",
+        "99:278:early_grasp",
+        "99:293:transport"
+      ],
+      "val": [
+        "0:287:early_grasp",
+        "0:302:transport",
+        "5:287:early_grasp",
+        "5:302:transport",
+        "26:275:early_grasp",
+        "26:290:transport",
+        "39:269:early_grasp",
+        "39:284:transport",
+        "41:294:early_grasp",
+        "41:309:transport",
+        "44:278:early_grasp",
+        "44:293:transport",
+        "48:278:early_grasp",
+        "48:293:transport",
+        "51:271:early_grasp",
+        "51:286:transport",
+        "52:246:early_grasp",
+        "52:261:transport",
+        "54:240:early_grasp",
+        "54:255:transport",
+        "56:261:early_grasp",
+        "56:276:transport",
+        "59:244:early_grasp",
+        "59:259:transport",
+        "60:292:early_grasp",
+        "60:307:transport",
+        "66:226:early_grasp",
+        "66:241:transport",
+        "93:300:early_grasp",
+        "93:315:transport"
+      ],
+      "test": [
+        "2:266:early_grasp",
+        "2:281:transport",
+        "3:281:early_grasp",
+        "3:296:transport",
+        "9:228:early_grasp",
+        "9:243:transport",
+        "13:344:early_grasp",
+        "13:359:transport",
+        "19:247:early_grasp",
+        "19:262:transport",
+        "25:243:early_grasp",
+        "25:258:transport",
+        "32:220:early_grasp",
+        "32:235:transport",
+        "37:257:early_grasp",
+        "37:272:transport",
+        "43:278:early_grasp",
+        "43:293:transport",
+        "47:308:early_grasp",
+        "47:323:transport",
+        "76:262:early_grasp",
+        "76:277:transport",
+        "84:349:early_grasp",
+        "84:364:transport",
+        "90:269:early_grasp",
+        "90:284:transport",
+        "94:328:early_grasp",
+        "94:343:transport",
+        "95:335:early_grasp",
+        "95:350:transport"
+      ]
+    },
+    "counts": {
+      "train": 70,
+      "val": 15,
+      "test": 15
+    }
+  },
+  "deployment_inputs": {
+    "A_proprio_act44": {
+      "shape": [
+        44
+      ],
+      "dtype": "float64",
+      "units": "action44_m_rad_finger",
+      "source": "obs85[0:44]",
+      "mean_of_episode_means": [
+        -0.31695428617151483,
+        -0.30337768677462873,
+        1.3458805974016819,
+        -2.2643529992284788,
+        0.08021401168442546,
+        0.07611682356513669,
+        0.004458707963971692,
+        0.6666904599081049,
+        0.9131961975022993,
+        0.9819988838072865,
+        -0.1351213836989214,
+        0.7528210014169038,
+        1.0444233112384596,
+        0.6898777243561685,
+        0.005176236299050773,
+        0.8259817939416664,
+        0.9382547627620013,
+        0.7346457883200567,
+        0.6942921976060021,
+        0.6893556278151209,
+        0.4595287964037613,
+        1.1416365845628482,
+        -0.37307198844406947,
+        0.267423554199684,
+        1.2885532131548885,
+        1.1183784779670964,
+        -0.3383817839768536,
+        0.20514306535342794,
+        -0.25808843741267123,
+        1.0992769579242905,
+        0.7358888635033533,
+        0.7075685006548175,
+        -0.30173778188244954,
+        0.9327958501653906,
+        0.9645010429815328,
+        0.3172561182073961,
+        -0.3430801179630979,
+        0.8326771795842979,
+        1.1053156117339002,
+        0.8650048534758332,
+        0.582174984150055,
+        0.4795965740388862,
+        0.4790571925187671,
+        0.7294535207010634
+      ],
+      "episodes_with_data": 100,
+      "frames_sum": 30913,
+      "mean_missing_rate": 0.0
+    },
+    "B_wrist_ft12": {
+      "shape": [
+        12
+      ],
+      "dtype": "float64",
+      "units": "wrist_wrench_N_Nm",
+      "source": "obs85[70:82]",
+      "mean_of_episode_means": [
+        0.33583195044661884,
+        0.6122675214547058,
+        -4.021455685003314,
+        0.04586559705926798,
+        0.18875388232493243,
+        0.007007098598177536,
+        0.3167293663414357,
+        -1.093600242330733,
+        -2.7548376446064036,
+        0.06189981427928092,
+        0.22494259461843696,
+        -0.016038926630921
+      ],
+      "episodes_with_data": 100,
+      "frames_sum": 30913,
+      "mean_missing_rate": 0.0
+    },
+    "note": "B deployment input = A history + ft12 history; shapes are per-frame"
+  },
+  "privilege_label_distributions": {
+    "o2h_translation_m": {
+      "mean_of_episode_means": [
+        0.3393853894203914,
+        0.09049897976794487,
+        0.02176829443787081
+      ],
+      "episodes_with_data": 100,
+      "frames_sum": 6225,
+      "mean_missing_rate": 0.0
+    },
+    "o2h_rotvec_rad": {
+      "mean_of_episode_means": [
+        -0.4856767302899663,
+        -0.24105042824099027,
+        -0.07534628993603261
+      ],
+      "episodes_with_data": 100,
+      "frames_sum": 6225,
+      "mean_missing_rate": 0.0
+    },
+    "finger_force_norm_N": {
+      "mean_of_episode_means": [
+        0.8623655214391409,
+        0.06560988494621006,
+        0.013383577948588481,
+        1.2323929154007005
+      ],
+      "episodes_with_data": 100,
+      "frames_sum": 6225,
+      "mean_missing_rate": 0.0
+    },
+    "contact_total_mean_across_eps": 0.9154891720434836,
+    "outcome_rates_mean": {
+      "tray_ok": 0.5473947780113263,
+      "peg_ok": 0.12183150271715908,
+      "insert_ok": 0.0
+    }
+  },
+  "sample_pack_tmp": {
+    "path": "/tmp/obs_d0_pack_sample/sample_pack.json",
+    "n_episodes": 3
+  },
+  "claims": {
+    "observability_p0_pass": false,
+    "geometry_held_out_available": false,
+    "training_authorized": false,
+    "full_eval_pack_authorized": false,
+    "single_geometry_only": true
+  },
+  "per_episode": [
+    {
+      "episode_index": 0,
+      "roots": [
+        {
+          "episode_index": 0,
+          "frame": 287,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3030351532828099,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "0:287:early_grasp"
+        },
+        {
+          "episode_index": 0,
+          "frame": 302,
+          "phase": "transport",
+          "tip_dist_m": 0.17350927051551812,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "0:302:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 258
+      },
+      "scanned_frames": 318
+    },
+    {
+      "episode_index": 1,
+      "roots": [
+        {
+          "episode_index": 1,
+          "frame": 254,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3147239484594217,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "1:254:early_grasp"
+        },
+        {
+          "episode_index": 1,
+          "frame": 269,
+          "phase": "transport",
+          "tip_dist_m": 0.14861545115898087,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "1:269:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 211
+      },
+      "scanned_frames": 285
+    },
+    {
+      "episode_index": 2,
+      "roots": [
+        {
+          "episode_index": 2,
+          "frame": 266,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.32991952375089567,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "2:266:early_grasp"
+        },
+        {
+          "episode_index": 2,
+          "frame": 281,
+          "phase": "transport",
+          "tip_dist_m": 0.20305376276220855,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "2:281:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 224
+      },
+      "scanned_frames": 297
+    },
+    {
+      "episode_index": 3,
+      "roots": [
+        {
+          "episode_index": 3,
+          "frame": 281,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4430064354242648,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "3:281:early_grasp"
+        },
+        {
+          "episode_index": 3,
+          "frame": 296,
+          "phase": "transport",
+          "tip_dist_m": 0.2703894203188021,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 7,
+          "root_id": "3:296:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 247
+      },
+      "scanned_frames": 312
+    },
+    {
+      "episode_index": 4,
+      "roots": [
+        {
+          "episode_index": 4,
+          "frame": 235,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.43646784464275257,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "4:235:early_grasp"
+        },
+        {
+          "episode_index": 4,
+          "frame": 250,
+          "phase": "transport",
+          "tip_dist_m": 0.24251016977711654,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "4:250:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 214
+      },
+      "scanned_frames": 266
+    },
+    {
+      "episode_index": 5,
+      "roots": [
+        {
+          "episode_index": 5,
+          "frame": 287,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.47351931627366417,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "5:287:early_grasp"
+        },
+        {
+          "episode_index": 5,
+          "frame": 302,
+          "phase": "transport",
+          "tip_dist_m": 0.3271203759925433,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "5:302:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 268
+      },
+      "scanned_frames": 318
+    },
+    {
+      "episode_index": 6,
+      "roots": [
+        {
+          "episode_index": 6,
+          "frame": 256,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.44688980304356274,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "6:256:early_grasp"
+        },
+        {
+          "episode_index": 6,
+          "frame": 271,
+          "phase": "transport",
+          "tip_dist_m": 0.2365452212230917,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "6:271:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 226
+      },
+      "scanned_frames": 287
+    },
+    {
+      "episode_index": 7,
+      "roots": [
+        {
+          "episode_index": 7,
+          "frame": 354,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.30725297941610924,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "7:354:early_grasp"
+        },
+        {
+          "episode_index": 7,
+          "frame": 369,
+          "phase": "transport",
+          "tip_dist_m": 0.19684690287421802,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "7:369:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 293
+      },
+      "scanned_frames": 385
+    },
+    {
+      "episode_index": 8,
+      "roots": [
+        {
+          "episode_index": 8,
+          "frame": 229,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3964059813694408,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "8:229:early_grasp"
+        },
+        {
+          "episode_index": 8,
+          "frame": 244,
+          "phase": "transport",
+          "tip_dist_m": 0.2611843850426146,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "8:244:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 205
+      },
+      "scanned_frames": 260
+    },
+    {
+      "episode_index": 9,
+      "roots": [
+        {
+          "episode_index": 9,
+          "frame": 228,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4559555808276443,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "9:228:early_grasp"
+        },
+        {
+          "episode_index": 9,
+          "frame": 243,
+          "phase": "transport",
+          "tip_dist_m": 0.3001321261525822,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "9:243:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 198
+      },
+      "scanned_frames": 259
+    },
+    {
+      "episode_index": 10,
+      "roots": [
+        {
+          "episode_index": 10,
+          "frame": 285,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.2420157286578655,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "10:285:early_grasp"
+        },
+        {
+          "episode_index": 10,
+          "frame": 300,
+          "phase": "transport",
+          "tip_dist_m": 0.15357102020630922,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "10:300:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 244
+      },
+      "scanned_frames": 316
+    },
+    {
+      "episode_index": 11,
+      "roots": [
+        {
+          "episode_index": 11,
+          "frame": 258,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.44584205182478936,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "11:258:early_grasp"
+        },
+        {
+          "episode_index": 11,
+          "frame": 273,
+          "phase": "transport",
+          "tip_dist_m": 0.299216722617614,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "11:273:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 237
+      },
+      "scanned_frames": 289
+    },
+    {
+      "episode_index": 12,
+      "roots": [
+        {
+          "episode_index": 12,
+          "frame": 257,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.450885086169604,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "12:257:early_grasp"
+        },
+        {
+          "episode_index": 12,
+          "frame": 272,
+          "phase": "transport",
+          "tip_dist_m": 0.27536744566980714,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "12:272:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 219
+      },
+      "scanned_frames": 288
+    },
+    {
+      "episode_index": 13,
+      "roots": [
+        {
+          "episode_index": 13,
+          "frame": 344,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3981483877505667,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "13:344:early_grasp"
+        },
+        {
+          "episode_index": 13,
+          "frame": 359,
+          "phase": "transport",
+          "tip_dist_m": 0.2415240025575494,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "13:359:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 313
+      },
+      "scanned_frames": 375
+    },
+    {
+      "episode_index": 14,
+      "roots": [
+        {
+          "episode_index": 14,
+          "frame": 307,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3810122783563774,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 8,
+          "root_id": "14:307:early_grasp"
+        },
+        {
+          "episode_index": 14,
+          "frame": 322,
+          "phase": "transport",
+          "tip_dist_m": 0.22280639629871102,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "14:322:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 251
+      },
+      "scanned_frames": 338
+    },
+    {
+      "episode_index": 15,
+      "roots": [
+        {
+          "episode_index": 15,
+          "frame": 234,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.41290851968100556,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "15:234:early_grasp"
+        },
+        {
+          "episode_index": 15,
+          "frame": 249,
+          "phase": "transport",
+          "tip_dist_m": 0.22059764089499112,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "15:249:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 214
+      },
+      "scanned_frames": 265
+    },
+    {
+      "episode_index": 16,
+      "roots": [
+        {
+          "episode_index": 16,
+          "frame": 316,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.32796591064364256,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "16:316:early_grasp"
+        },
+        {
+          "episode_index": 16,
+          "frame": 331,
+          "phase": "transport",
+          "tip_dist_m": 0.21765432965567566,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "16:331:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 265
+      },
+      "scanned_frames": 347
+    },
+    {
+      "episode_index": 17,
+      "roots": [
+        {
+          "episode_index": 17,
+          "frame": 501,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4505763094200388,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "17:501:early_grasp"
+        },
+        {
+          "episode_index": 17,
+          "frame": 516,
+          "phase": "transport",
+          "tip_dist_m": 0.2729475906251159,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "17:516:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 471
+      },
+      "scanned_frames": 532
+    },
+    {
+      "episode_index": 18,
+      "roots": [
+        {
+          "episode_index": 18,
+          "frame": 243,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.43113425781519393,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "18:243:early_grasp"
+        },
+        {
+          "episode_index": 18,
+          "frame": 258,
+          "phase": "transport",
+          "tip_dist_m": 0.2578235084826502,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "18:258:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 207
+      },
+      "scanned_frames": 274
+    },
+    {
+      "episode_index": 19,
+      "roots": [
+        {
+          "episode_index": 19,
+          "frame": 247,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4569347286707134,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "19:247:early_grasp"
+        },
+        {
+          "episode_index": 19,
+          "frame": 262,
+          "phase": "transport",
+          "tip_dist_m": 0.27428295941005315,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "19:262:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 219
+      },
+      "scanned_frames": 278
+    },
+    {
+      "episode_index": 20,
+      "roots": [
+        {
+          "episode_index": 20,
+          "frame": 271,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3795623592372414,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "20:271:early_grasp"
+        },
+        {
+          "episode_index": 20,
+          "frame": 286,
+          "phase": "transport",
+          "tip_dist_m": 0.18604663313770423,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "20:286:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 231
+      },
+      "scanned_frames": 302
+    },
+    {
+      "episode_index": 21,
+      "roots": [
+        {
+          "episode_index": 21,
+          "frame": 285,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3093042464202962,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "21:285:early_grasp"
+        },
+        {
+          "episode_index": 21,
+          "frame": 300,
+          "phase": "transport",
+          "tip_dist_m": 0.20523047074776385,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "21:300:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 237
+      },
+      "scanned_frames": 316
+    },
+    {
+      "episode_index": 22,
+      "roots": [
+        {
+          "episode_index": 22,
+          "frame": 236,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34476514547305176,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "22:236:early_grasp"
+        },
+        {
+          "episode_index": 22,
+          "frame": 251,
+          "phase": "transport",
+          "tip_dist_m": 0.15466135710841167,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "22:251:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 197
+      },
+      "scanned_frames": 267
+    },
+    {
+      "episode_index": 23,
+      "roots": [
+        {
+          "episode_index": 23,
+          "frame": 260,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.45562033632554283,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "23:260:early_grasp"
+        },
+        {
+          "episode_index": 23,
+          "frame": 275,
+          "phase": "transport",
+          "tip_dist_m": 0.27045465694921084,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "23:275:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 230
+      },
+      "scanned_frames": 291
+    },
+    {
+      "episode_index": 24,
+      "roots": [
+        {
+          "episode_index": 24,
+          "frame": 277,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3324155415523598,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "24:277:early_grasp"
+        },
+        {
+          "episode_index": 24,
+          "frame": 292,
+          "phase": "transport",
+          "tip_dist_m": 0.2321022821412494,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "24:292:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 228
+      },
+      "scanned_frames": 308
+    },
+    {
+      "episode_index": 25,
+      "roots": [
+        {
+          "episode_index": 25,
+          "frame": 243,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.39370997676413777,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "25:243:early_grasp"
+        },
+        {
+          "episode_index": 25,
+          "frame": 258,
+          "phase": "transport",
+          "tip_dist_m": 0.17621078787045114,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "25:258:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 214
+      },
+      "scanned_frames": 274
+    },
+    {
+      "episode_index": 26,
+      "roots": [
+        {
+          "episode_index": 26,
+          "frame": 275,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.25242809750543915,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "26:275:early_grasp"
+        },
+        {
+          "episode_index": 26,
+          "frame": 290,
+          "phase": "transport",
+          "tip_dist_m": 0.2046844320347524,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "26:290:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 243
+      },
+      "scanned_frames": 306
+    },
+    {
+      "episode_index": 27,
+      "roots": [
+        {
+          "episode_index": 27,
+          "frame": 257,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.22228638476368692,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "27:257:early_grasp"
+        },
+        {
+          "episode_index": 27,
+          "frame": 272,
+          "phase": "transport",
+          "tip_dist_m": 0.20204367513752297,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "27:272:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 204
+      },
+      "scanned_frames": 288
+    },
+    {
+      "episode_index": 28,
+      "roots": [
+        {
+          "episode_index": 28,
+          "frame": 284,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.30982199126309373,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "28:284:early_grasp"
+        },
+        {
+          "episode_index": 28,
+          "frame": 299,
+          "phase": "transport",
+          "tip_dist_m": 0.20860481378636048,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "28:299:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 245
+      },
+      "scanned_frames": 315
+    },
+    {
+      "episode_index": 29,
+      "roots": [
+        {
+          "episode_index": 29,
+          "frame": 265,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.23336910079594536,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 2,
+          "root_id": "29:265:early_grasp"
+        },
+        {
+          "episode_index": 29,
+          "frame": 280,
+          "phase": "transport",
+          "tip_dist_m": 0.20743494857261674,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 2,
+          "root_id": "29:280:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 192
+      },
+      "scanned_frames": 296
+    },
+    {
+      "episode_index": 30,
+      "roots": [
+        {
+          "episode_index": 30,
+          "frame": 268,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.2879162059305395,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "30:268:early_grasp"
+        },
+        {
+          "episode_index": 30,
+          "frame": 283,
+          "phase": "transport",
+          "tip_dist_m": 0.21003570351170697,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "30:283:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 226
+      },
+      "scanned_frames": 299
+    },
+    {
+      "episode_index": 31,
+      "roots": [
+        {
+          "episode_index": 31,
+          "frame": 264,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3735084539858718,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "31:264:early_grasp"
+        },
+        {
+          "episode_index": 31,
+          "frame": 279,
+          "phase": "transport",
+          "tip_dist_m": 0.23093640420560335,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "31:279:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 231
+      },
+      "scanned_frames": 295
+    },
+    {
+      "episode_index": 32,
+      "roots": [
+        {
+          "episode_index": 32,
+          "frame": 220,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3166378052337513,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 7,
+          "root_id": "32:220:early_grasp"
+        },
+        {
+          "episode_index": 32,
+          "frame": 235,
+          "phase": "transport",
+          "tip_dist_m": 0.226608472401645,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "32:235:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 174
+      },
+      "scanned_frames": 251
+    },
+    {
+      "episode_index": 33,
+      "roots": [
+        {
+          "episode_index": 33,
+          "frame": 298,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3693603651668743,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "33:298:early_grasp"
+        },
+        {
+          "episode_index": 33,
+          "frame": 313,
+          "phase": "transport",
+          "tip_dist_m": 0.19034534477835421,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "33:313:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 262
+      },
+      "scanned_frames": 329
+    },
+    {
+      "episode_index": 34,
+      "roots": [
+        {
+          "episode_index": 34,
+          "frame": 288,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4208183435755606,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "34:288:early_grasp"
+        },
+        {
+          "episode_index": 34,
+          "frame": 303,
+          "phase": "transport",
+          "tip_dist_m": 0.2887421952894422,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "34:303:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 246
+      },
+      "scanned_frames": 319
+    },
+    {
+      "episode_index": 35,
+      "roots": [
+        {
+          "episode_index": 35,
+          "frame": 325,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.36229371611158,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "35:325:early_grasp"
+        },
+        {
+          "episode_index": 35,
+          "frame": 340,
+          "phase": "transport",
+          "tip_dist_m": 0.1766472185970262,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "35:340:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 273
+      },
+      "scanned_frames": 356
+    },
+    {
+      "episode_index": 36,
+      "roots": [
+        {
+          "episode_index": 36,
+          "frame": 242,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4465441835348034,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "36:242:early_grasp"
+        },
+        {
+          "episode_index": 36,
+          "frame": 257,
+          "phase": "transport",
+          "tip_dist_m": 0.26997774400217184,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 7,
+          "root_id": "36:257:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 214
+      },
+      "scanned_frames": 273
+    },
+    {
+      "episode_index": 37,
+      "roots": [
+        {
+          "episode_index": 37,
+          "frame": 257,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.37903931025484633,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "37:257:early_grasp"
+        },
+        {
+          "episode_index": 37,
+          "frame": 272,
+          "phase": "transport",
+          "tip_dist_m": 0.2720297595493903,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "37:272:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 230
+      },
+      "scanned_frames": 288
+    },
+    {
+      "episode_index": 38,
+      "roots": [
+        {
+          "episode_index": 38,
+          "frame": 256,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.2812826094742755,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "38:256:early_grasp"
+        },
+        {
+          "episode_index": 38,
+          "frame": 271,
+          "phase": "transport",
+          "tip_dist_m": 0.14886920562285055,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "38:271:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 212
+      },
+      "scanned_frames": 287
+    },
+    {
+      "episode_index": 39,
+      "roots": [
+        {
+          "episode_index": 39,
+          "frame": 269,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34795879148951786,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "39:269:early_grasp"
+        },
+        {
+          "episode_index": 39,
+          "frame": 284,
+          "phase": "transport",
+          "tip_dist_m": 0.18945689247741204,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "39:284:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 233
+      },
+      "scanned_frames": 300
+    },
+    {
+      "episode_index": 40,
+      "roots": [
+        {
+          "episode_index": 40,
+          "frame": 259,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.237374779321255,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "40:259:early_grasp"
+        },
+        {
+          "episode_index": 40,
+          "frame": 274,
+          "phase": "transport",
+          "tip_dist_m": 0.17836382736006548,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "40:274:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 223
+      },
+      "scanned_frames": 290
+    },
+    {
+      "episode_index": 41,
+      "roots": [
+        {
+          "episode_index": 41,
+          "frame": 294,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3094275146393226,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "41:294:early_grasp"
+        },
+        {
+          "episode_index": 41,
+          "frame": 309,
+          "phase": "transport",
+          "tip_dist_m": 0.16784071249314136,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "41:309:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 246
+      },
+      "scanned_frames": 325
+    },
+    {
+      "episode_index": 42,
+      "roots": [
+        {
+          "episode_index": 42,
+          "frame": 250,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.31528963110912067,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "42:250:early_grasp"
+        },
+        {
+          "episode_index": 42,
+          "frame": 265,
+          "phase": "transport",
+          "tip_dist_m": 0.18375312200882774,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "42:265:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 220
+      },
+      "scanned_frames": 281
+    },
+    {
+      "episode_index": 43,
+      "roots": [
+        {
+          "episode_index": 43,
+          "frame": 278,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3432066270083086,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "43:278:early_grasp"
+        },
+        {
+          "episode_index": 43,
+          "frame": 293,
+          "phase": "transport",
+          "tip_dist_m": 0.19174810504308673,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "43:293:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 238
+      },
+      "scanned_frames": 309
+    },
+    {
+      "episode_index": 44,
+      "roots": [
+        {
+          "episode_index": 44,
+          "frame": 278,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.19031789532609583,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "44:278:early_grasp"
+        },
+        {
+          "episode_index": 44,
+          "frame": 293,
+          "phase": "transport",
+          "tip_dist_m": 0.1819512258260702,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "44:293:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 226
+      },
+      "scanned_frames": 309
+    },
+    {
+      "episode_index": 45,
+      "roots": [
+        {
+          "episode_index": 45,
+          "frame": 400,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.33359281329352625,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "45:400:early_grasp"
+        },
+        {
+          "episode_index": 45,
+          "frame": 415,
+          "phase": "transport",
+          "tip_dist_m": 0.19207844400917679,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "45:415:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 349
+      },
+      "scanned_frames": 431
+    },
+    {
+      "episode_index": 46,
+      "roots": [
+        {
+          "episode_index": 46,
+          "frame": 275,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.36477070088320407,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "46:275:early_grasp"
+        },
+        {
+          "episode_index": 46,
+          "frame": 290,
+          "phase": "transport",
+          "tip_dist_m": 0.24878682669123195,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "46:290:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 196
+      },
+      "scanned_frames": 306
+    },
+    {
+      "episode_index": 47,
+      "roots": [
+        {
+          "episode_index": 47,
+          "frame": 308,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34074398571673353,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "47:308:early_grasp"
+        },
+        {
+          "episode_index": 47,
+          "frame": 323,
+          "phase": "transport",
+          "tip_dist_m": 0.22184362981013042,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "47:323:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 273
+      },
+      "scanned_frames": 339
+    },
+    {
+      "episode_index": 48,
+      "roots": [
+        {
+          "episode_index": 48,
+          "frame": 278,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3613026851784856,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "48:278:early_grasp"
+        },
+        {
+          "episode_index": 48,
+          "frame": 293,
+          "phase": "transport",
+          "tip_dist_m": 0.2856847475552697,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 7,
+          "root_id": "48:293:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 243
+      },
+      "scanned_frames": 309
+    },
+    {
+      "episode_index": 49,
+      "roots": [
+        {
+          "episode_index": 49,
+          "frame": 311,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3280517941942228,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 10,
+          "root_id": "49:311:early_grasp"
+        },
+        {
+          "episode_index": 49,
+          "frame": 326,
+          "phase": "transport",
+          "tip_dist_m": 0.14651507202176872,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 13,
+          "root_id": "49:326:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 248
+      },
+      "scanned_frames": 342
+    },
+    {
+      "episode_index": 50,
+      "roots": [
+        {
+          "episode_index": 50,
+          "frame": 251,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.30704792192371516,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "50:251:early_grasp"
+        },
+        {
+          "episode_index": 50,
+          "frame": 266,
+          "phase": "transport",
+          "tip_dist_m": 0.19609657309546416,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "50:266:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 219
+      },
+      "scanned_frames": 282
+    },
+    {
+      "episode_index": 51,
+      "roots": [
+        {
+          "episode_index": 51,
+          "frame": 271,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3279283091086587,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "51:271:early_grasp"
+        },
+        {
+          "episode_index": 51,
+          "frame": 286,
+          "phase": "transport",
+          "tip_dist_m": 0.18801878682053946,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "51:286:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 239
+      },
+      "scanned_frames": 302
+    },
+    {
+      "episode_index": 52,
+      "roots": [
+        {
+          "episode_index": 52,
+          "frame": 246,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3593603372701963,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "52:246:early_grasp"
+        },
+        {
+          "episode_index": 52,
+          "frame": 261,
+          "phase": "transport",
+          "tip_dist_m": 0.26439025714735703,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "52:261:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 222
+      },
+      "scanned_frames": 277
+    },
+    {
+      "episode_index": 53,
+      "roots": [
+        {
+          "episode_index": 53,
+          "frame": 274,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3544932503190784,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "53:274:early_grasp"
+        },
+        {
+          "episode_index": 53,
+          "frame": 289,
+          "phase": "transport",
+          "tip_dist_m": 0.2478008251465826,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "53:289:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 238
+      },
+      "scanned_frames": 305
+    },
+    {
+      "episode_index": 54,
+      "roots": [
+        {
+          "episode_index": 54,
+          "frame": 240,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.26162222234436155,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "54:240:early_grasp"
+        },
+        {
+          "episode_index": 54,
+          "frame": 255,
+          "phase": "transport",
+          "tip_dist_m": 0.1540203400583738,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "54:255:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 205
+      },
+      "scanned_frames": 271
+    },
+    {
+      "episode_index": 55,
+      "roots": [
+        {
+          "episode_index": 55,
+          "frame": 261,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4975158270306479,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "55:261:early_grasp"
+        },
+        {
+          "episode_index": 55,
+          "frame": 276,
+          "phase": "transport",
+          "tip_dist_m": 0.3593548427266774,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "55:276:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 243
+      },
+      "scanned_frames": 292
+    },
+    {
+      "episode_index": 56,
+      "roots": [
+        {
+          "episode_index": 56,
+          "frame": 261,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.32655054363144503,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "56:261:early_grasp"
+        },
+        {
+          "episode_index": 56,
+          "frame": 276,
+          "phase": "transport",
+          "tip_dist_m": 0.1917446534274123,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "56:276:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 233
+      },
+      "scanned_frames": 292
+    },
+    {
+      "episode_index": 57,
+      "roots": [
+        {
+          "episode_index": 57,
+          "frame": 409,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3240784981662261,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "57:409:early_grasp"
+        },
+        {
+          "episode_index": 57,
+          "frame": 424,
+          "phase": "transport",
+          "tip_dist_m": 0.20400715674207345,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "57:424:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 362
+      },
+      "scanned_frames": 440
+    },
+    {
+      "episode_index": 58,
+      "roots": [
+        {
+          "episode_index": 58,
+          "frame": 241,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3704540755735695,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "58:241:early_grasp"
+        },
+        {
+          "episode_index": 58,
+          "frame": 256,
+          "phase": "transport",
+          "tip_dist_m": 0.18823190314282645,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "58:256:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 195
+      },
+      "scanned_frames": 272
+    },
+    {
+      "episode_index": 59,
+      "roots": [
+        {
+          "episode_index": 59,
+          "frame": 244,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3835014021458609,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "59:244:early_grasp"
+        },
+        {
+          "episode_index": 59,
+          "frame": 259,
+          "phase": "transport",
+          "tip_dist_m": 0.24943392934783096,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "59:259:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 205
+      },
+      "scanned_frames": 275
+    },
+    {
+      "episode_index": 60,
+      "roots": [
+        {
+          "episode_index": 60,
+          "frame": 292,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.324116314990648,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "60:292:early_grasp"
+        },
+        {
+          "episode_index": 60,
+          "frame": 307,
+          "phase": "transport",
+          "tip_dist_m": 0.2609486410687205,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "60:307:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 258
+      },
+      "scanned_frames": 323
+    },
+    {
+      "episode_index": 61,
+      "roots": [
+        {
+          "episode_index": 61,
+          "frame": 260,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3668263741452317,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "61:260:early_grasp"
+        },
+        {
+          "episode_index": 61,
+          "frame": 275,
+          "phase": "transport",
+          "tip_dist_m": 0.19773111912096075,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "61:275:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 221
+      },
+      "scanned_frames": 291
+    },
+    {
+      "episode_index": 62,
+      "roots": [
+        {
+          "episode_index": 62,
+          "frame": 200,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.45822310236599817,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "62:200:early_grasp"
+        },
+        {
+          "episode_index": 62,
+          "frame": 215,
+          "phase": "transport",
+          "tip_dist_m": 0.329988764481333,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "62:215:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 175
+      },
+      "scanned_frames": 231
+    },
+    {
+      "episode_index": 63,
+      "roots": [
+        {
+          "episode_index": 63,
+          "frame": 302,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34028897452900503,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "63:302:early_grasp"
+        },
+        {
+          "episode_index": 63,
+          "frame": 317,
+          "phase": "transport",
+          "tip_dist_m": 0.16497655054716526,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "63:317:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 266
+      },
+      "scanned_frames": 333
+    },
+    {
+      "episode_index": 64,
+      "roots": [
+        {
+          "episode_index": 64,
+          "frame": 218,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.264494499678871,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "64:218:early_grasp"
+        },
+        {
+          "episode_index": 64,
+          "frame": 233,
+          "phase": "transport",
+          "tip_dist_m": 0.1699632886505962,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "64:233:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 181
+      },
+      "scanned_frames": 249
+    },
+    {
+      "episode_index": 65,
+      "roots": [
+        {
+          "episode_index": 65,
+          "frame": 263,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4097861570136001,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "65:263:early_grasp"
+        },
+        {
+          "episode_index": 65,
+          "frame": 278,
+          "phase": "transport",
+          "tip_dist_m": 0.27989762269969415,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "65:278:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 218
+      },
+      "scanned_frames": 294
+    },
+    {
+      "episode_index": 66,
+      "roots": [
+        {
+          "episode_index": 66,
+          "frame": 226,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.2727509017469752,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "66:226:early_grasp"
+        },
+        {
+          "episode_index": 66,
+          "frame": 241,
+          "phase": "transport",
+          "tip_dist_m": 0.1622047429644197,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 7,
+          "root_id": "66:241:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 192
+      },
+      "scanned_frames": 257
+    },
+    {
+      "episode_index": 67,
+      "roots": [
+        {
+          "episode_index": 67,
+          "frame": 278,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.22128446560958773,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "67:278:early_grasp"
+        },
+        {
+          "episode_index": 67,
+          "frame": 293,
+          "phase": "transport",
+          "tip_dist_m": 0.16843371317281292,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "67:293:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 234
+      },
+      "scanned_frames": 309
+    },
+    {
+      "episode_index": 68,
+      "roots": [
+        {
+          "episode_index": 68,
+          "frame": 330,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.29305204763251463,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "68:330:early_grasp"
+        },
+        {
+          "episode_index": 68,
+          "frame": 345,
+          "phase": "transport",
+          "tip_dist_m": 0.16693601434348745,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "68:345:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 280
+      },
+      "scanned_frames": 361
+    },
+    {
+      "episode_index": 69,
+      "roots": [
+        {
+          "episode_index": 69,
+          "frame": 251,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3966919212148841,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 7,
+          "root_id": "69:251:early_grasp"
+        },
+        {
+          "episode_index": 69,
+          "frame": 266,
+          "phase": "transport",
+          "tip_dist_m": 0.20670948623687557,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "69:266:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 216
+      },
+      "scanned_frames": 282
+    },
+    {
+      "episode_index": 70,
+      "roots": [
+        {
+          "episode_index": 70,
+          "frame": 303,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.28144534171713387,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "70:303:early_grasp"
+        },
+        {
+          "episode_index": 70,
+          "frame": 318,
+          "phase": "transport",
+          "tip_dist_m": 0.17131378263570118,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "70:318:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 257
+      },
+      "scanned_frames": 334
+    },
+    {
+      "episode_index": 71,
+      "roots": [
+        {
+          "episode_index": 71,
+          "frame": 382,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.36256653981778136,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "71:382:early_grasp"
+        },
+        {
+          "episode_index": 71,
+          "frame": 397,
+          "phase": "transport",
+          "tip_dist_m": 0.18084086790686543,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "71:397:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 353
+      },
+      "scanned_frames": 413
+    },
+    {
+      "episode_index": 72,
+      "roots": [
+        {
+          "episode_index": 72,
+          "frame": 228,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4126658618361186,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "72:228:early_grasp"
+        },
+        {
+          "episode_index": 72,
+          "frame": 243,
+          "phase": "transport",
+          "tip_dist_m": 0.3116417083772866,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "72:243:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 183
+      },
+      "scanned_frames": 259
+    },
+    {
+      "episode_index": 73,
+      "roots": [
+        {
+          "episode_index": 73,
+          "frame": 391,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3731321023018952,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "73:391:early_grasp"
+        },
+        {
+          "episode_index": 73,
+          "frame": 406,
+          "phase": "transport",
+          "tip_dist_m": 0.2334338994150679,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "73:406:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 359
+      },
+      "scanned_frames": 422
+    },
+    {
+      "episode_index": 74,
+      "roots": [
+        {
+          "episode_index": 74,
+          "frame": 258,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34923926336512257,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "74:258:early_grasp"
+        },
+        {
+          "episode_index": 74,
+          "frame": 273,
+          "phase": "transport",
+          "tip_dist_m": 0.23943430677044408,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "74:273:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 217
+      },
+      "scanned_frames": 289
+    },
+    {
+      "episode_index": 75,
+      "roots": [
+        {
+          "episode_index": 75,
+          "frame": 270,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3380073355976003,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "75:270:early_grasp"
+        },
+        {
+          "episode_index": 75,
+          "frame": 285,
+          "phase": "transport",
+          "tip_dist_m": 0.2044589972769105,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "75:285:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 241
+      },
+      "scanned_frames": 301
+    },
+    {
+      "episode_index": 76,
+      "roots": [
+        {
+          "episode_index": 76,
+          "frame": 262,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34591849337014363,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "76:262:early_grasp"
+        },
+        {
+          "episode_index": 76,
+          "frame": 277,
+          "phase": "transport",
+          "tip_dist_m": 0.18866200209514206,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "76:277:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 226
+      },
+      "scanned_frames": 293
+    },
+    {
+      "episode_index": 77,
+      "roots": [
+        {
+          "episode_index": 77,
+          "frame": 287,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3154340409094051,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "77:287:early_grasp"
+        },
+        {
+          "episode_index": 77,
+          "frame": 302,
+          "phase": "transport",
+          "tip_dist_m": 0.180019672320645,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "77:302:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 250
+      },
+      "scanned_frames": 318
+    },
+    {
+      "episode_index": 78,
+      "roots": [
+        {
+          "episode_index": 78,
+          "frame": 279,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.42007165012714237,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "78:279:early_grasp"
+        },
+        {
+          "episode_index": 78,
+          "frame": 294,
+          "phase": "transport",
+          "tip_dist_m": 0.2083834931669358,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "78:294:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 230
+      },
+      "scanned_frames": 310
+    },
+    {
+      "episode_index": 79,
+      "roots": [
+        {
+          "episode_index": 79,
+          "frame": 332,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3366082491860293,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "79:332:early_grasp"
+        },
+        {
+          "episode_index": 79,
+          "frame": 347,
+          "phase": "transport",
+          "tip_dist_m": 0.19206158058484185,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "79:347:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 276
+      },
+      "scanned_frames": 363
+    },
+    {
+      "episode_index": 80,
+      "roots": [
+        {
+          "episode_index": 80,
+          "frame": 326,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3085501921938299,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "80:326:early_grasp"
+        },
+        {
+          "episode_index": 80,
+          "frame": 341,
+          "phase": "transport",
+          "tip_dist_m": 0.1879244958819249,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "80:341:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 280
+      },
+      "scanned_frames": 357
+    },
+    {
+      "episode_index": 81,
+      "roots": [
+        {
+          "episode_index": 81,
+          "frame": 263,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3370756644704456,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "81:263:early_grasp"
+        },
+        {
+          "episode_index": 81,
+          "frame": 278,
+          "phase": "transport",
+          "tip_dist_m": 0.20337789304551857,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "81:278:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 226
+      },
+      "scanned_frames": 294
+    },
+    {
+      "episode_index": 82,
+      "roots": [
+        {
+          "episode_index": 82,
+          "frame": 237,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.34229871949724555,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "82:237:early_grasp"
+        },
+        {
+          "episode_index": 82,
+          "frame": 252,
+          "phase": "transport",
+          "tip_dist_m": 0.186937879849392,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "82:252:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 206
+      },
+      "scanned_frames": 268
+    },
+    {
+      "episode_index": 83,
+      "roots": [
+        {
+          "episode_index": 83,
+          "frame": 286,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.37294725308562277,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "83:286:early_grasp"
+        },
+        {
+          "episode_index": 83,
+          "frame": 301,
+          "phase": "transport",
+          "tip_dist_m": 0.20305953131578508,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 6,
+          "root_id": "83:301:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 239
+      },
+      "scanned_frames": 317
+    },
+    {
+      "episode_index": 84,
+      "roots": [
+        {
+          "episode_index": 84,
+          "frame": 349,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4124900408942465,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "84:349:early_grasp"
+        },
+        {
+          "episode_index": 84,
+          "frame": 364,
+          "phase": "transport",
+          "tip_dist_m": 0.21870227667937336,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "84:364:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 307
+      },
+      "scanned_frames": 380
+    },
+    {
+      "episode_index": 85,
+      "roots": [
+        {
+          "episode_index": 85,
+          "frame": 265,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.5148543876667013,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "85:265:early_grasp"
+        },
+        {
+          "episode_index": 85,
+          "frame": 280,
+          "phase": "transport",
+          "tip_dist_m": 0.364253306754746,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "85:280:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 242
+      },
+      "scanned_frames": 296
+    },
+    {
+      "episode_index": 86,
+      "roots": [
+        {
+          "episode_index": 86,
+          "frame": 250,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.330489363153507,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "86:250:early_grasp"
+        },
+        {
+          "episode_index": 86,
+          "frame": 265,
+          "phase": "transport",
+          "tip_dist_m": 0.18813538224506404,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "86:265:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 216
+      },
+      "scanned_frames": 281
+    },
+    {
+      "episode_index": 87,
+      "roots": [
+        {
+          "episode_index": 87,
+          "frame": 315,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.317839918595639,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 2,
+          "root_id": "87:315:early_grasp"
+        },
+        {
+          "episode_index": 87,
+          "frame": 330,
+          "phase": "transport",
+          "tip_dist_m": 0.19877543695913877,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "87:330:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 232
+      },
+      "scanned_frames": 346
+    },
+    {
+      "episode_index": 88,
+      "roots": [
+        {
+          "episode_index": 88,
+          "frame": 242,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4001609031192312,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "88:242:early_grasp"
+        },
+        {
+          "episode_index": 88,
+          "frame": 257,
+          "phase": "transport",
+          "tip_dist_m": 0.25898713267198065,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "88:257:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 205
+      },
+      "scanned_frames": 273
+    },
+    {
+      "episode_index": 89,
+      "roots": [
+        {
+          "episode_index": 89,
+          "frame": 227,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.39544755357974637,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "89:227:early_grasp"
+        },
+        {
+          "episode_index": 89,
+          "frame": 242,
+          "phase": "transport",
+          "tip_dist_m": 0.2146021999804339,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "89:242:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 193
+      },
+      "scanned_frames": 258
+    },
+    {
+      "episode_index": 90,
+      "roots": [
+        {
+          "episode_index": 90,
+          "frame": 269,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.43558959978935513,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "90:269:early_grasp"
+        },
+        {
+          "episode_index": 90,
+          "frame": 284,
+          "phase": "transport",
+          "tip_dist_m": 0.2487283031446693,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "90:284:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 231
+      },
+      "scanned_frames": 300
+    },
+    {
+      "episode_index": 91,
+      "roots": [
+        {
+          "episode_index": 91,
+          "frame": 277,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.33852900927014845,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "91:277:early_grasp"
+        },
+        {
+          "episode_index": 91,
+          "frame": 292,
+          "phase": "transport",
+          "tip_dist_m": 0.17817535645472066,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "91:292:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 247
+      },
+      "scanned_frames": 308
+    },
+    {
+      "episode_index": 92,
+      "roots": [
+        {
+          "episode_index": 92,
+          "frame": 276,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4606295766469265,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "92:276:early_grasp"
+        },
+        {
+          "episode_index": 92,
+          "frame": 291,
+          "phase": "transport",
+          "tip_dist_m": 0.3139841624904067,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "92:291:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 248
+      },
+      "scanned_frames": 307
+    },
+    {
+      "episode_index": 93,
+      "roots": [
+        {
+          "episode_index": 93,
+          "frame": 300,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3825868351683621,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "93:300:early_grasp"
+        },
+        {
+          "episode_index": 93,
+          "frame": 315,
+          "phase": "transport",
+          "tip_dist_m": 0.20603706010036016,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "93:315:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 267
+      },
+      "scanned_frames": 331
+    },
+    {
+      "episode_index": 94,
+      "roots": [
+        {
+          "episode_index": 94,
+          "frame": 328,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3669756384253639,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "94:328:early_grasp"
+        },
+        {
+          "episode_index": 94,
+          "frame": 343,
+          "phase": "transport",
+          "tip_dist_m": 0.20619590647903388,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "94:343:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 279
+      },
+      "scanned_frames": 359
+    },
+    {
+      "episode_index": 95,
+      "roots": [
+        {
+          "episode_index": 95,
+          "frame": 335,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3573763370560897,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "95:335:early_grasp"
+        },
+        {
+          "episode_index": 95,
+          "frame": 350,
+          "phase": "transport",
+          "tip_dist_m": 0.21411206680607278,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "95:350:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 293
+      },
+      "scanned_frames": 366
+    },
+    {
+      "episode_index": 96,
+      "roots": [
+        {
+          "episode_index": 96,
+          "frame": 227,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.29274686978693215,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "96:227:early_grasp"
+        },
+        {
+          "episode_index": 96,
+          "frame": 242,
+          "phase": "transport",
+          "tip_dist_m": 0.15993756183220498,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "96:242:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 182
+      },
+      "scanned_frames": 258
+    },
+    {
+      "episode_index": 97,
+      "roots": [
+        {
+          "episode_index": 97,
+          "frame": 253,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.45794930015444274,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "97:253:early_grasp"
+        },
+        {
+          "episode_index": 97,
+          "frame": 268,
+          "phase": "transport",
+          "tip_dist_m": 0.32312782320520816,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "97:268:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 228
+      },
+      "scanned_frames": 284
+    },
+    {
+      "episode_index": 98,
+      "roots": [
+        {
+          "episode_index": 98,
+          "frame": 260,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.3588917898244256,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "98:260:early_grasp"
+        },
+        {
+          "episode_index": 98,
+          "frame": 275,
+          "phase": "transport",
+          "tip_dist_m": 0.1683228703940213,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 5,
+          "root_id": "98:275:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 219
+      },
+      "scanned_frames": 291
+    },
+    {
+      "episode_index": 99,
+      "roots": [
+        {
+          "episode_index": 99,
+          "frame": 278,
+          "phase": "early_grasp",
+          "tip_dist_m": 0.4076472535122841,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 4,
+          "root_id": "99:278:early_grasp"
+        },
+        {
+          "episode_index": 99,
+          "frame": 293,
+          "phase": "transport",
+          "tip_dist_m": 0.23703657415623935,
+          "peg_ok": true,
+          "insert_ok": false,
+          "contact_total": 3,
+          "root_id": "99:293:transport"
+        }
+      ],
+      "root_anchored_windows": {
+        "H1": 2,
+        "H4": 2,
+        "H8": 2,
+        "H16": 2
+      },
+      "phase_contiguous_windows": {
+        "H1": 37,
+        "H4": 34,
+        "H8": 30,
+        "H16": 22
+      },
+      "exclusions": {
+        "frame_gaps": 0,
+        "early_terminate": 0,
+        "label_invalid": 0,
+        "no_contact_at_recorded": 245
+      },
+      "scanned_frames": 309
+    }
+  ],
+  "report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md"
+}
