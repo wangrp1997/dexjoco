@@ -1,8 +1,8 @@
 {
-  "phase": "semantic_geometry_infrastructure",
+  "phase": "micro_demo_pilot_write_design_review",
   "busy": false,
-  "updated_at": "2026-08-14T08:45:00Z",
-  "verdict": "pending",
+  "updated_at": "2026-08-14T09:04:42Z",
+  "verdict": "write_design_under_review",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -652,7 +652,7 @@
   "allow_observability_p0": false,
   "allow_semantic_p0": false,
   "allow_policy_training": false,
-  "next_action": "still_no_train_collect_optional_tiny_controlled_demo_discussion_only",
+  "next_action": "review_micro_demo_pilot_write_design_only_no_real_write_collect_or_train",
   "p0s0": {
     "verdict": "pass",
     "reason": "8 families compile+lookup; insertable=8; mismatch_neg=3; sizes sourced from mesh×scale/yaml",
@@ -799,6 +799,9 @@
     "runner": "scripts/run_micro_demo_pilot.py",
     "unit_tests_dry_run": "tests/test_pilot_dry_run_guards.py",
     "unit_tests_write_mock": "tests/test_pilot_atomic_write.py",
+    "unit_tests_dry_run_passed": 22,
+    "unit_tests_write_mock_passed": 12,
+    "unit_tests_total_passed": 34,
     "MIN_HORIZON_STEPS": 5,
     "WRITE_IMPLEMENTATION_ENABLED": false,
     "write_design_authorized": false,

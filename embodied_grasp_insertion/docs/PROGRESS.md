@@ -6,6 +6,7 @@
 - 阶段：**写入实现设计 + mock 单测** 已提交评审
 - `WRITE_IMPLEMENTATION_ENABLED=False`；正式 `out_root` 未创建；不采集/不训练
 - 下一步：评审 `docs/MICRO_DEMO_PILOT_WRITE_DESIGN.md`；通过后仍须单独授权才写 1 条
+- 接续验证：dry-run guard 22 项 + 写入 mock 12 项，共 34 项单测通过
 
 ## 2026-08-14：单条 trajectory 写入设计（mock）
 
@@ -18,7 +19,7 @@
 
 - schema/gates/caps 强制消费；关 gate / 负 horizon / 未知字段 → 环境前 aborted
 - symlink `lstat` + 禁训 resolved 检查；`/tmp` 报告 O_EXCL|O_NOFOLLOW
-- 单测 18 通过；集成三门 + horizon_steps_used=80
+- 单测 22 通过；集成三门 + horizon_steps_used=80
 - 产物：`pilot/config_schema.py`、`tests/test_pilot_dry_run_guards.py`
 
 ## 2026-08-14：P0-S0.4c hardened（采集前回归）
@@ -292,4 +293,3 @@ MUJOCO_GL=egl CUDA_VISIBLE_DEVICES= conda run -n dexjoco --no-capture-output \
 - tip 改为 collision 插入端；要求 8/8，不允许 6/8 凑 pass
 - 仍禁训练与全量采集；`allow_formal_arena_edit=true`（可选，尚未改正式 arena）
 - 详见 `docs/GEOMETRY_ENV_SETTLE_SMOKE_V1B.md`
-
