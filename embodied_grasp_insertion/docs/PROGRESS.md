@@ -3,10 +3,16 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**P0-Obs-D1 export_pass**（完整只读评测包已导出）
-- 包路径：`/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1`（200 samples；大文件不进 Git）
-- `evaluation_only=true`；`training_authorized=false`；`claims_observability_p0_pass=false`
-- 写盘开关仍关；下一步：审查评测包分布；**仍不训练**
+- 阶段：**P0-Obs-B0 diagnostic_signal**（最小 Ridge 诊断完成）
+- 结论：A/B 弱优于 train-mean；**FT 无效**；**不宣称 Obs P0**；**禁止策略训练**
+- 报告：`docs/OBSERVABILITY_RIDGE_B0.md`；指标：`data/manifests/observability_ridge_b0_metrics.json`
+- 下一步：等人做继续/停止决策；不自动换复杂网络
+
+## 2026-08-15：P0-Obs-B0 Minimal Ridge Diagnostic
+
+- overall：`diagnostic_signal`；research_decision：`continue_candidate_sensing_signal`
+- 稳定优于 train-mean：A_H1、A_H8、B_H1；`ft_helps_claim=false`
+- ceiling ≈ 0；未训练策略、未采集、写盘仍关
 
 ## 2026-08-15：P0-Obs-D1 Eval Pack Export
 

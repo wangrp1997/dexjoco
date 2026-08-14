@@ -45,8 +45,8 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - P0-S0.4b = `pass`（demo transport root 纯动力学物理抓取；仅 round_8mm ep0/2/4）
 - P0-S0.4c = `pass`（4 族物理抓取 root：round_8mm=demo，其余=oracle-once+动力学；`claims_stable_grasp_policy=false`）
 - **禁止**：调 load/pulse；finger smoke；训练；全量采集。
-- **当前阶段**：`p0_obs_d1_export_pass`；评测包已导出（HDD）；审查后可另议小基线；仍禁训练/采集/写盘；**不得**称 Obs P0 通过。
-- Obs：设计 `OBSERVABILITY_DATA_DESIGN.md`；D0 `OBSERVABILITY_DATASET_FEASIBILITY.md`；D1 `OBSERVABILITY_EVAL_PACK_EXPORT.md` + HDD `observability_eval_v1`。
+- **当前阶段**：`p0_obs_b0_diagnostic_signal`；最小 Ridge 诊断完成；等人决定继续/停止；仍禁训练/采集/写盘；**不得**称 Obs P0 通过；FT 无效不可声称。
+- Obs：D1 包 HDD `observability_eval_v1`；B0 报告 `OBSERVABILITY_RIDGE_B0.md`。
 - 尺寸口径以 `docs/GEOMETRY_ASSET_AUDIT.md` 为准；禁止复制 8mm collision 到其他族时勿覆盖官方 8mm 文件。
 - 更新 `outputs/state.json`（`busy=false`）与 `docs/PROGRESS.md`。
 
