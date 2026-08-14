@@ -1,8 +1,8 @@
 {
-  "phase": "p0_obs_d0_feasibility_pass",
+  "phase": "p0_obs_d1_export_pass",
   "busy": false,
-  "updated_at": "2026-08-14T16:42:00Z",
-  "verdict": "feasibility_pass",
+  "updated_at": "2026-08-14T18:10:00Z",
+  "verdict": "export_pass",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,7 @@
   "observability_feasibility_report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md",
   "observability_feasibility_manifest": "data/manifests/observability_dataset_feasibility_v1.json",
   "claims_observability_p0_pass": false,
-  "next_action": "await_auth_full_readonly_eval_pack_export_still_no_train",
+  "next_action": "review_eval_pack_then_await_auth_small_obs_baseline_still_no_train_until_authorized",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -823,5 +823,8 @@
     "last_dry_run_verdict": "dry_run_ok",
     "training_forbidden": true,
     "note": "Real write deferred; algorithm focus is P0 label derivability, not pilot write"
-  }
+  },
+  "observability_eval_pack_report": "docs/OBSERVABILITY_EVAL_PACK_EXPORT.md",
+  "observability_eval_pack_manifest": "data/manifests/observability_eval_pack_v1.json",
+  "observability_eval_pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1"
 }

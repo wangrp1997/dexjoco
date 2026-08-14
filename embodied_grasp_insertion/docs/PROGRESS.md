@@ -2,11 +2,17 @@
 
 ## 当前状态
 
-- 日期：2026-08-14
-- 阶段：**P0-Obs-D0 feasibility_pass**；数据设计已评审通过
-- 100 ep 只读扫描：200 roots；H1–16 root 窗各 200；split 70/15/15 无泄漏；A/B missing=0
-- **不得**称 Observability P0 通过（单几何）
-- 下一步：若授权 → 完整只读评测包导出；训练另授权；仍不写盘
+- 日期：2026-08-15
+- 阶段：**P0-Obs-D1 export_pass**（完整只读评测包已导出）
+- 包路径：`/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1`（200 samples；大文件不进 Git）
+- `evaluation_only=true`；`training_authorized=false`；`claims_observability_p0_pass=false`
+- 写盘开关仍关；下一步：审查评测包分布；**仍不训练**
+
+## 2026-08-15：P0-Obs-D1 Eval Pack Export
+
+- overall_verdict：`export_pass`；bit-exact / leak / validation 全过
+- 报告：`docs/OBSERVABILITY_EVAL_PACK_EXPORT.md`
+- 统计：`data/manifests/observability_eval_pack_v1.json`
 
 ## 2026-08-14：P0-Obs-D0 Readonly Feasibility
 
