@@ -1,0 +1,437 @@
+{
+  "name": "geometry_env_settle_smoke_v1",
+  "created_at": "2026-08-14T01:52:51Z",
+  "protocol": "P0-S0.1",
+  "verdict": {
+    "label": "pass",
+    "reason": "8/8 families settle-stable; trials 16/16",
+    "n_families_passed": 8,
+    "n_families": 8,
+    "n_trials_passed": 16,
+    "n_trials": 16,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "allow_formal_arena_edit": true,
+    "next_if_pass": "optional parameterized arena plumbing design (still no mass collection)"
+  },
+  "settle_steps": 200,
+  "families": [
+    {
+      "family_id": "round_4mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_4mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 5,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            -0.02827729387095005,
+            0.1117023870628816,
+            -0.4095187540549938
+          ],
+          "peg_z": 0.17682516959434205,
+          "socket_z": 0.47712312518900385,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 6,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            0.22692336724940995,
+            0.019705919698908222,
+            -0.31579503643279283
+          ],
+          "peg_z": 0.12005138254276926,
+          "socket_z": 0.4854463864509284,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "round_8mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_8mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 5,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            -0.0018326921368291718,
+            -0.21617989356885123,
+            -0.30541780583149103
+          ],
+          "peg_z": 0.10745750491422082,
+          "socket_z": 0.538900612305494,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 6,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            -0.016447434672240406,
+            -0.007074103579003029,
+            -0.18001832436762777
+          ],
+          "peg_z": 0.1420172693807449,
+          "socket_z": 0.5299097789093853,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "round_12mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_12mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 5,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            0.0005476155256972067,
+            0.00044709416124674153,
+            -0.27220858854923935
+          ],
+          "peg_z": 0.11371836066281146,
+          "socket_z": 0.5980523902208916,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 6,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            0.10844472134243971,
+            -0.005832373489040001,
+            -0.3731674995789225
+          ],
+          "peg_z": 0.17276077640335533,
+          "socket_z": 0.6511617874671974,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "round_16mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 5,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            0.002412367852736676,
+            0.0024243170719035704,
+            -0.26535153047414084
+          ],
+          "peg_z": 0.10691701721160747,
+          "socket_z": 0.5832837898517564,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 6,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            0.07400468089042792,
+            0.0014750861491850294,
+            -0.32635912940665046
+          ],
+          "peg_z": 0.1612477123405468,
+          "socket_z": 0.6296656365957406,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_4mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 8,
+          "ncon_end": 6,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            0.021744957298885592,
+            1.0383333653535005e-17,
+            -0.012116298410187382
+          ],
+          "peg_z": 0.29097072769198007,
+          "socket_z": 0.26363426408588697,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 12,
+          "ncon_end": 6,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            0.012498221596484602,
+            1.11544119701559e-17,
+            -0.003630593237686164
+          ],
+          "peg_z": 0.28773406114869987,
+          "socket_z": 0.32400214793512633,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_8mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 8,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            2.5877774468425403e-16,
+            -0.21801167269805427,
+            -0.24674139990217187
+          ],
+          "peg_z": 0.3125436410290396,
+          "socket_z": 0.3924289587437375,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 12,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            -0.115726196662013,
+            1.2424451892207388e-16,
+            -0.1291987776479765
+          ],
+          "peg_z": 0.18988128318317127,
+          "socket_z": 0.45025340793611457,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_12mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 4,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            -1.90223424873629e-16,
+            0.14826135446832672,
+            -0.19783915534404797
+          ],
+          "peg_z": 0.21720991646660132,
+          "socket_z": 0.2986970785089713,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 8,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            -0.026980272742811805,
+            0.13329508481377572,
+            -0.13964037167068946
+          ],
+          "peg_z": 0.016444102741003115,
+          "socket_z": 0.35157324164212367,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__matched.xml",
+      "trials": [
+        {
+          "lateral_m": 0.0,
+          "hover_m": 0.03,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 4,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.0,
+            0.0,
+            0.030000000000000027
+          ],
+          "tip_delta_end": [
+            5.869679076792967e-16,
+            -0.07303154720415547,
+            0.02260436180202341
+          ],
+          "peg_z": 0.467011426382836,
+          "socket_z": 0.26208493296765517,
+          "passed": true
+        },
+        {
+          "lateral_m": 0.005,
+          "hover_m": 0.025,
+          "steps": 200,
+          "exploded": false,
+          "finite": true,
+          "ncon_start": 8,
+          "ncon_end": 0,
+          "tip_delta_start": [
+            0.005,
+            0.0,
+            0.025000000000000022
+          ],
+          "tip_delta_end": [
+            -0.017224604241061085,
+            -0.17318616997184336,
+            -0.06477553915681172
+          ],
+          "peg_z": 0.037597647728397354,
+          "socket_z": 0.3019576297418605,
+          "passed": true
+        }
+      ],
+      "family_passed": true
+    }
+  ]
+}

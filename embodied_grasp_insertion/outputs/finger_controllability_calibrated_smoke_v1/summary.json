@@ -1,0 +1,96 @@
+{
+  "created_at": "2026-08-13T15:03:46Z",
+  "verdict": {
+    "label": "no_effect",
+    "allow_extended_controllability_p0": false,
+    "reason": "effects present but below promising bar (best=calibrated_open_low:3roots/2eps, screened_roots=8, stabilizing_rows=6)",
+    "stabilizing": [
+      {
+        "root_id": "wrist_hold::ep010_f0379_pre_insert",
+        "improved": [
+          "calibrated_open_low"
+        ]
+      },
+      {
+        "root_id": "matched_transport_load::ep010_f0379_pre_insert",
+        "improved": [
+          "calibrated_open_low"
+        ]
+      },
+      {
+        "root_id": "wrist_hold::ep010_f0300_transport",
+        "improved": [
+          "random_matched"
+        ]
+      },
+      {
+        "root_id": "matched_transport_load::ep010_f0300_transport",
+        "improved": [
+          "right_demo_replay",
+          "calibrated_open_low"
+        ]
+      },
+      {
+        "root_id": "wrist_hold::ep006_f0271_transport",
+        "improved": [
+          "random_matched"
+        ]
+      },
+      {
+        "root_id": "matched_transport_load::ep006_f0271_transport",
+        "improved": [
+          "calibrated_open_low"
+        ]
+      }
+    ],
+    "harmful": []
+  },
+  "n_branches": 96,
+  "fairness_pass_rate": 1.0,
+  "n_unstable_roots_screened": 8,
+  "n_unstable_roots_used": 6,
+  "n_episodes_screened": 6,
+  "pairwise_vs_hold": {
+    "right_demo_replay": {
+      "vs_hold_better": 2,
+      "vs_hold_worse_trans": 12,
+      "n": 16
+    },
+    "calibrated_close_low": {
+      "vs_hold_better": 0,
+      "vs_hold_worse_trans": 14,
+      "n": 16
+    },
+    "calibrated_close_medium": {
+      "vs_hold_better": 0,
+      "vs_hold_worse_trans": 14,
+      "n": 16
+    },
+    "calibrated_open_low": {
+      "vs_hold_better": 6,
+      "vs_hold_worse_trans": 6,
+      "n": 16
+    },
+    "random_matched": {
+      "vs_hold_better": 2,
+      "vs_hold_worse_trans": 10,
+      "n": 16
+    }
+  },
+  "contexts": [
+    "wrist_hold",
+    "matched_transport_load"
+  ],
+  "interventions": [
+    "hold",
+    "right_demo_replay",
+    "calibrated_close_low",
+    "calibrated_close_medium",
+    "calibrated_open_low",
+    "random_matched"
+  ],
+  "allow_extended_controllability_p0": false,
+  "allow_observability_p0": false,
+  "allow_semantic_p0": false,
+  "allow_policy_training": false
+}

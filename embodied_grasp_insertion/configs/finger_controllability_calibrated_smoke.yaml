@@ -1,0 +1,90 @@
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+semantics_manifest: data/manifests/finger_actuation_semantics_v1.json
+unstable_roots_manifest: data/manifests/unstable_grasp_roots_v1.json
+episodes: [0, 2, 4, 6, 8, 10]
+horizon: 16
+pulse_steps: 2
+close_low_rad: 0.020
+close_medium_rad: 0.040
+open_low_rad: 0.020
+# Cap smoke size while keeping multi-episode coverage.
+max_unstable_roots_for_smoke: 6
+max_stable_controls_for_smoke: 2
+contexts:
+  - wrist_hold
+  - matched_transport_load
+interventions:
+  - hold
+  - right_demo_replay
+  - calibrated_close_low
+  - calibrated_close_medium
+  - calibrated_open_low
+  - random_matched
+mild_transport_delta44:
+  - 0.08
+  - 0.0
+  - 0.04
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.05
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+root_selection:
+  early_offset: 5
+  transport_tip_min_m: 0.08
+  preinsert_tip_max_m: 0.06
+  max_scan_frames: 700
+root_screening:
+  episodes: [0, 2, 4, 6, 8, 10]
+  horizon: 16
+  unstable_drift_quantile: 0.55
+  unstable_retention_quantile: 0.45
+  max_unstable_roots: 8
+  max_stable_controls: 3
+  max_scan_frames: 500
+output_dir: outputs/finger_controllability_calibrated_smoke_v1
+manifest_path: data/manifests/finger_controllability_calibrated_smoke_v1.json
+report_path: docs/FINGER_CONTROLLABILITY_CALIBRATED_SMOKE.md
+fairness:
+  wrist_atol: 0.0
+  left_finger_atol: 0.0
+  init_qpos_atol: 1e-8
+  init_obs_atol: 1e-5
+  budget_l2_atol: 1e-6

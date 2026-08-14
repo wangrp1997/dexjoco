@@ -1,0 +1,136 @@
+{
+  "name": "target_hole_multi_instance_smoke_v1",
+  "created_at": "2026-08-14T05:54:53Z",
+  "protocol": "P0-S0.3b",
+  "verdict": {
+    "label": "pass",
+    "reason": "dual_socket_families_ok=2/2",
+    "n_families_passed": 2,
+    "n_families": 2,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "claims_policy_knows_hole": 0,
+    "scope": "same_family_multi_socket_instance_metadata_plumbing",
+    "next_if_pass": "S0.4c multi-family physical grasp roots / still no train-collect"
+  },
+  "note": "Same-family dual-socket metadata/plumbing. Distinguishes target_instance_id, socket_site, and in-scene poses; wrong claim uses real secondary site via semantic_target_features(claimed_target=...). Not policy hole cognition.",
+  "families": [
+    {
+      "family_id": "round_8mm",
+      "passed": 1,
+      "assets": {
+        "family_id": "round_8mm",
+        "primary_socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "secondary_socket_site": "industreal_tray_insert_round_peg_8mm__inst_b_socket_site",
+        "secondary_instance_id": "industreal_tray_insert_round_peg_8mm__inst_b_socket_site",
+        "secondary_socket_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal_tray_insert_round_peg_8mm__inst_b.xml",
+        "dual_arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__round_8mm__dual.xml",
+        "secondary_pos_xyz": [
+          -0.1,
+          -0.02,
+          0.92
+        ]
+      },
+      "primary": {
+        "geometry_family_id": "round_8mm",
+        "peg_body": "industreal_round_peg_8mm",
+        "socket_body": "industreal_tray_insert_round_peg_8mm",
+        "socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "socket_bottom": "industreal_tray_insert_round_peg_8mm_bottom_contact",
+        "peg_tip_site": "industreal_round_peg_8mm_tip_site",
+        "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site"
+      },
+      "secondary": {
+        "geometry_family_id": "round_8mm",
+        "peg_body": "industreal_round_peg_8mm",
+        "socket_body": "industreal_tray_insert_round_peg_8mm__inst_b",
+        "socket_site": "industreal_tray_insert_round_peg_8mm__inst_b_socket_site",
+        "socket_bottom": "industreal_tray_insert_round_peg_8mm__inst_b_bottom_contact",
+        "peg_tip_site": "industreal_round_peg_8mm_tip_site",
+        "target_instance_id": "industreal_tray_insert_round_peg_8mm__inst_b_socket_site"
+      },
+      "pose_a": [
+        -0.25763452006610954,
+        0.2145894113066656,
+        0.9744406751963663
+      ],
+      "pose_b": [
+        -0.1,
+        -0.02,
+        0.9470000000000001
+      ],
+      "pose_sep_m": 0.2839609558881521,
+      "same_family": 1,
+      "id_distinct": 1,
+      "site_distinct": 1,
+      "pose_distinct": 1,
+      "match_primary": 1,
+      "match_secondary": 0,
+      "tip_to_primary_m": 0.4297345784576563,
+      "tip_to_secondary_m": 0.24789530146522384,
+      "wrong_claim_matches": 0,
+      "wrong_site_resolved": 1,
+      "info_ok": 1,
+      "info_target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site"
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "passed": 1,
+      "assets": {
+        "family_id": "rectangular_8mm",
+        "primary_socket_site": "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        "secondary_socket_site": "industreal_tray_insert_rectangular_peg_8mm__inst_b_socket_site",
+        "secondary_instance_id": "industreal_tray_insert_rectangular_peg_8mm__inst_b_socket_site",
+        "secondary_socket_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal_tray_insert_rectangular_peg_8mm__inst_b.xml",
+        "dual_arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__rectangular_8mm__dual.xml",
+        "secondary_pos_xyz": [
+          -0.1,
+          -0.02,
+          0.92
+        ]
+      },
+      "primary": {
+        "geometry_family_id": "rectangular_8mm",
+        "peg_body": "industreal_rectangular_peg_8mm",
+        "socket_body": "industreal_tray_insert_rectangular_peg_8mm",
+        "socket_site": "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        "socket_bottom": "industreal_tray_insert_rectangular_peg_8mm_bottom_contact",
+        "peg_tip_site": "industreal_rectangular_peg_8mm_tip_site",
+        "target_instance_id": "industreal_tray_insert_rectangular_peg_8mm_socket_site"
+      },
+      "secondary": {
+        "geometry_family_id": "rectangular_8mm",
+        "peg_body": "industreal_rectangular_peg_8mm",
+        "socket_body": "industreal_tray_insert_rectangular_peg_8mm__inst_b",
+        "socket_site": "industreal_tray_insert_rectangular_peg_8mm__inst_b_socket_site",
+        "socket_bottom": "industreal_tray_insert_rectangular_peg_8mm__inst_b_bottom_contact",
+        "peg_tip_site": "industreal_rectangular_peg_8mm_tip_site",
+        "target_instance_id": "industreal_tray_insert_rectangular_peg_8mm__inst_b_socket_site"
+      },
+      "pose_a": [
+        -0.25763452006610954,
+        0.2145894113066656,
+        0.9744406751963663
+      ],
+      "pose_b": [
+        -0.1,
+        -0.02,
+        0.9470000000000001
+      ],
+      "pose_sep_m": 0.2839609558881521,
+      "same_family": 1,
+      "id_distinct": 1,
+      "site_distinct": 1,
+      "pose_distinct": 1,
+      "match_primary": 1,
+      "match_secondary": 0,
+      "tip_to_primary_m": 0.4297345784576563,
+      "tip_to_secondary_m": 0.24789530146522384,
+      "wrong_claim_matches": 0,
+      "wrong_site_resolved": 1,
+      "info_ok": 1,
+      "info_target_instance_id": "industreal_tray_insert_rectangular_peg_8mm_socket_site"
+    }
+  ]
+}

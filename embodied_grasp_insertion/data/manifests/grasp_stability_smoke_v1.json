@@ -1,0 +1,341 @@
+{
+  "name": "grasp_stability_smoke_v1",
+  "created_at": "2026-08-14T05:21:47Z",
+  "protocol": "P0-S0.4",
+  "verdict": {
+    "label": "pass",
+    "reason": "all 4 representative families lift/hold/transport+neg ok",
+    "n_families_passed": 4,
+    "n_families": 4,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "claims_stable_grasp_policy": 0,
+    "positive_fixture": "oracle_kinematic_palm_snap",
+    "next_if_pass": "optional multi-hole instance semantics / still no train-collect"
+  },
+  "scope": "grasp_stability_metrics_with_oracle_fixture_and_open_hand_negative",
+  "note": "Positive lift/hold/transport use oracle kinematic palm-snap fixture (not a learned/physical grasp policy). Open-hand negative verifies metrics. Thresholds scale with family characteristic length.",
+  "families": [
+    {
+      "thresholds": {
+        "char_len_m": 0.0179685,
+        "hold_trans_tol_m": 0.004492125,
+        "hold_rot_tol_rad": 0.08,
+        "transport_trans_tol_m": 0.006288974999999999,
+        "transport_rot_tol_rad": 0.12,
+        "lift_follow_ratio_min": 0.6,
+        "lift_min_hand_dz_m": 0.05,
+        "table_clearance_z_m": 1.0,
+        "lift_trans_tol_m": 0.006288974999999999,
+        "lift_rot_tol_rad": 0.15,
+        "neg_trans_min_m": 0.00898425,
+        "neg_drop_delta_z_m": 0.02,
+        "max_peg_speed_m_s": 3.0,
+        "hold_abs_z_tol_m": 0.03
+      },
+      "local_offset": [
+        0.0,
+        0.0,
+        0.0443748
+      ],
+      "phases": [
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "peg_dz": 0.05381736670053239,
+            "hand_dz": 0.053030105785041304,
+            "peg_z": 1.152939702261163,
+            "table_hits": 0,
+            "max_rel_trans": 0.0003954113324475546,
+            "max_rel_rot": 5.232492750012013e-05,
+            "max_speed": 0.0,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 1.0418435870393204e-05,
+            "max_rel_rot": 9.9177584174687e-07,
+            "max_speed": 0.0,
+            "peg_z": 1.1576420563989789,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.0001724231218339149,
+            "max_rel_rot": 1.1542046832793275e-05,
+            "max_speed": 0.0,
+            "peg_z": 1.1579142644658396,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.4893220177841325,
+            "drop_z": 0.19800563228346435,
+            "min_peg_z": 0.9599086321823752,
+            "contacts_end": 0
+          }
+        }
+      ],
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "passed": 1,
+      "fixture": "oracle_kinematic_palm_snap",
+      "note": "Positive phases use kinematic hand-peg fixture (not physical grasp policy). Negative opens hand without fixture to verify metric sensitivity.",
+      "geometry_family_id": "round_8mm",
+      "family_id": "round_8mm",
+      "section": "round",
+      "nominal_size_mm": 8
+    },
+    {
+      "thresholds": {
+        "char_len_m": 0.03596175,
+        "hold_trans_tol_m": 0.0089904375,
+        "hold_rot_tol_rad": 0.08,
+        "transport_trans_tol_m": 0.0125866125,
+        "transport_rot_tol_rad": 0.12,
+        "lift_follow_ratio_min": 0.6,
+        "lift_min_hand_dz_m": 0.05,
+        "table_clearance_z_m": 1.0,
+        "lift_trans_tol_m": 0.0125866125,
+        "lift_rot_tol_rad": 0.15,
+        "neg_trans_min_m": 0.017980875,
+        "neg_drop_delta_z_m": 0.02,
+        "max_peg_speed_m_s": 3.0,
+        "hold_abs_z_tol_m": 0.03
+      },
+      "local_offset": [
+        0.0,
+        0.0,
+        0.0587694
+      ],
+      "phases": [
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "peg_dz": 0.054313557668355994,
+            "hand_dz": 0.053108281453752904,
+            "peg_z": 1.1530311119373668,
+            "table_hits": 0,
+            "max_rel_trans": 0.0003944354934721967,
+            "max_rel_rot": 5.500183356522989e-05,
+            "max_speed": 0.0,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 1.0404836173756672e-05,
+            "max_rel_rot": 9.904236844894605e-07,
+            "max_speed": 0.0,
+            "peg_z": 1.1577197832126898,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.00017254582325732353,
+            "max_rel_rot": 1.1498497132228457e-05,
+            "max_speed": 0.0,
+            "peg_z": 1.1579927664512724,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.5525052336350742,
+            "drop_z": 0.19099065555358807,
+            "min_peg_z": 0.9670021108976843,
+            "contacts_end": 0
+          }
+        }
+      ],
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "passed": 1,
+      "fixture": "oracle_kinematic_palm_snap",
+      "note": "Positive phases use kinematic hand-peg fixture (not physical grasp policy). Negative opens hand without fixture to verify metric sensitivity.",
+      "geometry_family_id": "round_16mm",
+      "family_id": "round_16mm",
+      "section": "round",
+      "nominal_size_mm": 16
+    },
+    {
+      "thresholds": {
+        "char_len_m": 0.017919,
+        "hold_trans_tol_m": 0.00447975,
+        "hold_rot_tol_rad": 0.08,
+        "transport_trans_tol_m": 0.00627165,
+        "transport_rot_tol_rad": 0.12,
+        "lift_follow_ratio_min": 0.6,
+        "lift_min_hand_dz_m": 0.05,
+        "table_clearance_z_m": 1.0,
+        "lift_trans_tol_m": 0.00627165,
+        "lift_rot_tol_rad": 0.15,
+        "neg_trans_min_m": 0.0089595,
+        "neg_drop_delta_z_m": 0.02,
+        "max_peg_speed_m_s": 3.0,
+        "hold_abs_z_tol_m": 0.03
+      },
+      "local_offset": [
+        0.0,
+        0.0,
+        0.0443352
+      ],
+      "phases": [
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "peg_dz": 0.05383447499442595,
+            "hand_dz": 0.05304288152946146,
+            "peg_z": 1.15293944611763,
+            "table_hits": 0,
+            "max_rel_trans": 0.00039535468148375576,
+            "max_rel_rot": 5.2719409580178876e-05,
+            "max_speed": 0.0,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 1.0418476719414547e-05,
+            "max_rel_rot": 9.91761870360077e-07,
+            "max_speed": 0.0,
+            "peg_z": 1.1576418409596743,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.0001724227801095704,
+            "max_rel_rot": 1.1542137357263385e-05,
+            "max_speed": 0.0,
+            "peg_z": 1.1579140503687357,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.48543355603289473,
+            "drop_z": 0.19756800977200306,
+            "min_peg_z": 0.9603460405967327,
+            "contacts_end": 0
+          }
+        }
+      ],
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "passed": 1,
+      "fixture": "oracle_kinematic_palm_snap",
+      "note": "Positive phases use kinematic hand-peg fixture (not physical grasp policy). Negative opens hand without fixture to verify metric sensitivity.",
+      "geometry_family_id": "rectangular_8mm",
+      "family_id": "rectangular_8mm",
+      "section": "rectangular",
+      "nominal_size_mm": 8
+    },
+    {
+      "thresholds": {
+        "char_len_m": 0.03590325,
+        "hold_trans_tol_m": 0.0089758125,
+        "hold_rot_tol_rad": 0.08,
+        "transport_trans_tol_m": 0.012566137499999998,
+        "transport_rot_tol_rad": 0.12,
+        "lift_follow_ratio_min": 0.6,
+        "lift_min_hand_dz_m": 0.05,
+        "table_clearance_z_m": 1.0,
+        "lift_trans_tol_m": 0.012566137499999998,
+        "lift_rot_tol_rad": 0.15,
+        "neg_trans_min_m": 0.017951625,
+        "neg_drop_delta_z_m": 0.02,
+        "max_peg_speed_m_s": 3.0,
+        "hold_abs_z_tol_m": 0.03
+      },
+      "local_offset": [
+        0.0,
+        0.0,
+        0.0587226
+      ],
+      "phases": [
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "peg_dz": 0.05423440949806446,
+            "hand_dz": 0.053059534569872335,
+            "peg_z": 1.153030826428991,
+            "table_hits": 0,
+            "max_rel_trans": 0.0003946499412864637,
+            "max_rel_rot": 5.336755984276929e-05,
+            "max_speed": 0.0,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 1.0404871033050763e-05,
+            "max_rel_rot": 9.904762507020714e-07,
+            "max_speed": 0.0,
+            "peg_z": 1.1577195342800277,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.00017254543336214751,
+            "max_rel_rot": 1.1498701781121395e-05,
+            "max_speed": 0.0,
+            "peg_z": 1.1579925062345127,
+            "contacts": 0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "max_rel_trans": 0.526586515623518,
+            "drop_z": 0.19475261814120925,
+            "min_peg_z": 0.9632398880933034,
+            "contacts_end": 0
+          }
+        }
+      ],
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "passed": 1,
+      "fixture": "oracle_kinematic_palm_snap",
+      "note": "Positive phases use kinematic hand-peg fixture (not physical grasp policy). Negative opens hand without fixture to verify metric sensitivity.",
+      "geometry_family_id": "rectangular_16mm",
+      "family_id": "rectangular_16mm",
+      "section": "rectangular",
+      "nominal_size_mm": 16
+    }
+  ]
+}

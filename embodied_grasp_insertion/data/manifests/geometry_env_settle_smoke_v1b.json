@@ -1,0 +1,1265 @@
+{
+  "name": "geometry_env_settle_smoke_v1b",
+  "created_at": "2026-08-14T02:00:26Z",
+  "protocol": "P0-S0.1b",
+  "verdict": {
+    "label": "pass",
+    "reason": "all 8 families support+clearance ok; mismatch_neg=3",
+    "n_families_passed": 8,
+    "n_families": 8,
+    "n_support_ok": 8,
+    "n_clearance_ok": 8,
+    "n_mismatch_ok": 3,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "allow_formal_arena_edit": true,
+    "supersedes": "geometry_env_settle_smoke_v1 (numerical-only)"
+  },
+  "note": "P0-S0.1 is numerical-execution-only and INVALID as physical settle pass. This v1b splits support-settle vs insertion-frame clearance with strict criteria.",
+  "families": [
+    {
+      "family_id": "round_4mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_4mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 6
+        },
+        "max_lin_vel": 0.19619999999999999,
+        "max_ang_vel": 4.877713445734475e-15,
+        "final_window_max_lin": 2.0167374049512545e-13,
+        "final_window_max_ang": 2.978832306446932e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634126,
+        "peg_z_start": 0.010973,
+        "peg_z_end": 0.008765765221131717,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.0002520000000000005,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            2.524284591635668e-07,
+            -6.386906240092539e-09,
+            -0.0002997644091280449
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0007997636122866621,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002520000000000005,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 7.560000000000014e-05,
+          "depth_m": 0.0,
+          "tip_delta": [
+            7.328522097498632e-05,
+            -2.9823970346623667e-07,
+            -0.0002996989560965918
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.000799534981320966,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002520000000000005,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.0134595,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.015637468916695756,
+            2.002708653155399e-05,
+            -8.394653780227634e-05
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 2,
+            "other": 0,
+            "ncon": 2
+          },
+          "min_contact_dist": -0.010560526976420861,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002520000000000005,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            2.524284591635668e-07,
+            -6.386906240092539e-09,
+            -0.0002997644091280449
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0007997636122866621,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002520000000000005,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "round_8mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_8mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 6
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 2.2652405292855772e-15,
+        "final_window_max_lin": 2.0168113456354955e-13,
+        "final_window_max_ang": 2.6368123156717083e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634126,
+        "peg_z_start": 0.0199685,
+        "peg_z_end": 0.017760765221131715,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.0002564999999999998,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            3.5395260255123875e-07,
+            2.8753004751228525e-07,
+            -0.0003080203890588745
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008083007523361757,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002564999999999998,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 7.694999999999993e-05,
+          "depth_m": 0.0,
+          "tip_delta": [
+            7.392812694243166e-05,
+            -2.7970468856734167e-07,
+            -0.00030834099863515096
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008082004192675986,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002564999999999998,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.026952749999999998,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.02932558251122101,
+            3.3246163394380274e-05,
+            -0.00015096281845224796
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 2,
+            "other": 0,
+            "ncon": 2
+          },
+          "min_contact_dist": -0.014867394978835482,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002564999999999998,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            3.5395260255123875e-07,
+            2.8753004751228525e-07,
+            -0.0003080203890588745
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008083007523361757,
+          "penetrating": true,
+          "clearance_radial_m": 0.0002564999999999998,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "round_12mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_12mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 6
+        },
+        "max_lin_vel": 0.1962,
+        "max_ang_vel": 1.9895196601282815e-15,
+        "final_window_max_lin": 2.0167393216072104e-13,
+        "final_window_max_ang": 2.926330968619153e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634127,
+        "peg_z_start": 0.02896175,
+        "peg_z_end": 0.026754765221131713,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.00048825000000000257,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -4.659246961360808e-07,
+            2.540825166690617e-07,
+            -0.00031708980357086913
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008169579804871324,
+          "penetrating": true,
+          "clearance_radial_m": 0.00048825000000000257,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 0.00014647500000000075,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.00014408821024852023,
+            -6.105751915218428e-07,
+            -0.00031738171914025975
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008179587649884409,
+          "penetrating": true,
+          "clearance_radial_m": 0.00048825000000000257,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.040442624999999996,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.04264036534438913,
+            -1.0095017049703411e-08,
+            -0.0001985823403710535
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 2,
+            "other": 0,
+            "ncon": 2
+          },
+          "min_contact_dist": -0.020016794663354227,
+          "penetrating": true,
+          "clearance_radial_m": 0.00048825000000000257,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -4.659246961360808e-07,
+            2.540825166690617e-07,
+            -0.00031708980357086913
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008169579804871324,
+          "penetrating": true,
+          "clearance_radial_m": 0.00048825000000000257,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "round_16mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 6
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 1.7773715898045696e-15,
+        "final_window_max_lin": 2.0168054105354e-13,
+        "final_window_max_ang": 2.9517482246154915e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634128,
+        "peg_z_start": 0.03796175,
+        "peg_z_end": 0.0357547652211317,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.0011632500000000046,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -4.6143596350114853e-07,
+            2.698960421346511e-07,
+            -0.00032325148477185817
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008230837138754975,
+          "penetrating": true,
+          "clearance_radial_m": 0.0011632500000000046,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 0.00034897500000000137,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.0003472717759624527,
+            -1.0000435001343077e-07,
+            -0.0003241457670510872
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008241248437703485,
+          "penetrating": true,
+          "clearance_radial_m": 0.0011632500000000046,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.053942625,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.05677507354141428,
+            -6.5038276205835855e-06,
+            -0.00018067813760950374
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 2,
+            "other": 0,
+            "ncon": 2
+          },
+          "min_contact_dist": -0.027463908790808202,
+          "penetrating": true,
+          "clearance_radial_m": 0.0011632500000000046,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -4.6143596350114853e-07,
+            2.698960421346511e-07,
+            -0.00032325148477185817
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 1,
+            "other": 0,
+            "ncon": 1
+          },
+          "min_contact_dist": -0.0008230837138754975,
+          "penetrating": true,
+          "clearance_radial_m": 0.0011632500000000046,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_4mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 8
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 2.8679556501518724e-15,
+        "final_window_max_lin": 3.96030917989915e-12,
+        "final_window_max_ang": 2.187359066745428e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634128,
+        "peg_z_start": 0.0109325,
+        "peg_z_end": 0.008824244579780415,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.00031500000000000104,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -1.0696587199242302e-20,
+            -3.037506064650181e-21,
+            -0.0002990327555141281
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0007990327555141234,
+          "penetrating": true,
+          "clearance_radial_m": 0.00031500000000000104,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 9.45000000000003e-05,
+          "depth_m": 0.0,
+          "tip_delta": [
+            9.449509414387544e-05,
+            -7.555608756985695e-22,
+            -0.00029903276710681326
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0007990332729809618,
+          "penetrating": true,
+          "clearance_radial_m": 0.00031500000000000104,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.01339875,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.018487002557288294,
+            -2.0853680218658175e-18,
+            0.0005084867930725684
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.007702671720447281,
+          "penetrating": true,
+          "clearance_radial_m": 0.00031500000000000104,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -1.0696587199242302e-20,
+            -3.037506064650181e-21,
+            -0.0002990327555141281
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0007990327555141234,
+          "penetrating": true,
+          "clearance_radial_m": 0.00031500000000000104,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_8mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 8
+        },
+        "max_lin_vel": 0.1962,
+        "max_ang_vel": 1.0527349221971148e-15,
+        "final_window_max_lin": 3.9609703046325325e-12,
+        "final_window_max_ang": 1.4935605496087517e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634127,
+        "peg_z_start": 0.019919,
+        "peg_z_end": 0.01781124457978042,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.00040589999999999724,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -4.1105339870738764e-21,
+            -2.133836700873295e-21,
+            -0.0003069880510919651
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008069880510919673,
+          "penetrating": true,
+          "clearance_radial_m": 0.00040589999999999724,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 0.00012176999999999917,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.00012173560044189877,
+            1.9158077429771347e-21,
+            -0.00030698808043951725
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008069921229306165,
+          "penetrating": true,
+          "clearance_radial_m": 0.00040589999999999724,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.0268785,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.026871139323790566,
+            2.0184624878356465e-21,
+            -0.00030837496976937606
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.000809240693787433,
+          "penetrating": true,
+          "clearance_radial_m": 0.00040589999999999724,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -4.1105339870738764e-21,
+            -2.133836700873295e-21,
+            -0.0003069880510919651
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008069880510919673,
+          "penetrating": true,
+          "clearance_radial_m": 0.00040589999999999724,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_12mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 8
+        },
+        "max_lin_vel": 0.19619999999999996,
+        "max_ang_vel": 1.4210854715202008e-15,
+        "final_window_max_lin": 3.960738001296333e-12,
+        "final_window_max_ang": 1.641514050349553e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634127,
+        "peg_z_start": 0.02890325,
+        "peg_z_end": 0.02679524457978042,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.0004968000000000021,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -1.0195657134947165e-20,
+            -1.7956272523490736e-21,
+            -0.00031216057579251666
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008121605757925258,
+          "penetrating": true,
+          "clearance_radial_m": 0.0004968000000000021,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 0.00014904000000000062,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.0001489730110706565,
+            -5.068721067527028e-22,
+            -0.0003121606174479735
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.000812169844836591,
+          "penetrating": true,
+          "clearance_radial_m": 0.0004968000000000021,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.040354875,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.04033784789562098,
+            -9.195787065913888e-22,
+            -0.00031500356827612874
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008173126112545892,
+          "penetrating": true,
+          "clearance_radial_m": 0.0004968000000000021,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            -1.0195657134947165e-20,
+            -1.7956272523490736e-21,
+            -0.00031216057579251666
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008121605757925258,
+          "penetrating": true,
+          "clearance_radial_m": 0.0004968000000000021,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__matched_v1b.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": true,
+        "exploded": false,
+        "unexpected_peg_socket_at_reset": false,
+        "contacts_start": {
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 4
+        },
+        "contacts_end": {
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "peg_socket": 0,
+          "other": 0,
+          "ncon": 8
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 1.2625358346967388e-15,
+        "final_window_max_lin": 3.9604685437242105e-12,
+        "final_window_max_ang": 1.1332221479025255e-17,
+        "low_speed_window_ok": true,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634126,
+        "peg_z_start": 0.03790325,
+        "peg_z_end": 0.03579524457978042,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance",
+        "passed": true,
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.02964683999999998
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 0,
+            "other": 0,
+            "ncon": 0
+          },
+          "min_contact_dist": null,
+          "penetrating": false,
+          "clearance_radial_m": 0.0005876999999999966,
+          "socket_z": 0.05
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            1.598830395906129e-20,
+            -4.390069561580168e-21,
+            -0.00031682910632972044
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008168291063297087,
+          "penetrating": true,
+          "clearance_radial_m": 0.0005876999999999966,
+          "socket_z": 0.05
+        },
+        "mild_offset": {
+          "lateral_m": 0.00017630999999999897,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.00017620295785678418,
+            1.2099278343421193e-21,
+            -0.0003168291594053199
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008168450732085192,
+          "penetrating": true,
+          "clearance_radial_m": 0.0005876999999999966,
+          "socket_z": 0.05
+        },
+        "blocked_offset": {
+          "lateral_m": 0.053854874999999996,
+          "depth_m": 0.0,
+          "tip_delta": [
+            0.053825837028000055,
+            2.8111716928217113e-22,
+            -0.00032120247509088984
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.00082536908463679,
+          "penetrating": true,
+          "clearance_radial_m": 0.0005876999999999966,
+          "socket_z": 0.05
+        },
+        "above_ok": true,
+        "enter_ok": true,
+        "block_ok": true,
+        "socket_held_ok": true,
+        "center_ok": true,
+        "center": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "tip_delta": [
+            1.598830395906129e-20,
+            -4.390069561580168e-21,
+            -0.00031682910632972044
+          ],
+          "contacts": {
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "peg_socket": 4,
+            "other": 0,
+            "ncon": 4
+          },
+          "min_contact_dist": -0.0008168291063297087,
+          "penetrating": true,
+          "clearance_radial_m": 0.0005876999999999966,
+          "socket_z": 0.05
+        }
+      },
+      "family_passed": true
+    }
+  ],
+  "mismatches": [
+    {
+      "peg_family": "round_16mm",
+      "socket_family": "round_4mm",
+      "passed_as_negative": true,
+      "size_conflict": true,
+      "probe": {
+        "lateral_m": 0.0,
+        "depth_m": 0.015,
+        "tip_delta": [
+          0.0002943067765746579,
+          -0.00016125217597242548,
+          -0.01454910214971928
+        ],
+        "contacts": {
+          "floor_socket": 0,
+          "floor_peg": 0,
+          "peg_socket": 6,
+          "other": 0,
+          "ncon": 6
+        },
+        "min_contact_dist": -0.027002459295191135,
+        "penetrating": true,
+        "clearance_radial_m": 0.0011632500000000046,
+        "socket_z": 0.05
+      },
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__vs__round_4mm__mismatch_v1b.xml"
+    },
+    {
+      "peg_family": "rectangular_16mm",
+      "socket_family": "rectangular_4mm",
+      "passed_as_negative": true,
+      "size_conflict": true,
+      "probe": {
+        "lateral_m": 0.0,
+        "depth_m": 0.015,
+        "tip_delta": [
+          1.1475522205328442e-17,
+          -1.2079391186945006e-18,
+          -0.01498322859120061
+        ],
+        "contacts": {
+          "floor_socket": 0,
+          "floor_peg": 0,
+          "peg_socket": 24,
+          "other": 0,
+          "ncon": 24
+        },
+        "min_contact_dist": -0.02665500000000001,
+        "penetrating": true,
+        "clearance_radial_m": 0.0005876999999999966,
+        "socket_z": 0.05
+      },
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__vs__rectangular_4mm__mismatch_v1b.xml"
+    },
+    {
+      "peg_family": "round_8mm",
+      "socket_family": "rectangular_8mm",
+      "passed_as_negative": true,
+      "size_conflict": true,
+      "probe": {
+        "lateral_m": 0.0,
+        "depth_m": 0.015,
+        "tip_delta": [
+          1.480434549347171e-06,
+          1.5555562885289655e-06,
+          -0.014289325561430116
+        ],
+        "contacts": {
+          "floor_socket": 0,
+          "floor_peg": 0,
+          "peg_socket": 2,
+          "other": 0,
+          "ncon": 2
+        },
+        "min_contact_dist": -0.014791668476965477,
+        "penetrating": true,
+        "clearance_radial_m": 0.0002564999999999998,
+        "socket_z": 0.05
+      },
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_8mm__vs__rectangular_8mm__mismatch_v1b.xml"
+    }
+  ]
+}

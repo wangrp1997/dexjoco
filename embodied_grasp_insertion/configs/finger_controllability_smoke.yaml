@@ -1,0 +1,75 @@
+horizon: 24
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+episodes: [0, 2, 4]
+# Generic root selection (no episode-specific frame hardcodes).
+root_selection:
+  early_offset: 5
+  transport_tip_min_m: 0.08
+  preinsert_tip_max_m: 0.06
+  max_scan_frames: 700
+wrist_action_source: hold
+mild_transport_delta44:
+  # right xyz/rot + zeros + left xyz/rot + zeros; only used if wrist_action_source=mild_transport
+  - 0.1
+  - 0.0
+  - 0.05
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+finger_interventions:
+  - hold_fingers
+  - demo_finger_replay
+  - mild_close
+  - mild_open
+  - shuffled_or_random_finger
+mild_close_delta: 0.12
+output_dir: outputs/finger_controllability_smoke_v1
+manifest_path: data/manifests/finger_controllability_smoke_v1.json
+report_path: docs/FINGER_CONTROLLABILITY_SMOKE.md
+determinism:
+  require_pass: true
+  horizon: 8
+  episode_id: 0
+fairness:
+  wrist_atol: 0.0
+  init_qpos_atol: 1e-8
+  init_obs_atol: 1e-5

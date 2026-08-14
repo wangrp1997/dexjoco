@@ -1,0 +1,1945 @@
+{
+  "name": "geometry_env_settle_smoke_v1c",
+  "created_at": "2026-08-14T02:48:16Z",
+  "protocol": "P0-S0.1c",
+  "verdict": {
+    "label": "pass",
+    "reason": "all 8 families support+clearance ok; mismatch_neg=3/3",
+    "n_families_passed": 8,
+    "n_families": 8,
+    "n_support_ok": 8,
+    "n_clearance_ok": 8,
+    "n_mismatch_ok": 3,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "allow_formal_arena_edit": 1,
+    "supersedes": "geometry_env_settle_smoke_v1b (clearance provisional)",
+    "v1b_note": "v1b support_settle trusted 8/8; insertion_frame_clearance provisional/invalid due to base-hit false pen, 8mm tol, mild not gated, dynamics steps"
+  },
+  "note": "P0-S0.1 = numerical_execution_pass / physical_settle_invalid. P0-S0.1b support_settle=pass; clearance provisional. P0-S0.1c = tip/base fix + pure geometric clearance + wall partition + tight tol.",
+  "families": [
+    {
+      "family_id": "round_4mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_4mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "other": 0,
+          "ncon": 6,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.19619999999999999,
+        "max_ang_vel": 4.877713445734475e-15,
+        "final_window_max_lin": 2.0167569373087192e-13,
+        "final_window_max_ang": 2.978832306446932e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634131,
+        "peg_z_start": 0.010973,
+        "peg_z_end": 0.008765765221131717,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.0002520000000000005,
+        "block_lateral_m": 0.0022520000000000005,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 7.560000000000014e-05,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            7.560000000000014e-05,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.0022520000000000005,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0022520000000000005,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 1,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 1,
+            "peg_socket": 1,
+            "min_wall_dist": -0.001999939831043897,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.001999939831043897,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "round_8mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_8mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "other": 0,
+          "ncon": 6,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 2.2652405292855772e-15,
+        "final_window_max_lin": 2.0167585497148256e-13,
+        "final_window_max_ang": 2.6368123156717083e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634133,
+        "peg_z_start": 0.0199685,
+        "peg_z_end": 0.017760765221131715,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.0002564999999999998,
+        "block_lateral_m": 0.0022565,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 7.694999999999993e-05,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            7.694999999999993e-05,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.0022565,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0022565,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 1,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 1,
+            "peg_socket": 1,
+            "min_wall_dist": -0.001999437786352549,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.001999437786352549,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "round_12mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_12mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "other": 0,
+          "ncon": 6,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.1962,
+        "max_ang_vel": 1.9895196601282815e-15,
+        "final_window_max_lin": 2.016758841275528e-13,
+        "final_window_max_ang": 2.926330968619153e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634133,
+        "peg_z_start": 0.02896175,
+        "peg_z_end": 0.026754765221131713,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.00048825000000000257,
+        "block_lateral_m": 0.002547000000000003,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 0.00014647500000000075,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.00014647500000000075,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.002547000000000003,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.002547000000000003,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 1,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 1,
+            "peg_socket": 1,
+            "min_wall_dist": -0.0020589307304491027,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.0020589307304491027,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "round_16mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 2,
+          "other": 0,
+          "ncon": 6,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 1.7773715898045696e-15,
+        "final_window_max_lin": 2.0167492648875423e-13,
+        "final_window_max_ang": 2.9517482246154915e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634131,
+        "peg_z_start": 0.03796175,
+        "peg_z_end": 0.0357547652211317,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.0011632500000000046,
+        "block_lateral_m": 0.003947625000000005,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 0.00034897500000000137,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.00034897500000000137,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.003947625000000005,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.003947625000000005,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 1,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 1,
+            "peg_socket": 1,
+            "min_wall_dist": -0.0027845280630224207,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.0027845280630224207,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_4mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "other": 0,
+          "ncon": 8,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 2.8679556501518724e-15,
+        "final_window_max_lin": 3.96030917989915e-12,
+        "final_window_max_ang": 2.187359066745428e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634131,
+        "peg_z_start": 0.0109325,
+        "peg_z_end": 0.008824244579780415,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.00031500000000000104,
+        "block_lateral_m": 0.002315000000000001,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 9.45000000000003e-05,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            9.45000000000003e-05,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.002315000000000001,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.002315000000000001,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 4,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 4,
+            "peg_socket": 4,
+            "min_wall_dist": -0.0019990000000000025,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.0019990000000000025,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_8mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "other": 0,
+          "ncon": 8,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.1962,
+        "max_ang_vel": 1.0527349221971148e-15,
+        "final_window_max_lin": 3.9609703046325325e-12,
+        "final_window_max_ang": 1.4935605496087517e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634131,
+        "peg_z_start": 0.019919,
+        "peg_z_end": 0.01781124457978042,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.00040589999999999724,
+        "block_lateral_m": 0.0024058999999999973,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 0.00012176999999999917,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.00012176999999999917,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.0024058999999999973,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0024058999999999973,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 4,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 4,
+            "peg_socket": 4,
+            "min_wall_dist": -0.001999899999999999,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.001999899999999999,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_12mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "other": 0,
+          "ncon": 8,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.19619999999999996,
+        "max_ang_vel": 1.4210854715202008e-15,
+        "final_window_max_lin": 3.960738001296333e-12,
+        "final_window_max_ang": 1.641514050349553e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634133,
+        "peg_z_start": 0.02890325,
+        "peg_z_end": 0.02679524457978042,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.0004968000000000021,
+        "block_lateral_m": 0.0025518037500000023,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 0.00014904000000000062,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.00014904000000000062,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.0025518037500000023,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0025518037500000023,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 4,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 4,
+            "peg_socket": 4,
+            "min_wall_dist": -0.002054803749999997,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.002054803749999997,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__matched_v1c.xml",
+      "support": {
+        "mode": "support_settle",
+        "passed": 1,
+        "exploded": 0,
+        "unexpected_peg_socket_at_reset": 0,
+        "contacts_start": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "contacts_end": {
+          "wall": 0,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 4,
+          "floor_peg": 4,
+          "other": 0,
+          "ncon": 8,
+          "peg_socket": 0,
+          "min_wall_dist": null,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": null,
+          "wall_penetrating": 0,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "max_lin_vel": 0.19620000000000004,
+        "max_ang_vel": 1.2625358346967388e-15,
+        "final_window_max_lin": 3.9604685437242105e-12,
+        "final_window_max_ang": 1.1332221479025255e-17,
+        "low_speed_window_ok": 1,
+        "socket_z_start": 0.0,
+        "socket_z_end": -0.00010775542021634131,
+        "peg_z_start": 0.03790325,
+        "peg_z_end": 0.03579524457978042,
+        "steps": 400
+      },
+      "clearance": {
+        "mode": "insertion_frame_clearance_pure_geometric",
+        "passed": 1,
+        "probe_depth_m": 0.0,
+        "pen_tol_m": 5e-05,
+        "clearance_radial_m": 0.0005876999999999966,
+        "block_lateral_m": 0.003324521249999996,
+        "tip_axis": {
+          "tip_is_collision_lower_end": 1,
+          "base_top_below_socket_site": 1,
+          "tip_z": 0.03375,
+          "base_top_z": 0.006,
+          "socket_site_z": 0.015000000000000001,
+          "insertion_axis_body": "+z_from_tip_through_peg",
+          "passed": 1
+        },
+        "above": {
+          "lateral_m": 0.0,
+          "depth_m": -0.03,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.03
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.06125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "enter": {
+          "lateral_m": 0.0,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "mild_offset": {
+          "lateral_m": 0.00017630999999999897,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.00017630999999999897,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 0,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 0,
+            "peg_socket": 0,
+            "min_wall_dist": null,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": null,
+            "wall_penetrating": 0,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "blocked_offset": {
+          "lateral_m": 0.003324521249999996,
+          "depth_m": 0.0,
+          "quat_wxyz": [
+            1.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "tip_delta": [
+            0.003324521249999996,
+            0.0,
+            0.0
+          ],
+          "contacts": {
+            "wall": 4,
+            "bottom": 0,
+            "base": 0,
+            "floor_socket": 0,
+            "floor_peg": 0,
+            "other": 0,
+            "ncon": 4,
+            "peg_socket": 4,
+            "min_wall_dist": -0.0027365212499999916,
+            "min_bottom_dist": null,
+            "min_base_dist": null,
+            "min_peg_socket_dist": -0.0027365212499999916,
+            "wall_penetrating": 1,
+            "bottom_penetrating": 0,
+            "base_penetrating": 0
+          },
+          "socket_z": 0.05,
+          "peg_z": 0.03125,
+          "dynamics_steps": 0,
+          "pure_geometric": 1
+        },
+        "above_ok": 1,
+        "enter_ok": 1,
+        "mild_ok": 1,
+        "block_ok": 1,
+        "socket_frozen_ok": 1
+      },
+      "family_passed": 1
+    }
+  ],
+  "mismatches": [
+    {
+      "peg_family": "round_16mm",
+      "socket_family": "round_4mm",
+      "depth_m": 0.0,
+      "passed_as_negative": 1,
+      "size_conflict": 1,
+      "peg_extent_m": 0.03596175,
+      "hole_half_m": 0.009225,
+      "hits_wall": 1,
+      "note": "",
+      "probe": {
+        "lateral_m": 0.0,
+        "depth_m": 0.0,
+        "quat_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tip_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "contacts": {
+          "wall": 4,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 0,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 4,
+          "peg_socket": 4,
+          "min_wall_dist": -0.02673699978152367,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": -0.02673699978152367,
+          "wall_penetrating": 1,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "socket_z": 0.05,
+        "peg_z": 0.03125,
+        "dynamics_steps": 0,
+        "pure_geometric": 1
+      },
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__vs__round_4mm__mismatch_v1c.xml"
+    },
+    {
+      "peg_family": "rectangular_16mm",
+      "socket_family": "rectangular_4mm",
+      "depth_m": 0.0,
+      "passed_as_negative": 1,
+      "size_conflict": 1,
+      "peg_extent_m": 0.03590325,
+      "hole_half_m": 0.0092475,
+      "hits_wall": 1,
+      "note": "",
+      "probe": {
+        "lateral_m": 0.0,
+        "depth_m": 0.0,
+        "quat_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "tip_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "contacts": {
+          "wall": 12,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 0,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 12,
+          "peg_socket": 12,
+          "min_wall_dist": -0.026654999999999998,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": -0.026654999999999998,
+          "wall_penetrating": 1,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "socket_z": 0.05,
+        "peg_z": 0.03125,
+        "dynamics_steps": 0,
+        "pure_geometric": 1
+      },
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__vs__rectangular_4mm__mismatch_v1c.xml"
+    },
+    {
+      "peg_family": "rectangular_8mm",
+      "socket_family": "round_8mm",
+      "depth_m": 0.0,
+      "passed_as_negative": 1,
+      "size_conflict": true,
+      "peg_extent_m": 0.023664389092579594,
+      "hole_half_m": 0.018224999999999998,
+      "hits_wall": 1,
+      "note": "rect_peg_yaw45_into_round_square_aperture",
+      "probe": {
+        "lateral_m": 0.0,
+        "depth_m": 0.0,
+        "quat_wxyz": [
+          0.92387953,
+          0.0,
+          0.0,
+          0.38268343
+        ],
+        "tip_delta": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "contacts": {
+          "wall": 8,
+          "bottom": 0,
+          "base": 0,
+          "floor_socket": 0,
+          "floor_peg": 0,
+          "other": 0,
+          "ncon": 8,
+          "peg_socket": 8,
+          "min_wall_dist": -0.005439742650074488,
+          "min_bottom_dist": null,
+          "min_base_dist": null,
+          "min_peg_socket_dist": -0.005439742650074488,
+          "wall_penetrating": 1,
+          "bottom_penetrating": 0,
+          "base_penetrating": 0
+        },
+        "socket_z": 0.05,
+        "peg_z": 0.03125,
+        "dynamics_steps": 0,
+        "pure_geometric": 1
+      },
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_8mm__vs__round_8mm__mismatch_v1c.xml"
+    }
+  ]
+}

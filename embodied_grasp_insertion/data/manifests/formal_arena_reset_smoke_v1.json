@@ -1,0 +1,491 @@
+{
+  "name": "formal_arena_reset_smoke_v1",
+  "created_at": "2026-08-14T05:01:56Z",
+  "protocol": "P0-S0.2",
+  "verdict": {
+    "label": "pass",
+    "reason": "all 8 families formal arena reset/settle ok",
+    "n_families_passed": 8,
+    "n_families": 8,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "default_family": "round_8mm",
+    "next_if_pass": "target_hole_semantics + grasp_stability gates (still no train/collect)"
+  },
+  "note": "Proves parameterized formal arena compile + reset/settle plumbing. Does NOT prove full-depth insert, grasp stability, or hole semantics policy.",
+  "families": [
+    {
+      "family_id": "round_4mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__round_4mm.xml",
+      "names": {
+        "peg_body": "industreal_round_peg_4mm",
+        "socket_body": "industreal_tray_insert_round_peg_4mm",
+        "socket_site": "industreal_tray_insert_round_peg_4mm_socket_site",
+        "peg_tip_site": "industreal_round_peg_4mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.4708799999999997,
+          "max_ang_vel": 0.014562749793630824,
+          "final_window_max_lin": 4.627413139477841e-08,
+          "final_window_max_ang": 3.029184360797816e-08,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41208553124288483,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "round_8mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly.xml",
+      "names": {
+        "peg_body": "industreal_round_peg_8mm",
+        "socket_body": "industreal_tray_insert_round_peg_8mm",
+        "socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "peg_tip_site": "industreal_round_peg_8mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.19619999999999996,
+          "max_ang_vel": 0.006042992514478676,
+          "final_window_max_lin": 2.7587230762008647e-09,
+          "final_window_max_ang": 2.0247331805043428e-09,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.4117927891241079,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "round_12mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__round_12mm.xml",
+      "names": {
+        "peg_body": "industreal_round_peg_12mm",
+        "socket_body": "industreal_tray_insert_round_peg_12mm",
+        "socket_site": "industreal_tray_insert_round_peg_12mm_socket_site",
+        "peg_tip_site": "industreal_round_peg_12mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.24823633416367843,
+          "max_ang_vel": 0.00845168639138751,
+          "final_window_max_lin": 5.500112653488926e-09,
+          "final_window_max_ang": 4.382883299020935e-09,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41169117551664947,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "round_16mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__round_16mm.xml",
+      "names": {
+        "peg_body": "industreal_round_peg_16mm",
+        "socket_body": "industreal_tray_insert_round_peg_16mm",
+        "socket_site": "industreal_tray_insert_round_peg_16mm_socket_site",
+        "peg_tip_site": "industreal_round_peg_16mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.5694307143931051,
+          "max_ang_vel": 0.017851994695168266,
+          "final_window_max_lin": 7.534969527911445e-07,
+          "final_window_max_ang": 3.892419558380187e-07,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41178861104618664,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__rectangular_4mm.xml",
+      "names": {
+        "peg_body": "industreal_rectangular_peg_4mm",
+        "socket_body": "industreal_tray_insert_rectangular_peg_4mm",
+        "socket_site": "industreal_tray_insert_rectangular_peg_4mm_socket_site",
+        "peg_tip_site": "industreal_rectangular_peg_4mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.47088000000000035,
+          "max_ang_vel": 0.0015439999233363083,
+          "final_window_max_lin": 4.937221220239369e-08,
+          "final_window_max_ang": 8.783627528718189e-09,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41208694095221554,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__rectangular_8mm.xml",
+      "names": {
+        "peg_body": "industreal_rectangular_peg_8mm",
+        "socket_body": "industreal_tray_insert_rectangular_peg_8mm",
+        "socket_site": "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        "peg_tip_site": "industreal_rectangular_peg_8mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.1962,
+          "max_ang_vel": 0.0012105290713486827,
+          "final_window_max_lin": 3.213304792389321e-09,
+          "final_window_max_ang": 6.289062349746111e-10,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41179097446233176,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__rectangular_12mm.xml",
+      "names": {
+        "peg_body": "industreal_rectangular_peg_12mm",
+        "socket_body": "industreal_tray_insert_rectangular_peg_12mm",
+        "socket_site": "industreal_tray_insert_rectangular_peg_12mm_socket_site",
+        "peg_tip_site": "industreal_rectangular_peg_12mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.2462975271208846,
+          "max_ang_vel": 0.24141001145292543,
+          "final_window_max_lin": 4.139902307697241e-05,
+          "final_window_max_ang": 0.0009529900377768695,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41169929483788875,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly__rectangular_16mm.xml",
+      "names": {
+        "peg_body": "industreal_rectangular_peg_16mm",
+        "socket_body": "industreal_tray_insert_rectangular_peg_16mm",
+        "socket_site": "industreal_tray_insert_rectangular_peg_16mm_socket_site",
+        "peg_tip_site": "industreal_rectangular_peg_16mm_tip_site"
+      },
+      "resets": [
+        {
+          "reset_idx": 0,
+          "shapes_ok": 1,
+          "shapes_match": 1,
+          "tcp_ok": 1,
+          "grip_ok": 1,
+          "peg_ok": 1,
+          "sock_ok": 1,
+          "contacts_start": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "contacts_end": {
+            "peg_socket": 0,
+            "min_dist": null
+          },
+          "deep_pen_at_reset": 0,
+          "deep_pen_after_settle": 0,
+          "exploded": 0,
+          "max_lin_vel": 0.5675870367012948,
+          "max_ang_vel": 0.17882063558939107,
+          "final_window_max_lin": 0.0008900496421830302,
+          "final_window_max_ang": 0.017936165830346167,
+          "low_speed_ok": 1,
+          "tip_to_socket_site_m": 0.41179421984653675,
+          "semantics_ok": 1,
+          "passed": 1
+        }
+      ],
+      "lookup_ok": 1,
+      "obs_shapes": {
+        "tcp_pose": [
+          14
+        ],
+        "gripper_pose": [
+          32,
+          1
+        ],
+        "socket_ori_pose": [
+          7
+        ],
+        "peg_ori_pose": [
+          7
+        ],
+        "table_delta_height": []
+      },
+      "passed": 1,
+      "n_resets_ok": 1
+    }
+  ]
+}

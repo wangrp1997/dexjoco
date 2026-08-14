@@ -1,0 +1,757 @@
+{
+  "name": "geometry_asset_audit_v1",
+  "created_at": "2026-08-14T02:48:25Z",
+  "protocol": "P0-S0",
+  "official_8mm_xml": {
+    "peg_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal_round_peg_8mm.xml",
+    "socket_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal_tray_insert_round_peg_8mm.xml",
+    "peg_mesh_scale": 4.5,
+    "socket_mesh_scale": 4.5,
+    "collision_cylinder_radius_m": 0.01785,
+    "collision_cylinder_half_height_m": 0.0675,
+    "tip_site_pos": "0 0 0.0795",
+    "note": "Official 8mm collision radius≈0.01785 is ~0.5*mesh_xy_span*scale, NOT the yaml nominal 8mm diameter. Do not treat asset name mm as MuJoCo meters."
+  },
+  "unit_story": {
+    "raw_mesh_unit": "meters (matches industreal_asset_info_pegs.yaml diameters/widths)",
+    "xml_mesh_scale": 4.5,
+    "xml_scale_source": "official industreal_round_peg_8mm.xml / tray_insert xml",
+    "final_mujoco_visual_size": "raw_span * 4.5",
+    "official_8mm_collision_radius_m": 0.01785,
+    "measured_scaled_round8_radius_m": 0.0179685,
+    "collision_vs_measured_abs_diff_m": 0.00011849999999999708,
+    "warning": "Asset filename '8mm' refers to IndustReal nominal size in RAW meters (~0.008). MuJoCo arena visual/collision are ~4.5x larger. Never equate name-mm to collision meters."
+  },
+  "n_families": 8,
+  "families": [
+    {
+      "family_id": "round_4mm",
+      "section": "round",
+      "nominal_size_mm": 4,
+      "peg_mesh": "industreal_round_peg_4mm.obj",
+      "socket_mesh": "industreal_tray_insert_round_peg_4mm.obj",
+      "peg_urdf_key": "industreal_round_peg_4mm",
+      "hole_urdf_key": "industreal_round_hole_4mm",
+      "peg_diameter_m": 0.003988,
+      "peg_width_m": null,
+      "peg_depth_m": null,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": 0.0041,
+      "hole_width_m": null,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": 0.00011200000000000012,
+      "clearance_width_m": null,
+      "peg_mesh_span_xyz_m": [
+        0.003988,
+        0.003988,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.017946,
+        0.017946,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.009225,
+        "wall_thickness_m": 0.004,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.009225,
+        "peg_visual_span_xyz_m": [
+          0.017946,
+          0.017946,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_radius_m": 0.008973
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "SO2_about_insertion_axis",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives"
+      ]
+    },
+    {
+      "family_id": "round_8mm",
+      "section": "round",
+      "nominal_size_mm": 8,
+      "peg_mesh": "industreal_round_peg_8mm.obj",
+      "socket_mesh": "industreal_tray_insert_round_peg_8mm.obj",
+      "peg_urdf_key": "industreal_round_peg_8mm",
+      "hole_urdf_key": "industreal_round_hole_8mm",
+      "peg_diameter_m": 0.007986,
+      "peg_width_m": null,
+      "peg_depth_m": null,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": 0.0081,
+      "hole_width_m": null,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": 0.00011399999999999952,
+      "clearance_width_m": null,
+      "peg_mesh_span_xyz_m": [
+        0.007986,
+        0.007986,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.035937,
+        0.035937,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.018224999999999998,
+        "wall_thickness_m": 0.004,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.018224999999999998,
+        "peg_visual_span_xyz_m": [
+          0.035937,
+          0.035937,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_radius_m": 0.0179685
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "SO2_about_insertion_axis",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives"
+      ]
+    },
+    {
+      "family_id": "round_12mm",
+      "section": "round",
+      "nominal_size_mm": 12,
+      "peg_mesh": "industreal_round_peg_12mm.obj",
+      "socket_mesh": "industreal_tray_insert_round_peg_12mm.obj",
+      "peg_urdf_key": "industreal_round_peg_12mm",
+      "hole_urdf_key": "industreal_round_hole_12mm",
+      "peg_diameter_m": 0.011983,
+      "peg_width_m": null,
+      "peg_depth_m": null,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": 0.0122,
+      "hole_width_m": null,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": 0.00021700000000000018,
+      "clearance_width_m": null,
+      "peg_mesh_span_xyz_m": [
+        0.011983,
+        0.011983,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.0539235,
+        0.0539235,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.027450000000000002,
+        "wall_thickness_m": 0.0041175000000000005,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.027450000000000002,
+        "peg_visual_span_xyz_m": [
+          0.0539235,
+          0.0539235,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_radius_m": 0.02696175
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "SO2_about_insertion_axis",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives"
+      ]
+    },
+    {
+      "family_id": "round_16mm",
+      "section": "round",
+      "nominal_size_mm": 16,
+      "peg_mesh": "industreal_round_peg_16mm.obj",
+      "socket_mesh": "industreal_tray_insert_round_peg_16mm.obj",
+      "peg_urdf_key": "industreal_round_peg_16mm",
+      "hole_urdf_key": "industreal_round_hole_16mm",
+      "peg_diameter_m": 0.015983,
+      "peg_width_m": null,
+      "peg_depth_m": null,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": 0.0165,
+      "hole_width_m": null,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": 0.0005170000000000001,
+      "clearance_width_m": null,
+      "peg_mesh_span_xyz_m": [
+        0.015983,
+        0.015983,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.0719235,
+        0.0719235,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.037125000000000005,
+        "wall_thickness_m": 0.005568750000000001,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.037125000000000005,
+        "peg_visual_span_xyz_m": [
+          0.0719235,
+          0.0719235,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_radius_m": 0.03596175
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "SO2_about_insertion_axis",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives"
+      ]
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "section": "rectangular",
+      "nominal_size_mm": 4,
+      "peg_mesh": "industreal_rectangular_peg_4mm.obj",
+      "socket_mesh": "industreal_tray_insert_rectangular_peg_4mm.obj",
+      "peg_urdf_key": "industreal_rectangular_peg_4mm",
+      "hole_urdf_key": "industreal_rectangular_hole_4mm",
+      "peg_diameter_m": null,
+      "peg_width_m": 0.00397,
+      "peg_depth_m": 0.00397,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": null,
+      "hole_width_m": 0.00411,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": null,
+      "clearance_width_m": 0.00014000000000000037,
+      "peg_mesh_span_xyz_m": [
+        0.00397,
+        0.00397,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.017865,
+        0.017865,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.0092475,
+        "wall_thickness_m": 0.004,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.0092475,
+        "peg_visual_span_xyz_m": [
+          0.017865,
+          0.017865,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_half_width_m": 0.0089325,
+        "peg_half_depth_m": 0.0089325
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "requires_yaw_alignment_C2",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives",
+        "rectangular hole yaml lists width/height/depth; cross-section depth assumed≈width for smoke hole opening"
+      ]
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "section": "rectangular",
+      "nominal_size_mm": 8,
+      "peg_mesh": "industreal_rectangular_peg_8mm.obj",
+      "socket_mesh": "industreal_tray_insert_rectangular_peg_8mm.obj",
+      "peg_urdf_key": "industreal_rectangular_peg_8mm",
+      "hole_urdf_key": "industreal_rectangular_hole_8mm",
+      "peg_diameter_m": null,
+      "peg_width_m": 0.007964,
+      "peg_depth_m": 0.00691,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": null,
+      "hole_width_m": 0.0081444,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": null,
+      "clearance_width_m": 0.00018039999999999896,
+      "peg_mesh_span_xyz_m": [
+        0.007964,
+        0.00691,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.035838,
+        0.031095,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.018324899999999998,
+        "wall_thickness_m": 0.004,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.018324899999999998,
+        "peg_visual_span_xyz_m": [
+          0.035838,
+          0.031095,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_half_width_m": 0.017919,
+        "peg_half_depth_m": 0.0155475
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "requires_yaw_alignment_C2",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives",
+        "rectangular hole yaml lists width/height/depth; cross-section depth assumed≈width for smoke hole opening"
+      ]
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "section": "rectangular",
+      "nominal_size_mm": 12,
+      "peg_mesh": "industreal_rectangular_peg_12mm.obj",
+      "socket_mesh": "industreal_tray_insert_rectangular_peg_12mm.obj",
+      "peg_urdf_key": "industreal_rectangular_peg_12mm",
+      "hole_urdf_key": "industreal_rectangular_hole_12mm",
+      "peg_diameter_m": null,
+      "peg_width_m": 0.011957,
+      "peg_depth_m": 0.00791,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": null,
+      "hole_width_m": 0.0121778,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": null,
+      "clearance_width_m": 0.00022080000000000016,
+      "peg_mesh_span_xyz_m": [
+        0.011957,
+        0.00791,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.0538065,
+        0.035595,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.027400050000000002,
+        "wall_thickness_m": 0.0041100075,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.027400050000000002,
+        "peg_visual_span_xyz_m": [
+          0.0538065,
+          0.035595,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_half_width_m": 0.02690325,
+        "peg_half_depth_m": 0.0177975
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "requires_yaw_alignment_C2",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives",
+        "rectangular hole yaml lists width/height/depth; cross-section depth assumed≈width for smoke hole opening"
+      ]
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "section": "rectangular",
+      "nominal_size_mm": 16,
+      "peg_mesh": "industreal_rectangular_peg_16mm.obj",
+      "socket_mesh": "industreal_tray_insert_rectangular_peg_16mm.obj",
+      "peg_urdf_key": "industreal_rectangular_peg_16mm",
+      "hole_urdf_key": "industreal_rectangular_hole_16mm",
+      "peg_diameter_m": null,
+      "peg_width_m": 0.015957,
+      "peg_depth_m": 0.00991,
+      "peg_length_m": 0.05,
+      "hole_diameter_m": null,
+      "hole_width_m": 0.0162182,
+      "hole_height_m": 0.028,
+      "hole_depth_m": 0.023,
+      "clearance_diameter_m": null,
+      "clearance_width_m": 0.0002611999999999996,
+      "peg_mesh_span_xyz_m": [
+        0.015957,
+        0.00991,
+        0.049999999999999996
+      ],
+      "socket_mesh_span_xyz_m": [
+        0.04,
+        0.04,
+        0.028
+      ],
+      "asset_scale": 4.5,
+      "asset_scale_source": "arena_arm_hand_bimanual_assembly_8mm_xml_convention",
+      "peg_visual_span_xyz_m": [
+        0.0718065,
+        0.044595,
+        0.22499999999999998
+      ],
+      "socket_visual_span_xyz_m": [
+        0.18,
+        0.18,
+        0.126
+      ],
+      "collision": {
+        "source": "measured_mesh_span_times_asset_scale_plus_yaml_hole_when_available",
+        "tip_placement_source": "collision_lower_end_insert_tip",
+        "official_8mm_tip_fraction_of_scaled_length": 0.35333333333333333,
+        "peg_half_length_m": 0.09,
+        "peg_collision_center_z_m": 0.12375,
+        "peg_tip_site_z_m": 0.03375,
+        "peg_grasp_site_z_m": 0.14625,
+        "hole_half_xy_m": 0.036490949999999994,
+        "wall_thickness_m": 0.005473642499999999,
+        "wall_half_height_m": 0.0441,
+        "wall_center_z_m": 0.0591,
+        "bottom_center_z_m": 0.008,
+        "bottom_half_height_m": 0.001,
+        "socket_site_z_m": 0.015000000000000001,
+        "base_half_xy_m": 0.099,
+        "base_half_height_m": 0.003,
+        "base_top_z_m": 0.006,
+        "base_hole_half_xy_m": 0.036490949999999994,
+        "peg_visual_span_xyz_m": [
+          0.0718065,
+          0.044595,
+          0.22499999999999998
+        ],
+        "socket_visual_span_xyz_m": [
+          0.18,
+          0.18,
+          0.126
+        ],
+        "tip_is_collision_lower_end": true,
+        "insertion_axis_body": "+z_from_tip_through_peg",
+        "assert_base_top_below_site": true,
+        "peg_half_width_m": 0.03590325,
+        "peg_half_depth_m": 0.0222975
+      },
+      "peg_body": "peg_body",
+      "peg_tip_site": "peg_tip_site",
+      "peg_grasp_site": "peg_grasp_site",
+      "peg_collision_geom": "peg_collision",
+      "socket_body": "socket_body",
+      "socket_site": "socket_site",
+      "insert_bottom_geom": "insert_bottom_contact",
+      "mating_frame": "socket_site_z_up",
+      "symmetry": "requires_yaw_alignment_C2",
+      "insertion_axis": "socket_site_+z_then_world_z_aligned",
+      "notes": [
+        "raw mesh spans match yaml nominal sizes (meters)",
+        "arena visual uses scale=4.5 from official 8mm XML convention",
+        "collision for smoke derived from measured scaled spans, not copied 8mm primitives",
+        "rectangular hole yaml lists width/height/depth; cross-section depth assumed≈width for smoke hole opening"
+      ]
+    }
+  ],
+  "verdict_hint": "audit_only_not_semantic_p0"
+}

@@ -1,0 +1,185 @@
+{
+  "created_at": "2026-08-13T13:57:27Z",
+  "verdict": {
+    "label": "harmful_only",
+    "allow_extended_controllability_p0": false,
+    "reason": "finger actions causally change grasp outcomes, but observed interventions (especially mild_open / random) increase drift or drop peg vs hold_fingers; no repeatable stabilizing intervention beat hold",
+    "harmful_roots": [
+      {
+        "root_id": "ep000_f0287_early_grasp",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep000_f0302_transport",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep002_f0266_early_grasp",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep002_f0281_transport",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep004_f0235_early_grasp",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep004_f0250_transport",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      }
+    ],
+    "effect_roots": [
+      "ep000_f0287_early_grasp",
+      "ep000_f0302_transport",
+      "ep002_f0266_early_grasp",
+      "ep002_f0281_transport",
+      "ep004_f0235_early_grasp",
+      "ep004_f0250_transport",
+      "ep004_f0484_pre_insert"
+    ]
+  },
+  "determinism": {
+    "passed": true,
+    "output": "outputs/snapshot_restore_smoke_ep0.json"
+  },
+  "n_episodes": 3,
+  "n_roots": 7,
+  "n_branches": 35,
+  "fairness_pass_rate": 1.0,
+  "interventions": [
+    "hold_fingers",
+    "demo_finger_replay",
+    "mild_close",
+    "mild_open",
+    "shuffled_or_random_finger"
+  ],
+  "wrist_action_source": "hold",
+  "snapshot_fields": [
+    "MjData_deepcopy(sim_data)",
+    "mjSTATE_INTEGRATION",
+    "qpos",
+    "qvel",
+    "act",
+    "ctrl",
+    "mocap_pos",
+    "mocap_quat",
+    "userdata",
+    "time",
+    "hold44",
+    "force_baseline",
+    "prev_tip/lat/along",
+    "tray_ok_seen",
+    "peg_ok_seen",
+    "peg_lost",
+    "done",
+    "labeler_rest_z"
+  ],
+  "roots": [
+    {
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "frame": 287,
+      "phase": "early_grasp",
+      "reason": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "tip_dist_m": 0.3030351532828099,
+      "excluded": false
+    },
+    {
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "frame": 302,
+      "phase": "transport",
+      "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "tip_dist_m": 0.17350927051551812,
+      "excluded": false
+    },
+    {
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "frame": 266,
+      "phase": "early_grasp",
+      "reason": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "tip_dist_m": 0.32991952375089567,
+      "excluded": false
+    },
+    {
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "frame": 281,
+      "phase": "transport",
+      "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "tip_dist_m": 0.20305376276220855,
+      "excluded": false
+    },
+    {
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "frame": 235,
+      "phase": "early_grasp",
+      "reason": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "tip_dist_m": 0.43646784464275257,
+      "excluded": false
+    },
+    {
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "frame": 250,
+      "phase": "transport",
+      "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "tip_dist_m": 0.24251016977711654,
+      "excluded": false
+    },
+    {
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "frame": 484,
+      "phase": "pre_insert",
+      "reason": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "tip_dist_m": 0.05995977394170425,
+      "excluded": false
+    }
+  ],
+  "summary_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/summary.json",
+  "manifest_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/data/manifests/finger_controllability_smoke_v1.json"
+}

@@ -1,0 +1,357 @@
+{
+  "name": "grasp_stability_physical_smoke_v1",
+  "created_at": "2026-08-14T05:42:42Z",
+  "protocol": "P0-S0.4b",
+  "verdict": {
+    "label": "pass",
+    "reason": "physical_roots_ok=3/3",
+    "n_roots_passed": 3,
+    "n_roots": 3,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "claims_stable_grasp_policy": 0,
+    "claims_physical_grasp_stability": 1,
+    "fixture": "demo_transport_root_restore_once",
+    "scope": "physical_dynamics_after_single_demo_root_restore",
+    "not_claimed": "formal_multi_family_scripted_physical_grasp",
+    "next_if_pass": "still no train/collect; optional multi-family physical recipes"
+  },
+  "scope": "physical_grasp_gate_demo_transport_roots",
+  "note": "Oracle = single FullEpisodeSnapshot restore at demo transport root. No per-step snap/weld/teleport during phases. Closed hold/lift/transport under dynamics; open-hand from same root must be worse. Does not claim learned grasp or formal multi-family scripted physical grasp.",
+  "roots": [
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "thresholds": {
+        "char_len_m": 0.018,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.021599999999999998,
+        "hold_rot_tol_rad": 0.25,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.6,
+        "lift_trans_tol_m": 0.026999999999999996,
+        "lift_rot_tol_rad": 0.3,
+        "transport_trans_tol_m": 0.026999999999999996,
+        "transport_rot_tol_rad": 0.3,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.036,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 4,
+      "closed_matched": {
+        "hand_dz": 0.23147794582021852,
+        "peg_dz": 0.18045085185954957,
+        "peg_z": 1.4130078700717952,
+        "max_rel_trans": 0.005153798498225829,
+        "max_rel_rot": 0.06396542029106182,
+        "min_contacts": 4,
+        "contacts_end": 5,
+        "table_hits": 0,
+        "max_speed": 0.7328506617200817,
+        "drop_z": 0.0
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.20738562093460433,
+            "peg_dz": 0.16011998545285167,
+            "peg_z": 1.3926770036650973,
+            "max_rel_trans": 0.004521205300736201,
+            "max_rel_rot": 0.05711469010581748,
+            "min_contacts": 4,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.7328506617200817,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.12662531212162675,
+            "peg_dz": 0.1198854602412307,
+            "peg_z": 1.512562463906328,
+            "max_rel_trans": 0.002499443463916766,
+            "max_rel_rot": 0.018254767282920838,
+            "min_contacts": 5,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.19331500478776167,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.05949408915461407,
+            "peg_dz": 0.05887220092968559,
+            "peg_z": 1.5714346648360136,
+            "max_rel_trans": 0.00065487342695725,
+            "max_rel_rot": 0.003931056744804919,
+            "min_contacts": 5,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.18459251081358952,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.2317459086517928,
+            "peg_dz": -0.2678655479268671,
+            "peg_z": 0.9646914702853785,
+            "max_rel_trans": 0.6611837223072861,
+            "max_rel_rot": 3.0907970584677233,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 13,
+            "max_speed": 1.9375778490242355,
+            "drop_z": 0.2678655479268671
+          }
+        }
+      ],
+      "fixture": "demo_transport_root_restore_once",
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Physical dynamics after a single demo-root restore; no per-step snap/weld. Not a learned grasp policy. Formal multi-family scripted physical grasp not claimed.",
+      "episode_index": 0,
+      "root_frame": 302,
+      "root_phase": "transport",
+      "geometry_family_id": "round_8mm",
+      "remaining_steps_at_root": 598
+    },
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "thresholds": {
+        "char_len_m": 0.018,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.021599999999999998,
+        "hold_rot_tol_rad": 0.25,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.6,
+        "lift_trans_tol_m": 0.026999999999999996,
+        "lift_rot_tol_rad": 0.3,
+        "transport_trans_tol_m": 0.026999999999999996,
+        "transport_rot_tol_rad": 0.3,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.036,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 4,
+      "closed_matched": {
+        "hand_dz": 0.202233089083921,
+        "peg_dz": 0.1614082359612523,
+        "peg_z": 1.353846707426534,
+        "max_rel_trans": 0.009088597075839245,
+        "max_rel_rot": 0.07220339957887523,
+        "min_contacts": 4,
+        "contacts_end": 4,
+        "table_hits": 0,
+        "max_speed": 0.5818835028468375,
+        "drop_z": 0.0
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.18080191133148094,
+            "peg_dz": 0.14317427189741694,
+            "peg_z": 1.3356127433626985,
+            "max_rel_trans": 0.006026896066927059,
+            "max_rel_rot": 0.05233713424988589,
+            "min_contacts": 4,
+            "contacts_end": 4,
+            "table_hits": 0,
+            "max_speed": 0.5818835028468375,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.12138633994103265,
+            "peg_dz": 0.11595750701989438,
+            "peg_z": 1.451570250382593,
+            "max_rel_trans": 0.010675411281711072,
+            "max_rel_rot": 0.07057684318776453,
+            "min_contacts": 4,
+            "contacts_end": 4,
+            "table_hits": 0,
+            "max_speed": 0.19135705117086738,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.058894646723101296,
+            "peg_dz": 0.05972986080255471,
+            "peg_z": 1.5113001111851476,
+            "max_rel_trans": 0.008014309964049848,
+            "max_rel_rot": 0.05167030196278891,
+            "min_contacts": 4,
+            "contacts_end": 4,
+            "table_hits": 0,
+            "max_speed": 0.18266561538304676,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.20248524844315807,
+            "peg_dz": -0.21868392590593055,
+            "peg_z": 0.973754545559351,
+            "max_rel_trans": 0.39107938150590804,
+            "max_rel_rot": 2.7398644515109822,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 37,
+            "max_speed": 2.0744176611675056,
+            "drop_z": 0.21868392590593055
+          }
+        }
+      ],
+      "fixture": "demo_transport_root_restore_once",
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Physical dynamics after a single demo-root restore; no per-step snap/weld. Not a learned grasp policy. Formal multi-family scripted physical grasp not claimed.",
+      "episode_index": 2,
+      "root_frame": 281,
+      "root_phase": "transport",
+      "geometry_family_id": "round_8mm",
+      "remaining_steps_at_root": 619
+    },
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "thresholds": {
+        "char_len_m": 0.018,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.021599999999999998,
+        "hold_rot_tol_rad": 0.25,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.6,
+        "lift_trans_tol_m": 0.026999999999999996,
+        "lift_rot_tol_rad": 0.3,
+        "transport_trans_tol_m": 0.026999999999999996,
+        "transport_rot_tol_rad": 0.3,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.036,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 4,
+      "closed_matched": {
+        "hand_dz": 0.2572980822863089,
+        "peg_dz": 0.1979721900741065,
+        "peg_z": 1.4165710195954933,
+        "max_rel_trans": 0.006978877468422103,
+        "max_rel_rot": 0.07556151262934857,
+        "min_contacts": 4,
+        "contacts_end": 4,
+        "table_hits": 0,
+        "max_speed": 0.7239887042187182,
+        "drop_z": 0.0
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.22990913917992373,
+            "peg_dz": 0.17111327016573785,
+            "peg_z": 1.3897120996871246,
+            "max_rel_trans": 0.005844482192399547,
+            "max_rel_rot": 0.0670390977704851,
+            "min_contacts": 4,
+            "contacts_end": 4,
+            "table_hits": 0,
+            "max_speed": 0.7239887042187182,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.13390104627387012,
+            "peg_dz": 0.13721360492442147,
+            "peg_z": 1.526925704611546,
+            "max_rel_trans": 0.0035557633556680215,
+            "max_rel_rot": 0.024713057392557247,
+            "min_contacts": 4,
+            "contacts_end": 4,
+            "table_hits": 0,
+            "max_speed": 0.20367999013548196,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.061068859711100876,
+            "peg_dz": 0.06490498058034522,
+            "peg_z": 1.5918306851918913,
+            "max_rel_trans": 0.002116398503194184,
+            "max_rel_rot": 0.013628811393091491,
+            "min_contacts": 4,
+            "contacts_end": 4,
+            "table_hits": 0,
+            "max_speed": 0.19396857498805006,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.25753982465407965,
+            "peg_dz": -0.27478291210126726,
+            "peg_z": 0.9438159174201195,
+            "max_rel_trans": 0.4941684151302368,
+            "max_rel_rot": 1.9107887453817989,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 26,
+            "max_speed": 2.353708042201971,
+            "drop_z": 0.27478291210126726
+          }
+        }
+      ],
+      "fixture": "demo_transport_root_restore_once",
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Physical dynamics after a single demo-root restore; no per-step snap/weld. Not a learned grasp policy. Formal multi-family scripted physical grasp not claimed.",
+      "episode_index": 4,
+      "root_frame": 250,
+      "root_phase": "transport",
+      "geometry_family_id": "round_8mm",
+      "remaining_steps_at_root": 650
+    }
+  ]
+}

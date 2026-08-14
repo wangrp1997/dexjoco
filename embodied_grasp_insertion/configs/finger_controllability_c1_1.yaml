@@ -1,0 +1,200 @@
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+semantics_manifest: data/manifests/finger_actuation_semantics_v1.json
+unstable_roots_manifest: data/manifests/unstable_grasp_roots_v1_1.json
+transport_load_manifest: data/manifests/transport_load_calibration_v1.json
+transport_load_report: docs/TRANSPORT_LOAD_CALIBRATION.md
+episodes: [0, 2, 4, 6, 8, 10]
+horizon: 16
+pulse_steps: 2
+close_low_rad: 0.020
+open_low_rad: 0.020
+# close_medium paused in P0-C1.1
+max_unstable_roots_for_smoke: 8
+max_stable_controls_for_smoke: 3
+contexts:
+  - wrist_hold
+  - matched_transport_load
+interventions:
+  - hold
+  - right_demo_replay
+  - calibrated_close_low
+  - calibrated_open_low
+  - random_matched
+# Base wrist translation/rotation deltas (action44); scaled by load calibration.
+mild_transport_delta44_base:
+  - 0.08
+  - 0.0
+  - 0.04
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.05
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+mild_transport_delta44:
+  - 0.08
+  - 0.0
+  - 0.04
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.05
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+  - 0.0
+root_selection:
+  early_offset: 5
+  transport_tip_min_m: 0.08
+  preinsert_tip_max_m: 0.06
+  max_scan_frames: 700
+unstable_criteria:
+  retention_eps: 0.02
+  retention_abs_max_for_unstable: 0.98
+  load_drift_increase_m: 0.001
+  load_slip_ratio: 1.20
+  load_slip_increase_mps: 0.008
+transport_load_calibration:
+  episodes: [0, 2, 4, 6, 8, 10]
+  horizon: 16
+  # Prefer inertial profiles; constant translation barely stresses o2h.
+  profiles: [shake, go_return, impulse_hold, constant]
+  scales: [2.0, 4.0, 6.0, 8.0]
+  # Stronger wrist rot/translation base for shake (still fixed / non-servo).
+  shake_delta44_base:
+    - 0.12
+    - 0.10
+    - 0.08
+    - 0.15
+    - 0.10
+    - 0.10
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.10
+    - 0.08
+    - 0.06
+    - 0.12
+    - 0.08
+    - 0.08
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+  max_scan_frames: 500
+wrist_load_profile: shake
+
+root_screening:
+  episodes: [0, 2, 4, 6, 8, 10]
+  horizon: 16
+  info_drift_quantile: 0.55
+  min_unstable: 4
+  min_stable: 3
+  min_unstable_episodes: 3
+  max_unstable_roots: 8
+  max_stable_controls: 8
+  max_scan_frames: 500
+output_dir: outputs/finger_controllability_calibrated_smoke_v1_1
+manifest_path: data/manifests/finger_controllability_calibrated_smoke_v1_1.json
+report_path: docs/FINGER_CONTROLLABILITY_CALIBRATED_SMOKE_V1_1.md
+fairness:
+  wrist_atol: 0.0
+  left_finger_atol: 0.0
+  init_qpos_atol: 1e-8
+  init_obs_atol: 1e-5
+  budget_l2_atol: 1e-6
+  require_clip_count_zero: true

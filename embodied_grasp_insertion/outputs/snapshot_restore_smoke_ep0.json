@@ -1,0 +1,118 @@
+{
+  "episode_id": 0,
+  "n_roots_tested": 2,
+  "passed": true,
+  "strict": true,
+  "results": [
+    {
+      "episode_index": 0,
+      "root": {
+        "frame": 287,
+        "phase": "early_grasp",
+        "reason": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+        "tip_dist_m": 0.3030351532828099
+      },
+      "horizon_requested": 8,
+      "init_restore_match": {
+        "qpos_err": 0.0,
+        "qvel_err": 0.0,
+        "qpos_vs_pre_capture_err": 0.0,
+        "qvel_vs_pre_capture_err": 0.0,
+        "obs_vs_pre_capture_err": 0.0
+      },
+      "init_obs_self_consistency_err": 0.0,
+      "snapshot_fields": {
+        "state_spec": "mjSTATE_INTEGRATION",
+        "qpos_dim": 60,
+        "qvel_dim": 58,
+        "has_act": false,
+        "ctrl_dim": 46,
+        "python": [
+          "t",
+          "peg_lost",
+          "hold44",
+          "force_baseline",
+          "prev_tip",
+          "prev_lat",
+          "prev_along",
+          "tray_ok_seen",
+          "peg_ok_seen",
+          "done",
+          "labeler_rest_heights"
+        ]
+      },
+      "compare": {
+        "length_a": 8,
+        "length_b": 8,
+        "length_equal": true,
+        "passed": true,
+        "max_abs": {
+          "qpos": 0.0,
+          "qvel": 0.0,
+          "obs": 0.0,
+          "reward": 0.0,
+          "object_pos": 0.0,
+          "object_rotvec": 0.0,
+          "hold44": 0.0,
+          "peg_contact_count": 0.0
+        },
+        "failures": []
+      }
+    },
+    {
+      "episode_index": 0,
+      "root": {
+        "frame": 302,
+        "phase": "transport",
+        "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+        "tip_dist_m": 0.17350927051551812
+      },
+      "horizon_requested": 8,
+      "init_restore_match": {
+        "qpos_err": 0.0,
+        "qvel_err": 0.0,
+        "qpos_vs_pre_capture_err": 0.0,
+        "qvel_vs_pre_capture_err": 0.0,
+        "obs_vs_pre_capture_err": 0.0
+      },
+      "init_obs_self_consistency_err": 0.0,
+      "snapshot_fields": {
+        "state_spec": "mjSTATE_INTEGRATION",
+        "qpos_dim": 60,
+        "qvel_dim": 58,
+        "has_act": false,
+        "ctrl_dim": 46,
+        "python": [
+          "t",
+          "peg_lost",
+          "hold44",
+          "force_baseline",
+          "prev_tip",
+          "prev_lat",
+          "prev_along",
+          "tray_ok_seen",
+          "peg_ok_seen",
+          "done",
+          "labeler_rest_heights"
+        ]
+      },
+      "compare": {
+        "length_a": 8,
+        "length_b": 8,
+        "length_equal": true,
+        "passed": true,
+        "max_abs": {
+          "qpos": 0.0,
+          "qvel": 0.0,
+          "obs": 0.0,
+          "reward": 0.0,
+          "object_pos": 0.0,
+          "object_rotvec": 0.0,
+          "hold44": 0.0,
+          "peg_contact_count": 0.0
+        },
+        "failures": []
+      }
+    }
+  ]
+}

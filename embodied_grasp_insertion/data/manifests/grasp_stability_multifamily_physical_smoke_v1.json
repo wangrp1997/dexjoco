@@ -1,0 +1,509 @@
+{
+  "name": "grasp_stability_multifamily_physical_smoke_v1",
+  "created_at": "2026-08-14T07:34:12Z",
+  "protocol": "P0-S0.4c-hardened",
+  "verdict": {
+    "label": "pass",
+    "reason": "family_physical_ok=4/4",
+    "n_families_passed": 4,
+    "n_families": 4,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "claims_stable_grasp_policy": 0,
+    "claims_physical_grasp_stability": 1,
+    "scope": "multi_family_oracle_established_physical_grasp_recipe",
+    "next_if_pass": "optional tiny controlled micro-demo pilot only after review; still no mass collect/train; revocable"
+  },
+  "note": "round_8mm: demo transport root (S0.4b matched snapshot + lateral gate). Other families: oracle establish flow (may snap), then MjData snapshot; open/closed restore same state; snap_call_count_after_establish==0; transport lateral gate on all four families. Recipe smoke only; no collect/train.",
+  "families": [
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "thresholds": {
+        "char_len_m": 0.018,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.021599999999999998,
+        "hold_rot_tol_rad": 0.25,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.6,
+        "lift_trans_tol_m": 0.026999999999999996,
+        "lift_rot_tol_rad": 0.3,
+        "transport_trans_tol_m": 0.026999999999999996,
+        "transport_rot_tol_rad": 0.3,
+        "transport_min_hand_lateral_m": 0.03,
+        "transport_lateral_follow_ratio_min": 0.55,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.036,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 4,
+      "closed_matched": {
+        "hand_dz": 0.23147794582021852,
+        "peg_dz": 0.18045085185954957,
+        "peg_z": 1.4130078700717952,
+        "max_rel_trans": 0.005153798498225829,
+        "max_rel_rot": 0.06396542029106182,
+        "min_contacts": 4,
+        "contacts_end": 5,
+        "table_hits": 0,
+        "max_speed": 0.7328506617200817,
+        "drop_z": 0.0
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.20738562093460433,
+            "peg_dz": 0.16011998545285167,
+            "peg_z": 1.3926770036650973,
+            "max_rel_trans": 0.004521205300736201,
+            "max_rel_rot": 0.05711469010581748,
+            "min_contacts": 4,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.7328506617200817,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.12662531212162675,
+            "peg_dz": 0.1198854602412307,
+            "peg_z": 1.512562463906328,
+            "max_rel_trans": 0.002499443463916766,
+            "max_rel_rot": 0.018254767282920838,
+            "min_contacts": 5,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.19331500478776167,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.06594816702838968,
+            "peg_dz": 0.06520739876933757,
+            "peg_z": 1.5777698626756655,
+            "max_rel_trans": 0.0008292502841595827,
+            "max_rel_rot": 0.0047701917691123615,
+            "min_contacts": 5,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.1849580417521657,
+            "drop_z": 0.0,
+            "hand_dy": 0.09462708514366308,
+            "peg_dy": 0.0977431766928728,
+            "hand_lateral_m": 0.09506715828964216,
+            "peg_lateral_m": 0.09774757965527736,
+            "commanded_lateral_m": 0.16
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.2317459086517928,
+            "peg_dz": -0.2678655479268671,
+            "peg_z": 0.9646914702853785,
+            "max_rel_trans": 0.6611837223072861,
+            "max_rel_rot": 3.0907970584677233,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 13,
+            "max_speed": 1.9375778490242355,
+            "drop_z": 0.2678655479268671
+          }
+        }
+      ],
+      "fixture": "demo_transport_root_restore_once",
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Physical dynamics after a single demo-root restore; no per-step snap/weld. Transport records measured hand/peg lateral travel. Not a learned grasp policy. Formal multi-family scripted physical grasp not claimed.",
+      "family_id": "round_8mm",
+      "root_source": "demo_transport",
+      "root_frame": 302,
+      "episode_index": 0,
+      "matched_snapshot_branch": 1,
+      "snap_call_count_after_establish": 0
+    },
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "no_snap_after_establish": 1,
+      "family_id": "round_16mm",
+      "thresholds": {
+        "char_len_m": 0.03596175,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.1,
+        "hold_rot_tol_rad": 0.45,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.55,
+        "lift_trans_tol_m": 0.08,
+        "lift_rot_tol_rad": 0.35,
+        "transport_trans_tol_m": 0.08,
+        "transport_rot_tol_rad": 0.3,
+        "transport_min_hand_lateral_m": 0.03,
+        "transport_lateral_follow_ratio_min": 0.55,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.0719235,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 12,
+      "snap_calls_during_establish": 191,
+      "snap_call_count_after_establish": 0,
+      "matched_snapshot_branch": 1,
+      "closed_matched": {
+        "hand_dz": -3.7697933340075096e-05,
+        "peg_dz": -0.015752909663067083,
+        "peg_z": 0.9598857988340354,
+        "max_rel_trans": 0.025868278646313636,
+        "max_rel_rot": 0.14113097867141783,
+        "min_contacts": 5,
+        "contacts_end": 8,
+        "table_hits": 0,
+        "max_speed": 0.061294598572202444,
+        "drop_z": 0.015752909663067083
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": -3.1407572584685184e-05,
+            "peg_dz": -0.016012675216382832,
+            "peg_z": 0.9596669736985017,
+            "max_rel_trans": 0.02592047550273928,
+            "max_rel_rot": 0.1404052376297418,
+            "min_contacts": 5,
+            "contacts_end": 7,
+            "table_hits": 0,
+            "max_speed": 0.061294596293117024,
+            "drop_z": 0.016012675216382832
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.05832887188906488,
+            "peg_dz": 0.056338074208263755,
+            "peg_z": 1.0160050479067655,
+            "max_rel_trans": 0.0050837733067403326,
+            "max_rel_rot": 0.03439984206654202,
+            "min_contacts": 6,
+            "contacts_end": 8,
+            "table_hits": 0,
+            "max_speed": 0.026880958120475733
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.0014753005419880783,
+            "peg_dz": 0.0015046692659523853,
+            "peg_z": 1.0175097171727179,
+            "max_rel_trans": 0.00021867921636308462,
+            "max_rel_rot": 0.0012710216676085281,
+            "min_contacts": 8,
+            "contacts_end": 8,
+            "table_hits": 0,
+            "max_speed": 0.1154302985305347,
+            "drop_z": 0.0,
+            "hand_dy": 0.0803286944229051,
+            "peg_dy": 0.07960525469176631,
+            "hand_lateral_m": 0.08032891540911588,
+            "peg_lateral_m": 0.07960579153434323,
+            "commanded_lateral_m": 0.125
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.0005046829583332801,
+            "peg_dz": 0.00774415793260097,
+            "peg_z": 0.9833828664297034,
+            "max_rel_trans": 0.030083457813580808,
+            "max_rel_rot": 0.883889677993828,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 189,
+            "max_speed": 1.0960158819534687,
+            "drop_z": 0.0
+          }
+        }
+      ],
+      "fixture": "oracle_establish_flow_then_dynamics",
+      "establish": {
+        "t_scale": 1.0,
+        "finger_squeeze": 0.1,
+        "t_y_extra": 0.0
+      },
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Establish may snap repeatedly; after settle a MjData snapshot is captured. hold/lift/transport and open/closed restore that snapshot with snap_call_count_after_establish==0. Transport requires measured hand/peg lateral travel. Not a learned grasp.",
+      "root_source": "oracle_establish_formal"
+    },
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "no_snap_after_establish": 1,
+      "family_id": "rectangular_8mm",
+      "thresholds": {
+        "char_len_m": 0.017919,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.1,
+        "hold_rot_tol_rad": 0.45,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.55,
+        "lift_trans_tol_m": 0.08,
+        "lift_rot_tol_rad": 0.35,
+        "transport_trans_tol_m": 0.08,
+        "transport_rot_tol_rad": 0.3,
+        "transport_min_hand_lateral_m": 0.03,
+        "transport_lateral_follow_ratio_min": 0.55,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.035838,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 17,
+      "snap_calls_during_establish": 191,
+      "snap_call_count_after_establish": 0,
+      "matched_snapshot_branch": 1,
+      "closed_matched": {
+        "hand_dz": -2.099991628967679e-05,
+        "peg_dz": 0.00037847994024775566,
+        "peg_z": 1.0783038844391954,
+        "max_rel_trans": 0.0005911420217825604,
+        "max_rel_rot": 0.005239631668931604,
+        "min_contacts": 7,
+        "contacts_end": 7,
+        "table_hits": 0,
+        "max_speed": 0.0008733607520872663,
+        "drop_z": 0.0
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": -1.776685171983594e-05,
+            "peg_dz": 0.0004355071099206853,
+            "peg_z": 1.0783546118083351,
+            "max_rel_trans": 0.0005986861224690177,
+            "max_rel_rot": 0.005318292514078938,
+            "min_contacts": 7,
+            "contacts_end": 7,
+            "table_hits": 0,
+            "max_speed": 0.0008733574607808081,
+            "drop_z": 0.0
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.05835162745175504,
+            "peg_dz": 0.05813293025883759,
+            "peg_z": 1.1364875420671727,
+            "max_rel_trans": 0.0003132347122705646,
+            "max_rel_rot": 0.006464492241738342,
+            "min_contacts": 7,
+            "contacts_end": 7,
+            "table_hits": 0,
+            "max_speed": 0.02646295909134303
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.001482231046451954,
+            "peg_dz": 0.0015888115517346257,
+            "peg_z": 1.1380763536189074,
+            "max_rel_trans": 0.0001391517531095998,
+            "max_rel_rot": 0.0011784488489514154,
+            "min_contacts": 7,
+            "contacts_end": 7,
+            "table_hits": 0,
+            "max_speed": 0.1148294937601829,
+            "drop_z": 0.0,
+            "hand_dy": 0.08035220435931542,
+            "peg_dy": 0.07991727510064814,
+            "hand_lateral_m": 0.08035244009666928,
+            "peg_lateral_m": 0.07991728142488262,
+            "commanded_lateral_m": 0.125
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.0001745109787247845,
+            "peg_dz": -0.11257547828937531,
+            "peg_z": 0.9653499262095724,
+            "max_rel_trans": 0.15514967436735624,
+            "max_rel_rot": 3.1399392241293964,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 231,
+            "max_speed": 1.3863565812234757,
+            "drop_z": 0.11257547828937531
+          }
+        }
+      ],
+      "fixture": "oracle_establish_flow_then_dynamics",
+      "establish": {
+        "t_scale": 0.75,
+        "finger_squeeze": 0.08,
+        "t_y_extra": 0.0
+      },
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Establish may snap repeatedly; after settle a MjData snapshot is captured. hold/lift/transport and open/closed restore that snapshot with snap_call_count_after_establish==0. Transport requires measured hand/peg lateral travel. Not a learned grasp.",
+      "root_source": "oracle_establish_formal"
+    },
+    {
+      "passed": 1,
+      "positive_ok": 1,
+      "negative_ok": 1,
+      "closed_beats_open": 1,
+      "no_snap_after_establish": 1,
+      "family_id": "rectangular_16mm",
+      "thresholds": {
+        "char_len_m": 0.03590325,
+        "min_contacts": 2,
+        "hold_trans_tol_m": 0.1,
+        "hold_rot_tol_rad": 0.45,
+        "lift_min_hand_dz_m": 0.04,
+        "lift_follow_ratio_min": 0.55,
+        "lift_trans_tol_m": 0.08,
+        "lift_rot_tol_rad": 0.35,
+        "transport_trans_tol_m": 0.08,
+        "transport_rot_tol_rad": 0.3,
+        "transport_min_hand_lateral_m": 0.03,
+        "transport_lateral_follow_ratio_min": 0.55,
+        "max_peg_speed_m_s": 4.0,
+        "neg_drop_delta_z_m": 0.02,
+        "neg_trans_min_m": 0.0718065,
+        "closed_better_drop_margin_m": 0.01,
+        "closed_better_drift_margin_m": 0.01
+      },
+      "root_contacts": 19,
+      "snap_calls_during_establish": 191,
+      "snap_call_count_after_establish": 0,
+      "matched_snapshot_branch": 1,
+      "closed_matched": {
+        "hand_dz": -5.5453894351131794e-05,
+        "peg_dz": -0.0022833215042097343,
+        "peg_z": 1.0242801837668094,
+        "max_rel_trans": 0.0027308784292836164,
+        "max_rel_rot": 0.019422066187971487,
+        "min_contacts": 4,
+        "contacts_end": 5,
+        "table_hits": 0,
+        "max_speed": 0.0032611223924312563,
+        "drop_z": 0.0022833215042097343
+      },
+      "phases": [
+        {
+          "name": "hold",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": -4.8392129597507605e-05,
+            "peg_dz": -0.002361166775235679,
+            "peg_z": 1.0242264213293764,
+            "max_rel_trans": 0.002758430370256429,
+            "max_rel_rot": 0.01950293930501713,
+            "min_contacts": 4,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.0032613177538876248,
+            "drop_z": 0.002361166775235679
+          }
+        },
+        {
+          "name": "lift",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.05833421274471595,
+            "peg_dz": 0.05866633385815878,
+            "peg_z": 1.0828927551875351,
+            "max_rel_trans": 0.0008976827764452535,
+            "max_rel_rot": 0.018091445718991992,
+            "min_contacts": 4,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.026004408534241137
+          }
+        },
+        {
+          "name": "transport",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.001478425954014817,
+            "peg_dz": 0.0015928543494263536,
+            "peg_z": 1.0844856095369615,
+            "max_rel_trans": 0.0001869136500284909,
+            "max_rel_rot": 0.0039672132791791995,
+            "min_contacts": 5,
+            "contacts_end": 5,
+            "table_hits": 0,
+            "max_speed": 0.11546065999398497,
+            "drop_z": 0.0,
+            "hand_dy": 0.08033608733444841,
+            "peg_dy": 0.0797300459708333,
+            "hand_lateral_m": 0.080336312083036,
+            "peg_lateral_m": 0.07973014985424118,
+            "commanded_lateral_m": 0.125
+          }
+        },
+        {
+          "name": "open_hand_negative",
+          "passed": 1,
+          "metrics": {
+            "hand_dz": 0.00037464390357810906,
+            "peg_dz": -0.05683457907189271,
+            "peg_z": 0.9697289261991264,
+            "max_rel_trans": 0.0920111742583435,
+            "max_rel_rot": 2.263751721935472,
+            "min_contacts": 0,
+            "contacts_end": 0,
+            "table_hits": 258,
+            "max_speed": 0.9671708217985355,
+            "drop_z": 0.05683457907189271
+          }
+        }
+      ],
+      "fixture": "oracle_establish_flow_then_dynamics",
+      "establish": {
+        "t_scale": 0.85,
+        "finger_squeeze": 0.12,
+        "t_y_extra": 0.0
+      },
+      "claims_physical_grasp_stability": 1,
+      "claims_stable_grasp_policy": 0,
+      "note": "Establish may snap repeatedly; after settle a MjData snapshot is captured. hold/lift/transport and open/closed restore that snapshot with snap_call_count_after_establish==0. Transport requires measured hand/peg lateral travel. Not a learned grasp.",
+      "root_source": "oracle_establish_formal"
+    }
+  ]
+}

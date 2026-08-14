@@ -1,0 +1,44 @@
+<mujoco model="geometry_smoke_rectangular_12mm">
+  <!-- family=rectangular_12mm; socket=rectangular_12mm; scale=4.5; collision_from_measured_mesh_not_copied_8mm -->
+  <compiler angle="radian" meshdir="/" autolimits="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <visual>
+    <global offwidth="640" offheight="480"/>
+  </visual>
+  <asset>
+    <mesh name="peg_mesh" file="/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal/mesh/industreal_pegs/industreal_rectangular_peg_12mm.obj" scale="4.5 4.5 4.5"/>
+    <mesh name="socket_mesh" file="/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal/mesh/industreal_pegs/industreal_tray_insert_rectangular_peg_12mm.obj" scale="4.5 4.5 4.5"/>
+    <material name="peg_mat" rgba="0.86 0.73 0.39 1"/>
+    <material name="socket_mat" rgba="0.22 0.28 0.34 1"/>
+  </asset>
+  <worldbody>
+    <light pos="0 0 2" dir="0 0 -1"/>
+    <geom name="floor" type="plane" size="1 1 0.05" rgba="0.8 0.8 0.8 1" contype="1" conaffinity="1"/>
+
+    <body name="socket_body" pos="0 0 0.05">
+      <freejoint name="socket_joint"/>
+      <geom name="socket_visual" type="mesh" mesh="socket_mesh" material="socket_mat"
+            contype="0" conaffinity="0" density="0" group="1"/>
+      <geom name="socket_base" type="box" pos="0 0 0.003000"
+            size="0.099000 0.099000 0.003000"
+            friction="0.8 0.02 0.002" density="100" mass="0.05" group="3"/>
+      <geom name="wall_pos_y" type="box" pos="0 0.031510 0.059100" size="0.031510 0.004110 0.044100" friction="0.8 0.02 0.002" density="100" group="3"/>
+      <geom name="wall_neg_y" type="box" pos="0 -0.031510 0.059100" size="0.031510 0.004110 0.044100" friction="0.8 0.02 0.002" density="100" group="3"/>
+      <geom name="wall_pos_x" type="box" pos="0.031510 0 0.059100" size="0.004110 0.027400 0.044100" friction="0.8 0.02 0.002" density="100" group="3"/>
+      <geom name="wall_neg_x" type="box" pos="-0.031510 0 0.059100" size="0.004110 0.027400 0.044100" friction="0.8 0.02 0.002" density="100" group="3"/>
+      <geom name="insert_bottom_contact" type="box" pos="0 0 0.008000"
+            size="0.027400 0.027400 0.001000"
+            friction="0.8 0.02 0.002" density="100" mass="0.01" rgba="1 0 0 0.3" group="3"/>
+      <site name="socket_site" pos="0 0 0.015000" size="0.005" rgba="0 0 1 0.4"/>
+    </body>
+
+    <body name="peg_body" pos="0 0 0.25">
+      <freejoint name="peg_joint"/>
+      <geom name="peg_visual" type="mesh" mesh="peg_mesh" material="peg_mat"
+            contype="0" conaffinity="0" density="0" group="1"/>
+      <geom name="peg_collision" type="box" pos="0 0 0.123750" size="0.026903 0.017798 0.090000" friction="0.7 0.2 0.005" density="100" group="3"/>
+      <site name="peg_tip_site" pos="0 0 0.033750" size="0.004" rgba="0 1 0 0.4"/>
+      <site name="peg_grasp_site" pos="0 0 0.146250" size="0.005" rgba="1 0 0 0.4"/>
+    </body>
+  </worldbody>
+</mujoco>

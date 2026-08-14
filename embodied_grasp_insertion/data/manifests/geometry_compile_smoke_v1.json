@@ -1,0 +1,2179 @@
+{
+  "name": "geometry_compile_smoke_v1",
+  "created_at": "2026-08-14T01:47:17Z",
+  "protocol": "P0-S0",
+  "verdict": {
+    "label": "pass",
+    "reason": "8 families compile+lookup; insertable=8; mismatch_neg=3; sizes sourced from mesh×scale/yaml",
+    "n_compile_ok": 8,
+    "sections": [
+      "rectangular",
+      "round"
+    ],
+    "n_insertable": 8,
+    "n_mismatch_negative": 3,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "next_if_pass": "per-family 1-2 reset/settle env smoke only"
+  },
+  "labeler_adapter": {
+    "hardcoded_8mm_forbidden": true,
+    "lookup": "GeometryFamilySpec semantic names via lookup_ids()",
+    "adapter": "embodied_grasp_insertion.geometry.labeler_adapter",
+    "parallel_only": "Does not modify hybrid_insert.assembly_contacts or official arena",
+    "fields": [
+      "peg_body",
+      "peg_tip_site",
+      "peg_grasp_site",
+      "socket_body",
+      "socket_site",
+      "insert_bottom_geom"
+    ]
+  },
+  "compiles": [
+    {
+      "family_id": "round_4mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_4mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "round_8mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_8mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "round_12mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_12mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "round_16mm",
+      "section": "round",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_4mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_8mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_12mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "section": "rectangular",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__matched.xml",
+      "compile_ok": true,
+      "lookup_ok": true,
+      "lookup_error": null,
+      "qpos_adr": {
+        "peg": 7,
+        "socket": 0
+      },
+      "nq": 14,
+      "nbody": 3,
+      "initial_penetrating": false,
+      "initial_min_contact_dist": null,
+      "visual_collision_size_match": true,
+      "size_notes": [],
+      "semantic_names_resolved": true
+    }
+  ],
+  "insertion_smokes": [
+    {
+      "family_id": "round_4mm",
+      "clearance_scaled_m": 0.0005040000000000005,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0005341211488279698,
+            0.0005292407609445325,
+            -0.014891422699567003
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            -0.0005107211368927397,
+            -0.0004800490396924855,
+            -0.01586276592935093
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.000320492570982293,
+            0.00028599073279136596,
+            -0.013214321382769845
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            -9.871883451537491e-05,
+            -2.9151162477788025e-05,
+            -0.01104974165562661
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012600000000000014,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            6.39531197680764e-05,
+            -0.00024193062053227293,
+            -0.01672417399933418
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012600000000000014,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            -0.0002117558716670507,
+            -0.00010960559535520608,
+            -0.01586108418081217
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012600000000000014,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            8.897185209331997e-05,
+            1.5317032522057193e-07,
+            -0.013294527436200798
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012600000000000014,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0007822098926704696,
+            0.0002195206773801571,
+            -0.01136837445138611
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00025200000000000027,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0004690963500397036,
+            0.000309158804642226,
+            -0.01680816337811586
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00025200000000000027,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0003238870746581549,
+            0.00016900694545839097,
+            -0.015706819682246576
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00025200000000000027,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00024026520327104076,
+            -9.072563829246073e-05,
+            -0.013143422705544694
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00025200000000000027,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0003417110148656462,
+            -5.135097343835599e-06,
+            -0.011099131820344332
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0134595,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.035245517826342214,
+            -0.00017755603226899912,
+            -0.0250178138544625
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0134595,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.031053710348434797,
+            0.001441963826331519,
+            -0.018045107349706824
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0134595,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.02885407395426958,
+            0.0004333032827848769,
+            -0.012028920514749797
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0134595,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.025848579666842363,
+            0.0001420640673569277,
+            -0.00520936602080907
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "round_8mm",
+      "clearance_scaled_m": 0.0005129999999999978,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0010033603653799967,
+            0.001007540791469332,
+            -0.01710237531726977
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            -0.0005973098984963183,
+            -0.0006253907008514601,
+            -0.016782125348603294
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0008060507517131343,
+            0.0008396097699196817,
+            -0.014294290156591838
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            -0.00041796551528055386,
+            -0.0004323286214064563,
+            -0.01167972746281265
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012824999999999946,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.00014949269967302485,
+            0.00025177332099697667,
+            -0.017516721358019516
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012824999999999946,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.00021245380217874214,
+            -0.00021009174878366922,
+            -0.016708301010186388
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012824999999999946,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00014834970621687988,
+            4.833873778866218e-05,
+            -0.013086027880240048
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00012824999999999946,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0002545544750520212,
+            3.6180106862928685e-05,
+            -0.010988509058747542
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002564999999999989,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            -0.00031024182412479353,
+            6.3272895444584e-05,
+            -0.01813597336448819
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002564999999999989,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0003876338507038595,
+            9.875536433633981e-05,
+            -0.01656424861306549
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002564999999999989,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0004374069133668593,
+            0.00017445603644008773,
+            -0.01320277529058439
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002564999999999989,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.00044614663041728995,
+            0.00013857820456449662,
+            -0.011021133428966545
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.026952749999999998,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.05741699494489119,
+            -0.001318804299504772,
+            -0.029296513250713807
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.026952749999999998,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.04083870254380411,
+            -4.5414989332102484e-05,
+            -0.015270278988405328
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.026952749999999998,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.03538003219619382,
+            -0.00011849921511229358,
+            -0.003552122443498673
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.026952749999999998,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.044466727444375506,
+            -0.0002842282152692858,
+            0.0009434729511811346
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "round_12mm",
+      "clearance_scaled_m": 0.0009765000000000008,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0013300464160639206,
+            0.0013215738329502165,
+            -0.018133006193794543
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            -0.0007642463958890543,
+            -0.0007671211502026823,
+            -0.018092846294199993
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0005946689705457352,
+            0.0005557696945354611,
+            -0.013793993628873347
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.00028923259568306293,
+            0.0002423001659947867,
+            -0.01035955180678283
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002441250000000002,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.00043400461063447684,
+            -2.4834170864069692e-05,
+            -0.016831661655462016
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002441250000000002,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0005065640746611848,
+            0.0002798147007208471,
+            -0.01634760473710417
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002441250000000002,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0003400933659147868,
+            0.00020582721962270339,
+            -0.012924947289614241
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002441250000000002,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0003831926585955437,
+            -0.00015240895259242718,
+            -0.010559438457947823
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004882500000000004,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0005457183641516522,
+            -0.00012597356215188546,
+            -0.016905708405441366
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004882500000000004,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0005698702219928485,
+            0.0007071230028698246,
+            -0.01702797474017248
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004882500000000004,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.000488835312244272,
+            0.00020449507263931065,
+            -0.013509405283181508
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004882500000000004,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0005421430555136646,
+            -0.00015648651755724983,
+            -0.010954967589808129
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040442624999999996,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.04343419044884661,
+            -0.00025349996328454796,
+            -0.013007803807599416
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040442624999999996,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.04719200006919133,
+            -0.0005266739535833571,
+            -0.008042725243917526
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040442624999999996,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.04986563701053079,
+            -0.00034020508491068135,
+            0.0043917884181390865
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040442624999999996,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.05130186878983889,
+            -0.00043510986116364347,
+            0.016012707263633907
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "round_16mm",
+      "clearance_scaled_m": 0.0023265000000000004,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            -1.489574694990732e-05,
+            -1.715296092214447e-05,
+            -0.012326414033943467
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            2.6685581226888484e-05,
+            2.9477630522694795e-06,
+            -0.0149426824990459
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00012806487214090165,
+            0.0002021633733023672,
+            -0.013277598637795984
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            -0.00018033665552801277,
+            -0.0004794906033268423,
+            -0.00999466085530093
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005816250000000001,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.00024060227965330726,
+            -3.708147196999961e-05,
+            -0.017496972082304996
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005816250000000001,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0006038431342568496,
+            -5.734127950743844e-05,
+            -0.015038068099509416
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005816250000000001,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00041374952463554913,
+            3.204959439420533e-05,
+            -0.013327384815676024
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005816250000000001,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.001198377847856097,
+            -0.0001636427592394033,
+            -0.01002172708162774
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0011632500000000002,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0012331406808951683,
+            -0.00014771163760118867,
+            -0.01653615766627692
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0011632500000000002,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0011756765018298356,
+            0.0005358303784774622,
+            -0.01654095714567122
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0011632500000000002,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0010968281155797751,
+            0.00018435409909336054,
+            -0.013311834115549814
+          ],
+          "ncon": 1,
+          "peg_collision_contacts": 1,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0011632500000000002,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0013946153777597832,
+            -0.00042589647202456596,
+            -0.009882947902900063
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 1,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053942625,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.05759213522863577,
+            7.606806040429538e-05,
+            -0.010314209934512986
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053942625,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.062216417486046234,
+            -0.0003436678000044487,
+            -0.005354950491579358
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053942625,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.064769041672365,
+            -0.00030188069058380317,
+            0.010221439338468474
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053942625,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0663639622533453,
+            -0.0003918690723593953,
+            0.026569806305243304
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "rectangular_4mm",
+      "clearance_scaled_m": 0.0006300000000000017,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            4.230971101658199e-18,
+            -1.8785256120242072e-17,
+            -0.016351215072558267
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            6.991004942151469e-18,
+            -2.5589567639156066e-17,
+            -0.017956409401944262
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            4.1217160956928654e-19,
+            -6.2588052338327644e-18,
+            -0.01327050852080952
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            1.677592503722975e-18,
+            -4.4144884805941225e-17,
+            -0.01147274258740305
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0001575000000000004,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0001768947169998893,
+            -5.034330817420956e-19,
+            -0.018596359971200016
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0001575000000000004,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.00019069758981236934,
+            2.54961711193666e-19,
+            -0.01843935130460428
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0001575000000000004,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0001977411130328992,
+            3.3038025356049292e-18,
+            -0.013274944540653366
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0001575000000000004,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.00020792470834478757,
+            -1.6573369816422935e-17,
+            -0.01148405207919695
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0003150000000000008,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.00021409709552553974,
+            6.951447333225849e-19,
+            -0.018567994387386655
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0003150000000000008,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0003479382865486517,
+            2.25276128285404e-19,
+            -0.018434342038094964
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0003150000000000008,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00041236769176129654,
+            -1.2380770562474404e-18,
+            -0.013276669918560524
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0003150000000000008,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0004621052227711676,
+            -2.499554928664211e-17,
+            -0.01148292534674622
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.01339875,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.03852033850487542,
+            6.227731360796733e-18,
+            -0.027974366549141427
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.01339875,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.03375408120377563,
+            3.705655893813708e-18,
+            -0.019689615608110944
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.01339875,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.028947324676468062,
+            7.571269782757501e-18,
+            -0.011019551594580845
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.01339875,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.027925976605534947,
+            4.3856626902869916e-17,
+            -0.004062553552999781
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "clearance_scaled_m": 0.0008117999999999953,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            -1.1109034332864297e-17,
+            2.0362791900928985e-19,
+            -0.01761515755323445
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            -1.7215939187265397e-17,
+            7.557325264885973e-19,
+            -0.019526622390014625
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            2.2302278721664877e-17,
+            6.468882758654525e-21,
+            -0.013299155445987976
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            -2.025427474350279e-17,
+            2.2712501888605912e-17,
+            -0.011216239165426523
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00020294999999999883,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.00020630164406004332,
+            -3.503694688315736e-18,
+            -0.019718394900711145
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00020294999999999883,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.00021092500726475208,
+            -1.4783440908850864e-18,
+            -0.019870932148087384
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00020294999999999883,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00021975389236499924,
+            -4.774968754398827e-18,
+            -0.013300667302754254
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00020294999999999883,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0002386145929840919,
+            1.030923877660194e-17,
+            -0.01122678173414643
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00040589999999999767,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            9.649979232520324e-05,
+            1.1019371318604984e-18,
+            -0.019673301968698653
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00040589999999999767,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0003426529050521433,
+            -2.84093752659057e-19,
+            -0.019864240877838946
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00040589999999999767,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0004201289495444257,
+            -6.551883232263864e-18,
+            -0.013300341549910277
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.00040589999999999767,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.00045435465544230863,
+            -1.2650591348299314e-18,
+            -0.011226315687133337
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0268785,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.061438008243290994,
+            -1.4985092386106056e-18,
+            -0.03350905038661195
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0268785,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.04239964561772043,
+            -1.1131389846460228e-18,
+            -0.0182911691601243
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0268785,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.03546002181289712,
+            -4.173372178952731e-18,
+            -0.004054161974909765
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0268785,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.03712411245329987,
+            -1.126356581563459e-17,
+            0.0019081817318268857
+          ],
+          "ncon": 2,
+          "peg_collision_contacts": 2,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "rectangular_12mm",
+      "clearance_scaled_m": 0.0009936000000000007,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            2.0053430882137194e-20,
+            2.8726283533231603e-19,
+            -0.017895159096864233
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            -3.368762992437483e-18,
+            9.854612197286175e-21,
+            -0.019787632961858814
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            7.341302960385719e-18,
+            9.565609654973e-19,
+            -0.013303285591984848
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            3.637166309073286e-17,
+            4.348389962236642e-18,
+            -0.01131118322415181
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002484000000000002,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0002499630401646754,
+            -7.493237872644958e-18,
+            -0.01985402029186667
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002484000000000002,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.00025224462171894054,
+            -3.9982790107961755e-18,
+            -0.020112294299814648
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002484000000000002,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0002570470698837617,
+            -5.11207993136096e-18,
+            -0.013304791331720134
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002484000000000002,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.00026897693999753975,
+            -1.5255797772620954e-17,
+            -0.011323523585223316
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004968000000000004,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.00012691469289034726,
+            2.4770175988465763e-19,
+            -0.019808973982805234
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004968000000000004,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.00040370727617196437,
+            -1.7098135285738103e-18,
+            -0.02010559291585856
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004968000000000004,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00048422238966845817,
+            -7.01745028644182e-18,
+            -0.013304761768552775
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0004968000000000004,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0005068163344929516,
+            -6.776739465642895e-18,
+            -0.011323246002027831
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040354875,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.04305593926407164,
+            2.0283668359844716e-20,
+            -0.014249342844116164
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040354875,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.04642667439054607,
+            -1.389230179025708e-18,
+            -0.010885022969845393
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040354875,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.04895171343568945,
+            -9.899544106435368e-18,
+            0.0019021293855173704
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.040354875,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.05018918615397534,
+            -1.5537803739677425e-17,
+            0.012162163749343091
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "clearance_scaled_m": 0.0011753999999999983,
+      "n_probes": 16,
+      "n_feasible_strict": 3,
+      "n_feasible_soft": 6,
+      "has_insertable_interval": true,
+      "probes": [
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            -5.935283458162639e-20,
+            -1.8802861926049836e-18,
+            -0.018067544929284307
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            3.1737824076768535e-18,
+            -1.0818426083917748e-18,
+            -0.0199267947847514
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            -4.924880461993731e-18,
+            -1.2157880145866689e-18,
+            -0.013305297537105687
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            -2.6966845563141564e-18,
+            5.2217747840374104e-18,
+            -0.011385090921366359
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002938499999999996,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.0002947455062546566,
+            -1.1673848027385869e-18,
+            -0.019893070419332692
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002938499999999996,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0003009558470123234,
+            -7.336462114675081e-20,
+            -0.02027058691428979
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002938499999999996,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.00029982192678539493,
+            4.8164118160970776e-18,
+            -0.01330689768598392
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0002938499999999996,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0003097580195744761,
+            2.4914227678337474e-18,
+            -0.011396152580158747
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005876999999999992,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            6.072488713040826e-06,
+            -1.2319632926686704e-18,
+            -0.019935993449701317
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005876999999999992,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.0003784709987654703,
+            1.9118519910754673e-18,
+            -0.020288264383878207
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005876999999999992,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.0005482427169664966,
+            5.4167455691206966e-18,
+            -0.01330704129425625
+          ],
+          "ncon": 4,
+          "peg_collision_contacts": 4,
+          "bottom_contacts": 0,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.0005876999999999992,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.0005803405553675491,
+            6.351712644036727e-18,
+            -0.011395913463978447
+          ],
+          "ncon": 8,
+          "peg_collision_contacts": 8,
+          "bottom_contacts": 4,
+          "penetrating": true,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053854874999999996,
+          "depth_m": 0.0,
+          "tip_site_delta": [
+            0.05688958497624987,
+            7.050235305244507e-18,
+            -0.012589393758361545
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053854874999999996,
+          "depth_m": 0.005,
+          "tip_site_delta": [
+            0.061108245871490066,
+            5.759712961766858e-18,
+            -0.008702035906764494
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053854874999999996,
+          "depth_m": 0.015,
+          "tip_site_delta": [
+            0.06328748289785141,
+            6.152312076834995e-18,
+            0.007266563702947648
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        },
+        {
+          "lateral_offset_m": 0.053854874999999996,
+          "depth_m": 0.03,
+          "tip_site_delta": [
+            0.06409879127742202,
+            1.0138242512944405e-17,
+            0.021949311655141523
+          ],
+          "ncon": 0,
+          "peg_collision_contacts": 0,
+          "bottom_contacts": 0,
+          "penetrating": false,
+          "notes": ""
+        }
+      ]
+    }
+  ],
+  "mismatch_smokes": [
+    {
+      "peg_family": "round_16mm",
+      "socket_family": "round_4mm",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_16mm__vs__round_4mm__mismatch.xml",
+      "peg_radius_or_half_m": 0.03596175,
+      "socket_hole_half_m": 0.009225,
+      "size_conflict": true,
+      "section_conflict": false,
+      "matched_probe": {
+        "lateral_offset_m": 0.0,
+        "depth_m": 0.01,
+        "tip_site_delta": [
+          0.0,
+          0.0,
+          -0.009999999999999981
+        ],
+        "ncon": 5,
+        "peg_collision_contacts": 5,
+        "bottom_contacts": 1,
+        "penetrating": true,
+        "notes": ""
+      },
+      "probe": {
+        "lateral_offset_m": 0.0,
+        "depth_m": 0.01,
+        "tip_site_delta": [
+          0.0,
+          0.0,
+          -0.009999999999999981
+        ],
+        "ncon": 5,
+        "peg_collision_contacts": 5,
+        "bottom_contacts": 1,
+        "penetrating": true,
+        "notes": ""
+      },
+      "reasonable_fail_proxy": true
+    },
+    {
+      "peg_family": "rectangular_16mm",
+      "socket_family": "rectangular_4mm",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/rectangular_16mm__vs__rectangular_4mm__mismatch.xml",
+      "peg_radius_or_half_m": 0.03590325,
+      "socket_hole_half_m": 0.0092475,
+      "size_conflict": true,
+      "section_conflict": false,
+      "matched_probe": {
+        "lateral_offset_m": 0.0,
+        "depth_m": 0.01,
+        "tip_site_delta": [
+          0.0,
+          0.0,
+          -0.009999999999999981
+        ],
+        "ncon": 12,
+        "peg_collision_contacts": 12,
+        "bottom_contacts": 4,
+        "penetrating": true,
+        "notes": ""
+      },
+      "probe": {
+        "lateral_offset_m": 0.0,
+        "depth_m": 0.01,
+        "tip_site_delta": [
+          0.0,
+          0.0,
+          -0.009999999999999981
+        ],
+        "ncon": 12,
+        "peg_collision_contacts": 12,
+        "bottom_contacts": 4,
+        "penetrating": true,
+        "notes": ""
+      },
+      "reasonable_fail_proxy": true
+    },
+    {
+      "peg_family": "round_8mm",
+      "socket_family": "rectangular_8mm",
+      "xml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp/round_8mm__vs__rectangular_8mm__mismatch.xml",
+      "peg_radius_or_half_m": 0.0179685,
+      "socket_hole_half_m": 0.018324899999999998,
+      "size_conflict": false,
+      "section_conflict": true,
+      "matched_probe": {
+        "lateral_offset_m": 0.0,
+        "depth_m": 0.01,
+        "tip_site_delta": [
+          0.0,
+          0.0,
+          -0.009999999999999981
+        ],
+        "ncon": 5,
+        "peg_collision_contacts": 5,
+        "bottom_contacts": 1,
+        "penetrating": true,
+        "notes": ""
+      },
+      "probe": {
+        "lateral_offset_m": 0.0,
+        "depth_m": 0.01,
+        "tip_site_delta": [
+          0.0,
+          0.0,
+          -0.009999999999999981
+        ],
+        "ncon": 5,
+        "peg_collision_contacts": 5,
+        "bottom_contacts": 1,
+        "penetrating": true,
+        "notes": ""
+      },
+      "reasonable_fail_proxy": true
+    }
+  ],
+  "xml_dir": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/geometry_xml_tmp"
+}

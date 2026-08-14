@@ -1,0 +1,226 @@
+{
+  "name": "target_hole_semantics_smoke_v1",
+  "created_at": "2026-08-14T05:10:31Z",
+  "protocol": "P0-S0.3",
+  "verdict": {
+    "label": "pass",
+    "reason": "all 4 families target-hole semantics ok; cross-family neg ok",
+    "n_families_passed": 4,
+    "n_families": 4,
+    "allow_policy_training": 0,
+    "allow_full_collection": 0,
+    "allow_semantic_p0": 0,
+    "claims_policy_knows_hole": 0,
+    "next_if_pass": "grasp_stability_gate (still no train/collect)"
+  },
+  "note": "Single-target hole metadata/plumbing pass only. Exposes family/target_instance_id/socket in reset info; wrong-target via semantic_target_features(claimed_target=...). Does NOT prove policy knows hole.",
+  "scope": "single_target_hole_semantics_metadata_plumbing",
+  "claims_policy_knows_hole": 0,
+  "families": [
+    {
+      "family_id": "round_8mm",
+      "info_keys_ok": 1,
+      "missing_info_keys": [],
+      "info": {
+        "geometry_family_id": "round_8mm",
+        "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "target_socket_body": "industreal_tray_insert_round_peg_8mm",
+        "target_socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "target_peg_body": "industreal_round_peg_8mm",
+        "target_socket_site_pose": [
+          -0.25763452006610954,
+          0.2145894113066656,
+          0.9744406751963663
+        ],
+        "tip_to_target_socket_m": 0.4117504467771193
+      },
+      "tip_to_true_m": 0.4297345784576563,
+      "tip_to_wrong_claimed_m": 0.5497129694375701,
+      "wrong_target_discriminates": 1,
+      "wrong_via_semantic_api": 1,
+      "label_vector": [
+        "round_8mm",
+        "industreal_tray_insert_round_peg_8mm_socket_site",
+        "industreal_tray_insert_round_peg_8mm",
+        "industreal_tray_insert_round_peg_8mm_socket_site",
+        0.4297345784576563,
+        -0.25763452006610954,
+        0.2145894113066656,
+        0.9744406751963663
+      ],
+      "claim_matches_env_true": 1,
+      "claim_matches_env_wrong": 0,
+      "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site",
+      "claim_matches_env": 1,
+      "instance_identity_ok": 1,
+      "labeler_ok": 1,
+      "labeler_family": "round_8mm",
+      "outcome_at_reset": {
+        "tray_ok": 0,
+        "peg_ok": 0,
+        "insert_ok": 0
+      },
+      "insert_ok_false_at_reset": 1,
+      "names_ok": 1,
+      "passed": 1
+    },
+    {
+      "family_id": "round_16mm",
+      "info_keys_ok": 1,
+      "missing_info_keys": [],
+      "info": {
+        "geometry_family_id": "round_16mm",
+        "target_instance_id": "industreal_tray_insert_round_peg_16mm_socket_site",
+        "target_socket_body": "industreal_tray_insert_round_peg_16mm",
+        "target_socket_site": "industreal_tray_insert_round_peg_16mm_socket_site",
+        "target_peg_body": "industreal_round_peg_16mm",
+        "target_socket_site_pose": [
+          -0.2853244109182887,
+          0.15923385947687976,
+          0.9678511002351288
+        ],
+        "tip_to_target_socket_m": 0.3994575863872434
+      },
+      "tip_to_true_m": 0.4070057809008983,
+      "tip_to_wrong_claimed_m": 0.5266619482703478,
+      "wrong_target_discriminates": 1,
+      "wrong_via_semantic_api": 1,
+      "label_vector": [
+        "round_16mm",
+        "industreal_tray_insert_round_peg_16mm_socket_site",
+        "industreal_tray_insert_round_peg_16mm",
+        "industreal_tray_insert_round_peg_16mm_socket_site",
+        0.4070057809008983,
+        -0.2853244109182887,
+        0.15923385947687976,
+        0.9678511002351288
+      ],
+      "claim_matches_env_true": 1,
+      "claim_matches_env_wrong": 0,
+      "target_instance_id": "industreal_tray_insert_round_peg_16mm_socket_site",
+      "claim_matches_env": 1,
+      "instance_identity_ok": 1,
+      "labeler_ok": 1,
+      "labeler_family": "round_16mm",
+      "outcome_at_reset": {
+        "tray_ok": 0,
+        "peg_ok": 0,
+        "insert_ok": 0
+      },
+      "insert_ok_false_at_reset": 1,
+      "names_ok": 1,
+      "passed": 1
+    },
+    {
+      "family_id": "rectangular_8mm",
+      "info_keys_ok": 1,
+      "missing_info_keys": [],
+      "info": {
+        "geometry_family_id": "rectangular_8mm",
+        "target_instance_id": "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        "target_socket_body": "industreal_tray_insert_rectangular_peg_8mm",
+        "target_socket_site": "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        "target_peg_body": "industreal_rectangular_peg_8mm",
+        "target_socket_site_pose": [
+          -0.2579632197912511,
+          0.18303348210038742,
+          0.9687997451071002
+        ],
+        "tip_to_target_socket_m": 0.3816841823667005
+      },
+      "tip_to_true_m": 0.40225395629702626,
+      "tip_to_wrong_claimed_m": 0.5220164264874212,
+      "wrong_target_discriminates": 1,
+      "wrong_via_semantic_api": 1,
+      "label_vector": [
+        "rectangular_8mm",
+        "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        "industreal_tray_insert_rectangular_peg_8mm",
+        "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+        0.40225395629702626,
+        -0.2579632197912511,
+        0.18303348210038742,
+        0.9687997451071002
+      ],
+      "claim_matches_env_true": 1,
+      "claim_matches_env_wrong": 0,
+      "target_instance_id": "industreal_tray_insert_rectangular_peg_8mm_socket_site",
+      "claim_matches_env": 1,
+      "instance_identity_ok": 1,
+      "labeler_ok": 1,
+      "labeler_family": "rectangular_8mm",
+      "outcome_at_reset": {
+        "tray_ok": 0,
+        "peg_ok": 0,
+        "insert_ok": 0
+      },
+      "insert_ok_false_at_reset": 1,
+      "names_ok": 1,
+      "passed": 1
+    },
+    {
+      "family_id": "rectangular_16mm",
+      "info_keys_ok": 1,
+      "missing_info_keys": [],
+      "info": {
+        "geometry_family_id": "rectangular_16mm",
+        "target_instance_id": "industreal_tray_insert_rectangular_peg_16mm_socket_site",
+        "target_socket_body": "industreal_tray_insert_rectangular_peg_16mm",
+        "target_socket_site": "industreal_tray_insert_rectangular_peg_16mm_socket_site",
+        "target_peg_body": "industreal_rectangular_peg_16mm",
+        "target_socket_site_pose": [
+          -0.21070530456523454,
+          0.2396293088933438,
+          0.9745398951287289
+        ],
+        "tip_to_target_socket_m": 0.4481438182818691
+      },
+      "tip_to_true_m": 0.4722729560139479,
+      "tip_to_wrong_claimed_m": 0.5918971429380916,
+      "wrong_target_discriminates": 1,
+      "wrong_via_semantic_api": 1,
+      "label_vector": [
+        "rectangular_16mm",
+        "industreal_tray_insert_rectangular_peg_16mm_socket_site",
+        "industreal_tray_insert_rectangular_peg_16mm",
+        "industreal_tray_insert_rectangular_peg_16mm_socket_site",
+        0.4722729560139479,
+        -0.21070530456523454,
+        0.2396293088933438,
+        0.9745398951287289
+      ],
+      "claim_matches_env_true": 1,
+      "claim_matches_env_wrong": 0,
+      "target_instance_id": "industreal_tray_insert_rectangular_peg_16mm_socket_site",
+      "claim_matches_env": 1,
+      "instance_identity_ok": 1,
+      "labeler_ok": 1,
+      "labeler_family": "rectangular_16mm",
+      "outcome_at_reset": {
+        "tray_ok": 0,
+        "peg_ok": 0,
+        "insert_ok": 0
+      },
+      "insert_ok_false_at_reset": 1,
+      "names_ok": 1,
+      "passed": 1
+    }
+  ],
+  "cross_family_negative": {
+    "passed": 1,
+    "family_a": "round_8mm",
+    "family_b": "round_16mm",
+    "label_a0": "round_8mm",
+    "label_b0": "round_16mm",
+    "pose_a": [
+      -0.25763452006610954,
+      0.2145894113066656,
+      0.9744406751963663
+    ],
+    "pose_b": [
+      -0.2853244109182887,
+      0.15923385947687976,
+      0.9678511002351288
+    ]
+  }
+}

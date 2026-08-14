@@ -1,0 +1,3108 @@
+{
+  "name": "finger_controllability_smoke_v1",
+  "created_at": "2026-08-13T13:56:18Z",
+  "config": {
+    "horizon": 24,
+    "seed": 0,
+    "sidecar_dir": "/mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly",
+    "episodes": [
+      0,
+      2,
+      4
+    ],
+    "root_selection": {
+      "early_offset": 5,
+      "transport_tip_min_m": 0.08,
+      "preinsert_tip_max_m": 0.06,
+      "max_scan_frames": 700
+    },
+    "wrist_action_source": "hold",
+    "mild_transport_delta44": [
+      0.1,
+      0.0,
+      0.05,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "finger_interventions": [
+      "hold_fingers",
+      "demo_finger_replay",
+      "mild_close",
+      "mild_open",
+      "shuffled_or_random_finger"
+    ],
+    "mild_close_delta": 0.12,
+    "output_dir": "outputs/finger_controllability_smoke_v1",
+    "manifest_path": "data/manifests/finger_controllability_smoke_v1.json",
+    "report_path": "docs/FINGER_CONTROLLABILITY_SMOKE.md",
+    "determinism": {
+      "require_pass": true,
+      "horizon": 8,
+      "episode_id": 0
+    },
+    "fairness": {
+      "wrist_atol": 0.0,
+      "init_qpos_atol": "1e-8",
+      "init_obs_atol": "1e-5"
+    }
+  },
+  "determinism": {
+    "skipped": true,
+    "passed": true
+  },
+  "roots": [
+    {
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "frame": 287,
+      "phase": "early_grasp",
+      "reason": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "tip_dist_m": 0.3030351532828099,
+      "excluded": false
+    },
+    {
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "frame": 302,
+      "phase": "transport",
+      "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "tip_dist_m": 0.17350927051551812,
+      "excluded": false
+    },
+    {
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "frame": 266,
+      "phase": "early_grasp",
+      "reason": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "tip_dist_m": 0.32991952375089567,
+      "excluded": false
+    },
+    {
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "frame": 281,
+      "phase": "transport",
+      "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "tip_dist_m": 0.20305376276220855,
+      "excluded": false
+    },
+    {
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "frame": 235,
+      "phase": "early_grasp",
+      "reason": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "tip_dist_m": 0.43646784464275257,
+      "excluded": false
+    },
+    {
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "frame": 250,
+      "phase": "transport",
+      "reason": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "tip_dist_m": 0.24251016977711654,
+      "excluded": false
+    },
+    {
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "frame": 484,
+      "phase": "pre_insert",
+      "reason": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "tip_dist_m": 0.05995977394170425,
+      "excluded": false
+    }
+  ],
+  "branches": [
+    {
+      "branch_id": "ep000_f0287_early_grasp__hold_fingers",
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "root_frame": 287,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.17916432225698506,
+            0.01748079058499501,
+            -0.1759855405177675
+          ],
+          "rotvec": [
+            -0.35953847934920313,
+            -0.6021602170255592,
+            0.16569041874237728
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.009431209877649184,
+        "trans_drift_max_m": 0.010953952105638341,
+        "trans_drift_mean_m": 0.008938030062475765,
+        "rot_drift_end_rad": 0.07156255649982156,
+        "rot_drift_max_rad": 0.07156255649982156,
+        "rot_drift_mean_rad": 0.05550188201930297,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0005529379918163156,
+        "slip_proxy_tangential_rel_vel_max": 0.0018020632477798134,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0287_early_grasp__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.010953952105638341,
+        "rot_max_rad": 0.07156255649982156
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep000_f0287_early_grasp__demo_finger_replay",
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "root_frame": 287,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.06688232276396318,
+        "finger_l2_max": 0.1822213429693305,
+        "finger_abs_max": 0.1388661066685716
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.17916432225698506,
+            0.01748079058499501,
+            -0.1759855405177675
+          ],
+          "rotvec": [
+            -0.35953847934920313,
+            -0.6021602170255592,
+            0.16569041874237728
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.013582361293523597,
+        "trans_drift_max_m": 0.013705084679683488,
+        "trans_drift_mean_m": 0.009407486843691075,
+        "rot_drift_end_rad": 0.11079732866833707,
+        "rot_drift_max_rad": 0.11079732866833707,
+        "rot_drift_mean_rad": 0.06840908610524044,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0006982021496649794,
+        "slip_proxy_tangential_rel_vel_max": 0.0012488371726085263,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0287_early_grasp__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.013705084679683488,
+        "rot_max_rad": 0.11079732866833707
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep000_f0287_early_grasp__mild_close",
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "root_frame": 287,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.17916432225698506,
+            0.01748079058499501,
+            -0.1759855405177675
+          ],
+          "rotvec": [
+            -0.35953847934920313,
+            -0.6021602170255592,
+            0.16569041874237728
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.07105890353265118,
+        "trans_drift_max_m": 0.08232152106353359,
+        "trans_drift_mean_m": 0.04961034590507385,
+        "rot_drift_end_rad": 0.6668033063255002,
+        "rot_drift_max_rad": 0.6668033063255002,
+        "rot_drift_mean_rad": 0.36267659016372694,
+        "contact_total_end": 6,
+        "contact_total_mean": 5.208333333333333,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.2083333333333333,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.004302526410811491,
+        "slip_proxy_tangential_rel_vel_max": 0.008519825743295907,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0287_early_grasp__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.08232152106353359,
+        "rot_max_rad": 0.6668033063255002
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep000_f0287_early_grasp__mild_open",
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "root_frame": 287,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.17916432225698506,
+            0.01748079058499501,
+            -0.1759855405177675
+          ],
+          "rotvec": [
+            -0.35953847934920313,
+            -0.6021602170255592,
+            0.16569041874237728
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.25575089813953616,
+        "trans_drift_max_m": 0.25575089813953616,
+        "trans_drift_mean_m": 0.11919450893675604,
+        "rot_drift_end_rad": 1.4651773805780401,
+        "rot_drift_max_rad": 1.4651773805780401,
+        "rot_drift_mean_rad": 0.6571463136540562,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.875,
+        "contact_retention_mean": 0.71875,
+        "contact_loss_steps": 3,
+        "contact_redistribution_mean": 1.125,
+        "finger_force_active_ratio_mean": 0.3958333333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.011421972819900254,
+        "slip_proxy_tangential_rel_vel_max": 0.020443494006405622,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.875,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0287_early_grasp__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.25575089813953616,
+        "rot_max_rad": 1.4651773805780401
+      },
+      "contact_retention": 0.71875
+    },
+    {
+      "branch_id": "ep000_f0287_early_grasp__shuffled_or_random_finger",
+      "root_id": "ep000_f0287_early_grasp",
+      "episode_index": 0,
+      "root_frame": 287,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 282 + offset 5; peg grasped, not inserted",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.47999999999986936,
+        "finger_l2_max": 0.47999999999986936,
+        "finger_abs_max": 0.3037594555280156
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.17916432225698506,
+            0.01748079058499501,
+            -0.1759855405177675
+          ],
+          "rotvec": [
+            -0.35953847934920313,
+            -0.6021602170255592,
+            0.16569041874237728
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.06788530914634683,
+        "trans_drift_max_m": 0.06788530914634683,
+        "trans_drift_mean_m": 0.03637407766938567,
+        "rot_drift_end_rad": 0.37285793437035564,
+        "rot_drift_max_rad": 0.37285793437035564,
+        "rot_drift_mean_rad": 0.18523200795709327,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.5833333333333335,
+        "contact_retention_mean": 0.6458333333333334,
+        "contact_loss_steps": 4,
+        "contact_redistribution_mean": 1.4166666666666667,
+        "finger_force_active_ratio_mean": 0.2708333333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.004330206368911096,
+        "slip_proxy_tangential_rel_vel_max": 0.011114977278833581,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.8333333333333334,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0287_early_grasp__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.06788530914634683,
+        "rot_max_rad": 0.37285793437035564
+      },
+      "contact_retention": 0.6458333333333334
+    },
+    {
+      "branch_id": "ep000_f0302_transport__hold_fingers",
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "root_frame": 302,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.1723988118047515,
+            0.024430899378065415,
+            -0.18087802516297768
+          ],
+          "rotvec": [
+            -0.30202356373350836,
+            -0.5937349338665724,
+            0.10290819104341495
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.0040959759640263466,
+        "trans_drift_max_m": 0.004521205300736201,
+        "trans_drift_mean_m": 0.003972393445618886,
+        "rot_drift_end_rad": 0.05152194707826656,
+        "rot_drift_max_rad": 0.05152194707826656,
+        "rot_drift_mean_rad": 0.03600006826081001,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0003556438114160063,
+        "slip_proxy_tangential_rel_vel_max": 0.0013976300327940218,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0302_transport__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.004521205300736201,
+        "rot_max_rad": 0.05152194707826656
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep000_f0302_transport__demo_finger_replay",
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "root_frame": 302,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.052517818134533635,
+        "finger_l2_max": 0.1822213429693305,
+        "finger_abs_max": 0.1388661066685716
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.1723988118047515,
+            0.024430899378065415,
+            -0.18087802516297768
+          ],
+          "rotvec": [
+            -0.30202356373350836,
+            -0.5937349338665724,
+            0.10290819104341495
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.005646679999867201,
+        "trans_drift_max_m": 0.005646679999867201,
+        "trans_drift_mean_m": 0.004739560079753021,
+        "rot_drift_end_rad": 0.06254767281715044,
+        "rot_drift_max_rad": 0.06254767281715044,
+        "rot_drift_mean_rad": 0.042073888521651635,
+        "contact_total_end": 5,
+        "contact_total_mean": 4.333333333333333,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.3333333333333333,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0003992963412469491,
+        "slip_proxy_tangential_rel_vel_max": 0.001350634390643097,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0302_transport__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.005646679999867201,
+        "rot_max_rad": 0.06254767281715044
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep000_f0302_transport__mild_close",
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "root_frame": 302,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.1723988118047515,
+            0.024430899378065415,
+            -0.18087802516297768
+          ],
+          "rotvec": [
+            -0.30202356373350836,
+            -0.5937349338665724,
+            0.10290819104341495
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.06652388034802964,
+        "trans_drift_max_m": 0.06919447612120552,
+        "trans_drift_mean_m": 0.04234420668358973,
+        "rot_drift_end_rad": 0.5829675707155493,
+        "rot_drift_max_rad": 0.5829675707155493,
+        "rot_drift_mean_rad": 0.30690371595228,
+        "contact_total_end": 7,
+        "contact_total_mean": 5.333333333333333,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.3333333333333333,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0033043180758220957,
+        "slip_proxy_tangential_rel_vel_max": 0.008449420915911736,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0302_transport__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.06919447612120552,
+        "rot_max_rad": 0.5829675707155493
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep000_f0302_transport__mild_open",
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "root_frame": 302,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.1723988118047515,
+            0.024430899378065415,
+            -0.18087802516297768
+          ],
+          "rotvec": [
+            -0.30202356373350836,
+            -0.5937349338665724,
+            0.10290819104341495
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.15390665448908122,
+        "trans_drift_max_m": 0.15390665448908122,
+        "trans_drift_mean_m": 0.06973618857689362,
+        "rot_drift_end_rad": 0.9882537681449738,
+        "rot_drift_max_rad": 0.9882537681449738,
+        "rot_drift_mean_rad": 0.43577395214796466,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.5833333333333335,
+        "contact_retention_mean": 0.6458333333333334,
+        "contact_loss_steps": 3,
+        "contact_redistribution_mean": 1.4166666666666667,
+        "finger_force_active_ratio_mean": 0.3020833333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.006739164598963003,
+        "slip_proxy_tangential_rel_vel_max": 0.009841251778485674,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.875,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0302_transport__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.15390665448908122,
+        "rot_max_rad": 0.9882537681449738
+      },
+      "contact_retention": 0.6458333333333334
+    },
+    {
+      "branch_id": "ep000_f0302_transport__shuffled_or_random_finger",
+      "root_id": "ep000_f0302_transport",
+      "episode_index": 0,
+      "root_frame": 302,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.4799999999998265,
+        "finger_l2_max": 0.4799999999998265,
+        "finger_abs_max": 0.23712852388611427
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.1723988118047515,
+            0.024430899378065415,
+            -0.18087802516297768
+          ],
+          "rotvec": [
+            -0.30202356373350836,
+            -0.5937349338665724,
+            0.10290819104341495
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.06381414315676211,
+        "trans_drift_max_m": 0.066445075959226,
+        "trans_drift_mean_m": 0.04232994181741657,
+        "rot_drift_end_rad": 0.7024218684767698,
+        "rot_drift_max_rad": 0.7024218684767698,
+        "rot_drift_mean_rad": 0.3220090812664929,
+        "contact_total_end": 3,
+        "contact_total_mean": 3.625,
+        "contact_retention_mean": 0.90625,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.375,
+        "finger_force_active_ratio_mean": 0.5833333333333334,
+        "slip_proxy_tangential_rel_vel_mean": 0.005879463787620644,
+        "slip_proxy_tangential_rel_vel_max": 0.012605446835021784,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep000_f0302_transport__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.066445075959226,
+        "rot_max_rad": 0.7024218684767698
+      },
+      "contact_retention": 0.90625
+    },
+    {
+      "branch_id": "ep002_f0266_early_grasp__hold_fingers",
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "root_frame": 266,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.20849830593055263,
+            0.030261533254450298,
+            -0.1195938416086953
+          ],
+          "rotvec": [
+            -0.3836486833630186,
+            -0.9011304409415256,
+            0.20315742555527408
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.00350134663244619,
+        "trans_drift_max_m": 0.00350134663244619,
+        "trans_drift_mean_m": 0.0013208531915871015,
+        "rot_drift_end_rad": 0.03701824999038922,
+        "rot_drift_max_rad": 0.03701824999038922,
+        "rot_drift_mean_rad": 0.019703448702541045,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0002488926070341805,
+        "slip_proxy_tangential_rel_vel_max": 0.00039585053214310947,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0266_early_grasp__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.00350134663244619,
+        "rot_max_rad": 0.03701824999038922
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0266_early_grasp__demo_finger_replay",
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "root_frame": 266,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.060683524901615736,
+        "finger_l2_max": 0.12511166091878528,
+        "finger_abs_max": 0.08430798848440048
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.20849830593055263,
+            0.030261533254450298,
+            -0.1195938416086953
+          ],
+          "rotvec": [
+            -0.3836486833630186,
+            -0.9011304409415256,
+            0.20315742555527408
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.006110301471317813,
+        "trans_drift_max_m": 0.006332472066575115,
+        "trans_drift_mean_m": 0.004295996578006716,
+        "rot_drift_end_rad": 0.055563345441654165,
+        "rot_drift_max_rad": 0.055563345441654165,
+        "rot_drift_mean_rad": 0.0348328224827475,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.00034690780240772087,
+        "slip_proxy_tangential_rel_vel_max": 0.0006820566578312398,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0266_early_grasp__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.006332472066575115,
+        "rot_max_rad": 0.055563345441654165
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0266_early_grasp__mild_close",
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "root_frame": 266,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.20849830593055263,
+            0.030261533254450298,
+            -0.1195938416086953
+          ],
+          "rotvec": [
+            -0.3836486833630186,
+            -0.9011304409415256,
+            0.20315742555527408
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.11532941803376878,
+        "trans_drift_max_m": 0.11532941803376878,
+        "trans_drift_mean_m": 0.06009987783683495,
+        "rot_drift_end_rad": 0.7861185140017778,
+        "rot_drift_max_rad": 0.7861185140017778,
+        "rot_drift_mean_rad": 0.41484612537613863,
+        "contact_total_end": 5,
+        "contact_total_mean": 5.541666666666667,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.5416666666666667,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0049200449835451465,
+        "slip_proxy_tangential_rel_vel_max": 0.0082377773269119,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0266_early_grasp__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.11532941803376878,
+        "rot_max_rad": 0.7861185140017778
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0266_early_grasp__mild_open",
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "root_frame": 266,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.20849830593055263,
+            0.030261533254450298,
+            -0.1195938416086953
+          ],
+          "rotvec": [
+            -0.3836486833630186,
+            -0.9011304409415256,
+            0.20315742555527408
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.17060829122665555,
+        "trans_drift_max_m": 0.17060829122665555,
+        "trans_drift_mean_m": 0.08160202889276279,
+        "rot_drift_end_rad": 1.198151931650581,
+        "rot_drift_max_rad": 1.198151931650581,
+        "rot_drift_mean_rad": 0.628777095310941,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.9166666666666665,
+        "contact_retention_mean": 0.6666666666666666,
+        "contact_loss_steps": 4,
+        "contact_redistribution_mean": 2.0,
+        "finger_force_active_ratio_mean": 0.375,
+        "slip_proxy_tangential_rel_vel_mean": 0.007875134289677158,
+        "slip_proxy_tangential_rel_vel_max": 0.015321190737379602,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.8333333333333334,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0266_early_grasp__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.17060829122665555,
+        "rot_max_rad": 1.198151931650581
+      },
+      "contact_retention": 0.6666666666666666
+    },
+    {
+      "branch_id": "ep002_f0266_early_grasp__shuffled_or_random_finger",
+      "root_id": "ep002_f0266_early_grasp",
+      "episode_index": 2,
+      "root_frame": 266,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 261 + offset 5; peg grasped, not inserted",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.47999999999988074,
+        "finger_l2_max": 0.47999999999988074,
+        "finger_abs_max": 0.23366311268979734
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.20849830593055263,
+            0.030261533254450298,
+            -0.1195938416086953
+          ],
+          "rotvec": [
+            -0.3836486833630186,
+            -0.9011304409415256,
+            0.20315742555527408
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.07115554338540177,
+        "trans_drift_max_m": 0.07115554338540177,
+        "trans_drift_mean_m": 0.04586446841612692,
+        "rot_drift_end_rad": 0.5027369310531433,
+        "rot_drift_max_rad": 0.5027369310531433,
+        "rot_drift_mean_rad": 0.29032780362426214,
+        "contact_total_end": 12,
+        "contact_total_mean": 6.708333333333333,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 2.7083333333333335,
+        "finger_force_active_ratio_mean": 0.4479166666666667,
+        "slip_proxy_tangential_rel_vel_mean": 0.0030919450346873004,
+        "slip_proxy_tangential_rel_vel_max": 0.008766219228358444,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0266_early_grasp__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.07115554338540177,
+        "rot_max_rad": 0.5027369310531433
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0281_transport__hold_fingers",
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "root_frame": 281,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.21099955291497877,
+            0.034245211194426126,
+            -0.117558384239094
+          ],
+          "rotvec": [
+            -0.35813131308794427,
+            -0.9376631965305194,
+            0.19285456192655634
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.0042183528360069,
+        "trans_drift_max_m": 0.0042183528360069,
+        "trans_drift_mean_m": 0.002047579069996503,
+        "rot_drift_end_rad": 0.04044257323528351,
+        "rot_drift_max_rad": 0.04044257323528351,
+        "rot_drift_mean_rad": 0.021218320565116532,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.00027019844411370147,
+        "slip_proxy_tangential_rel_vel_max": 0.0005578485917729087,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0281_transport__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.0042183528360069,
+        "rot_max_rad": 0.04044257323528351
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0281_transport__demo_finger_replay",
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "root_frame": 281,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.03456525585006886,
+        "finger_l2_max": 0.05851282840907406,
+        "finger_abs_max": 0.0497126579279607
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.21099955291497877,
+            0.034245211194426126,
+            -0.117558384239094
+          ],
+          "rotvec": [
+            -0.35813131308794427,
+            -0.9376631965305194,
+            0.19285456192655634
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.005511396325646887,
+        "trans_drift_max_m": 0.005511396325646887,
+        "trans_drift_mean_m": 0.003260239839148404,
+        "rot_drift_end_rad": 0.051291739966845905,
+        "rot_drift_max_rad": 0.051291739966845905,
+        "rot_drift_mean_rad": 0.029315603905071614,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.00030850755860879943,
+        "slip_proxy_tangential_rel_vel_max": 0.0006044103426613985,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0281_transport__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.005511396325646887,
+        "rot_max_rad": 0.051291739966845905
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0281_transport__mild_close",
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "root_frame": 281,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.21099955291497877,
+            0.034245211194426126,
+            -0.117558384239094
+          ],
+          "rotvec": [
+            -0.35813131308794427,
+            -0.9376631965305194,
+            0.19285456192655634
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.14888342556857384,
+        "trans_drift_max_m": 0.14888342556857384,
+        "trans_drift_mean_m": 0.06636756468139474,
+        "rot_drift_end_rad": 0.9451666268218247,
+        "rot_drift_max_rad": 0.9451666268218247,
+        "rot_drift_mean_rad": 0.43464317633394617,
+        "contact_total_end": 5,
+        "contact_total_mean": 5.333333333333333,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.3333333333333333,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.006368229390136232,
+        "slip_proxy_tangential_rel_vel_max": 0.012642448489280372,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0281_transport__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.14888342556857384,
+        "rot_max_rad": 0.9451666268218247
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep002_f0281_transport__mild_open",
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "root_frame": 281,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.21099955291497877,
+            0.034245211194426126,
+            -0.117558384239094
+          ],
+          "rotvec": [
+            -0.35813131308794427,
+            -0.9376631965305194,
+            0.19285456192655634
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.10622617154076545,
+        "trans_drift_max_m": 0.10622617154076545,
+        "trans_drift_mean_m": 0.05364969382884871,
+        "rot_drift_end_rad": 0.805433336686352,
+        "rot_drift_max_rad": 0.805433336686352,
+        "rot_drift_mean_rad": 0.40921045446302545,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.8333333333333335,
+        "contact_retention_mean": 0.6979166666666666,
+        "contact_loss_steps": 3,
+        "contact_redistribution_mean": 1.75,
+        "finger_force_active_ratio_mean": 0.3333333333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.005043112438097048,
+        "slip_proxy_tangential_rel_vel_max": 0.011243922399692826,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.875,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0281_transport__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.10622617154076545,
+        "rot_max_rad": 0.805433336686352
+      },
+      "contact_retention": 0.6979166666666666
+    },
+    {
+      "branch_id": "ep002_f0281_transport__shuffled_or_random_finger",
+      "root_id": "ep002_f0281_transport",
+      "episode_index": 2,
+      "root_frame": 281,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.4799999999998805,
+        "finger_l2_max": 0.4799999999998805,
+        "finger_abs_max": 0.215192494179884
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.21099955291497877,
+            0.034245211194426126,
+            -0.117558384239094
+          ],
+          "rotvec": [
+            -0.35813131308794427,
+            -0.9376631965305194,
+            0.19285456192655634
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.0385241925192894,
+        "trans_drift_max_m": 0.0385241925192894,
+        "trans_drift_mean_m": 0.025351186046905522,
+        "rot_drift_end_rad": 0.26288974705209917,
+        "rot_drift_max_rad": 0.26288974705209917,
+        "rot_drift_mean_rad": 0.17333403151924856,
+        "contact_total_end": 7,
+        "contact_total_mean": 5.166666666666667,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.3333333333333333,
+        "finger_force_active_ratio_mean": 0.22916666666666666,
+        "slip_proxy_tangential_rel_vel_mean": 0.002961890105430095,
+        "slip_proxy_tangential_rel_vel_max": 0.005509361868248596,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep002_f0281_transport__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.0385241925192894,
+        "rot_max_rad": 0.26288974705209917
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0235_early_grasp__hold_fingers",
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "root_frame": 235,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14502865937894396,
+            0.015243306454547237,
+            -0.16793166650250976
+          ],
+          "rotvec": [
+            -0.37835012236221793,
+            -0.4396905778567503,
+            0.12802494543760748
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.0048860011693431455,
+        "trans_drift_max_m": 0.0048860011693431455,
+        "trans_drift_mean_m": 0.0031600231438903524,
+        "rot_drift_end_rad": 0.032616772312768647,
+        "rot_drift_max_rad": 0.032616772312768647,
+        "rot_drift_mean_rad": 0.020538144321601424,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0002522987877911099,
+        "slip_proxy_tangential_rel_vel_max": 0.0011215182384449083,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0235_early_grasp__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.0048860011693431455,
+        "rot_max_rad": 0.032616772312768647
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0235_early_grasp__demo_finger_replay",
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "root_frame": 235,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0754438563702814,
+        "finger_l2_max": 0.14934799931487083,
+        "finger_abs_max": 0.12182235717757059
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14502865937894396,
+            0.015243306454547237,
+            -0.16793166650250976
+          ],
+          "rotvec": [
+            -0.37835012236221793,
+            -0.4396905778567503,
+            0.12802494543760748
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.013666959174469634,
+        "trans_drift_max_m": 0.013666959174469634,
+        "trans_drift_mean_m": 0.008772729668283859,
+        "rot_drift_end_rad": 0.08370403758419763,
+        "rot_drift_max_rad": 0.08370403758419763,
+        "rot_drift_mean_rad": 0.05381927999644398,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0008655181720179381,
+        "slip_proxy_tangential_rel_vel_max": 0.0015955934283208022,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0235_early_grasp__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.013666959174469634,
+        "rot_max_rad": 0.08370403758419763
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0235_early_grasp__mild_close",
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "root_frame": 235,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14502865937894396,
+            0.015243306454547237,
+            -0.16793166650250976
+          ],
+          "rotvec": [
+            -0.37835012236221793,
+            -0.4396905778567503,
+            0.12802494543760748
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.09360587127867928,
+        "trans_drift_max_m": 0.09360587127867928,
+        "trans_drift_mean_m": 0.06718863771415172,
+        "rot_drift_end_rad": 0.7253935763031085,
+        "rot_drift_max_rad": 0.7253935763031085,
+        "rot_drift_mean_rad": 0.45055056674403954,
+        "contact_total_end": 7,
+        "contact_total_mean": 5.416666666666667,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.4166666666666667,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.004389161943322554,
+        "slip_proxy_tangential_rel_vel_max": 0.010214222634342504,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0235_early_grasp__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.09360587127867928,
+        "rot_max_rad": 0.7253935763031085
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0235_early_grasp__mild_open",
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "root_frame": 235,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14502865937894396,
+            0.015243306454547237,
+            -0.16793166650250976
+          ],
+          "rotvec": [
+            -0.37835012236221793,
+            -0.4396905778567503,
+            0.12802494543760748
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.3167810646664832,
+        "trans_drift_max_m": 0.3167810646664832,
+        "trans_drift_mean_m": 0.14406363388480461,
+        "rot_drift_end_rad": 2.1770896454234276,
+        "rot_drift_max_rad": 2.1770896454234276,
+        "rot_drift_mean_rad": 0.9446461990797017,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.4166666666666665,
+        "contact_retention_mean": 0.6041666666666666,
+        "contact_loss_steps": 4,
+        "contact_redistribution_mean": 1.5833333333333333,
+        "finger_force_active_ratio_mean": 0.2916666666666667,
+        "slip_proxy_tangential_rel_vel_mean": 0.01514620547603232,
+        "slip_proxy_tangential_rel_vel_max": 0.02583783058772171,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.8333333333333334,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0235_early_grasp__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.3167810646664832,
+        "rot_max_rad": 2.1770896454234276
+      },
+      "contact_retention": 0.6041666666666666
+    },
+    {
+      "branch_id": "ep004_f0235_early_grasp__shuffled_or_random_finger",
+      "root_id": "ep004_f0235_early_grasp",
+      "episode_index": 4,
+      "root_frame": 235,
+      "root_phase": "early_grasp",
+      "root_selection_rule": "first peg_ok at 230 + offset 5; peg grasped, not inserted",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.47999999999989756,
+        "finger_l2_max": 0.4799999999998975,
+        "finger_abs_max": 0.2258614452688876
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14502865937894396,
+            0.015243306454547237,
+            -0.16793166650250976
+          ],
+          "rotvec": [
+            -0.37835012236221793,
+            -0.4396905778567503,
+            0.12802494543760748
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.055178693041604165,
+        "trans_drift_max_m": 0.09145753546689366,
+        "trans_drift_mean_m": 0.06618287517535862,
+        "rot_drift_end_rad": 0.8840332525263294,
+        "rot_drift_max_rad": 0.9039556337640098,
+        "rot_drift_mean_rad": 0.44993112748324066,
+        "contact_total_end": 5,
+        "contact_total_mean": 4.291666666666667,
+        "contact_retention_mean": 0.9895833333333334,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.4583333333333333,
+        "finger_force_active_ratio_mean": 0.4895833333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.007082138463016638,
+        "slip_proxy_tangential_rel_vel_max": 0.020612948475444984,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0235_early_grasp__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.09145753546689366,
+        "rot_max_rad": 0.9039556337640098
+      },
+      "contact_retention": 0.9895833333333334
+    },
+    {
+      "branch_id": "ep004_f0250_transport__hold_fingers",
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "root_frame": 250,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14859015446606064,
+            0.022951913824048625,
+            -0.1680559366600509
+          ],
+          "rotvec": [
+            -0.3471946944807486,
+            -0.48446611137961476,
+            0.14172261552265203
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.00508782489808157,
+        "trans_drift_max_m": 0.00508782489808157,
+        "trans_drift_mean_m": 0.003999710475120731,
+        "rot_drift_end_rad": 0.059372466674323006,
+        "rot_drift_max_rad": 0.059372466674323006,
+        "rot_drift_mean_rad": 0.03902311784467061,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.00035465936223456706,
+        "slip_proxy_tangential_rel_vel_max": 0.00129647981810339,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0250_transport__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.00508782489808157,
+        "rot_max_rad": 0.059372466674323006
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0250_transport__demo_finger_replay",
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "root_frame": 250,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.06856102774455834,
+        "finger_l2_max": 0.14934799931487083,
+        "finger_abs_max": 0.12182235717757059
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14859015446606064,
+            0.022951913824048625,
+            -0.1680559366600509
+          ],
+          "rotvec": [
+            -0.3471946944807486,
+            -0.48446611137961476,
+            0.14172261552265203
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.009401781882347159,
+        "trans_drift_max_m": 0.009401781882347159,
+        "trans_drift_mean_m": 0.006223838159348627,
+        "rot_drift_end_rad": 0.08284898275997472,
+        "rot_drift_max_rad": 0.08284898275997472,
+        "rot_drift_mean_rad": 0.05113636312598476,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.0005549121031267766,
+        "slip_proxy_tangential_rel_vel_max": 0.0016227474631629586,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0250_transport__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.009401781882347159,
+        "rot_max_rad": 0.08284898275997472
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0250_transport__mild_close",
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "root_frame": 250,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14859015446606064,
+            0.022951913824048625,
+            -0.1680559366600509
+          ],
+          "rotvec": [
+            -0.3471946944807486,
+            -0.48446611137961476,
+            0.14172261552265203
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.0902850294832426,
+        "trans_drift_max_m": 0.0902850294832426,
+        "trans_drift_mean_m": 0.06368638442480425,
+        "rot_drift_end_rad": 0.7458060627794348,
+        "rot_drift_max_rad": 0.7458060627794348,
+        "rot_drift_mean_rad": 0.472290681102729,
+        "contact_total_end": 8,
+        "contact_total_mean": 5.958333333333333,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.9583333333333333,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean": 0.003961393804795334,
+        "slip_proxy_tangential_rel_vel_max": 0.009298296063797814,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0250_transport__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.0902850294832426,
+        "rot_max_rad": 0.7458060627794348
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0250_transport__mild_open",
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "root_frame": 250,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14859015446606064,
+            0.022951913824048625,
+            -0.1680559366600509
+          ],
+          "rotvec": [
+            -0.3471946944807486,
+            -0.48446611137961476,
+            0.14172261552265203
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.12473739847798687,
+        "trans_drift_max_m": 0.12473739847798687,
+        "trans_drift_mean_m": 0.0587618865913147,
+        "rot_drift_end_rad": 0.7456392498086936,
+        "rot_drift_max_rad": 0.7456392498086936,
+        "rot_drift_mean_rad": 0.376825097648192,
+        "contact_total_end": 0,
+        "contact_total_mean": 2.6666666666666665,
+        "contact_retention_mean": 0.6666666666666666,
+        "contact_loss_steps": 3,
+        "contact_redistribution_mean": 1.3333333333333333,
+        "finger_force_active_ratio_mean": 0.28125,
+        "slip_proxy_tangential_rel_vel_mean": 0.005704777789156889,
+        "slip_proxy_tangential_rel_vel_max": 0.010089222524581838,
+        "peg_ok_end": false,
+        "peg_ok_frac": 0.875,
+        "peg_retained": false,
+        "peg_loss": true,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0250_transport__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": true,
+      "final_max_drift": {
+        "trans_max_m": 0.12473739847798687,
+        "rot_max_rad": 0.7456392498086936
+      },
+      "contact_retention": 0.6666666666666666
+    },
+    {
+      "branch_id": "ep004_f0250_transport__shuffled_or_random_finger",
+      "root_id": "ep004_f0250_transport",
+      "episode_index": 4,
+      "root_frame": 250,
+      "root_phase": "transport",
+      "root_selection_rule": "peg_ok, tip_dist>=0.08, >=20 steps after first peg_ok",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.4799999999998701,
+        "finger_l2_max": 0.4799999999998701,
+        "finger_abs_max": 0.21943587199241896
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.14859015446606064,
+            0.022951913824048625,
+            -0.1680559366600509
+          ],
+          "rotvec": [
+            -0.3471946944807486,
+            -0.48446611137961476,
+            0.14172261552265203
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.1862327014627751,
+        "trans_drift_max_m": 0.1862327014627751,
+        "trans_drift_mean_m": 0.058418188420543464,
+        "rot_drift_end_rad": 1.1471179718245603,
+        "rot_drift_max_rad": 1.473044019054757,
+        "rot_drift_mean_rad": 0.508886717752704,
+        "contact_total_end": 5,
+        "contact_total_mean": 3.4583333333333335,
+        "contact_retention_mean": 0.84375,
+        "contact_loss_steps": 1,
+        "contact_redistribution_mean": 1.125,
+        "finger_force_active_ratio_mean": 0.3020833333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.011195197758742224,
+        "slip_proxy_tangential_rel_vel_max": 0.04929240221341505,
+        "peg_ok_end": true,
+        "peg_ok_frac": 0.9583333333333334,
+        "peg_retained": false,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0250_transport__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": false,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.1862327014627751,
+        "rot_max_rad": 1.473044019054757
+      },
+      "contact_retention": 0.84375
+    },
+    {
+      "branch_id": "ep004_f0484_pre_insert__hold_fingers",
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "root_frame": 484,
+      "root_phase": "pre_insert",
+      "root_selection_rule": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "intervention": "hold_fingers",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "hold_fingers",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.0,
+        "finger_l2_max": 0.0,
+        "finger_abs_max": 0.0
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.11826143555254437,
+            0.04125184588250534,
+            -0.1815031537181773
+          ],
+          "rotvec": [
+            -0.23374615415376016,
+            -0.3465904015162069,
+            0.08900190433320371
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.020804103674814306,
+        "trans_drift_max_m": 0.020804103674814306,
+        "trans_drift_mean_m": 0.011447361388343992,
+        "rot_drift_end_rad": 0.14454335851115388,
+        "rot_drift_max_rad": 0.14454335851115388,
+        "rot_drift_mean_rad": 0.08090472095130341,
+        "contact_total_end": 7,
+        "contact_total_mean": 6.333333333333333,
+        "contact_retention_mean": 0.9930555555555557,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 0.4166666666666667,
+        "finger_force_active_ratio_mean": 0.34375,
+        "slip_proxy_tangential_rel_vel_mean": 0.0009416881049517444,
+        "slip_proxy_tangential_rel_vel_max": 0.0013419353765498684,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0484_pre_insert__hold_fingers.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.020804103674814306,
+        "rot_max_rad": 0.14454335851115388
+      },
+      "contact_retention": 0.9930555555555557
+    },
+    {
+      "branch_id": "ep004_f0484_pre_insert__demo_finger_replay",
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "root_frame": 484,
+      "root_phase": "pre_insert",
+      "root_selection_rule": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "intervention": "demo_finger_replay",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "demo_finger_replay",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.21115187913780697,
+        "finger_l2_max": 0.8859170063312454,
+        "finger_abs_max": 0.6841925779948468
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.11826143555254437,
+            0.04125184588250534,
+            -0.1815031537181773
+          ],
+          "rotvec": [
+            -0.23374615415376016,
+            -0.3465904015162069,
+            0.08900190433320371
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.023251084458846594,
+        "trans_drift_max_m": 0.023251084458846594,
+        "trans_drift_mean_m": 0.011796909035269733,
+        "rot_drift_end_rad": 0.20403764241836173,
+        "rot_drift_max_rad": 0.20403764241836173,
+        "rot_drift_mean_rad": 0.0874422351834449,
+        "contact_total_end": 4,
+        "contact_total_mean": 5.791666666666667,
+        "contact_retention_mean": 0.9895833333333334,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 2.125,
+        "finger_force_active_ratio_mean": 0.3958333333333333,
+        "slip_proxy_tangential_rel_vel_mean": 0.001049499733814899,
+        "slip_proxy_tangential_rel_vel_max": 0.0021745752099045584,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0484_pre_insert__demo_finger_replay.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.023251084458846594,
+        "rot_max_rad": 0.20403764241836173
+      },
+      "contact_retention": 0.9895833333333334
+    },
+    {
+      "branch_id": "ep004_f0484_pre_insert__mild_close",
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "root_frame": 484,
+      "root_phase": "pre_insert",
+      "root_selection_rule": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "intervention": "mild_close",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_close",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.11826143555254437,
+            0.04125184588250534,
+            -0.1815031537181773
+          ],
+          "rotvec": [
+            -0.23374615415376016,
+            -0.3465904015162069,
+            0.08900190433320371
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.027092805830254793,
+        "trans_drift_max_m": 0.027092805830254793,
+        "trans_drift_mean_m": 0.014077217416311641,
+        "rot_drift_end_rad": 0.5550541874130249,
+        "rot_drift_max_rad": 0.5550541874130249,
+        "rot_drift_mean_rad": 0.29881029983957447,
+        "contact_total_end": 6,
+        "contact_total_mean": 6.291666666666667,
+        "contact_retention_mean": 1.0,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 3.875,
+        "finger_force_active_ratio_mean": 0.4375,
+        "slip_proxy_tangential_rel_vel_mean": 0.0012100136518711196,
+        "slip_proxy_tangential_rel_vel_max": 0.0018164471034520196,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0484_pre_insert__mild_close.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.027092805830254793,
+        "rot_max_rad": 0.5550541874130249
+      },
+      "contact_retention": 1.0
+    },
+    {
+      "branch_id": "ep004_f0484_pre_insert__mild_open",
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "root_frame": 484,
+      "root_phase": "pre_insert",
+      "root_selection_rule": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "intervention": "mild_open",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "mild_open",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.48,
+        "finger_l2_max": 0.48,
+        "finger_abs_max": 0.12
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.11826143555254437,
+            0.04125184588250534,
+            -0.1815031537181773
+          ],
+          "rotvec": [
+            -0.23374615415376016,
+            -0.3465904015162069,
+            0.08900190433320371
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.02019977888297124,
+        "trans_drift_max_m": 0.02019977888297124,
+        "trans_drift_mean_m": 0.011417992443057648,
+        "rot_drift_end_rad": 0.24596207772829326,
+        "rot_drift_max_rad": 0.2630125469614884,
+        "rot_drift_mean_rad": 0.15981843558293254,
+        "contact_total_end": 2,
+        "contact_total_mean": 3.0416666666666665,
+        "contact_retention_mean": 0.5069444444444444,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 3.0416666666666665,
+        "finger_force_active_ratio_mean": 0.03125,
+        "slip_proxy_tangential_rel_vel_mean": 0.0009076572516677458,
+        "slip_proxy_tangential_rel_vel_max": 0.0015954186655956688,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0484_pre_insert__mild_open.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.02019977888297124,
+        "rot_max_rad": 0.2630125469614884
+      },
+      "contact_retention": 0.5069444444444444
+    },
+    {
+      "branch_id": "ep004_f0484_pre_insert__shuffled_or_random_finger",
+      "root_id": "ep004_f0484_pre_insert",
+      "episode_index": 4,
+      "root_frame": 484,
+      "root_phase": "pre_insert",
+      "root_selection_rule": "peg_ok, tip_dist<=0.06, not insert_ok",
+      "intervention": "shuffled_or_random_finger",
+      "seed": 0,
+      "horizon": 24,
+      "n_steps_executed": 24,
+      "wrist_action_source": "hold",
+      "finger_action_source": "shuffled_or_random_finger",
+      "finger_action_stats": {
+        "finger_l2_mean": 0.4799999999998777,
+        "finger_l2_max": 0.4799999999998777,
+        "finger_abs_max": 0.2751930041299761
+      },
+      "initial_metrics": {
+        "peg_ok": true,
+        "insert_ok": false,
+        "peg_contact_count": 4,
+        "object_in_hand": {
+          "translation": [
+            0.11826143555254437,
+            0.04125184588250534,
+            -0.1815031537181773
+          ],
+          "rotvec": [
+            -0.23374615415376016,
+            -0.3465904015162069,
+            0.08900190433320371
+          ],
+          "reference_body": "allegro_palm_right"
+        }
+      },
+      "metrics": {
+        "num_steps": 24,
+        "reference_body": "allegro_palm_right",
+        "trans_drift_end_m": 0.021329403462371277,
+        "trans_drift_max_m": 0.021329403462371277,
+        "trans_drift_mean_m": 0.012895451597488219,
+        "rot_drift_end_rad": 0.7312906138014387,
+        "rot_drift_max_rad": 0.7583289734388838,
+        "rot_drift_mean_rad": 0.40578506669391584,
+        "contact_total_end": 1,
+        "contact_total_mean": 3.25,
+        "contact_retention_mean": 0.7916666666666666,
+        "contact_loss_steps": 0,
+        "contact_redistribution_mean": 1.9166666666666667,
+        "finger_force_active_ratio_mean": 0.28125,
+        "slip_proxy_tangential_rel_vel_mean": 0.0011308579690592513,
+        "slip_proxy_tangential_rel_vel_max": 0.002097530227476608,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained": true,
+        "peg_loss": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": []
+      },
+      "termination_reason": "horizon_end",
+      "fairness_checks": {
+        "passed": true,
+        "init_qpos_err": 0.0,
+        "init_obs_err": 0.0,
+        "init_contact_ok": true,
+        "wrist_sequence_matched": true,
+        "wrist_executed_matched": true
+      },
+      "fairness_passed": true,
+      "restore_determinism_result": true,
+      "output_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/branches/ep004_f0484_pre_insert__shuffled_or_random_finger.npz",
+      "insert_ok": false,
+      "peg_retained": true,
+      "peg_loss": false,
+      "final_max_drift": {
+        "trans_max_m": 0.021329403462371277,
+        "rot_max_rad": 0.7583289734388838
+      },
+      "contact_retention": 0.7916666666666666
+    }
+  ],
+  "verdict": {
+    "label": "harmful_only",
+    "allow_extended_controllability_p0": false,
+    "reason": "finger actions causally change grasp outcomes, but observed interventions (especially mild_open / random) increase drift or drop peg vs hold_fingers; no repeatable stabilizing intervention beat hold",
+    "harmful_roots": [
+      {
+        "root_id": "ep000_f0287_early_grasp",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep000_f0302_transport",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep002_f0266_early_grasp",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep002_f0281_transport",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep004_f0235_early_grasp",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep004_f0250_transport",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "worsened": [
+          "demo_finger_replay",
+          "mild_close",
+          "mild_open",
+          "shuffled_or_random_finger"
+        ]
+      }
+    ],
+    "effect_roots": [
+      "ep000_f0287_early_grasp",
+      "ep000_f0302_transport",
+      "ep002_f0266_early_grasp",
+      "ep002_f0281_transport",
+      "ep004_f0235_early_grasp",
+      "ep004_f0250_transport",
+      "ep004_f0484_pre_insert"
+    ]
+  }
+}

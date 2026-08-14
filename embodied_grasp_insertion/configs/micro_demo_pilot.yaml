@@ -1,0 +1,28 @@
+# Micro-demo pilot v0
+#
+# dry-run-only revision: runner ignores write requests (WRITE_IMPLEMENTATION_ENABLED=False).
+# YAML cannot loosen code caps in pilot/__init__.py.
+
+dry_run: true
+training_forbidden: true
+stop_on_first_gate_failure: true
+
+# Must match or be stricter than code constants (MAX_*=1 family / 1 traj).
+max_families: 1
+families:
+  - round_8mm
+max_episodes_per_family: 2
+max_trajectories_per_episode: 1
+max_total_trajectories: 1
+max_horizon_steps: 80
+
+# Documented future allowlisted root only — v0 runner never creates it.
+out_root: data/pilot_micro_demo_v0
+
+gates:
+  physical_grasp: true
+  target_hole_semantics: true
+  insert_label_consistency: true
+  require_matched_snapshot: true
+  require_snap_after_establish_eq_0: true
+  require_transport_lateral_fields: true

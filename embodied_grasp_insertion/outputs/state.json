@@ -1,0 +1,815 @@
+{
+  "phase": "semantic_geometry_infrastructure",
+  "busy": false,
+  "updated_at": "2026-08-14T08:45:00Z",
+  "verdict": "pending",
+  "prior_failures_reviewed": [
+    {
+      "family": "FutureStateTrajectoryConditionedActionDecoder",
+      "result": "falsified",
+      "evidence": "oracle_p0_strict rotating_val_crossroot: mean_imp=-15.7%, win_vs_direct=0%"
+    },
+    {
+      "family": "DiffusionFlowRecovery",
+      "result": "rejected_for_p0",
+      "evidence": "generative models cannot fix wrong state/action interface; banned before observability/controllability"
+    },
+    {
+      "family": "SetListwiseCandidateRanking",
+      "result": "falsified_offline_to_closed_loop",
+      "evidence": "offline ranking did not transfer to stable closed-loop recovery"
+    },
+    {
+      "family": "OnlinePhysicsBranchMPPI",
+      "result": "falsified",
+      "evidence": "Branch MPPI expand15 = 5/15 < PrivHI 6/15"
+    },
+    {
+      "family": "WristOnlyContactCMDP",
+      "result": "demoted",
+      "evidence": "real transitions but no finger controllability or object/hole semantics"
+    },
+    {
+      "family": "GateResidualServo",
+      "result": "banned",
+      "evidence": "hand-written gates/residuals hide observability and controllability failures"
+    }
+  ],
+  "why_not_repeat": [
+    "不把未来 tip/geometry 轨迹当动作条件",
+    "不在错误接口上换 Diffusion/Flow/更大 Transformer",
+    "不做在线候选搜索或 MPPI 当部署策略",
+    "不在 37D+wrist12 上再训 critic/actor",
+    "不用 gate/residual/servo 掩盖缺失状态",
+    "不把固定 peg/socket 相对误差称为通用插孔语义"
+  ],
+  "audit_sources": {
+    "sidecar_dir": "/mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly",
+    "sidecar_manifest": "/mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly/manifest.json",
+    "arena_xml": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/arena_arm_hand_bimanual_assembly.xml",
+    "full_obs_py": "/home/wangrenpeng/reach_insert_rl/reach_insert_rl/env/full_obs.py",
+    "full_env_py": "/home/wangrenpeng/reach_insert_rl/reach_insert_rl/env/full_env.py",
+    "handoff_env_py": "/home/wangrenpeng/reach_insert_rl/reach_insert_rl/env/handoff_env.py",
+    "finger_force_labeler": "/home/wangrenpeng/dexjoco/dexquery/data/finger_contact_forces.py",
+    "assembly_contacts": "/home/wangrenpeng/dexjoco/dexjoco/hybrid_insert/assembly_contacts.py",
+    "recovery_snapshots": "/mnt/hdd/dexjoco/datasets/recovery_trajectory_policy/raw/snapshots"
+  },
+  "confirmed_fields": {
+    "observation_85d_segments": [
+      "act44",
+      "peg7",
+      "tray7",
+      "lat_vec3",
+      "along_tip_axis",
+      "hole_axis3",
+      "peg_axis3",
+      "ft12",
+      "flags3"
+    ],
+    "action_44d_segments": [
+      "right_xyz",
+      "right_rotvec",
+      "right_fingers16",
+      "left_xyz",
+      "left_rotvec",
+      "left_fingers16"
+    ],
+    "assembly_outcome": [
+      "tray_ok",
+      "peg_ok",
+      "insert_ok",
+      "contact_counts"
+    ],
+    "wrist_ft_in_obs": true,
+    "finger_forces_in_labeler_not_in_85d": true,
+    "full_env_finger_control": true,
+    "insert_handoff_fingers_frozen": true,
+    "geometry_family_in_episodes": [
+      {
+        "family_id": "industreal_round_peg_8mm__industreal_tray_insert_round_peg_8mm",
+        "object": "industreal_round_peg_8mm",
+        "socket": "industreal_tray_insert_round_peg_8mm",
+        "episode_count": 100,
+        "nominal_size_hint": "8mm_round_from_asset_name"
+      }
+    ]
+  },
+  "missing_fields": [
+    "object_in_hand_relative_pose_6d_as_labeled_series",
+    "per_finger_contact_force_or_binary_retention_series",
+    "slip_proxy_or_truth_series",
+    "contact_mode_beyond_tray_ok_peg_ok_insert_ok",
+    "multiple_object_hole_geometry_families_in_episode_coverage",
+    "FullEpisodeEnv.snapshot/restore for grasp-phase matched intervention"
+  ],
+  "dataset_inventory": {
+    "episode_count": {
+      "manifest_num_episodes": 100,
+      "requested": 100,
+      "valid": 100,
+      "excluded": 0
+    },
+    "valid_episode_ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99
+    ],
+    "excluded_episode_ids_and_reasons": [],
+    "object_assets": [
+      {
+        "name": "industreal_round_peg_8mm",
+        "episode_count": 100
+      }
+    ],
+    "socket_assets": [
+      {
+        "name": "industreal_tray_insert_round_peg_8mm",
+        "episode_count": 100
+      }
+    ],
+    "object_socket_pairs": [
+      {
+        "pair": "industreal_round_peg_8mm__industreal_tray_insert_round_peg_8mm",
+        "episode_count": 100
+      }
+    ]
+  },
+  "geometry_inventory": {
+    "families": [
+      {
+        "family_id": "industreal_round_peg_8mm__industreal_tray_insert_round_peg_8mm",
+        "object": "industreal_round_peg_8mm",
+        "socket": "industreal_tray_insert_round_peg_8mm",
+        "episode_count": 100,
+        "nominal_size_hint": "8mm_round_from_asset_name"
+      }
+    ],
+    "repo_meshes_not_in_episodes": {
+      "mesh_dir": "/home/wangrenpeng/dexjoco/dexjoco/dexjoco/sim/envs/xmls/industreal/mesh/industreal_pegs",
+      "obj_files_present": [
+        "industreal_rectangular_peg_12mm.obj",
+        "industreal_rectangular_peg_16mm.obj",
+        "industreal_rectangular_peg_4mm.obj",
+        "industreal_rectangular_peg_8mm.obj",
+        "industreal_round_peg_12mm.obj",
+        "industreal_round_peg_16mm.obj",
+        "industreal_round_peg_4mm.obj",
+        "industreal_round_peg_8mm.obj",
+        "industreal_tray_insert_rectangular_peg_12mm.obj",
+        "industreal_tray_insert_rectangular_peg_16mm.obj",
+        "industreal_tray_insert_rectangular_peg_4mm.obj",
+        "industreal_tray_insert_rectangular_peg_8mm.obj",
+        "industreal_tray_insert_round_peg_12mm.obj",
+        "industreal_tray_insert_round_peg_16mm.obj",
+        "industreal_tray_insert_round_peg_4mm.obj",
+        "industreal_tray_insert_round_peg_8mm.obj",
+        "industreal_tray_pick_rectangular_peg_12mm.obj",
+        "industreal_tray_pick_rectangular_peg_16mm.obj",
+        "industreal_tray_pick_rectangular_peg_4mm.obj",
+        "industreal_tray_pick_rectangular_peg_8mm.obj",
+        "industreal_tray_pick_round_peg_12mm.obj",
+        "industreal_tray_pick_round_peg_16mm.obj",
+        "industreal_tray_pick_round_peg_4mm.obj",
+        "industreal_tray_pick_round_peg_8mm.obj"
+      ],
+      "note": "Repo contains multiple IndustReal peg/tray meshes; episode coverage is separate."
+    },
+    "same_geometry_different_trajectories": true
+  },
+  "snapshot_capabilities": {
+    "InsertEnvSnapshot": {
+      "defined_in": "reach_insert_rl/env/handoff_env.py",
+      "stores": [
+        "deepcopy(MjData)",
+        "wrapper t/peg_lost/holds/force_baseline/prev geometry/done/socket0"
+      ],
+      "can_restore": true,
+      "dual_wrist_state": "yes_via_MjData_qpos_and_hold_arm23",
+      "all_finger_qpos_qvel": "yes_via_MjData",
+      "object_pose_velocity": "yes_via_freejoint_qpos_qvel",
+      "socket_pose": "yes_via_tray_freejoint_and_sites",
+      "socket_geometry": "fixed_mesh_asset_not_per_episode_field",
+      "mujoco_contact": "yes_via_MjData.contact_when_restored",
+      "per_finger_contact": "not_stored_as_field_reconstructible_via_FingerForceLabeler_cfrc_ext",
+      "object_in_hand_relative_pose": "not_stored_derivable_from_peg_and_wrist_frames",
+      "slip_proxy": "no_explicit_label_would_require_temporal_relative_motion",
+      "insert_contact_mode": "partial_AssemblyOutcome_tray_ok_peg_ok_insert_ok_counts_only",
+      "env_scope": "InsertHandoffEnv_insert_phase_fingers_frozen"
+    },
+    "CompactInsertSnapshot": {
+      "defined_in": "recovery_trajectory_policy/.../snapshot.py",
+      "stores": [
+        "mjSTATE_INTEGRATION state vector",
+        "writable MjData arrays",
+        "wrapper fields"
+      ],
+      "on_disk_pkl_count": 112,
+      "on_disk_root": "/mnt/hdd/dexjoco/datasets/recovery_trajectory_policy/raw/snapshots",
+      "note": "Insert-phase recovery roots; not full grasp→insert episode archives."
+    },
+    "FullEpisodeEnv": {
+      "snapshot_api": "absent",
+      "matched_intervention": "not_built_in; can replay zarr initial_state+actions but no branch snapshot helper",
+      "fingers_controllable": true,
+      "action_dim": 44
+    }
+  },
+  "contact_label_capabilities": {
+    "AssemblyOutcome": {
+      "fields": [
+        "tray_ok",
+        "peg_ok",
+        "insert_ok",
+        "tray_contact_count",
+        "peg_contact_count"
+      ],
+      "source": "hybrid_insert/assembly_contacts.py",
+      "in_85d": "only as cumulative flags tray_ok_seen/peg_ok_seen (peg duplicated)",
+      "capture_rim_jam_backout": "unavailable"
+    },
+    "FingerForceLabeler": {
+      "fields": [
+        "right_finger_force(12)",
+        "left_finger_force(12)",
+        "wrist_ft_right(6)",
+        "wrist_ft_left(6)",
+        "outcome"
+      ],
+      "source": "dexquery/data/finger_contact_forces.py",
+      "packed_into_85d": [
+        "wrist_ft only (12)"
+      ],
+      "per_finger_in_obs": false,
+      "slip_truth": false,
+      "category": "simulator_privileged_when_from_cfrc_ext; wrist_ft_may_map_to_sensors"
+    },
+    "sidecar_npz": {
+      "has_per_finger_contact_series": false,
+      "has_slip": false,
+      "has_object_in_hand_pose": false,
+      "has_grasp_geometry_samples": true,
+      "note": "Object-frame grasp contact centers / hand points at grasp frames only."
+    }
+  },
+  "diagnosis": [
+    "P0-A verdict=partial",
+    "100 valid demos share one peg/socket geometry family; diversity is trajectory/pose only.",
+    "85D mixes deployment proprio/wrist-FT with privileged object/geometry features; grasp contact is incomplete.",
+    "44D full-env actions do control all fingers; insert-handoff path freezes them.",
+    "Matched intervention is exact for InsertHandoffEnv snapshots; FullEpisodeEnv lacks snapshot API.",
+    "object-in-hand 6D and per-finger forces are reconstructible from live MjData but not stored as dataset labels.",
+    "slip truth and fine contact modes (capture/rim/jam/backout) are unavailable.",
+    "object/geometry held-out splits are impossible on current coverage."
+  ],
+  "next_proposal": {
+    "allow_full_observability_p0": false,
+    "allow_extended_controllability_p0": false,
+    "allow_semantic_p0": false,
+    "allow_policy_training": false,
+    "actions": [
+      "Write-design + mock tests submitted for review (MICRO_DEMO_PILOT_WRITE_DESIGN.md)",
+      "WRITE_IMPLEMENTATION_ENABLED remains False; no formal out_root; no collect/train",
+      "Await design approval before any 1-traj write authorization"
+    ]
+  },
+  "history": [
+    {
+      "date": "2026-08-13",
+      "event": "project_init",
+      "note": "Pre-policy scope definition; policy training banned"
+    },
+    {
+      "date": "2026-08-13",
+      "event": "p0a_system_identifiability_audit",
+      "verdict": "partial",
+      "valid_episodes": 100,
+      "geometry_families": 1
+    },
+    {
+      "date": "2026-08-13",
+      "event": "p0c0_finger_controllability_smoke",
+      "verdict": "harmful_only",
+      "n_roots": 7,
+      "n_branches": 35,
+      "determinism_passed": true
+    },
+    {
+      "date": "2026-08-13",
+      "event": "p0c0_scope_clarification_and_p0c1_prep",
+      "note": "harmful_only scoped; start actuation calibration before new smoke"
+    },
+    {
+      "date": "2026-08-13",
+      "event": "p0c1_calibrated_finger_smoke",
+      "verdict": "no_effect"
+    },
+    {
+      "date": "2026-08-13",
+      "event": "p0c1_1_load_calibration_fail",
+      "verdict": "load_calibration_fail"
+    },
+    {
+      "date": "2026-08-13",
+      "event": "stop_p0c1_1_pivot_semantic_data_design",
+      "verdict": "screening_fail"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_geometry_compile_smoke",
+      "verdict": "pass"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_1_invalidated_as_physical_settle",
+      "verdict": "numerical_only"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_1b_strict_settle_clearance",
+      "verdict": "pass"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_1b_clearance_provisional_invalid",
+      "verdict": "support_pass_clearance_provisional"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_1c_pure_geometric_clearance",
+      "verdict": "pass"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_2_formal_arena_reset_smoke",
+      "verdict": "pass"
+    },
+    {
+      "date": "2026-08-14",
+      "event": "p0s0_3_target_hole_semantics",
+      "verdict": "pass"
+    }
+  ],
+  "manifest_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/data/manifests/system_identifiability_audit_v1.json",
+  "report_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/docs/SYSTEM_IDENTIFIABILITY_AUDIT.md",
+  "p0c0": {
+    "verdict": {
+      "label": "harmful_only",
+      "allow_extended_controllability_p0": false,
+      "reason": "finger actions causally change grasp outcomes, but observed interventions (especially mild_open / random) increase drift or drop peg vs hold_fingers; no repeatable stabilizing intervention beat hold",
+      "harmful_roots": [
+        {
+          "root_id": "ep000_f0287_early_grasp",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        },
+        {
+          "root_id": "ep000_f0302_transport",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        },
+        {
+          "root_id": "ep002_f0266_early_grasp",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        },
+        {
+          "root_id": "ep002_f0281_transport",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        },
+        {
+          "root_id": "ep004_f0235_early_grasp",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        },
+        {
+          "root_id": "ep004_f0250_transport",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        },
+        {
+          "root_id": "ep004_f0484_pre_insert",
+          "worsened": [
+            "demo_finger_replay",
+            "mild_close",
+            "mild_open",
+            "shuffled_or_random_finger"
+          ]
+        }
+      ],
+      "effect_roots": [
+        "ep000_f0287_early_grasp",
+        "ep000_f0302_transport",
+        "ep002_f0266_early_grasp",
+        "ep002_f0281_transport",
+        "ep004_f0235_early_grasp",
+        "ep004_f0250_transport",
+        "ep004_f0484_pre_insert"
+      ]
+    },
+    "determinism_passed": true,
+    "n_episodes": 3,
+    "n_roots": 7,
+    "n_branches": 35,
+    "allow_extended_controllability_p0": false,
+    "allow_observability_p0": false,
+    "allow_semantic_p0": false,
+    "allow_policy_training": false,
+    "summary_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/outputs/finger_controllability_smoke_v1/summary.json",
+    "manifest_path": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/data/manifests/finger_controllability_smoke_v1.json",
+    "determinism_output": "outputs/snapshot_restore_smoke_ep0.json",
+    "verdict_label": "harmful_only",
+    "verdict_scope": "On stable demo roots, wrist-hold, and constant 24-step finger increments, tested finger interventions did not beat hold. Does NOT falsify finger controllability or full-hand policy value.",
+    "known_limitations": [
+      "hold baseline 7/7 peg retained ceiling",
+      "mild_close cumulative ~0.432 rad/joint over 24 steps",
+      "uniform positive sign not verified as physical flexion",
+      "demo_finger_replay moved both hands",
+      "contact retention vs post-first-action not root snapshot",
+      "peg_loss was terminal peg_ok=false not true drop",
+      "wrist-hold only; no transport load"
+    ]
+  },
+  "p0c1": {
+    "verdict": {
+      "label": "no_effect",
+      "allow_extended_controllability_p0": false,
+      "reason": "effects present but below promising bar (best=calibrated_open_low:3roots/2eps, screened_roots=8, stabilizing_rows=6)",
+      "stabilizing": [
+        {
+          "root_id": "wrist_hold::ep010_f0379_pre_insert",
+          "improved": [
+            "calibrated_open_low"
+          ]
+        },
+        {
+          "root_id": "matched_transport_load::ep010_f0379_pre_insert",
+          "improved": [
+            "calibrated_open_low"
+          ]
+        },
+        {
+          "root_id": "wrist_hold::ep010_f0300_transport",
+          "improved": [
+            "random_matched"
+          ]
+        },
+        {
+          "root_id": "matched_transport_load::ep010_f0300_transport",
+          "improved": [
+            "right_demo_replay",
+            "calibrated_open_low"
+          ]
+        },
+        {
+          "root_id": "wrist_hold::ep006_f0271_transport",
+          "improved": [
+            "random_matched"
+          ]
+        },
+        {
+          "root_id": "matched_transport_load::ep006_f0271_transport",
+          "improved": [
+            "calibrated_open_low"
+          ]
+        }
+      ],
+      "harmful": []
+    },
+    "calibration_pass": true,
+    "allow_extended_controllability_p0": false,
+    "allow_observability_p0": false,
+    "allow_semantic_p0": false,
+    "allow_policy_training": false,
+    "n_branches": 96,
+    "fairness_pass_rate": 1.0,
+    "pairwise_vs_hold": {
+      "right_demo_replay": {
+        "vs_hold_better": 2,
+        "vs_hold_worse_trans": 12,
+        "n": 16
+      },
+      "calibrated_close_low": {
+        "vs_hold_better": 0,
+        "vs_hold_worse_trans": 14,
+        "n": 16
+      },
+      "calibrated_close_medium": {
+        "vs_hold_better": 0,
+        "vs_hold_worse_trans": 14,
+        "n": 16
+      },
+      "calibrated_open_low": {
+        "vs_hold_better": 6,
+        "vs_hold_worse_trans": 6,
+        "n": 16
+      },
+      "random_matched": {
+        "vs_hold_better": 2,
+        "vs_hold_worse_trans": 10,
+        "n": 16
+      }
+    }
+  },
+  "p0c1_1": {
+    "verdict": "load_calibration_fail",
+    "stopped": true,
+    "selection_ok": false,
+    "selected_fallback": false,
+    "constant_transport_all_doses_selection_ok": false,
+    "max_unstable_roots_approx": 2,
+    "median_drift_increase_m_approx": 0.00029,
+    "multi_profile_calibration": "aborted",
+    "finger_stabilization_route": "paused",
+    "allow_extended_controllability_p0": false,
+    "allow_observability_p0": false,
+    "allow_semantic_p0": false,
+    "allow_policy_training": false,
+    "note": "Stop P0-C1.1; do not tune load/pulse further; pivot to multi-geometry semantic data design"
+  },
+  "allow_extended_controllability_p0": false,
+  "allow_observability_p0": false,
+  "allow_semantic_p0": false,
+  "allow_policy_training": false,
+  "next_action": "still_no_train_collect_optional_tiny_controlled_demo_discussion_only",
+  "p0s0": {
+    "verdict": "pass",
+    "reason": "8 families compile+lookup; insertable=8; mismatch_neg=3; sizes sourced from mesh×scale/yaml",
+    "n_compile_ok": 8,
+    "n_insertable": 8,
+    "n_mismatch_negative": 3,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "next": "per-family 1-2 reset/settle env smoke only"
+  },
+  "p0s0_1": {
+    "verdict": "numerical_execution_pass_physical_settle_invalid",
+    "note": "xy<0.25m / z<1m thresholds were too loose; socket bounced; not true settle",
+    "allow_formal_arena_edit": false
+  },
+  "p0s0_1b": {
+    "verdict": "support_pass_clearance_provisional_invalid",
+    "n_support_ok": 8,
+    "n_clearance_claimed": 8,
+    "note": "support_settle trusted 8/8; insertion_frame_clearance NOT strict (base hit, 8mm tol, mild ungated, dynamics steps)",
+    "allow_formal_arena_edit": false,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false
+  },
+  "p0s0_1c": {
+    "verdict": "pass",
+    "reason": "all 8 families support+clearance ok; mismatch_neg=3/3",
+    "n_support_ok": 8,
+    "n_clearance_ok": 8,
+    "n_mismatch_ok": 3,
+    "allow_formal_arena_edit": true,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "manifest": "data/manifests/geometry_env_settle_smoke_v1c.json",
+    "report": "docs/GEOMETRY_ENV_SETTLE_SMOKE_V1C.md"
+  },
+  "p0s0_2": {
+    "verdict": "pass",
+    "reason": "all 8 families formal arena reset/settle ok",
+    "n_families_passed": 8,
+    "allow_formal_arena_edit": true,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "manifest": "data/manifests/formal_arena_reset_smoke_v1.json",
+    "report": "docs/FORMAL_ARENA_RESET_SMOKE.md",
+    "note": "parameterized arena; default round_8mm XML untouched; not hole-semantics or grasp stability",
+    "reset_smoke_strengthened": true
+  },
+  "p0s0_3": {
+    "verdict": "pass",
+    "scope": "single_target_hole_metadata_plumbing",
+    "reason": "all 4 families target-hole semantics ok; cross-family neg ok",
+    "n_families_passed": 4,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "claims_policy_knows_hole": false,
+    "note": "Not policy hole cognition; target in reset info/helpers only",
+    "manifest": "data/manifests/target_hole_semantics_smoke_v1.json",
+    "report": "docs/TARGET_HOLE_SEMANTICS_SMOKE.md"
+  },
+  "p0s0_4": {
+    "verdict": "pass",
+    "scope": "instrumentation_and_phase_orchestration_only",
+    "reason": "all 4 representative families lift/hold/transport+open_hand_neg ok under palm-snap",
+    "n_families_passed": 4,
+    "n_families": 4,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "claims_stable_grasp_policy": false,
+    "claims_physical_grasp_stability": false,
+    "positive_fixture": "oracle_kinematic_palm_snap",
+    "manifest": "data/manifests/grasp_stability_smoke_v1.json",
+    "report": "docs/GRASP_STABILITY_SMOKE.md",
+    "note": "NOT physical grasp gate; per-step snap; contacts=0 expected"
+  },
+  "p0s0_4b": {
+    "verdict": "pass",
+    "scope": "physical_dynamics_after_single_demo_transport_root_restore",
+    "reason": "physical_roots_ok=3/3 (ep0/2/4 transport); user-confirmed",
+    "n_roots_passed": 3,
+    "n_roots": 3,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "claims_stable_grasp_policy": false,
+    "claims_physical_grasp_stability": true,
+    "fixture": "demo_transport_root_restore_once",
+    "geometry_family_id": "round_8mm",
+    "not_claimed": "formal_multi_family_scripted_physical_grasp",
+    "manifest": "data/manifests/grasp_stability_physical_smoke_v1.json",
+    "report": "docs/GRASP_STABILITY_PHYSICAL_SMOKE.md",
+    "note": "No per-step snap; closed beats open from same root; still no train/collect"
+  },
+  "p0s0_3b": {
+    "verdict": "pass",
+    "scope": "same_family_multi_socket_instance_metadata_plumbing",
+    "reason": "dual_socket_families_ok=2/2 (round_8mm, rectangular_8mm)",
+    "n_families_passed": 2,
+    "n_families": 2,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "claims_policy_knows_hole": false,
+    "manifest": "data/manifests/target_hole_multi_instance_smoke_v1.json",
+    "report": "docs/TARGET_HOLE_MULTI_INSTANCE_SMOKE.md",
+    "note": "Distinguishes instance_id/site/pose within family; not policy cognition"
+  },
+  "p0s0_4c": {
+    "verdict": "pass",
+    "scope": "multi_family_oracle_established_physical_grasp_recipe",
+    "protocol": "P0-S0.4c-hardened",
+    "reason": "family_physical_ok=4/4; regressions snapshot/zero-snap/lateral all 4/4",
+    "n_families_passed": 4,
+    "n_families": 4,
+    "allow_policy_training": false,
+    "allow_full_collection": false,
+    "allow_semantic_p0": false,
+    "claims_stable_grasp_policy": false,
+    "claims_physical_grasp_stability": true,
+    "round_8mm_source": "demo_transport_root",
+    "other_families_source": "oracle_establish_flow_then_dynamics",
+    "regressions": {
+      "matched_mjdata_snapshot_open_closed": "4/4",
+      "snap_call_count_after_establish_eq_0": "4/4",
+      "transport_measured_lateral_min": "4/4"
+    },
+    "manifest": "data/manifests/grasp_stability_multifamily_physical_smoke_v1.json",
+    "report": "docs/GRASP_STABILITY_MULTIFAMILY_PHYSICAL_SMOKE.md",
+    "note": "Recipe smoke only; not learned grasp; still no train/collect; pilot plan drafted for review, write not authorized"
+  },
+  "micro_demo_pilot": {
+    "status": "write_design_under_review",
+    "dry_run_hardening": "approved",
+    "approved_at": "2026-08-14",
+    "plan": "docs/MICRO_DEMO_PILOT_PLAN.md",
+    "write_design": "docs/MICRO_DEMO_PILOT_WRITE_DESIGN.md",
+    "config": "configs/micro_demo_pilot.yaml",
+    "runner": "scripts/run_micro_demo_pilot.py",
+    "unit_tests_dry_run": "tests/test_pilot_dry_run_guards.py",
+    "unit_tests_write_mock": "tests/test_pilot_atomic_write.py",
+    "MIN_HORIZON_STEPS": 5,
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "write_design_authorized": false,
+    "real_write_authorized": false,
+    "dry_run_default": true,
+    "allow_write": false,
+    "data_written": false,
+    "out_root_created": false,
+    "formal_manifest_written": false,
+    "last_dry_run_verdict": "dry_run_ok",
+    "training_forbidden": true,
+    "note": "Write design+mock tests for review; production write still refused"
+  }
+}
