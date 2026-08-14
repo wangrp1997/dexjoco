@@ -3,10 +3,17 @@
 ## 当前状态
 
 - 日期：2026-08-14
-- 阶段：**mock 写入器加固评审通过**（真实写盘前最后安全审查）
+- 阶段：**P0-L0 标签可派生性审计**（只读）；真实写盘**暂不授权**
 - `WRITE_IMPLEMENTATION_ENABLED=False`；正式 `out_root` 未创建；不采集/不训练
-- 下一步：你明确授权真实写入 1 条 → 再单独开开关 → 只写 1 条并检查产物 → 仍不训练
-- 单测：dry-run 22 + atomic write 18 = 40 通过
+- pilot 单测：dry-run 22 + atomic 18 = **40**
+- 下一步：完成 `docs/P0_LABEL_DERIVABILITY_AUDIT.md` + 只读 smoke；不重开 C0/C1/C1.1；不训 Obs 模型
+
+## 2026-08-14：P0 验收清单（不写盘）
+
+- 文档：`docs/P0_ACCEPTANCE_CHECKLIST.md`
+- 内容：Obs/Ctrl/Sem 的输入字段、标签、held-out、通过/停止条件与当前缺口
+- 明确：S0.* plumbing ≠ Semantic；C0–C1.1 ≠ Controllability 通过；pilot ≠ 算法数据
+- 交接修正：`next_action`→标签可派生性；pilot 测试计数→40
 
 ## 2026-08-14：mock 写入器 hardening
 

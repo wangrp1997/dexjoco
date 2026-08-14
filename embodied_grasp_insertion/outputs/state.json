@@ -1,8 +1,12 @@
 {
-  "phase": "micro_demo_pilot_mock_write_hardened",
+  "phase": "p0_label_derivability_audit",
   "busy": false,
-  "updated_at": "2026-08-14T10:00:00Z",
-  "verdict": "mock_writer_review_pass",
+  "updated_at": "2026-08-14T13:10:00Z",
+  "verdict": "checklist_synced_next_label_derivability",
+  "real_write_authorized": false,
+  "write_implementation_enabled": false,
+  "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
+  "next_action": "p0_l0_label_derivability_audit_readonly_no_collect_train_or_write",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -652,7 +656,6 @@
   "allow_observability_p0": false,
   "allow_semantic_p0": false,
   "allow_policy_training": false,
-  "next_action": "review_micro_demo_pilot_write_design_only_no_real_write_collect_or_train",
   "p0s0": {
     "verdict": "pass",
     "reason": "8 families compile+lookup; insertable=8; mismatch_neg=3; sizes sourced from mesh×scale/yaml",
@@ -790,8 +793,9 @@
     "note": "Recipe smoke only; not learned grasp; still no train/collect; pilot plan drafted for review, write not authorized"
   },
   "micro_demo_pilot": {
-    "status": "write_design_under_review",
+    "status": "mock_writer_review_pass_real_write_deferred",
     "dry_run_hardening": "approved",
+    "mock_write_hardening": "approved",
     "approved_at": "2026-08-14",
     "plan": "docs/MICRO_DEMO_PILOT_PLAN.md",
     "write_design": "docs/MICRO_DEMO_PILOT_WRITE_DESIGN.md",
@@ -800,11 +804,11 @@
     "unit_tests_dry_run": "tests/test_pilot_dry_run_guards.py",
     "unit_tests_write_mock": "tests/test_pilot_atomic_write.py",
     "unit_tests_dry_run_passed": 22,
-    "unit_tests_write_mock_passed": 12,
-    "unit_tests_total_passed": 34,
+    "unit_tests_write_mock_passed": 18,
+    "unit_tests_total_passed": 40,
     "MIN_HORIZON_STEPS": 5,
     "WRITE_IMPLEMENTATION_ENABLED": false,
-    "write_design_authorized": false,
+    "write_design_authorized": true,
     "real_write_authorized": false,
     "dry_run_default": true,
     "allow_write": false,
@@ -813,6 +817,6 @@
     "formal_manifest_written": false,
     "last_dry_run_verdict": "dry_run_ok",
     "training_forbidden": true,
-    "note": "Write design+mock tests for review; production write still refused"
+    "note": "Real write deferred; algorithm focus is P0 label derivability, not pilot write"
   }
 }

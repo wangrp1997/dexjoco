@@ -14,7 +14,9 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
    - Observability P0
    - Controllability P0
    - Semantic P0
+   - 正式验收口径：`docs/P0_ACCEPTANCE_CHECKLIST.md`（输入/标签/split/通过与停止）
 5. 未过门时只允许：只读审计、matched intervention smoke、最小定向重放补标签。
+6. 真实写盘仅在用户明确发送「授权真实写入 1 条」后；当前默认**不授权**（pilot=`insert_phase=skipped` 对算法增益小）。
 
 ## 绝对禁止
 
@@ -43,7 +45,7 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - P0-S0.4b = `pass`（demo transport root 纯动力学物理抓取；仅 round_8mm ep0/2/4）
 - P0-S0.4c = `pass`（4 族物理抓取 root：round_8mm=demo，其余=oracle-once+动力学；`claims_stable_grasp_policy=false`）
 - **禁止**：调 load/pulse；finger smoke；训练；全量采集。
-- **当前阶段**：仍禁采集/训练；仅在明确评审后可讨论极小规模受控 demo。
+- **当前阶段**：`p0_acceptance_checklist`；仍禁采集/训练/真实写盘；按验收清单澄清三门，不续调 C1.1 load。
 - 尺寸口径以 `docs/GEOMETRY_ASSET_AUDIT.md` 为准；禁止复制 8mm collision 到其他族时勿覆盖官方 8mm 文件。
 - 更新 `outputs/state.json`（`busy=false`）与 `docs/PROGRESS.md`。
 
@@ -61,6 +63,7 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - `docs/GRASP_STABILITY_PHYSICAL_SMOKE.md`
 - `docs/GRASP_STABILITY_MULTIFAMILY_PHYSICAL_SMOKE.md`
 - `docs/SEMANTIC_DATA_DESIGN.md`
+- `docs/P0_ACCEPTANCE_CHECKLIST.md`
 - `configs/geometry_families.yaml`
 - `data/manifests/geometry_*` / `formal_arena_reset_smoke_v1.json` / `target_hole_semantics_smoke_v1.json` / `target_hole_multi_instance_smoke_v1.json` / `grasp_stability_smoke_v1.json` / `grasp_stability_physical_smoke_v1.json` / `grasp_stability_multifamily_physical_smoke_v1.json`
 - `dexjoco/sim/envs/assembly_geometry.py`
