@@ -1,0 +1,235 @@
+{
+  "protocol": "P0-L1",
+  "schema_version": "privileged_label_v1",
+  "created_at": "2026-08-14T13:27:39Z",
+  "overall_verdict": "pass",
+  "episodes": [
+    0,
+    2,
+    4
+  ],
+  "window": 8,
+  "checks": {
+    "bit_exact_repeat_pass": true,
+    "snapshot_restore_label_pass": true,
+    "timeline_contiguous_pass": true,
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "formal_pilot_out_root_exists": false,
+    "training_dataset_written": false,
+    "collect_new_episodes": false,
+    "reopen_c0_c1_c1_1": false
+  },
+  "windows": [
+    {
+      "episode_index": 0,
+      "root": {
+        "frame": 302,
+        "phase": "transport",
+        "root_id": "0:302:transport",
+        "tip_dist_m": 0.17350927051551812
+      },
+      "window": 8,
+      "control_dt_s": 0.02,
+      "timeline_contiguous": true,
+      "frame_indices": [
+        302,
+        303,
+        304,
+        305,
+        306,
+        307,
+        308,
+        309
+      ],
+      "restore_checks": [
+        {
+          "frame": 306,
+          "bit_exact_after_restore": true
+        }
+      ],
+      "digest": "06d94cd3172335e67eb5aec7210b538c1e1f1cbc6af9fb5836c58d0a4805c225",
+      "n_frames": 8,
+      "sample_first_provenance": {
+        "episode_index": 0,
+        "frame": 302,
+        "env_t": 302,
+        "raw_env_step": 302,
+        "sim_time_s": 6.199999999999539,
+        "geometry_family_id": "round_8mm",
+        "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "root_id": "0:302:transport",
+        "root_phase": "transport",
+        "zarr_path": "/mnt/ssd/datasets/dexjoco_raw/dexjoco_raw_datasets/bimanual_assembly/assembly_demo_10_2026-03-19_15-42-47_880265/replay.zarr",
+        "reference_body": "allegro_palm_right",
+        "control_dt_s": 0.02,
+        "contact_force_eps_N": 0.05,
+        "finger_order": [
+          "index",
+          "middle",
+          "ring",
+          "thumb"
+        ]
+      },
+      "sample_second_velocity_available": true,
+      "sample_contact_total_first": 4
+    },
+    {
+      "episode_index": 2,
+      "root": {
+        "frame": 281,
+        "phase": "transport",
+        "root_id": "2:281:transport",
+        "tip_dist_m": 0.20305376276220855
+      },
+      "window": 8,
+      "control_dt_s": 0.02,
+      "timeline_contiguous": true,
+      "frame_indices": [
+        281,
+        282,
+        283,
+        284,
+        285,
+        286,
+        287,
+        288
+      ],
+      "restore_checks": [
+        {
+          "frame": 285,
+          "bit_exact_after_restore": true
+        }
+      ],
+      "digest": "f6c11ef4db37b14fd57110e6022d4e42a3a80d2807804c8aeceb4a14ef7a983e",
+      "n_frames": 8,
+      "sample_first_provenance": {
+        "episode_index": 2,
+        "frame": 281,
+        "env_t": 281,
+        "raw_env_step": 281,
+        "sim_time_s": 5.7799999999995855,
+        "geometry_family_id": "round_8mm",
+        "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "root_id": "2:281:transport",
+        "root_phase": "transport",
+        "zarr_path": "/mnt/ssd/datasets/dexjoco_raw/dexjoco_raw_datasets/bimanual_assembly/assembly_demo_10_2026-03-19_17-36-54_867270/replay.zarr",
+        "reference_body": "allegro_palm_right",
+        "control_dt_s": 0.02,
+        "contact_force_eps_N": 0.05,
+        "finger_order": [
+          "index",
+          "middle",
+          "ring",
+          "thumb"
+        ]
+      },
+      "sample_second_velocity_available": true,
+      "sample_contact_total_first": 4
+    },
+    {
+      "episode_index": 4,
+      "root": {
+        "frame": 250,
+        "phase": "transport",
+        "root_id": "4:250:transport",
+        "tip_dist_m": 0.24251016977711654
+      },
+      "window": 8,
+      "control_dt_s": 0.02,
+      "timeline_contiguous": true,
+      "frame_indices": [
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257
+      ],
+      "restore_checks": [
+        {
+          "frame": 254,
+          "bit_exact_after_restore": true
+        }
+      ],
+      "digest": "8b3206c88734f49d65691c7cc5a34c8c62fb5d9d725fe2b701eabaa45bf5dd03",
+      "n_frames": 8,
+      "sample_first_provenance": {
+        "episode_index": 4,
+        "frame": 250,
+        "env_t": 250,
+        "raw_env_step": 250,
+        "sim_time_s": 5.159999999999654,
+        "geometry_family_id": "round_8mm",
+        "target_instance_id": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "socket_site": "industreal_tray_insert_round_peg_8mm_socket_site",
+        "root_id": "4:250:transport",
+        "root_phase": "transport",
+        "zarr_path": "/mnt/ssd/datasets/dexjoco_raw/dexjoco_raw_datasets/bimanual_assembly/assembly_demo_11_2026-03-19_15-43-16_786033/replay.zarr",
+        "reference_body": "allegro_palm_right",
+        "control_dt_s": 0.02,
+        "contact_force_eps_N": 0.05,
+        "finger_order": [
+          "index",
+          "middle",
+          "ring",
+          "thumb"
+        ]
+      },
+      "sample_second_velocity_available": true,
+      "sample_contact_total_first": 4
+    }
+  ],
+  "schema": {
+    "protocol": "P0-L1",
+    "schema_version": "privileged_label_v1",
+    "privilege_only": true,
+    "included": [
+      "object_in_hand_pose_6d",
+      "object_in_hand_velocity (finite-diff contract)",
+      "peg_hand_contact count/by_finger",
+      "finger_force norm/contact_active",
+      "outcome_raw tray_ok/peg_ok/insert_ok",
+      "provenance family/instance/episode/frame/root"
+    ],
+    "excluded": [
+      "slip_truth",
+      "slip",
+      "contact_mode_capture",
+      "contact_mode_rim",
+      "contact_mode_jam",
+      "contact_mode_partial",
+      "contact_mode_seated",
+      "contact_mode_backout",
+      "regrasp_needed",
+      "peg_loss_risk"
+    ],
+    "velocity_contract": {
+      "method": "finite_difference_between_consecutive_control_frames",
+      "dt_source": "control_dt_seconds = model.opt.timestep * frame_skip (default skip=10)",
+      "linear": "v_lin = (t_k - t_{k-1}) / dt ; t in allegro_palm_right frame (m/s)",
+      "angular": "omega = rotvec(R_{k-1}^{-1} R_k) / dt ; R from o2h rotvec (peg relative palm); rad/s; NOT raw rotvec subtraction",
+      "first_frame": "velocity fields null (insufficient history)",
+      "reference_body": "allegro_palm_right"
+    },
+    "contact_force_eps_N": 0.05,
+    "finger_order": [
+      "index",
+      "middle",
+      "ring",
+      "thumb"
+    ],
+    "reference_body": "allegro_palm_right",
+    "notes": [
+      "Not a training dataset.",
+      "Never write into pilot_micro_demo_v0.",
+      "Do not name slip without _proxy suffix; L1 omits slip entirely.",
+      "Fine contact modes require a separate contract before generation."
+    ]
+  },
+  "report": "docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md",
+  "schema_doc": "docs/PRIVILEGED_LABEL_SCHEMA_V1.md"
+}

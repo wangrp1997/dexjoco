@@ -3,10 +3,16 @@
 ## 当前状态
 
 - 日期：2026-08-14
-- 阶段：**P0-L0 标签可派生性审计完成**（只读 smoke pass）
-- overall：`ready_for_observability_label_smoke`；写盘仍关；不训练；不重开 C0/C1/C1.1
-- 产物：`docs/P0_LABEL_DERIVABILITY_AUDIT.md`、`data/manifests/label_derivability_audit_v1.json`
-- 下一步：小型 Observability **label smoke**（特权标签契约）；仍不训模型
+- 阶段：**P0-L1 Observability Privileged Label Smoke = pass**
+- 冻结特权标签契约；非训练数据集；写盘仍关；不训模型；不重开 C0/C1/C1.1
+- 产物：`docs/PRIVILEGED_LABEL_SCHEMA_V1.md`、`docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md`、`data/manifests/observability_privileged_label_smoke_v1.json`
+- 下一步：可讨论 Observability **数据设计**条件；仍不直接训练
+
+## 2026-08-14：P0-L1 Privileged Label Smoke
+
+- episodes 0/2/4 × window 8；bit-exact / restore / timeline 全过
+- 纳入：o2h pose、冻结有限差分 velocity、peg-hand contact、指力 active、outcome_raw、provenance
+- 排除：slip truth、细 contact-mode、风险标签
 
 ## 2026-08-14：P0-L0 Label Derivability Audit
 
