@@ -149,11 +149,11 @@ v0 评测优先：**A / B / B+privilege-finger-ablation(标注为非部署)**。
 - [x] 特权标签契约冻结（L1）  
 - [x] `/tmp` 审计输出路径兼容（path helper）  
 - [x] 本设计评审通过  
-- [ ] P0-Obs-D0 可行性盘点完成  
+- [x] P0-Obs-D0 可行性盘点完成（`overall_verdict=feasibility_pass`）  
 - [ ] 明确授权「完整只读 Obs 评测包导出」（仍非训练）  
 - [ ] 仍禁止：训练、全量采集、`WRITE_IMPLEMENTATION_ENABLED=True`、重开 C0/C1/C1.1  
 
-当前：**设计通过 → 执行 D0**；未授权完整评测包导出 / 训练。
+当前：**D0 通过**；未授权完整评测包导出 / 训练。单几何 ≠ Obs P0 通过。
 
 ---
 

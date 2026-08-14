@@ -3,10 +3,16 @@
 ## 当前状态
 
 - 日期：2026-08-14
-- 阶段：**Observability 数据设计（只设计）**；P0-L1 仍为 pass
-- 已修：`/tmp` 输出路径 `path_for_manifest`；统一 `overall_verdict`
-- 设计：`docs/OBSERVABILITY_DATA_DESIGN.md`（部署输入/窗口/split/有效样本/消融）
-- 仍不：生成训练数据、训练、写盘、采集、重开 C0/C1/C1.1
+- 阶段：**P0-Obs-D0 feasibility_pass**；数据设计已评审通过
+- 100 ep 只读扫描：200 roots；H1–16 root 窗各 200；split 70/15/15 无泄漏；A/B missing=0
+- **不得**称 Observability P0 通过（单几何）
+- 下一步：若授权 → 完整只读评测包导出；训练另授权；仍不写盘
+
+## 2026-08-14：P0-Obs-D0 Readonly Feasibility
+
+- 报告：`docs/OBSERVABILITY_DATASET_FEASIBILITY.md`
+- manifest：`data/manifests/observability_dataset_feasibility_v1.json`
+- /tmp 样例 3 ep；仓库不提交训练数据
 
 ## 2026-08-14：Observability 数据设计
 

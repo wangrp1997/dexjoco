@@ -45,8 +45,8 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - P0-S0.4b = `pass`（demo transport root 纯动力学物理抓取；仅 round_8mm ep0/2/4）
 - P0-S0.4c = `pass`（4 族物理抓取 root：round_8mm=demo，其余=oracle-once+动力学；`claims_stable_grasp_policy=false`）
 - **禁止**：调 load/pulse；finger smoke；训练；全量采集。
-- **当前阶段**：`observability_data_design`（只设计）；P0-L1 `overall_verdict=pass`；仍禁采集/训练/写盘/重开 C1.1。
-- 验收口径：`docs/P0_ACCEPTANCE_CHECKLIST.md`；Obs 数据设计：`docs/OBSERVABILITY_DATA_DESIGN.md`。
+- **当前阶段**：`p0_obs_d0_feasibility_pass`；可讨论完整只读评测包导出授权；仍禁训练/采集/写盘；**不得**称 Obs P0 通过。
+- Obs 数据设计：`docs/OBSERVABILITY_DATA_DESIGN.md`（已通过）；D0：`docs/OBSERVABILITY_DATASET_FEASIBILITY.md`。
 - 尺寸口径以 `docs/GEOMETRY_ASSET_AUDIT.md` 为准；禁止复制 8mm collision 到其他族时勿覆盖官方 8mm 文件。
 - 更新 `outputs/state.json`（`busy=false`）与 `docs/PROGRESS.md`。
 
@@ -69,6 +69,8 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - `docs/PRIVILEGED_LABEL_SCHEMA_V1.md`
 - `docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md`
 - `docs/OBSERVABILITY_DATA_DESIGN.md`
+- `docs/OBSERVABILITY_DATASET_FEASIBILITY.md`
+- `data/manifests/observability_dataset_feasibility_v1.json`
 - `data/manifests/label_derivability_audit_v1.json`
 - `data/manifests/observability_privileged_label_smoke_v1.json`
 - `configs/geometry_families.yaml`
