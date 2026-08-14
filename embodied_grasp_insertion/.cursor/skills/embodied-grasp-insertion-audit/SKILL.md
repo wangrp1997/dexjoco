@@ -68,6 +68,7 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - `docs/P0_LABEL_DERIVABILITY_AUDIT.md`
 - `docs/PRIVILEGED_LABEL_SCHEMA_V1.md`
 - `docs/OBSERVABILITY_PRIVILEGED_LABEL_SMOKE.md`
+- `docs/OBSERVABILITY_DATA_DESIGN.md`
 - `data/manifests/label_derivability_audit_v1.json`
 - `data/manifests/observability_privileged_label_smoke_v1.json`
 - `configs/geometry_families.yaml`

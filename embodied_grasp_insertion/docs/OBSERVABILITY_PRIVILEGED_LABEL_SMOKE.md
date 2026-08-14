@@ -1,7 +1,7 @@
 # Observability Privileged Label Smoke (P0-L1)
 
 - 日期：2026-08-14T13:27:39Z
-- 结论：**pass**
+- overall_verdict：**pass**
 - episodes：[0, 2, 4]；window=8
 - bit-exact repeat：True
 - snapshot restore labels：True
