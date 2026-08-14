@@ -20,7 +20,7 @@ from hybrid_insert.geometry import (
 )
 from hybrid_insert.integration import EvalHybridInsert
 
-from interaction_retarget.constants import PEG_BODY
+from dexjoco.sim.envs.assembly_geometry import names_from_raw
 from interaction_retarget.grasp.approach import interpolate_arm_only
 from interaction_retarget.grasp.repair import _step_side
 from interaction_retarget.io.zarr_io import load_zarr_episode
@@ -47,10 +47,6 @@ class _InsertRunner(Protocol):
 
     @property
     def active(self) -> bool: ...
-
-
-_SOCKET_SITE = "industreal_tray_insert_round_peg_8mm_socket_site"
-_BOTTOM_GEOM = "industreal_tray_insert_round_peg_8mm_bottom_contact"
 
 
 def dual_arm23_to_action44(left23: np.ndarray, right23: np.ndarray) -> np.ndarray:
@@ -90,16 +86,18 @@ def _env_step_info(env, action, video_cb: Callable[[dict], None] | None = None) 
 
 
 def _peg_lift_m(raw_env, peg_rest_z: float) -> float:
-    peg_id = int(raw_env._model.body(PEG_BODY).id)
+    names = names_from_raw(raw_env)
+    peg_id = int(raw_env._model.body(names.peg_body).id)
     return float(raw_env._data.xpos[peg_id, 2]) - float(peg_rest_z)
 
 
 def _insert_geometry(raw_env) -> tuple[np.ndarray, np.ndarray, np.ndarray, float]:
     data = raw_env._data
     model = raw_env._model
-    peg_id = int(model.body(PEG_BODY).id)
-    socket_id = int(model.site(_SOCKET_SITE).id)
-    bottom_id = int(model.geom(_BOTTOM_GEOM).id)
+    names = names_from_raw(raw_env)
+    peg_id = int(model.body(names.peg_body).id)
+    socket_id = int(model.site(names.socket_site).id)
+    bottom_id = int(model.geom(names.socket_bottom).id)
     tip = peg_insert_end_pos(data.xpos[peg_id], data.xmat[peg_id])
     socket = np.asarray(data.site_xpos[socket_id], dtype=np.float64)
     hole_axis = hole_opening_axis(

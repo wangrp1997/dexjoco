@@ -6,6 +6,8 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from dexjoco.sim.envs.assembly_geometry import names_for_family, names_from_raw
+
 DEFAULT_LIFT_THRESHOLD_M = 0.05
 
 
@@ -23,21 +25,31 @@ class AssemblyContactLabeler:
 
     _LEFT_HAND_ROOT = "allegro_palm_left"
     _RIGHT_HAND_ROOT = "allegro_palm_right"
-    _PEG_BODY = "industreal_round_peg_8mm"
-    _TRAY_BODY = "industreal_tray_insert_round_peg_8mm"
-    _INSERT_GEOM = "industreal_tray_insert_round_peg_8mm_bottom_contact"
 
-    def __init__(self, raw_env, *, lift_threshold_m: float = DEFAULT_LIFT_THRESHOLD_M) -> None:
+    def __init__(
+        self,
+        raw_env,
+        *,
+        lift_threshold_m: float = DEFAULT_LIFT_THRESHOLD_M,
+        geometry_family: str | None = None,
+    ) -> None:
         if lift_threshold_m <= 0:
             raise ValueError(f"lift_threshold_m must be positive, got {lift_threshold_m}")
         self._lift_threshold_m = float(lift_threshold_m)
         self._peg_rest_z: float | None = None
         self._tray_rest_z: float | None = None
 
+        if geometry_family is not None:
+            names = names_for_family(geometry_family)
+        else:
+            names = names_from_raw(raw_env)
+        self.geometry_family = names.family_id
+        self._names = names
+
         model = raw_env._model
-        self._peg_body_id = int(model.body(self._PEG_BODY).id)
-        self._tray_body_id = int(model.body(self._TRAY_BODY).id)
-        self._insert_geom_id = int(model.geom(self._INSERT_GEOM).id)
+        self._peg_body_id = int(model.body(names.peg_body).id)
+        self._tray_body_id = int(model.body(names.socket_body).id)
+        self._insert_geom_id = int(model.geom(names.socket_bottom).id)
         self._peg_geom_ids = self._collect_body_geom_ids(model, self._peg_body_id)
         self._tray_geom_ids = self._collect_body_geom_ids(model, self._tray_body_id)
 

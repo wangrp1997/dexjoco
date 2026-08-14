@@ -11,6 +11,11 @@ from scipy.spatial.transform import Rotation as R
 from ..controllers import opspace
 from ..mujoco_gym_env import GymRenderingSpec, MujocoGymEnv, mj_scalar
 from ..rendering import MujocoRenderer
+from .assembly_geometry import (
+    DEFAULT_FAMILY_ID,
+    arena_xml_path,
+    names_for_family,
+)
 
 
 _HERE = Path(__file__).parent
@@ -43,14 +48,19 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
         randomize_dynamics: bool = False,
         config=None,
         hz=30,
+        geometry_family: str = DEFAULT_FAMILY_ID,
+        xml_path: Path | None = None,
     ):
         self.hz = 30
         self._action_scale = action_scale
         self.randomize = randomize
         self._randomize_dynamics = randomize_dynamics
+        self.geometry_family = str(geometry_family or DEFAULT_FAMILY_ID)
+        self._geom_names = names_for_family(self.geometry_family)
+        resolved_xml = Path(xml_path) if xml_path is not None else arena_xml_path(self.geometry_family)
 
         super().__init__(
-            xml_path=_XML_PATH,
+            xml_path=resolved_xml,
             seed=seed,
             control_dt=control_dt,
             physics_dt=physics_dt,
@@ -129,16 +139,17 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
         self._mocap_right_id = mj_scalar(self._model.body("target_right").mocapid)
         self._mocap_left_id = mj_scalar(self._model.body("target_left").mocapid)
 
-        # Object handles
-        self._peg_joint_id = self._model.joint("industreal_round_peg_8mm_joint").id
-        self._socket_joint_id = self._model.joint("industreal_tray_insert_round_peg_8mm_joint").id
+        # Object handles (semantic names via geometry_family; default round_8mm)
+        gn = self._geom_names
+        self._peg_joint_id = self._model.joint(gn.peg_joint).id
+        self._socket_joint_id = self._model.joint(gn.socket_joint).id
         self._peg_qpos_adr = int(self._model.jnt_qposadr[self._peg_joint_id])
         self._peg_qvel_adr = int(self._model.jnt_dofadr[self._peg_joint_id])
         self._socket_qpos_adr = int(self._model.jnt_qposadr[self._socket_joint_id])
         self._socket_qvel_adr = int(self._model.jnt_dofadr[self._socket_joint_id])
 
-        self._peg_body_id = self._model.body("industreal_round_peg_8mm").id
-        self._socket_body_id = self._model.body("industreal_tray_insert_round_peg_8mm").id
+        self._peg_body_id = self._model.body(gn.peg_body).id
+        self._socket_body_id = self._model.body(gn.socket_body).id
 
         self._peg_init_pos = self._model.body_pos[self._peg_body_id].copy()
         self._peg_init_quat = self._model.body_quat[self._peg_body_id].copy()
@@ -148,8 +159,10 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
         self._peg_body_z0 = float(self._peg_init_pos[2])
         self._socket_body_z0 = float(self._socket_init_pos[2])
 
-        self._peg_geom_id = self._model.geom("industreal_round_peg_8mm_collision").id
-        self._socket_bottom_geom_id = self._model.geom("industreal_tray_insert_round_peg_8mm_bottom_contact").id
+        self._peg_geom_id = self._model.geom(gn.peg_collision).id
+        self._socket_bottom_geom_id = self._model.geom(gn.socket_bottom).id
+        self._peg_tip_site_id = self._model.site(gn.peg_tip_site).id
+        self._socket_site_id = self._model.site(gn.socket_site).id
         # Table height randomization base values.
         self._table_body_id = self._model.body("table").id
         self._table_z = float(self._model.body("table").pos[2])
@@ -423,10 +436,23 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
         self.env_step = 0
         self._prime_rgb_array_renderer()
         obs = self._compute_observation()
+        tip = np.asarray(self._data.site_xpos[self._peg_tip_site_id], dtype=np.float64)
+        sock = np.asarray(self._data.site_xpos[self._socket_site_id], dtype=np.float64)
+        gn = self._geom_names
         return obs, {
             "succeed": False,
             "bottom_contact": False,
             "contact_count": 0,
+            "geometry_family_id": gn.family_id,
+            "target_instance_id": gn.socket_site,
+            "target_socket_body": gn.socket_body,
+            "target_socket_site": gn.socket_site,
+            "target_peg_body": gn.peg_body,
+            "target_socket_site_pose": sock.tolist(),
+            "target_peg_tip_pose": tip.tolist(),
+            "tip_to_target_socket_m": float(np.linalg.norm(tip - sock)),
+            "target_socket_ori_pose": np.asarray(self._socket_ori_pose, dtype=np.float64).tolist(),
+            "target_peg_ori_pose": np.asarray(self._peg_ori_pose, dtype=np.float64).tolist(),
         }
 
     def step(self, action) -> Tuple[Dict[str, np.ndarray], float, bool, bool, Dict[str, Any]]:
@@ -621,11 +647,11 @@ class PandaBimanualAssemblyGymEnv(MujocoGymEnv):
 
         peg_pose = np.concatenate([
             self._data.sensor("assembly_peg_pos").data,
-            self._data.body("industreal_round_peg_8mm").xquat,
+            self._data.body(self._geom_names.peg_body).xquat,
         ])
         socket_pose = np.concatenate([
             self._data.sensor("assembly_socket_pos").data,
-            self._data.body("industreal_tray_insert_round_peg_8mm").xquat,
+            self._data.body(self._geom_names.socket_body).xquat,
         ])
 
         if self.image_obs:
