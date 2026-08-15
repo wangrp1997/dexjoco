@@ -41,3 +41,7 @@ MUJOCO_LOG.TXT
 contact_cmdp_recovery_policy/
 recovery_trajectory_policy/
 root_paired_recovery_policy/
+
+# embodied_grasp_insertion P0-C2 bulky branch dumps (HDD archive; summaries stay tracked)
+embodied_grasp_insertion/outputs/p0_c2_s1b_v1/branches/
+embodied_grasp_insertion/outputs/p0_c2_stage1_v1/branches/
