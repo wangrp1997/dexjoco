@@ -1,0 +1,37 @@
+# P0-C2-S1b Actuation/Fork Audit — frozen before run.
+protocol: P0-C2-S1b
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+semantics_manifest: data/manifests/finger_actuation_semantics_v1.json
+stage1_frozen_roots: outputs/p0_c2_stage1_v1/selected_roots_frozen.json
+stage1_config: configs/p0_c2_stage1.yaml
+horizon: 16
+pulse_steps: 2
+calibrated_close_rad: 0.020
+repeats: 3
+wrist_source: demo_wrist
+interventions:
+  - hold_finger
+  - demo_finger_replay
+  - calibrated_finger_intervention
+  - random_finger_control
+# Held-out roots: selected with hold-screen ONLY (no intervention outcomes).
+held_out:
+  episodes: [1, 3, 5, 7, 9, 11, 13, 15, 17, 19]
+  max_roots: 4
+  max_per_episode: 1
+# Pre-registered gates (do not retune after seeing outcomes).
+min_joint_abs_delta_rad: 0.005
+existence_trans_drift_m: 0.001
+existence_rot_drift_rad: 0.01
+existence_retention_abs: 0.05
+# Replay tolerance: max pairwise metric spread across repeats of same branch.
+# Existence requires |interv-hold| > max(gate, k * mean_replay_spread).
+replay_tol_k: 3.0
+output_dir: outputs/p0_c2_s1b_v1
+manifest_path: data/manifests/p0_c2_s1b_v1.json
+report_path: docs/P0_C2_S1B.md
+fairness:
+  wrist_atol: 0.0
+  init_qpos_atol: 1e-8
+  init_obs_atol: 1e-5

@@ -206,6 +206,24 @@ def max_feasible_scale_for_offset(
     return float(max(0.0, s))
 
 
+def project_independent_feasible_offset(
+    env,
+    offset: np.ndarray,
+) -> tuple[np.ndarray, dict[str, Any]]:
+    """Scale a single offset to joint slack; do NOT couple to other modes' scales."""
+    pos, neg = right_finger_signed_slack(env)
+    off = np.asarray(offset, dtype=np.float64).reshape(16)
+    scale = max_feasible_scale_for_offset(off, pos, neg)
+    projected = off * float(scale)
+    return projected, {
+        "independent_feasible_scale": float(scale),
+        "requested_l2": float(np.linalg.norm(off)),
+        "realized_l2": float(np.linalg.norm(projected)),
+        "per_joint_pos_slack": pos.tolist(),
+        "per_joint_neg_slack": neg.tolist(),
+    }
+
+
 def project_matched_feasible_offsets(
     env,
     offsets: dict[str, np.ndarray],

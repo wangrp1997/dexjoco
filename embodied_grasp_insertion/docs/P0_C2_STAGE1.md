@@ -1,9 +1,9 @@
 # P0-C2 Stage-1 Controllability (P0-C2-S1)
 
 - 日期：2026-08-15T02:28:24Z
-- overall_verdict：**h2_failed_no_finger_causal_effect**
-- decision_tree：**A**
-- research_decision：**stop_h2_controllability_route**
+- overall_verdict：**h2_failed_no_finger_causal_effect**（**已撤回**；见文末「结论修正」）
+- decision_tree：**A（已撤回）** → 现为 inconclusive，待 S1b
+- research_decision：**c2_inconclusive_await_s1b**（非 stop_h2）
 - enter_stage2：False
 - criteria：`c2_root_v1`（冻结；hold-screen 后再跑干预）
 - wrist：`demo_wrist`（全分支相同 demo wrist；未重调 transport load）
@@ -11,6 +11,15 @@
 - fairness_pass_rate：1.0
 - tip distance 仅诊断，不作通过理由
 - claims_controllability_p0_pass=false；allow_policy_training=false
+
+## 结论修正（2026-08-15，撤回决策树 A）
+
+- **原 verdict 过早**：跨 root 有符号均值 CI 检验的是“同向通用效应”，不是“手指能否改变结果”。
+- 逐 root 已见异质分叉（如 ep8 校准改善漂移、ep6 校准恶化、部分 demo 致 terminal peg 丢失）；正负抵消导致均值跨 0。
+- 执行审计缺口：未记录 finger `qpos/qvel/ctrl`；calibrated 与 random 曾被 common-scale 相互拖小。
+- **正式改判**：`c2_inconclusive_heterogeneous_forks_actuation_unverified`
+- 原始 Stage-1 指标表与 `outputs/p0_c2_stage1_v1/` **保留作证据**，不删除、不重写成 A。
+- 后续仅允许 C2-S1b；在此之前不进 Stage-2、不训策略、不停项。
 
 ## 必须回答
 

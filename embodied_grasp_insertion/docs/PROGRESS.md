@@ -3,11 +3,11 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**P0-C2 Stage-1 → 决策树 A**：`h2_failed_no_finger_causal_effect`
-- finger 干预在 8 roots / 5 ep、fairness=1.0 下**无**稳定因果分叉；**未进入 Stage-2**
-- 结论指向 actuator / 控制频率 / 手部接口 / 接触模型；不得用 sensing 或网络抢救
-- B1 边界仍成立：仅结束被动 `act44_command+wrist_ft` 线性预测；action-conditioned **仍未判定**（因无分叉而未测）
-- `claims_controllability_p0_pass=false`；`allow_policy_training=false`；等待人工决定是否修控制接口
+- 阶段：**C2 结论修正** → `c2_inconclusive_heterogeneous_forks_actuation_unverified`（**撤回决策树 A**）
+- 原因：跨 root 同号均值 CI 把异质分叉平均掉；未验证 finger command→关节运动
+- 证据保留：`outputs/p0_c2_stage1_v1/`（勿删）；例 ep8 校准改善、ep6 校准恶化、部分 demo 致 peg 丢失
+- **不进 Stage-2**；不训策略；不转触觉/视觉；不宣布停项
+- 唯一允许：`P0-C2-S1b` 执行/分叉审计（可重复 + qpos/ctrl 跟踪 + 存在性/方向性分层 + held-out）
 
 ## 2026-08-15：P0-C2 Stage-1 Controllability
 
