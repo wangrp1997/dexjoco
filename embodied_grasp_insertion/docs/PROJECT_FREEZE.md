@@ -1,22 +1,19 @@
-# Embodied Grasp-Insertion — Project Freeze
+# Embodied Grasp-Insertion — Formal Stop
 
 - 日期：2026-08-15
-- 状态：`project_frozen_low_roi`
+- 状态：`project_stopped_after_stage2r`
 
-## 成立的事实
+## 结论
 
-1. **H2 可控性存在**（P0-C2-S1b）：finger 命令传到关节；matched branches 在 frozen/held-out 上有可重复物理分叉。
-2. **当前观测/导出不足以支撑可靠策略**：B0/B1 被动 command+FT 预测弱；Stage-2 在 S1b JSON 上 privilege+action 未过门。
-3. Stage-2 应记为 **无结论（导出不完整）**，不宜写成“任务/标签本质无效”——S1b 未导出 root o2h、qdot、wrist FT。
+1. **H2 可控性存在**（S1b）。
+2. **Stage-2R**：同 root 补导出完整 o2h/qdot/FT 后，privileged+action 仍不能稳定预测动作相对 hold 的物理后果 → 决策树 **B**。
+3. **正式停止当前项目主线**（性价比与预测设定均不支持继续扩展）。
 
-## 冻结内容
+## 禁止
 
-- 不再补测 Stage-2；不训练策略；不扩展触觉/视觉、pilot、基础设施。
-- 不自动开启后续实验。
-- 保留全部代码、报告与 `outputs/p0_c2_stage1_v1/`、`outputs/p0_c2_s1b_v1/`。
-
-## 禁止的错误叙述
-
+- 策略训练；触觉/视觉扩展；pilot；基础设施扩张；自动后续实验。
 - 不得声称仿真插孔本身不可实现。
-- 不得用 Stage-2 tree B 单独证伪 H2。
-- 不得把“缺字段的 oracle 失败”写成完整 sensing-gap 已证实（tree C 未成立）。
+
+## 保留
+
+- 代码、报告、`outputs/p0_c2_stage1_v1/`、`outputs/p0_c2_s1b_v1/`、`outputs/p0_c2_s2r_v1/`

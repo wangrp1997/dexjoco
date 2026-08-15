@@ -3,12 +3,17 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**项目冻结** `project_frozen_low_roi`
-- **H2 可控性存在**（S1b：关节有动；frozen 7/8 + held-out 4/4 有存在性分叉）
-- Stage-2：**无结论/信息不充分**（在 S1b 导出字段下 privilege+action 未过门；导出缺 o2h/qdot/FT，不能写成“任务本质无效”）
-- **冻结**：不再补测 Stage-2、不训策略、不扩触觉/视觉/pilot/基础设施；不自动开后续实验
-- **不得声称**：仿真插孔本身不可实现
-- 保留：全部代码、报告、`outputs/p0_c2_stage1_v1/` 与 `outputs/p0_c2_s1b_v1/`
+- 阶段：**正式停止** `project_stopped_after_stage2r`（决策树 B）
+- Stage-2R：补全 MjData 特权（o2h pose/vel、q/qdot、wrist FT）后，**privileged+action 仍不能**预测有符号物理分叉
+- H2 可控性仍成立（S1b）；但 action-conditioned 预测设定失败 → **停止当前项目扩展**
+- 禁止：策略训练、触觉/视觉、pilot、基建、自动开实验；不得声称仿真插孔不可实现
+- 报告：`docs/P0_C2_STAGE2R.md`
+
+## 2026-08-15：P0-C2 Stage-2R（最终）
+
+- overall：`stage2r_privilege_cannot_predict`；tree **B**；`stop_project_formal`
+- 12 roots MjData 补导出；Ridge；仍无法击败 mean/action-only
+- 正式停止当前项目主线
 
 ## 2026-08-15：项目冻结（人工决策）
 

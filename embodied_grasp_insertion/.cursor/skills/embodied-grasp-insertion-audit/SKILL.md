@@ -45,8 +45,8 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - P0-S0.4b = `pass`（demo transport root 纯动力学物理抓取；仅 round_8mm ep0/2/4）
 - P0-S0.4c = `pass`（4 族物理抓取 root：round_8mm=demo，其余=oracle-once+动力学；`claims_stable_grasp_policy=false`）
 - **禁止**：调 load/pulse；finger smoke；训练；全量采集。
-- **当前阶段**：`project_frozen_low_roi`；**禁止**补测/策略/触觉视觉/pilot/基建/自动开实验。
-- H2 可控性存在；Stage-2 记为导出不完整下的无结论；不得声称仿真插孔不可实现。见 `docs/PROJECT_FREEZE.md`。
+- **当前阶段**：`project_stopped_after_stage2r`（S2R tree B）；正式停止主线；禁止策略/触觉视觉/pilot/基建/自动开实验。
+- H2 仍存在；完整特权+action 仍不能预测分叉；见 `docs/P0_C2_STAGE2R.md` / `PROJECT_FREEZE.md`。
 - 尺寸口径以 `docs/GEOMETRY_ASSET_AUDIT.md` 为准；禁止复制 8mm collision 到其他族时勿覆盖官方 8mm 文件。
 - 更新 `outputs/state.json`（`busy=false`）与 `docs/PROGRESS.md`。
 

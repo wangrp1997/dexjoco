@@ -1,8 +1,8 @@
 {
-  "phase": "project_frozen_low_roi",
+  "phase": "project_stopped_after_stage2r",
   "busy": false,
-  "updated_at": "2026-08-15T05:04:58Z",
-  "verdict": "project_frozen_low_roi",
+  "updated_at": "2026-08-15T05:18:24Z",
+  "verdict": "stage2r_privilege_cannot_predict",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,7 @@
   "observability_feasibility_report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md",
   "observability_feasibility_manifest": "data/manifests/observability_dataset_feasibility_v1.json",
   "claims_observability_p0_pass": false,
-  "next_action": "none_project_frozen",
+  "next_action": "none_project_stopped_await_human",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -827,7 +827,7 @@
   "observability_eval_pack_report": "docs/OBSERVABILITY_EVAL_PACK_EXPORT.md",
   "observability_eval_pack_manifest": "data/manifests/observability_eval_pack_v1.json",
   "observability_eval_pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1",
-  "research_decision": "freeze_project_keep_artifacts",
+  "research_decision": "stop_project_formal",
   "observability_ridge_b0_report": "docs/OBSERVABILITY_RIDGE_B0.md",
   "observability_ridge_b0_metrics": "data/manifests/observability_ridge_b0_metrics.json",
   "ft_helps_claim": false,
@@ -869,5 +869,7 @@
     "docs/P0_C2_S1B.md",
     "docs/P0_C2_STAGE2.md"
   ],
-  "freeze_doc": "docs/PROJECT_FREEZE.md"
+  "freeze_doc": "docs/PROJECT_FREEZE.md",
+  "stage2r_report": "docs/P0_C2_STAGE2R.md",
+  "stage2r_metrics": "data/manifests/p0_c2_stage2r_metrics.json"
 }
