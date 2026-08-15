@@ -3,15 +3,21 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**P0-Obs-B1 ab_sensing_falsified** → **停止 A/B sensing 路线**
-- B0 事后修正：点估计「稳定」偏强；ceiling 含目标帧；wrist 运动学捷径可能
-- B1：未来 o2h 漂移 + 代理基线 + 配对 bootstrap → 无真实部署信号；FT 无效
-- `claims_observability_p0_pass=false`；`allow_policy_training=false`
-- 下一步：若继续项目，另授权触觉/视觉；**不再**调 Ridge/NN 救 A/B
+- 阶段：**P0-C2 Stage-1 → 决策树 A**：`h2_failed_no_finger_causal_effect`
+- finger 干预在 8 roots / 5 ep、fairness=1.0 下**无**稳定因果分叉；**未进入 Stage-2**
+- 结论指向 actuator / 控制频率 / 手部接口 / 接触模型；不得用 sensing 或网络抢救
+- B1 边界仍成立：仅结束被动 `act44_command+wrist_ft` 线性预测；action-conditioned **仍未判定**（因无分叉而未测）
+- `claims_controllability_p0_pass=false`；`allow_policy_training=false`；等待人工决定是否修控制接口
+
+## 2026-08-15：P0-C2 Stage-1 Controllability
+
+- overall：`h2_failed_no_finger_causal_effect`；decision_tree：**A**
+- 报告：`docs/P0_C2_STAGE1.md`；manifest：`data/manifests/p0_c2_stage1_v1.json`
+- 8 excited roots；32 branches；配对 CI 无显著主指标分叉；enter_stage2=false
 
 ## 2026-08-15：P0-Obs-B1 Future-Drift Falsification
 
-- overall：`ab_sensing_falsified`；research_decision：`stop_ab_sensing_route`
+- overall：`ab_sensing_falsified`（窄配置）；research_decision：`stop_passive_act44_ft_linear_forecast`；action-conditioned **未判定**
 - 报告：`docs/OBSERVABILITY_RIDGE_B1.md`
 - 指标：`data/manifests/observability_ridge_b1_metrics.json`
 

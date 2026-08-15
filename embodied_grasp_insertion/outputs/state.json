@@ -1,8 +1,8 @@
 {
-  "phase": "p0_obs_b1_ab_sensing_falsified",
+  "phase": "p0_c2_stage1_h2_failed",
   "busy": false,
-  "updated_at": "2026-08-15T01:40:00Z",
-  "verdict": "ab_sensing_falsified",
+  "updated_at": "2026-08-15T02:30:00Z",
+  "verdict": "h2_failed_no_finger_causal_effect",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,7 @@
   "observability_feasibility_report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md",
   "observability_feasibility_manifest": "data/manifests/observability_dataset_feasibility_v1.json",
   "claims_observability_p0_pass": false,
-  "next_action": "await_auth_finger_tactile_or_vision_or_stop_project_no_more_ab_ridge_nn",
+  "next_action": "await_human_decide_fix_actuator_contact_control_or_stop_no_sensing_rescue",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -827,10 +827,26 @@
   "observability_eval_pack_report": "docs/OBSERVABILITY_EVAL_PACK_EXPORT.md",
   "observability_eval_pack_manifest": "data/manifests/observability_eval_pack_v1.json",
   "observability_eval_pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1",
-  "research_decision": "stop_ab_sensing_route",
+  "research_decision": "stop_h2_controllability_route",
   "observability_ridge_b0_report": "docs/OBSERVABILITY_RIDGE_B0.md",
   "observability_ridge_b0_metrics": "data/manifests/observability_ridge_b0_metrics.json",
   "ft_helps_claim": false,
   "observability_ridge_b1_report": "docs/OBSERVABILITY_RIDGE_B1.md",
-  "observability_ridge_b1_metrics": "data/manifests/observability_ridge_b1_metrics.json"
+  "observability_ridge_b1_metrics": "data/manifests/observability_ridge_b1_metrics.json",
+  "b1_boundary": "stop_passive_act44_command_plus_wrist_ft_linear_forecast_only",
+  "action_conditioned_observability_judged": false,
+  "frozen": [
+    "pilot_write",
+    "atomic_guard_expansion",
+    "policy_nn",
+    "b0_b1_retune",
+    "semantic_d",
+    "large_collection",
+    "audit_doc_sprawl"
+  ],
+  "decision_tree": "A",
+  "enter_stage2": false,
+  "p0_c2_stage1_report": "docs/P0_C2_STAGE1.md",
+  "p0_c2_stage1_manifest": "data/manifests/p0_c2_stage1_v1.json",
+  "claims_controllability_p0_pass": false
 }

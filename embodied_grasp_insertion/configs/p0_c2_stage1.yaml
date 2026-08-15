@@ -1,0 +1,35 @@
+# P0-C2 Stage-1 Controllability — frozen before run.
+# Do NOT edit thresholds after seeing intervention outcomes.
+protocol: P0-C2-S1
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+semantics_manifest: data/manifests/finger_actuation_semantics_v1.json
+episodes: [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
+horizon: 16
+pulse_steps: 2
+# Fixed calibrated dose (no search / no post-hoc retune).
+calibrated_close_rad: 0.020
+wrist_source: demo_wrist  # same demo wrist for all finger branches; no load recalibration
+interventions:
+  - hold_finger
+  - demo_finger_replay
+  - calibrated_finger_intervention
+  - random_finger_control
+root_selection:
+  early_offset: 5
+  transport_tip_min_m: 0.08
+  preinsert_tip_max_m: 0.06
+  max_scan_frames: 600
+# Excitation gates live in physics/c2_root_criteria.py (CRITERIA_VERSION=c2_root_v1)
+max_roots_total: 8
+max_roots_per_episode: 2
+min_episodes_required: 3
+output_dir: outputs/p0_c2_stage1_v1
+manifest_path: data/manifests/p0_c2_stage1_v1.json
+report_path: docs/P0_C2_STAGE1.md
+fairness:
+  wrist_atol: 0.0
+  init_qpos_atol: 1e-8
+  init_obs_atol: 1e-5
+bootstrap_n: 1000
+bootstrap_seed: 20260815

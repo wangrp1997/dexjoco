@@ -1,14 +1,15 @@
 # Observability Future-Drift Falsification (P0-Obs-B1)
 
 - 日期：2026-08-15T01:38:55Z
-- overall_verdict：**ab_sensing_falsified**
-- research_decision：**stop_ab_sensing_route**
+- overall_verdict：**ab_sensing_falsified**（**窄配置**；见文末边界修正）
+- research_decision：**stop_passive_act44_ft_linear_forecast**（非“停项/只能触觉”）
 - pack：`/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1`；samples=200；单几何；test ep=15
 - 目标：从 t=7 预测未来 o2h 漂移 Δ∈[1, 8]
 - 正式判定：配对 episode bootstrap CI（平移+旋转均显著，且 val+test）
 - oracle：仅目标帧之前的 privileged history（含 t，不含 t+Δ）
 - any_deploy_real_signal=False；any_ft_helps=False
 - claims_observability_p0_pass=false；allow_policy_training=false
+- **边界**：本结果只关闭无未来动作条件的 `act44_command+wrist_ft` 被动线性预测；action-conditioned observability 未判定。
 
 ## B0 修正（本轮前提）
 
@@ -68,11 +69,12 @@
 
 ## 最终研究判断
 
-- **停止当前 A/B sensing 路线**（act44 + wrist FT → 抓持状态/漂移）。
-- 未来漂移任务上，A/B **不能**以配对 CI 击败 train-mean / phase / wrist-command / time 代理。
-- FT **未**证明有效；H8 **显著差于** H1（Δ=1/8 旋转与平移配对 CI 均 >0）。
-- 不继续调 Ridge/NN；不训策略；不宣称 Obs P0。
-- 若项目继续：只能另议 **逐指触觉/视觉** 或停项——需另授权，非本轮自动动作。
+- **结束的是窄配置，不是广义 sensing 全盘证伪**：
+  > 在当前单几何稳定 demo 数据上，使用截至 `t` 的 `act44 command history + wrist FT`、且**不包含未来动作条件**的线性 future-drift forecast，正式结束。
+- **不得继续声称**：广义 proprioception 已反证；所有 A/B sensing 已反证；下一步只能触觉/视觉/停项。
+- **正式表述**：`act44_command + wrist_ft` 的当前被动线性预测配置结束；**广义 action-conditioned observability 尚未判定**。
+- 原因边界：B1 无未来动作输入；`act44`≠独立 `q/qdot`；稳定 demo 低激励/floor；缺未来动作的 privileged ceiling 不能单证 sensing 失败。
+- 不重跑 B1、不改写下方原始指标表；主线转入 **P0-C2 Controllability**（见 `docs/PROGRESS.md`）。
 
 ## Guards
 
