@@ -3,11 +3,16 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**C2 结论修正** → `c2_inconclusive_heterogeneous_forks_actuation_unverified`（**撤回决策树 A**）
-- 原因：跨 root 同号均值 CI 把异质分叉平均掉；未验证 finger command→关节运动
-- 证据保留：`outputs/p0_c2_stage1_v1/`（勿删）；例 ep8 校准改善、ep6 校准恶化、部分 demo 致 peg 丢失
-- **不进 Stage-2**；不训策略；不转触觉/视觉；不宣布停项
-- 唯一允许：`P0-C2-S1b` 执行/分叉审计（可重复 + qpos/ctrl 跟踪 + 存在性/方向性分层 + held-out）
+- 阶段：**P0-C2-S1b** → `h2_controllability_exists_heterogeneous`
+- 关节确有运动（actuation_moved）；frozen+held-out 均有**存在性**物理分叉；Stage-2 **有资格但不自动开跑**
+- 决策树 A 仍撤回；不训策略；不转触觉/视觉；等人决定是否授权 Stage-2
+- 报告：`docs/P0_C2_S1B.md`；manifest：`data/manifests/p0_c2_s1b_v1.json`
+
+## 2026-08-15：P0-C2-S1b Actuation/Fork Audit
+
+- overall：`h2_controllability_exists_heterogeneous`；enter_stage2_eligible=true（未自动执行）
+- actuation_moved=true（frac=1.0）；frozen 7/8 roots 有存在性分叉；held-out 4/4 有
+- independent dose；3× 重复；fairness=1.0；n_records=144
 
 ## 2026-08-15：P0-C2 Stage-1 Controllability
 

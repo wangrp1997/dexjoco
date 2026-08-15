@@ -45,8 +45,8 @@ description: Hard-gated audit/innovation loop for embodied_grasp_insertion. Enfo
 - P0-S0.4b = `pass`（demo transport root 纯动力学物理抓取；仅 round_8mm ep0/2/4）
 - P0-S0.4c = `pass`（4 族物理抓取 root：round_8mm=demo，其余=oracle-once+动力学；`claims_stable_grasp_policy=false`）
 - **禁止**：调 load/pulse；finger smoke；训练；全量采集。
-- **当前阶段**：`c2_inconclusive_heterogeneous_forks_actuation_unverified`（**撤回 A**）；跑 C2-S1b 执行/分叉审计；不进 Stage-2；不训策略；不停项。
-- 保留 `outputs/p0_c2_stage1_v1/`；禁止用跨 root 同号均值单独否定因果存在。
+- **当前阶段**：`h2_controllability_exists_heterogeneous`（S1b）；Stage-2 **有资格**，须人工授权才跑；不训策略。
+- 保留 Stage-1 输出；存在性≠方向性通用干预。
 - 尺寸口径以 `docs/GEOMETRY_ASSET_AUDIT.md` 为准；禁止复制 8mm collision 到其他族时勿覆盖官方 8mm 文件。
 - 更新 `outputs/state.json`（`busy=false`）与 `docs/PROGRESS.md`。
 
