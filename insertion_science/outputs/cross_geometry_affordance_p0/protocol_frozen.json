@@ -1,0 +1,172 @@
+{
+  "protocol": "CrossGeometryContactAffordanceP0",
+  "frozen_at": "2026-08-15T09:09:03Z",
+  "families": [
+    "round_8mm",
+    "round_12mm",
+    "round_16mm",
+    "rectangular_8mm",
+    "rectangular_12mm",
+    "rectangular_16mm"
+  ],
+  "poses": [
+    {
+      "name": "hover",
+      "tip_offset_L": [
+        0.0,
+        0.0,
+        2.0
+      ],
+      "tilt_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "entrance",
+      "tip_offset_L": [
+        0.0,
+        0.0,
+        0.35
+      ],
+      "tilt_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "lateral_offset",
+      "tip_offset_L": [
+        0.45,
+        0.0,
+        0.6
+      ],
+      "tilt_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "tilted",
+      "tip_offset_L": [
+        0.0,
+        0.15,
+        1.0
+      ],
+      "tilt_rad": [
+        0.12,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "twists": [
+    {
+      "name": "lat_px",
+      "d_L": [
+        0.35,
+        0.0,
+        0.0
+      ],
+      "r_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "lat_nx",
+      "d_L": [
+        -0.35,
+        0.0,
+        0.0
+      ],
+      "r_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "lat_py",
+      "d_L": [
+        0.0,
+        0.35,
+        0.0
+      ],
+      "r_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "lat_ny",
+      "d_L": [
+        0.0,
+        -0.35,
+        0.0
+      ],
+      "r_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "insert",
+      "d_L": [
+        0.0,
+        0.0,
+        0.3
+      ],
+      "r_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "withdraw",
+      "d_L": [
+        0.0,
+        0.0,
+        -0.3
+      ],
+      "r_rad": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "tilt_x",
+      "d_L": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "r_rad": [
+        0.08,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "tilt_y",
+      "d_L": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "r_rad": [
+        0.0,
+        0.08,
+        0.0
+      ]
+    }
+  ]
+}

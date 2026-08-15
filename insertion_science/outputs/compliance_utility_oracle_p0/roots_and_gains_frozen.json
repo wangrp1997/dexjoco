@@ -1,0 +1,72 @@
+{
+  "protocol": "ComplianceUtilityOracleP0",
+  "frozen_at": "2026-08-15T08:38:46Z",
+  "roots": [
+    {
+      "episode_index": 4,
+      "frame": 484,
+      "phase": "pre_insert",
+      "role": "discovery"
+    },
+    {
+      "episode_index": 6,
+      "frame": 271,
+      "phase": "transport",
+      "role": "discovery"
+    },
+    {
+      "episode_index": 9,
+      "frame": 407,
+      "phase": "pre_insert",
+      "role": "held_out"
+    },
+    {
+      "episode_index": 3,
+      "frame": 431,
+      "phase": "pre_insert",
+      "role": "held_out"
+    }
+  ],
+  "gain_configs": [
+    {
+      "name": "baseline",
+      "mode": "iso",
+      "stiffness_scale": 1.0
+    },
+    {
+      "name": "soft_iso",
+      "mode": "iso",
+      "stiffness_scale": 0.5
+    },
+    {
+      "name": "softer_iso",
+      "mode": "iso",
+      "stiffness_scale": 0.25
+    },
+    {
+      "name": "axial_hard_lat_soft",
+      "mode": "task_aniso",
+      "k_axial_scale": 1.0,
+      "k_lateral_scale": 0.25,
+      "ori_scale": 0.5
+    },
+    {
+      "name": "axial_soft_lat_hard",
+      "mode": "task_aniso",
+      "k_axial_scale": 0.25,
+      "k_lateral_scale": 1.0,
+      "ori_scale": 0.5
+    },
+    {
+      "name": "axial_hard_lat_med",
+      "mode": "task_aniso",
+      "k_axial_scale": 1.0,
+      "k_lateral_scale": 0.5,
+      "ori_scale": 0.75
+    }
+  ],
+  "actions": [
+    "hold",
+    "demo_matched"
+  ]
+}

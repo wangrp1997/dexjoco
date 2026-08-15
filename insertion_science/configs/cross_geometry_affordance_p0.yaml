@@ -1,0 +1,58 @@
+protocol: CrossGeometryContactAffordanceP0
+seed: 0
+families_yaml: /home/wangrenpeng/dexjoco/embodied_grasp_insertion/configs/geometry_families.yaml
+# Representative formal families (existing assets only).
+families:
+  - round_8mm
+  - round_12mm
+  - round_16mm
+  - rectangular_8mm
+  - rectangular_12mm
+  - rectangular_16mm
+instance_holdout_families:
+  - round_8mm
+  - rectangular_8mm
+secondary_instance_key: b
+# Approach poses in socket frame (tip relative); lengths scale with char_len L.
+poses:
+  - name: hover
+    tip_offset_L: [0.0, 0.0, 2.0]
+    tilt_rad: [0.0, 0.0, 0.0]
+  - name: entrance
+    tip_offset_L: [0.0, 0.0, 0.35]
+    tilt_rad: [0.0, 0.0, 0.0]
+  - name: lateral_offset
+    tip_offset_L: [0.45, 0.0, 0.6]
+    tilt_rad: [0.0, 0.0, 0.0]
+  - name: tilted
+    tip_offset_L: [0.0, 0.15, 1.0]
+    tilt_rad: [0.12, 0.0, 0.0]
+# Twists: translation in L units, rotation in rad (socket frame).
+twists:
+  - {name: lat_px, d_L: [0.35, 0.0, 0.0], r_rad: [0.0, 0.0, 0.0]}
+  - {name: lat_nx, d_L: [-0.35, 0.0, 0.0], r_rad: [0.0, 0.0, 0.0]}
+  - {name: lat_py, d_L: [0.0, 0.35, 0.0], r_rad: [0.0, 0.0, 0.0]}
+  - {name: lat_ny, d_L: [0.0, -0.35, 0.0], r_rad: [0.0, 0.0, 0.0]}
+  - {name: insert, d_L: [0.0, 0.0, 0.30], r_rad: [0.0, 0.0, 0.0]}
+  - {name: withdraw, d_L: [0.0, 0.0, -0.30], r_rad: [0.0, 0.0, 0.0]}
+  - {name: tilt_x, d_L: [0.0, 0.0, 0.0], r_rad: [0.08, 0.0, 0.0]}
+  - {name: tilt_y, d_L: [0.0, 0.0, 0.0], r_rad: [0.0, 0.08, 0.0]}
+physics:
+  settle_steps: 40
+  gravity_off: true
+label:
+  free_progress_frac: 0.40
+  jam_progress_frac: 0.20
+  free_force_n: 25.0
+  jam_force_n: 80.0
+  lat_dev_L: 0.55
+probe:
+  C: 1.0
+  max_iter: 2000
+pass:
+  min_aff_minus_tip_per_fold: 0.02
+  min_shuffle_drop: 0.05
+  require_all_family_folds: true
+output_dir: outputs/cross_geometry_affordance_p0
+manifest_path: data/manifests/cross_geometry_affordance_p0.json
+report_path: docs/CROSS_GEOMETRY_AFFORDANCE_P0_RESULT.md

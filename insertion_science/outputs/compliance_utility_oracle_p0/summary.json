@@ -1,0 +1,1219 @@
+{
+  "protocol": "ComplianceUtilityOracleP0",
+  "finished_at": "2026-08-15T08:42:09Z",
+  "config": {
+    "protocol": "ComplianceUtilityOracleP0",
+    "seed": 0,
+    "sidecar_dir": "/mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly",
+    "horizon": 16,
+    "repeats": 2,
+    "actions": [
+      "hold",
+      "demo_matched"
+    ],
+    "baseline_pos_gains": [
+      400.0,
+      400.0,
+      400.0
+    ],
+    "baseline_ori_gains": [
+      200.0,
+      200.0,
+      200.0
+    ],
+    "baseline_damping_ratio": 4.0,
+    "gain_configs": [
+      {
+        "name": "baseline",
+        "mode": "iso",
+        "stiffness_scale": 1.0
+      },
+      {
+        "name": "soft_iso",
+        "mode": "iso",
+        "stiffness_scale": 0.5
+      },
+      {
+        "name": "softer_iso",
+        "mode": "iso",
+        "stiffness_scale": 0.25
+      },
+      {
+        "name": "axial_hard_lat_soft",
+        "mode": "task_aniso",
+        "k_axial_scale": 1.0,
+        "k_lateral_scale": 0.25,
+        "ori_scale": 0.5
+      },
+      {
+        "name": "axial_soft_lat_hard",
+        "mode": "task_aniso",
+        "k_axial_scale": 0.25,
+        "k_lateral_scale": 1.0,
+        "ori_scale": 0.5
+      },
+      {
+        "name": "axial_hard_lat_med",
+        "mode": "task_aniso",
+        "k_axial_scale": 1.0,
+        "k_lateral_scale": 0.5,
+        "ori_scale": 0.75
+      }
+    ],
+    "discovery_roots": [
+      {
+        "episode_index": 4,
+        "frame": 484,
+        "phase": "pre_insert"
+      },
+      {
+        "episode_index": 6,
+        "frame": 271,
+        "phase": "transport"
+      }
+    ],
+    "held_out_roots": [
+      {
+        "episode_index": 9,
+        "frame": 407,
+        "phase": "pre_insert"
+      },
+      {
+        "episode_index": 3,
+        "frame": 431,
+        "phase": "pre_insert"
+      }
+    ],
+    "retention_slack": 0.05,
+    "tip_improve_eps": 0.002,
+    "oracle_vs_fixed_eps": 0.002,
+    "jam_force_thresh_n": 50.0,
+    "output_dir": "outputs/compliance_utility_oracle_p0",
+    "manifest_path": "data/manifests/compliance_utility_oracle_p0.json",
+    "report_path": "docs/COMPLIANCE_UTILITY_ORACLE_P0_RESULT.md"
+  },
+  "n_cells": 48,
+  "verdict": {
+    "branch": 1,
+    "verdict": "abandon_compliance",
+    "summary": "Oracle \u5728 held-out \u4e0a\u4e0d\u4f18\u4e8e baseline\uff1b\u653e\u5f03 compliance \u65b9\u6848\u3002",
+    "allow_wrapper": false,
+    "fix_default_only": false,
+    "oracle_picks": [
+      {
+        "episode_index": 9,
+        "frame": 407,
+        "action": "hold",
+        "gain_name": "axial_hard_lat_soft",
+        "metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.01456914293443766,
+          "lat_progress_m": -0.0009143775658506429,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 1.0,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 5.614231173490067,
+          "contact_force_mean_n": 38.519289784901865,
+          "nonfinite_obs": false
+        },
+        "baseline_metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.013610763590814555,
+          "lat_progress_m": -0.0008633156030829728,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 0.96875,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 4.456820309668714,
+          "contact_force_mean_n": 41.84649562107669,
+          "nonfinite_obs": false
+        },
+        "reason": "max_utility_among_retention_ok",
+        "beats_baseline_tip": false,
+        "beats_baseline_insert": false,
+        "jam_improved": false
+      },
+      {
+        "episode_index": 9,
+        "frame": 407,
+        "action": "demo_matched",
+        "gain_name": "soft_iso",
+        "metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.015667682633916345,
+          "lat_progress_m": -0.0012575210478556523,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 1.0,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 5.104219712608606,
+          "contact_force_mean_n": 37.68566748651386,
+          "nonfinite_obs": false
+        },
+        "baseline_metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.015570844666169356,
+          "lat_progress_m": -0.0009429913056685463,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 1.0,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 5.704573005554213,
+          "contact_force_mean_n": 34.55447823142852,
+          "nonfinite_obs": false
+        },
+        "reason": "max_utility_among_retention_ok",
+        "beats_baseline_tip": false,
+        "beats_baseline_insert": false,
+        "jam_improved": false
+      },
+      {
+        "episode_index": 3,
+        "frame": 431,
+        "action": "hold",
+        "gain_name": "axial_hard_lat_med",
+        "metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.014843178858915257,
+          "lat_progress_m": 0.0007642380800072048,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 0.9897959183673469,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 6.417066194921536,
+          "contact_force_mean_n": 32.43916908043294,
+          "nonfinite_obs": false
+        },
+        "baseline_metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.014671993965823478,
+          "lat_progress_m": 0.0010597950591634034,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 0.989010989010989,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 6.443205530518275,
+          "contact_force_mean_n": 32.41699032449498,
+          "nonfinite_obs": false
+        },
+        "reason": "max_utility_among_retention_ok",
+        "beats_baseline_tip": false,
+        "beats_baseline_insert": false,
+        "jam_improved": false
+      },
+      {
+        "episode_index": 3,
+        "frame": 431,
+        "action": "demo_matched",
+        "gain_name": "baseline",
+        "metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.015596741294661147,
+          "lat_progress_m": 0.00020380539778961163,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 0.987012987012987,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 6.453762183198387,
+          "contact_force_mean_n": 32.55287802348226,
+          "nonfinite_obs": false
+        },
+        "baseline_metrics": {
+          "insert_ok_end": false,
+          "tip_progress_m": 0.015596741294661147,
+          "lat_progress_m": 0.00020380539778961163,
+          "jam_proxy": false,
+          "contact_retention_vs_root_mean": 0.987012987012987,
+          "object_dropped_proxy": false,
+          "wrist_ft_mean_n": 6.453762183198387,
+          "contact_force_mean_n": 32.55287802348226,
+          "nonfinite_obs": false
+        },
+        "reason": "max_utility_among_retention_ok",
+        "beats_baseline_tip": false,
+        "beats_baseline_insert": false,
+        "jam_improved": false
+      }
+    ],
+    "oracle_vs_baseline": {
+      "mean_tip": 0.015169186430482602,
+      "mean_baseline_tip": 0.014862585879367134,
+      "mean_insert": 0.0,
+      "mean_baseline_insert": 0.0,
+      "n_beats_tip": 0,
+      "n_beats_insert": 0,
+      "n_jam_improved": 0
+    },
+    "best_fixed": {
+      "gain_name": "axial_hard_lat_soft",
+      "mean_insert_ok": 0.0,
+      "mean_tip_progress_m": 0.014923426383009367,
+      "mean_jam_proxy": 0.0,
+      "mean_retention": 0.9976190476190476,
+      "retention_ok_vs_baseline": true,
+      "score": [
+        0.0,
+        0.014923426383009367,
+        -0.0,
+        0.9976190476190476
+      ]
+    },
+    "fixed_scores": [
+      {
+        "gain_name": "axial_hard_lat_med",
+        "mean_insert_ok": 0.0,
+        "mean_tip_progress_m": 0.0145861101330658,
+        "mean_jam_proxy": 0.0,
+        "mean_retention": 0.9909554730983303,
+        "retention_ok_vs_baseline": true,
+        "score": [
+          0.0,
+          0.0145861101330658,
+          -0.0,
+          0.9909554730983303
+        ]
+      },
+      {
+        "gain_name": "axial_hard_lat_soft",
+        "mean_insert_ok": 0.0,
+        "mean_tip_progress_m": 0.014923426383009367,
+        "mean_jam_proxy": 0.0,
+        "mean_retention": 0.9976190476190476,
+        "retention_ok_vs_baseline": true,
+        "score": [
+          0.0,
+          0.014923426383009367,
+          -0.0,
+          0.9976190476190476
+        ]
+      },
+      {
+        "gain_name": "axial_soft_lat_hard",
+        "mean_insert_ok": 0.0,
+        "mean_tip_progress_m": 0.011327482416688725,
+        "mean_jam_proxy": 0.0,
+        "mean_retention": 0.9866071428571429,
+        "retention_ok_vs_baseline": true,
+        "score": [
+          0.0,
+          0.011327482416688725,
+          -0.0,
+          0.9866071428571429
+        ]
+      },
+      {
+        "gain_name": "baseline",
+        "mean_insert_ok": 0.0,
+        "mean_tip_progress_m": 0.014862585879367134,
+        "mean_jam_proxy": 0.0,
+        "mean_retention": 0.986193494005994,
+        "retention_ok_vs_baseline": true,
+        "score": [
+          0.0,
+          0.014862585879367134,
+          -0.0,
+          0.986193494005994
+        ]
+      },
+      {
+        "gain_name": "soft_iso",
+        "mean_insert_ok": 0.0,
+        "mean_tip_progress_m": 0.0136720755393024,
+        "mean_jam_proxy": 0.0,
+        "mean_retention": 1.0,
+        "retention_ok_vs_baseline": true,
+        "score": [
+          0.0,
+          0.0136720755393024,
+          -0.0,
+          1.0
+        ]
+      },
+      {
+        "gain_name": "softer_iso",
+        "mean_insert_ok": 0.0,
+        "mean_tip_progress_m": 0.011783229445491079,
+        "mean_jam_proxy": 0.0,
+        "mean_retention": 0.9977678571428572,
+        "retention_ok_vs_baseline": true,
+        "score": [
+          0.0,
+          0.011783229445491079,
+          -0.0,
+          0.9977678571428572
+        ]
+      }
+    ],
+    "oracle_mean_tip": 0.015169186430482602,
+    "best_fixed_mean_tip_on_oracle_cells": 0.014923426383009367,
+    "beats_baseline": false,
+    "beats_best_fixed": false,
+    "state_dependent_oracle": true,
+    "distinct_oracle_gains": [
+      "axial_hard_lat_med",
+      "axial_hard_lat_soft",
+      "baseline",
+      "soft_iso"
+    ]
+  },
+  "index": [
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "hold",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.007563006205999763,
+        "lat_progress_m": -0.002658952277492693,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.796094199580552,
+        "contact_force_mean_n": 44.35832250309566,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "hold",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.007141915298743681,
+        "lat_progress_m": -0.002738065373316846,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.215004913915423,
+        "contact_force_mean_n": 42.35414607634641,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "hold",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.005648825276610897,
+        "lat_progress_m": -0.002783243925549703,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.438569189107394,
+        "contact_force_mean_n": 42.08709416276087,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.009048810960174798,
+        "lat_progress_m": -0.002714442369309089,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.245957102974322,
+        "contact_force_mean_n": 42.7606366829755,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "hold",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.005290904793315919,
+        "lat_progress_m": -0.002777972590870923,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.224992447302363,
+        "contact_force_mean_n": 47.10889824978129,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.008862725409202798,
+        "lat_progress_m": -0.0027556623188055053,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.101281123876108,
+        "contact_force_mean_n": 44.394318952689574,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "demo_matched",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015215622787898314,
+        "lat_progress_m": -0.002883189578145898,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.356167900317926,
+        "contact_force_mean_n": 47.90081673186563,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "demo_matched",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.013959979946220627,
+        "lat_progress_m": -0.0026384497681438417,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.520586418157035,
+        "contact_force_mean_n": 43.27795985039716,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "demo_matched",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.011365001606669,
+        "lat_progress_m": -0.002879734210791267,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.096089467635776,
+        "contact_force_mean_n": 44.969830391435785,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015407392797493674,
+        "lat_progress_m": -0.0028969478004577925,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.778215809681171,
+        "contact_force_mean_n": 45.76858610641177,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "demo_matched",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.009126538366910242,
+        "lat_progress_m": -0.0025642229135122998,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.60480830317351,
+        "contact_force_mean_n": 46.67870229536936,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 4,
+      "frame": 484,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015420666118731621,
+        "lat_progress_m": -0.0028212410625772944,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.341735853024666,
+        "contact_force_mean_n": 43.40773930736842,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "hold",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.07613318420540993,
+        "lat_progress_m": 0.0969727165343344,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.9560661872030165,
+        "contact_force_mean_n": 33.80939067520919,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "hold",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.06903895735232335,
+        "lat_progress_m": 0.07538711125676437,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.128767437999397,
+        "contact_force_mean_n": 33.880809895057986,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "hold",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.058683762452920785,
+        "lat_progress_m": 0.058159773761895434,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.175011180689522,
+        "contact_force_mean_n": 33.89958921480372,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.04409075289950651,
+        "lat_progress_m": 0.058837554047243834,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.0218090612195425,
+        "contact_force_mean_n": 33.87879826290173,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "hold",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.09377334479842836,
+        "lat_progress_m": 0.09457949392928983,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.103154829897683,
+        "contact_force_mean_n": 33.825545400906464,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.05887157370358667,
+        "lat_progress_m": 0.07620616343302727,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.9847875788176434,
+        "contact_force_mean_n": 33.84926509893302,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "demo_matched",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.07923367976678139,
+        "lat_progress_m": 0.10923777232106925,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.933774708770651,
+        "contact_force_mean_n": 33.88400312794605,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "demo_matched",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.07393032383060394,
+        "lat_progress_m": 0.0843063589975391,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.125227082988976,
+        "contact_force_mean_n": 33.99179019035067,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "demo_matched",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.0635564549573448,
+        "lat_progress_m": 0.06469094969397829,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.177014131152621,
+        "contact_force_mean_n": 34.02856486093702,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.0477361932991868,
+        "lat_progress_m": 0.06793531527341426,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.015290655458735,
+        "contact_force_mean_n": 33.99693244039686,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "demo_matched",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.09878604225529605,
+        "lat_progress_m": 0.10233158106338203,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.101818861656058,
+        "contact_force_mean_n": 33.950383049590016,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "discovery",
+      "episode_index": 6,
+      "frame": 271,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.06272945572834934,
+        "lat_progress_m": 0.08723895002572299,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.974552572219385,
+        "contact_force_mean_n": 33.96657894332969,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "hold",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.013610763590814555,
+        "lat_progress_m": -0.0008633156030829728,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.96875,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 4.456820309668714,
+        "contact_force_mean_n": 41.84649562107669,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "hold",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.010937589811912625,
+        "lat_progress_m": -0.0008626057971874187,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.280869583379355,
+        "contact_force_mean_n": 38.292667577028936,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "hold",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.010328733279864097,
+        "lat_progress_m": -0.0008616831625650988,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.043791441101391,
+        "contact_force_mean_n": 35.557030222646944,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.01456914293443766,
+        "lat_progress_m": -0.0009143775658506429,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.614231173490067,
+        "contact_force_mean_n": 38.519289784901865,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "hold",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.007773762473184953,
+        "lat_progress_m": -0.0008796534114518429,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.175103375093384,
+        "contact_force_mean_n": 39.60122171914331,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.013008521319412034,
+        "lat_progress_m": -0.0008690539671400953,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 4.765132029519899,
+        "contact_force_mean_n": 41.916136425327146,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "demo_matched",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015570844666169356,
+        "lat_progress_m": -0.0009429913056685463,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.704573005554213,
+        "contact_force_mean_n": 34.55447823142852,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "demo_matched",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015667682633916345,
+        "lat_progress_m": -0.0012575210478556523,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.104219712608606,
+        "contact_force_mean_n": 37.68566748651386,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "demo_matched",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.01385278513057539,
+        "lat_progress_m": -0.0008593813249633958,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.78182338826388,
+        "contact_force_mean_n": 37.3734699525026,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.014783810067041603,
+        "lat_progress_m": -0.0008803853708140019,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.996560912708029,
+        "contact_force_mean_n": 33.780181800918406,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "demo_matched",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.012947991550737038,
+        "lat_progress_m": -0.0008737592597760505,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.302473934973049,
+        "contact_force_mean_n": 36.787096575991164,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 9,
+      "frame": 407,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015523794917458346,
+        "lat_progress_m": -0.0009252855149533691,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 5.9221649857268845,
+        "contact_force_mean_n": 33.536576863580436,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "hold",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.014671993965823478,
+        "lat_progress_m": 0.0010597950591634034,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.989010989010989,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.443205530518275,
+        "contact_force_mean_n": 32.41699032449498,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "hold",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.012916956871864511,
+        "lat_progress_m": 0.0010131732732007576,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.465848725792022,
+        "contact_force_mean_n": 32.54452829224944,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "hold",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.009672639666255145,
+        "lat_progress_m": 0.0010308996773416312,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.9910714285714286,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.467113248068535,
+        "contact_force_mean_n": 32.69345124118552,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.014837718113879295,
+        "lat_progress_m": 0.0005201886839893938,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.9904761904761905,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.46074345186521,
+        "contact_force_mean_n": 32.598011377330614,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "hold",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.010562693264544773,
+        "lat_progress_m": 0.0008652028170623867,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.9910714285714286,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.438175885043693,
+        "contact_force_mean_n": 32.48538494276893,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "hold",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.014843178858915257,
+        "lat_progress_m": 0.0007642380800072048,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.9897959183673469,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.417066194921536,
+        "contact_force_mean_n": 32.43916908043294,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "demo_matched",
+      "gain_name": "baseline",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015596741294661147,
+        "lat_progress_m": 0.00020380539778961163,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.987012987012987,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.453762183198387,
+        "contact_force_mean_n": 32.55287802348226,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "demo_matched",
+      "gain_name": "soft_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015166072839516119,
+        "lat_progress_m": 0.0001562735067244204,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.467130689340883,
+        "contact_force_mean_n": 32.67490271018042,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "demo_matched",
+      "gain_name": "softer_iso",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.013278759705269684,
+        "lat_progress_m": 0.00018231974471631923,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.4476105705642155,
+        "contact_force_mean_n": 32.82778653884959,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_soft",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.015503034416678912,
+        "lat_progress_m": 6.690576211599046e-05,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 1.0,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.475689558357748,
+        "contact_force_mean_n": 32.75341565169628,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "demo_matched",
+      "gain_name": "axial_soft_lat_hard",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.014025482378288136,
+        "lat_progress_m": 4.211061832546867e-05,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.9553571428571429,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.369137411748027,
+        "contact_force_mean_n": 32.56101676903508,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "role": "held_out",
+      "episode_index": 3,
+      "frame": 431,
+      "action": "demo_matched",
+      "gain_name": "axial_hard_lat_med",
+      "metrics_mean": {
+        "insert_ok_end": false,
+        "tip_progress_m": 0.014968945436477567,
+        "lat_progress_m": 8.722133615748744e-06,
+        "jam_proxy": false,
+        "contact_retention_vs_root_mean": 0.9740259740259741,
+        "object_dropped_proxy": false,
+        "wrist_ft_mean_n": 6.443017995038047,
+        "contact_force_mean_n": 32.6573900575513,
+        "nonfinite_obs": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+# Controller Compliance Causal P0 — frozen before outcomes.
+protocol: ControllerComplianceCausalP0
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+horizon: 16
+repeats: 2
+wrist_source: demo_matched_or_hold
+actions:
+  - hold
+  - demo_matched
+# Baseline OSC (matches panda_bimanual_assembly_env hardcoded pos + opspace default ori).
+baseline_pos_gains: [400.0, 400.0, 400.0]
+baseline_ori_gains: [200.0, 200.0, 200.0]
+baseline_damping_ratio: 4.0
+stiffness_scales: [1.0, 0.5, 0.25]
+damping_ratios: [4.0]
+# Frozen roots (no outcome-based selection).
+discovery_roots:
+  - {episode_index: 4, frame: 484, phase: pre_insert}
+  - {episode_index: 6, frame: 271, phase: transport}
+held_out_roots:
+  - {episode_index: 9, frame: 407, phase: pre_insert}
+  - {episode_index: 3, frame: 431, phase: pre_insert}
+# Pre-registered gates (do not retune after seeing outcomes).
+restore_qpos_atol: 1.0e-8
+replay_tol_k: 3.0
+existence_trans_drift_m: 0.001
+existence_rot_drift_rad: 0.01
+existence_retention_abs: 0.05
+existence_wrist_ft_n: 1.0
+existence_tip_progress_m: 0.001
+existence_contact_force_n: 1.0
+harm_retention_abs: 0.10
+harm_tip_progress_m: 0.002
+output_dir: outputs/controller_compliance_p0
+manifest_path: data/manifests/controller_compliance_p0.json
+report_path: docs/CONTROLLER_COMPLIANCE_P0_RESULT.md

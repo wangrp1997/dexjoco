@@ -1,0 +1,259 @@
+{
+  "role": "discovery",
+  "episode_index": 6,
+  "frame": 271,
+  "phase": "transport",
+  "action": "demo_matched",
+  "action_meta": {
+    "realized_right_offset_rad": [
+      0.0008275806903839111,
+      0.011104583740234375,
+      0.008770108222961426,
+      -0.002818051725625992,
+      0.00857245922088623,
+      0.012672901153564453,
+      -0.002088785171508789,
+      -0.00160139799118042,
+      0.004806339740753174,
+      0.005054950714111328,
+      -0.0049517154693603516,
+      -0.0032547414302825928,
+      -0.0016826391220092773,
+      0.004561722278594971,
+      -0.009463965892791748,
+      0.010784387588500977
+    ],
+    "realized_l2": 0.02762510398728666,
+    "n_demo_steps": 16
+  },
+  "stiffness_scale": 0.25,
+  "damping_ratio": 4.0,
+  "gains": {
+    "pos_gains": [
+      100.0,
+      100.0,
+      100.0
+    ],
+    "ori_gains": [
+      50.0,
+      50.0,
+      50.0
+    ],
+    "damping_ratio": 4.0
+  },
+  "metrics_mean": {
+    "trans_drift_max_m": 0.019621810364702855,
+    "rot_drift_max_rad": 0.1105687502446237,
+    "contact_retention_vs_root_mean": 1.0,
+    "wrist_ft_mean_n": 6.177014131152621,
+    "contact_force_mean_n": 34.02856486093702,
+    "tip_progress_m": 0.0635564549573448,
+    "jam_proxy": 0.0,
+    "terminal_peg_ok": 1.0,
+    "insert_ok_end": 0.0,
+    "tip_end_m": 0.1729887662657469,
+    "lat_progress_m": 0.06469094969397829,
+    "wrist_ft_max_n": 6.43488372474969,
+    "contact_force_max_n": 34.16746170782,
+    "nonfinite_obs": 0.0
+  },
+  "replay_spreads": {
+    "trans_drift_max_m": 0.0,
+    "rot_drift_max_rad": 0.0,
+    "contact_retention_vs_root_mean": 0.0,
+    "wrist_ft_mean_n": 0.0,
+    "contact_force_mean_n": 0.0,
+    "tip_progress_m": 0.0
+  },
+  "existence": {
+    "exists": true,
+    "hit_metrics": [
+      "tip_progress_m"
+    ],
+    "details": {
+      "trans_drift_max_m": {
+        "baseline": 0.019335661950821488,
+        "alt": 0.019621810364702855,
+        "diff": 0.00028614841388136664,
+        "threshold": 0.001,
+        "significant": false
+      },
+      "rot_drift_max_rad": {
+        "baseline": 0.10516052649250356,
+        "alt": 0.1105687502446237,
+        "diff": 0.005408223752120148,
+        "threshold": 0.01,
+        "significant": false
+      },
+      "contact_retention_vs_root_mean": {
+        "baseline": 1.0,
+        "alt": 1.0,
+        "diff": 0.0,
+        "threshold": 0.05,
+        "significant": false
+      },
+      "wrist_ft_mean_n": {
+        "baseline": 5.933774708770651,
+        "alt": 6.177014131152621,
+        "diff": 0.24323942238197027,
+        "threshold": 1.0,
+        "significant": false
+      },
+      "contact_force_mean_n": {
+        "baseline": 33.88400312794605,
+        "alt": 34.02856486093702,
+        "diff": 0.1445617329909652,
+        "threshold": 1.0,
+        "significant": false
+      },
+      "tip_progress_m": {
+        "baseline": 0.07923367976678139,
+        "alt": 0.0635564549573448,
+        "diff": -0.01567722480943659,
+        "threshold": 0.001,
+        "significant": true
+      }
+    }
+  },
+  "harmful_only": false,
+  "repeats": [
+    {
+      "repeat": 0,
+      "metrics": {
+        "num_steps": 16,
+        "reference_body": "allegro_palm_right",
+        "control_dt_s": 0.02,
+        "root_contact_total": 3,
+        "root_contact_by_class": {
+          "palm": 0,
+          "index": 2,
+          "middle": 0,
+          "ring": 0,
+          "thumb": 1
+        },
+        "contact_retention_vs_root_mean": 1.0,
+        "contact_retention_vs_root_end": 1.0,
+        "contact_loss_steps": 0,
+        "contact_class_retention": {
+          "palm": 1.0,
+          "index": 1.0,
+          "middle": 1.0,
+          "ring": 1.0,
+          "thumb": 1.0
+        },
+        "contact_retention_mean": 1.0,
+        "trans_drift_end_m": 0.019621810364702855,
+        "trans_drift_max_m": 0.019621810364702855,
+        "trans_drift_mean_m": 0.01298942532173962,
+        "rot_drift_end_rad": 0.1105687502446237,
+        "rot_drift_max_rad": 0.1105687502446237,
+        "rot_drift_mean_rad": 0.06999773500094808,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean_mps": 0.07812254003852928,
+        "slip_proxy_tangential_rel_vel_max_mps": 0.32363353079474877,
+        "slip_proxy_rot_rate_mean_radps": 0.4418358322363395,
+        "slip_proxy_rot_rate_max_radps": 1.49186003505874,
+        "slip_proxy_tangential_rel_vel_mean": 0.07812254003852928,
+        "slip_proxy_tangential_rel_vel_max": 0.32363353079474877,
+        "terminal_peg_ok": true,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained_all_steps": true,
+        "peg_contact_present_end": true,
+        "peg_contact_absent_steps": 0,
+        "peg_world_z_end": 1.3504635459262275,
+        "peg_world_z_drop_from_root": -0.08465118436662245,
+        "below_lift_threshold_end": false,
+        "object_dropped_proxy": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": [],
+        "term_reason": "horizon_end",
+        "executed_steps": 16,
+        "tip_start_m": 0.2365452212230917,
+        "tip_end_m": 0.1729887662657469,
+        "tip_progress_m": 0.0635564549573448,
+        "lat_start_m": 0.2319042936918427,
+        "lat_end_m": 0.16721334399786442,
+        "lat_progress_m": 0.06469094969397829,
+        "wrist_ft_mean_n": 6.177014131152621,
+        "wrist_ft_max_n": 6.43488372474969,
+        "contact_force_mean_n": 34.02856486093702,
+        "contact_force_max_n": 34.16746170782,
+        "jam_proxy": false,
+        "nonfinite_obs": false
+      }
+    },
+    {
+      "repeat": 1,
+      "metrics": {
+        "num_steps": 16,
+        "reference_body": "allegro_palm_right",
+        "control_dt_s": 0.02,
+        "root_contact_total": 3,
+        "root_contact_by_class": {
+          "palm": 0,
+          "index": 2,
+          "middle": 0,
+          "ring": 0,
+          "thumb": 1
+        },
+        "contact_retention_vs_root_mean": 1.0,
+        "contact_retention_vs_root_end": 1.0,
+        "contact_loss_steps": 0,
+        "contact_class_retention": {
+          "palm": 1.0,
+          "index": 1.0,
+          "middle": 1.0,
+          "ring": 1.0,
+          "thumb": 1.0
+        },
+        "contact_retention_mean": 1.0,
+        "trans_drift_end_m": 0.019621810364702855,
+        "trans_drift_max_m": 0.019621810364702855,
+        "trans_drift_mean_m": 0.01298942532173962,
+        "rot_drift_end_rad": 0.1105687502446237,
+        "rot_drift_max_rad": 0.1105687502446237,
+        "rot_drift_mean_rad": 0.06999773500094808,
+        "contact_total_end": 4,
+        "contact_total_mean": 4.0,
+        "finger_force_active_ratio_mean": 0.5,
+        "slip_proxy_tangential_rel_vel_mean_mps": 0.07812254003852928,
+        "slip_proxy_tangential_rel_vel_max_mps": 0.32363353079474877,
+        "slip_proxy_rot_rate_mean_radps": 0.4418358322363395,
+        "slip_proxy_rot_rate_max_radps": 1.49186003505874,
+        "slip_proxy_tangential_rel_vel_mean": 0.07812254003852928,
+        "slip_proxy_tangential_rel_vel_max": 0.32363353079474877,
+        "terminal_peg_ok": true,
+        "peg_ok_end": true,
+        "peg_ok_frac": 1.0,
+        "peg_retained_all_steps": true,
+        "peg_contact_present_end": true,
+        "peg_contact_absent_steps": 0,
+        "peg_world_z_end": 1.3504635459262275,
+        "peg_world_z_drop_from_root": -0.08465118436662245,
+        "below_lift_threshold_end": false,
+        "object_dropped_proxy": false,
+        "insert_ok_any": false,
+        "insert_ok_end": false,
+        "unknown_contact_geoms": [],
+        "term_reason": "horizon_end",
+        "executed_steps": 16,
+        "tip_start_m": 0.2365452212230917,
+        "tip_end_m": 0.1729887662657469,
+        "tip_progress_m": 0.0635564549573448,
+        "lat_start_m": 0.2319042936918427,
+        "lat_end_m": 0.16721334399786442,
+        "lat_progress_m": 0.06469094969397829,
+        "wrist_ft_mean_n": 6.177014131152621,
+        "wrist_ft_max_n": 6.43488372474969,
+        "contact_force_mean_n": 34.02856486093702,
+        "contact_force_max_n": 34.16746170782,
+        "jam_proxy": false,
+        "nonfinite_obs": false
+      }
+    }
+  ]
+}

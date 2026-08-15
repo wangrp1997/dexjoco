@@ -1,0 +1,19 @@
+{
+  "date": "2026-08-15",
+  "phase": "cross_geometry_affordance_p0_complete",
+  "busy": false,
+  "training_allowed": false,
+  "collection_allowed": false,
+  "wrapper_allowed": false,
+  "compliance_line": {
+    "status": "abandoned"
+  },
+  "cross_geometry_affordance_p0": {
+    "pass": false,
+    "verdict": "fail_stop_affordance_direction",
+    "stop_direction": true,
+    "manifest": "data/manifests/cross_geometry_affordance_p0.json",
+    "report": "docs/CROSS_GEOMETRY_AFFORDANCE_P0_RESULT.md"
+  },
+  "next_action": "review_stage_interface_and_data_support"
+}

@@ -1,0 +1,42 @@
+{
+  "protocol": "ControllerComplianceCausalP0",
+  "frozen_at": "2026-08-15T08:25:16Z",
+  "roots": [
+    {
+      "episode_index": 4,
+      "frame": 484,
+      "phase": "pre_insert",
+      "role": "discovery"
+    },
+    {
+      "episode_index": 6,
+      "frame": 271,
+      "phase": "transport",
+      "role": "discovery"
+    },
+    {
+      "episode_index": 9,
+      "frame": 407,
+      "phase": "pre_insert",
+      "role": "held_out"
+    },
+    {
+      "episode_index": 3,
+      "frame": 431,
+      "phase": "pre_insert",
+      "role": "held_out"
+    }
+  ],
+  "stiffness_scales": [
+    1.0,
+    0.5,
+    0.25
+  ],
+  "damping_ratios": [
+    4.0
+  ],
+  "actions": [
+    "hold",
+    "demo_matched"
+  ]
+}

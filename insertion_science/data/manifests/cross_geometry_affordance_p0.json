@@ -1,0 +1,537 @@
+{
+  "protocol": "CrossGeometryContactAffordanceP0",
+  "finished_at": "2026-08-15T09:09:11Z",
+  "n_rows": 192,
+  "label_counts": {
+    "blocked": 96,
+    "jam": 94,
+    "free": 2
+  },
+  "feasible_rate": 0.010416666666666666,
+  "family_loo": {
+    "folds": [
+      {
+        "held_family": "rectangular_12mm",
+        "n_train": 160,
+        "n_test": 32,
+        "reps": {
+          "tip_lat_axis": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "raw_relation": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance": {
+            "accuracy": 0.96875,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance_shuffled": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          }
+        },
+        "aff_minus_tip": -0.03125,
+        "shuffle_drop": -0.03125
+      },
+      {
+        "held_family": "rectangular_16mm",
+        "n_train": 160,
+        "n_test": 32,
+        "reps": {
+          "tip_lat_axis": {
+            "accuracy": 0.78125,
+            "f1": 0.2222222222222222,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          },
+          "raw_relation": {
+            "accuracy": 0.78125,
+            "f1": 0.2222222222222222,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          },
+          "contact_affordance": {
+            "accuracy": 1.0,
+            "f1": 1.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          },
+          "contact_affordance_shuffled": {
+            "accuracy": 1.0,
+            "f1": 1.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          }
+        },
+        "aff_minus_tip": 0.21875,
+        "shuffle_drop": 0.0
+      },
+      {
+        "held_family": "rectangular_8mm",
+        "n_train": 160,
+        "n_test": 32,
+        "reps": {
+          "tip_lat_axis": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "raw_relation": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance_shuffled": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          }
+        },
+        "aff_minus_tip": 0.0,
+        "shuffle_drop": 0.0
+      },
+      {
+        "held_family": "round_12mm",
+        "n_train": 160,
+        "n_test": 32,
+        "reps": {
+          "tip_lat_axis": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "raw_relation": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance": {
+            "accuracy": 0.96875,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance_shuffled": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          }
+        },
+        "aff_minus_tip": -0.03125,
+        "shuffle_drop": -0.03125
+      },
+      {
+        "held_family": "round_16mm",
+        "n_train": 160,
+        "n_test": 32,
+        "reps": {
+          "tip_lat_axis": {
+            "accuracy": 0.78125,
+            "f1": 0.2222222222222222,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          },
+          "raw_relation": {
+            "accuracy": 0.78125,
+            "f1": 0.2222222222222222,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          },
+          "contact_affordance": {
+            "accuracy": 1.0,
+            "f1": 1.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          },
+          "contact_affordance_shuffled": {
+            "accuracy": 1.0,
+            "f1": 1.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.00625,
+            "test_pos_rate": 0.03125
+          }
+        },
+        "aff_minus_tip": 0.21875,
+        "shuffle_drop": 0.0
+      },
+      {
+        "held_family": "round_8mm",
+        "n_train": 160,
+        "n_test": 32,
+        "reps": {
+          "tip_lat_axis": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "raw_relation": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          },
+          "contact_affordance_shuffled": {
+            "accuracy": 1.0,
+            "f1": 0.0,
+            "degenerate_train": false,
+            "n_train": 160,
+            "n_test": 32,
+            "train_pos_rate": 0.0125,
+            "test_pos_rate": 0.0
+          }
+        },
+        "aff_minus_tip": 0.0,
+        "shuffle_drop": 0.0
+      }
+    ],
+    "families": [
+      "rectangular_12mm",
+      "rectangular_16mm",
+      "rectangular_8mm",
+      "round_12mm",
+      "round_16mm",
+      "round_8mm"
+    ]
+  },
+  "instance_holdout": {
+    "tip_lat_axis": {
+      "accuracy": 1.0,
+      "f1": 0.0,
+      "degenerate_train": true,
+      "n_train": 64,
+      "n_test": 64,
+      "train_pos_rate": 0.0,
+      "test_pos_rate": 0.0
+    },
+    "raw_relation": {
+      "accuracy": 1.0,
+      "f1": 0.0,
+      "degenerate_train": true,
+      "n_train": 64,
+      "n_test": 64,
+      "train_pos_rate": 0.0,
+      "test_pos_rate": 0.0
+    },
+    "contact_affordance": {
+      "accuracy": 1.0,
+      "f1": 0.0,
+      "degenerate_train": true,
+      "n_train": 64,
+      "n_test": 64,
+      "train_pos_rate": 0.0,
+      "test_pos_rate": 0.0
+    },
+    "aff_minus_tip": 0.0
+  },
+  "verdict": {
+    "pass": false,
+    "verdict": "fail_stop_affordance_direction",
+    "summary": "contact-affordance \u672a\u5728\u5168\u90e8 family held-out \u4e0a\u7a33\u5b9a\u4f18\u4e8e tip/lat/axis\uff0c\u6216 shuffle/instance \u8d1f\u5bf9\u7167\u672a\u8fc7\uff1b\u505c\u6b62\u8be5\u65b9\u5411\u3002",
+    "all_family_folds_beat_tip": false,
+    "all_family_folds_shuffle_drop": false,
+    "instance_holdout_ok": true,
+    "mean_aff_minus_tip": 0.0625,
+    "mean_shuffle_drop": -0.010416666666666666,
+    "min_aff_minus_tip_required": 0.02,
+    "min_shuffle_drop_required": 0.05,
+    "stop_direction": true
+  },
+  "config": {
+    "protocol": "CrossGeometryContactAffordanceP0",
+    "seed": 0,
+    "families_yaml": "/home/wangrenpeng/dexjoco/embodied_grasp_insertion/configs/geometry_families.yaml",
+    "families": [
+      "round_8mm",
+      "round_12mm",
+      "round_16mm",
+      "rectangular_8mm",
+      "rectangular_12mm",
+      "rectangular_16mm"
+    ],
+    "instance_holdout_families": [
+      "round_8mm",
+      "rectangular_8mm"
+    ],
+    "secondary_instance_key": "b",
+    "poses": [
+      {
+        "name": "hover",
+        "tip_offset_L": [
+          0.0,
+          0.0,
+          2.0
+        ],
+        "tilt_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "entrance",
+        "tip_offset_L": [
+          0.0,
+          0.0,
+          0.35
+        ],
+        "tilt_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "lateral_offset",
+        "tip_offset_L": [
+          0.45,
+          0.0,
+          0.6
+        ],
+        "tilt_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "tilted",
+        "tip_offset_L": [
+          0.0,
+          0.15,
+          1.0
+        ],
+        "tilt_rad": [
+          0.12,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "twists": [
+      {
+        "name": "lat_px",
+        "d_L": [
+          0.35,
+          0.0,
+          0.0
+        ],
+        "r_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "lat_nx",
+        "d_L": [
+          -0.35,
+          0.0,
+          0.0
+        ],
+        "r_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "lat_py",
+        "d_L": [
+          0.0,
+          0.35,
+          0.0
+        ],
+        "r_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "lat_ny",
+        "d_L": [
+          0.0,
+          -0.35,
+          0.0
+        ],
+        "r_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "insert",
+        "d_L": [
+          0.0,
+          0.0,
+          0.3
+        ],
+        "r_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "withdraw",
+        "d_L": [
+          0.0,
+          0.0,
+          -0.3
+        ],
+        "r_rad": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "tilt_x",
+        "d_L": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "r_rad": [
+          0.08,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "tilt_y",
+        "d_L": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "r_rad": [
+          0.0,
+          0.08,
+          0.0
+        ]
+      }
+    ],
+    "physics": {
+      "settle_steps": 40,
+      "gravity_off": true
+    },
+    "label": {
+      "free_progress_frac": 0.4,
+      "jam_progress_frac": 0.2,
+      "free_force_n": 25.0,
+      "jam_force_n": 80.0,
+      "lat_dev_L": 0.55
+    },
+    "probe": {
+      "C": 1.0,
+      "max_iter": 2000
+    },
+    "pass": {
+      "min_aff_minus_tip_per_fold": 0.02,
+      "min_shuffle_drop": 0.05,
+      "require_all_family_folds": true
+    },
+    "output_dir": "outputs/cross_geometry_affordance_p0",
+    "manifest_path": "data/manifests/cross_geometry_affordance_p0.json",
+    "report_path": "docs/CROSS_GEOMETRY_AFFORDANCE_P0_RESULT.md"
+  }
+}
