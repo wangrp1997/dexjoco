@@ -1,0 +1,186 @@
+{
+  "protocol": "P0-C2-S1",
+  "criteria_version": "c2_root_v1",
+  "frozen_at": "2026-08-15T02:23:02Z",
+  "selected": [
+    {
+      "episode_index": 6,
+      "frame": 256,
+      "phase": "early_grasp",
+      "tip_dist_m": 0.44688980304356274,
+      "root_contact_total": 3,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.035154878674684496,
+        "rot_drift_max_rad": 0.231851950331114,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift"
+      ]
+    },
+    {
+      "episode_index": 4,
+      "frame": 484,
+      "phase": "pre_insert",
+      "tip_dist_m": 0.05995977394170425,
+      "root_contact_total": 4,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.02115548005469454,
+        "rot_drift_max_rad": 0.14300533803976334,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift"
+      ]
+    },
+    {
+      "episode_index": 18,
+      "frame": 415,
+      "phase": "pre_insert",
+      "tip_dist_m": 0.05980438196780883,
+      "root_contact_total": 4,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.019653297995270422,
+        "rot_drift_max_rad": 0.08939384442210052,
+        "contact_retention_vs_root_mean": 0.8125,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift",
+        "hold_reduced_retention"
+      ]
+    },
+    {
+      "episode_index": 8,
+      "frame": 229,
+      "phase": "early_grasp",
+      "tip_dist_m": 0.3964059813694408,
+      "root_contact_total": 4,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.0189619214887451,
+        "rot_drift_max_rad": 0.11964755917277034,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift"
+      ]
+    },
+    {
+      "episode_index": 6,
+      "frame": 271,
+      "phase": "transport",
+      "tip_dist_m": 0.2365452212230917,
+      "root_contact_total": 3,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.017032507810864666,
+        "rot_drift_max_rad": 0.09550629685429109,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift"
+      ]
+    },
+    {
+      "episode_index": 18,
+      "frame": 243,
+      "phase": "early_grasp",
+      "tip_dist_m": 0.43113425781519393,
+      "root_contact_total": 4,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.0154763347571578,
+        "rot_drift_max_rad": 0.08398007891749651,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift"
+      ]
+    },
+    {
+      "episode_index": 14,
+      "frame": 307,
+      "phase": "early_grasp",
+      "tip_dist_m": 0.3810122783563774,
+      "root_contact_total": 8,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.010916474376791812,
+        "rot_drift_max_rad": 0.08200297737480328,
+        "contact_retention_vs_root_mean": 0.8984375,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift",
+        "hold_reduced_retention"
+      ]
+    },
+    {
+      "episode_index": 14,
+      "frame": 517,
+      "phase": "pre_insert",
+      "tip_dist_m": 0.05922241938806331,
+      "root_contact_total": 5,
+      "hold_metrics": {
+        "trans_drift_max_m": 0.010250502555462036,
+        "rot_drift_max_rad": 0.15411073519211915,
+        "contact_retention_vs_root_mean": 0.8000000000000002,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      },
+      "accepted": true,
+      "reasons": [
+        "accepted"
+      ],
+      "excited_reasons": [
+        "hold_trans_drift",
+        "hold_reduced_retention"
+      ]
+    }
+  ]
+}

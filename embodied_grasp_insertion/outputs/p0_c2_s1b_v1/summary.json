@@ -1,0 +1,1806 @@
+{
+  "protocol": "P0-C2-S1b",
+  "created_at": "2026-08-15T04:12:06Z",
+  "stage1_verdict_withdrawn": "h2_failed_no_finger_causal_effect",
+  "prior_status": "c2_inconclusive_heterogeneous_forks_actuation_unverified",
+  "n_records": 144,
+  "fairness_pass_rate": 1.0,
+  "frozen_analysis": {
+    "pool": "frozen",
+    "n_roots": 8,
+    "actuation_moved_fraction": 1.0,
+    "actuation_moved": true,
+    "min_joint_abs_delta_rad": 0.005,
+    "dose_report": [
+      {
+        "root_id": "ep006_f0256_early_grasp",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.07035420360031286,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep006_f0256_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.0710498718147008,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep006_f0256_early_grasp",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.04392117350268817,
+        "realized_l2_mean": 0.06432091693973313
+      },
+      {
+        "root_id": "ep006_f0271_transport",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.02891971320989506,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep006_f0271_transport",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.03702499482305588,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep006_f0271_transport",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.039981790526332085,
+        "realized_l2_mean": 0.07918769001172692
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.05631518393856716,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.07998857074619359,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.0604807163242204,
+        "realized_l2_mean": 0.07167637671138403
+      },
+      {
+        "root_id": "ep018_f0415_pre_insert",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.8405280087054964,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep018_f0415_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.029152119815527122,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep018_f0415_pre_insert",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.04027829583579653,
+        "realized_l2_mean": 0.05573234812135484
+      },
+      {
+        "root_id": "ep018_f0243_early_grasp",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.025743691840269232,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep018_f0243_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.03332464234978194,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep018_f0243_early_grasp",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.03221007119185396,
+        "realized_l2_mean": 0.04886916642748248
+      },
+      {
+        "root_id": "ep008_f0229_early_grasp",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.03179550452072566,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep008_f0229_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.03564115465304396,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep008_f0229_early_grasp",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.04112870021123576,
+        "realized_l2_mean": 0.07999999999998113
+      },
+      {
+        "root_id": "ep014_f0307_early_grasp",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.03105682719611136,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep014_f0307_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.029890248542268294,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep014_f0307_early_grasp",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.038630013118694705,
+        "realized_l2_mean": 0.07999999999998278
+      },
+      {
+        "root_id": "ep014_f0517_pre_insert",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 1.1001557373660844,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep014_f0517_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.24359803785013612,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep014_f0517_pre_insert",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.2223945790480358,
+        "realized_l2_mean": 0.07999999999997885
+      }
+    ],
+    "existence_any": true,
+    "roots_with_existence": [
+      "ep006_f0256_early_grasp",
+      "ep006_f0271_transport",
+      "ep008_f0229_early_grasp",
+      "ep014_f0307_early_grasp",
+      "ep014_f0517_pre_insert",
+      "ep018_f0243_early_grasp",
+      "ep018_f0415_pre_insert"
+    ],
+    "existence_details": [
+      {
+        "root_id": "ep006_f0256_early_grasp",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.005682283274526544,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.043143064660560115,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep006_f0256_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.00934681528305037,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0568503111238754,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep006_f0256_early_grasp",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.004368700647813185,
+            "threshold": 0.012569306363346654,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.03092570133457706,
+            "threshold": 0.08835344346557444,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep006_f0271_transport",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.002303154139956822,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.00965422963821247,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep006_f0271_transport",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.012839554845747569,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.07879643797482795,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep006_f0271_transport",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0010155530353680338,
+            "threshold": 0.07309688054474371,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.005204964206018861,
+            "threshold": 0.4088034933279876,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "intervention": "demo_finger_replay",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.00033165812187603214,
+            "threshold": 0.001,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.002553928438584152,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.00018707324632110528,
+            "threshold": 0.001,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0015000588284388439,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep004_f0484_pre_insert",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0002589508533220007,
+            "threshold": 0.006398659467570265,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0023029345525863165,
+            "threshold": 0.054622791253027034,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep018_f0415_pre_insert",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad",
+          "contact_retention_vs_root_mean",
+          "terminal_peg_ok"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.017189452933489502,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.38834502192749165,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.1875,
+            "threshold": 0.05,
+            "significant": true
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 1.0,
+            "threshold": 0.0,
+            "significant": true
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep018_f0415_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "contact_retention_vs_root_mean"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0003087031634782522,
+            "threshold": 0.001,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0011673120363392409,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0625,
+            "threshold": 0.05,
+            "significant": true
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep018_f0415_pre_insert",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 4.6125010260408134e-05,
+            "threshold": 0.019671088397107947,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0006114557117556096,
+            "threshold": 0.09889382024997993,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0625,
+            "threshold": 0.14732142857142871,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep018_f0243_early_grasp",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0021382062695796504,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.013472283595638679,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep018_f0243_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0036952709827121743,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.001357280716538345,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep018_f0243_early_grasp",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.001208754334179378,
+            "threshold": 0.036207291344247536,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.005393867933153718,
+            "threshold": 0.19646787916087816,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep008_f0229_early_grasp",
+        "intervention": "demo_finger_replay",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0001942199764921812,
+            "threshold": 0.001,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.001365569826613247,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep008_f0229_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.012496159947428106,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.09226130171632826,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep008_f0229_early_grasp",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.004835124770925483,
+            "threshold": 0.02248848735261534,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.02910394680540465,
+            "threshold": 0.04838258600110999,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep014_f0307_early_grasp",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.002846118746450481,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.01166679239716191,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.03125,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep014_f0307_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0039726974008556844,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.02187468058468866,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0390625,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep014_f0307_early_grasp",
+        "intervention": "random_finger_control",
+        "exists": true,
+        "hit_metrics": [
+          "contact_retention_vs_root_mean"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0013415575325986598,
+            "threshold": 0.056529213235592034,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.029495167358721805,
+            "threshold": 0.35903264998163026,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.2734375,
+            "threshold": 0.09375,
+            "significant": true
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep014_f0517_pre_insert",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad",
+          "contact_retention_vs_root_mean",
+          "terminal_peg_ok"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0012317321348220625,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.290774534449735,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.15000000000000013,
+            "threshold": 0.05,
+            "significant": true
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 1.0,
+            "threshold": 0.0,
+            "significant": true
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep014_f0517_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.002679500029368417,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.06223240627285212,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 1.1102230246251565e-16,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep014_f0517_pre_insert",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0004711588853139742,
+            "threshold": 0.0033226049964031994,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0008454048812358839,
+            "threshold": 0.20882875604414544,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.15000000000000047,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      }
+    ],
+    "directionality": {
+      "demo_finger_replay": {
+        "trans_drift_max_m": {
+          "n": 8,
+          "mean": 0.0021296298227199547,
+          "ci95_lo": -0.0014669808794743257,
+          "ci95_hi": 0.006832633923944888,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.5
+        },
+        "rot_drift_max_rad": {
+          "n": 8,
+          "mean": 0.08369767984196358,
+          "ci95_lo": -0.006156806948176527,
+          "ci95_hi": 0.19852102571448207,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.75
+        },
+        "contact_retention_vs_root_mean": {
+          "n": 8,
+          "mean": -0.03828125000000002,
+          "ci95_lo": -0.09845703125000006,
+          "ci95_hi": 0.0078125,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.25
+        },
+        "terminal_peg_ok": {
+          "n": 8,
+          "mean": -0.25,
+          "ci95_lo": -0.625,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.25
+        },
+        "object_dropped_proxy": {
+          "n": 8,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        }
+      },
+      "calibrated_finger_intervention": {
+        "trans_drift_max_m": {
+          "n": 8,
+          "mean": 0.0005257456771713791,
+          "ci95_lo": -0.004604221221200284,
+          "ci95_hi": 0.005681874883056528,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.375
+        },
+        "rot_drift_max_rad": {
+          "n": 8,
+          "mean": 0.010679150072397059,
+          "ci95_lo": -0.026448907169739678,
+          "ci95_hi": 0.045376954743283744,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.625
+        },
+        "contact_retention_vs_root_mean": {
+          "n": 8,
+          "mean": 0.002929687499999986,
+          "ci95_lo": -0.009765625000000042,
+          "ci95_hi": 0.023437499999999986,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.125
+        },
+        "terminal_peg_ok": {
+          "n": 8,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        },
+        "object_dropped_proxy": {
+          "n": 8,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        }
+      },
+      "random_finger_control": {
+        "trans_drift_max_m": {
+          "n": 8,
+          "mean": -0.0013795207976126937,
+          "ci95_lo": -0.0028132765791359458,
+          "ci95_hi": -8.169797545761395e-06,
+          "ci_excludes_zero": true,
+          "same_sign_fraction": 0.75
+        },
+        "rot_drift_max_rad": {
+          "n": 8,
+          "mean": -0.011484099436704406,
+          "ci95_lo": -0.022406592329021473,
+          "ci95_hi": -0.0011554692454277954,
+          "ci_excludes_zero": true,
+          "same_sign_fraction": 0.75
+        },
+        "contact_retention_vs_root_mean": {
+          "n": 8,
+          "mean": -0.0263671875,
+          "ci95_lo": -0.1025390625,
+          "ci95_hi": 0.0234375,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.125
+        },
+        "terminal_peg_ok": {
+          "n": 8,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        },
+        "object_dropped_proxy": {
+          "n": 8,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        }
+      }
+    },
+    "directional_any_metric": true,
+    "repeatability_structure_ok": true
+  },
+  "held_out_analysis": {
+    "pool": "held_out",
+    "n_roots": 4,
+    "actuation_moved_fraction": 1.0,
+    "actuation_moved": true,
+    "min_joint_abs_delta_rad": 0.005,
+    "dose_report": [
+      {
+        "root_id": "ep009_f0407_pre_insert",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.021941222781803216,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep009_f0407_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.039349915551061265,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep009_f0407_pre_insert",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.04259490968969965,
+        "realized_l2_mean": 0.07999999999997814
+      },
+      {
+        "root_id": "ep003_f0431_pre_insert",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.05343706196328979,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep003_f0431_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.04390927976476422,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep003_f0431_pre_insert",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.03076455952070839,
+        "realized_l2_mean": 0.07999999999998121
+      },
+      {
+        "root_id": "ep011_f0258_early_grasp",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.04628253490549202,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep011_f0258_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.04007664044010051,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep011_f0258_early_grasp",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.06474162114650915,
+        "realized_l2_mean": 0.07999999999997746
+      },
+      {
+        "root_id": "ep013_f0344_early_grasp",
+        "intervention": "demo_finger_replay",
+        "mean_qpos_delta_max_abs": 0.02382776873845524,
+        "realized_l2_mean": 0.0
+      },
+      {
+        "root_id": "ep013_f0344_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "mean_qpos_delta_max_abs": 0.025906867167271197,
+        "realized_l2_mean": 0.08
+      },
+      {
+        "root_id": "ep013_f0344_early_grasp",
+        "intervention": "random_finger_control",
+        "mean_qpos_delta_max_abs": 0.04598803087338029,
+        "realized_l2_mean": 0.0799999999999792
+      }
+    ],
+    "existence_any": true,
+    "roots_with_existence": [
+      "ep003_f0431_pre_insert",
+      "ep009_f0407_pre_insert",
+      "ep011_f0258_early_grasp",
+      "ep013_f0344_early_grasp"
+    ],
+    "existence_details": [
+      {
+        "root_id": "ep009_f0407_pre_insert",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.005115930833339447,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.030603659770449217,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep009_f0407_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0020017463149657536,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.009262340070905789,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep009_f0407_pre_insert",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.005125835077057328,
+            "threshold": 0.022623678552362816,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.013262792803382883,
+            "threshold": 0.12316662913336007,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep003_f0431_pre_insert",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0010496095325984774,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.018691841816774454,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.038961038961038974,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep003_f0431_pre_insert",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0009260517674633054,
+            "threshold": 0.001,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.01726137168166246,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 2.220446049250313e-16,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep003_f0431_pre_insert",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.00018710524851248307,
+            "threshold": 0.004229105116223616,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0032277402586477627,
+            "threshold": 0.042749347158690734,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.012987012987013102,
+            "threshold": 0.4285714285714287,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep011_f0258_early_grasp",
+        "intervention": "demo_finger_replay",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m",
+          "rot_drift_max_rad"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.002912854877486961,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.015900642137308726,
+            "threshold": 0.01,
+            "significant": true
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep011_f0258_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.005825454158705464,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.0054799123072954495,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep011_f0258_early_grasp",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.008642716048209771,
+            "threshold": 0.041435859767570936,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.039321704361722026,
+            "threshold": 0.18039057444777148,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep013_f0344_early_grasp",
+        "intervention": "demo_finger_replay",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.0009230666827188955,
+            "threshold": 0.001,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.008571375208621425,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep013_f0344_early_grasp",
+        "intervention": "calibrated_finger_intervention",
+        "exists": true,
+        "hit_metrics": [
+          "trans_drift_max_m"
+        ],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.003383342852183794,
+            "threshold": 0.001,
+            "significant": true
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.00017754293623414158,
+            "threshold": 0.01,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      },
+      {
+        "root_id": "ep013_f0344_early_grasp",
+        "intervention": "random_finger_control",
+        "exists": false,
+        "hit_metrics": [],
+        "details": {
+          "trans_drift_max_m": {
+            "abs_diff": 0.003068372468105625,
+            "threshold": 0.016473285109995392,
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "abs_diff": 0.007884877821583001,
+            "threshold": 0.051290476577040924,
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "abs_diff": 0.0,
+            "threshold": 0.05,
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "abs_diff": 0.0,
+            "threshold": 0.0,
+            "significant": false
+          }
+        }
+      }
+    ],
+    "directionality": {
+      "demo_finger_replay": {
+        "trans_drift_max_m": {
+          "n": 4,
+          "mean": -5.759993513377833e-05,
+          "ci95_lo": -0.003574545741854966,
+          "ci95_hi": 0.0024154078287949446,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.25
+        },
+        "rot_drift_max_rad": {
+          "n": 4,
+          "mean": 0.0031400498480638472,
+          "ci95_lo": -0.018977584293509733,
+          "ci95_hi": 0.01729624197704159,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.75
+        },
+        "contact_retention_vs_root_mean": {
+          "n": 4,
+          "mean": 0.009740259740259744,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.02922077922077923,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.25
+        },
+        "terminal_peg_ok": {
+          "n": 4,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        },
+        "object_dropped_proxy": {
+          "n": 4,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        }
+      },
+      "calibrated_finger_intervention": {
+        "trans_drift_max_m": {
+          "n": 4,
+          "mean": -0.0015702497321150497,
+          "ci95_lo": -0.004604398505444629,
+          "ci95_hi": 0.0014706221321364136,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.5
+        },
+        "rot_drift_max_rad": {
+          "n": 4,
+          "mean": 0.005305335595376735,
+          "ci95_lo": -0.002651184685530654,
+          "ci95_hi": 0.013311849823851309,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.75
+        },
+        "contact_retention_vs_root_mean": {
+          "n": 4,
+          "mean": 5.551115123125783e-17,
+          "ci95_lo": 0.0,
+          "ci95_hi": 1.6653345369377348e-16,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        },
+        "terminal_peg_ok": {
+          "n": 4,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        },
+        "object_dropped_proxy": {
+          "n": 4,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        }
+      },
+      "random_finger_control": {
+        "trans_drift_max_m": {
+          "n": 4,
+          "mean": 0.00015890343788982526,
+          "ci95_lo": -0.004097103772581477,
+          "ci95_hi": 0.0057149439191309225,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.5
+        },
+        "rot_drift_max_rad": {
+          "n": 4,
+          "mean": 0.005350443498850976,
+          "ci95_lo": -0.010573835312482942,
+          "ci95_hi": 0.027520058815895768,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.5
+        },
+        "contact_retention_vs_root_mean": {
+          "n": 4,
+          "mean": 0.0032467532467532756,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.009740259740259827,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.25
+        },
+        "terminal_peg_ok": {
+          "n": 4,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        },
+        "object_dropped_proxy": {
+          "n": 4,
+          "mean": 0.0,
+          "ci95_lo": 0.0,
+          "ci95_hi": 0.0,
+          "ci_excludes_zero": false,
+          "same_sign_fraction": 0.0
+        }
+      }
+    },
+    "directional_any_metric": false,
+    "repeatability_structure_ok": true
+  },
+  "held_out_roots": [
+    {
+      "episode_index": 9,
+      "frame": 407,
+      "phase": "pre_insert"
+    },
+    {
+      "episode_index": 3,
+      "frame": 431,
+      "phase": "pre_insert"
+    },
+    {
+      "episode_index": 11,
+      "frame": 258,
+      "phase": "early_grasp"
+    },
+    {
+      "episode_index": 13,
+      "frame": 344,
+      "phase": "early_grasp"
+    }
+  ],
+  "verdict": {
+    "overall_verdict": "h2_controllability_exists_heterogeneous",
+    "research_decision": "enter_stage2_action_conditioned_eligible",
+    "enter_stage2": true,
+    "directional_universal_intervention": true,
+    "summary": "关节动了，并出现可重复物理分叉（含 held-out）：H2 可控性存在；方向同号另计，可进入 action-conditioned Stage-2。"
+  },
+  "guards": {
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "allow_policy_training": false,
+    "enter_stage2_auto": false,
+    "independent_dose_projection": true,
+    "stage1_outputs_retained": true
+  }
+}

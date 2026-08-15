@@ -50,6 +50,11 @@
 - D：部署能区分动作后果 → H4 初步证据，仍不训策略
 - **不进入 Stage-3**；完成后等人决策
 
-## Retain
+## 解读边界
+
+- 本轮 **privilege ≠ 完整 o2h root state**：S1b JSON 仅有 root contact/phase。
+- 因此 tree **B** 表示：在现有导出字段 + future action + Ridge 下，**无法**用 privilege+action 稳定击败均值/action-only。
+- 不自动升级为“必须加触觉”；也不排除“补齐 root o2h/qdot/FT 后再做一次”需**另授权**。
+- 已停：不进 Stage-3、不训策略。
 
 - `outputs/p0_c2_s1b_v1/` 与 `outputs/p0_c2_stage1_v1/` 继续保留

@@ -8,3 +8,4 @@ produce root-conditioned physical forks (heterogeneous signs).
 
 Keep until C2-S1b actuation/fork audit supersedes with an explicit retention
 decision. Not required in git; local/HDD evidence is enough.
+# Retain local outputs. Full copy (incl. branches): /mnt/hdd/dexjoco/archives/embodied_grasp_insertion_p0_c2_20260815

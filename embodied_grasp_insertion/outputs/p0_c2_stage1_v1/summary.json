@@ -1,0 +1,336 @@
+{
+  "protocol": "P0-C2-S1",
+  "criteria_version": "c2_root_v1",
+  "created_at": "2026-08-15T02:28:24Z",
+  "config": "configs/p0_c2_stage1.yaml",
+  "wrist_source": "demo_wrist",
+  "interventions": [
+    "hold_finger",
+    "demo_finger_replay",
+    "calibrated_finger_intervention",
+    "random_finger_control"
+  ],
+  "n_screened": 27,
+  "n_selected": 8,
+  "selected_roots": [
+    {
+      "episode_index": 6,
+      "frame": 256,
+      "phase": "early_grasp",
+      "excited_reasons": [
+        "hold_trans_drift"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.035154878674684496,
+        "rot_drift_max_rad": 0.231851950331114,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 4,
+      "frame": 484,
+      "phase": "pre_insert",
+      "excited_reasons": [
+        "hold_trans_drift"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.02115548005469454,
+        "rot_drift_max_rad": 0.14300533803976334,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 18,
+      "frame": 415,
+      "phase": "pre_insert",
+      "excited_reasons": [
+        "hold_trans_drift",
+        "hold_reduced_retention"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.019653297995270422,
+        "rot_drift_max_rad": 0.08939384442210052,
+        "contact_retention_vs_root_mean": 0.8125,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 8,
+      "frame": 229,
+      "phase": "early_grasp",
+      "excited_reasons": [
+        "hold_trans_drift"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.0189619214887451,
+        "rot_drift_max_rad": 0.11964755917277034,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 6,
+      "frame": 271,
+      "phase": "transport",
+      "excited_reasons": [
+        "hold_trans_drift"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.017032507810864666,
+        "rot_drift_max_rad": 0.09550629685429109,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 18,
+      "frame": 243,
+      "phase": "early_grasp",
+      "excited_reasons": [
+        "hold_trans_drift"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.0154763347571578,
+        "rot_drift_max_rad": 0.08398007891749651,
+        "contact_retention_vs_root_mean": 1.0,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 14,
+      "frame": 307,
+      "phase": "early_grasp",
+      "excited_reasons": [
+        "hold_trans_drift",
+        "hold_reduced_retention"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.010916474376791812,
+        "rot_drift_max_rad": 0.08200297737480328,
+        "contact_retention_vs_root_mean": 0.8984375,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    },
+    {
+      "episode_index": 14,
+      "frame": 517,
+      "phase": "pre_insert",
+      "excited_reasons": [
+        "hold_trans_drift",
+        "hold_reduced_retention"
+      ],
+      "hold_metrics": {
+        "trans_drift_max_m": 0.010250502555462036,
+        "rot_drift_max_rad": 0.15411073519211915,
+        "contact_retention_vs_root_mean": 0.8000000000000002,
+        "peg_contact_absent_steps": 0,
+        "terminal_peg_ok": true,
+        "object_dropped_proxy": false
+      }
+    }
+  ],
+  "n_branches": 32,
+  "fairness_pass_rate": 1.0,
+  "verdict": {
+    "overall_verdict": "h2_failed_no_finger_causal_effect",
+    "decision_tree": "A",
+    "research_decision": "stop_h2_controllability_route",
+    "enter_stage2": false,
+    "conclusion": "当前 simulator/control formulation 下 H2 失败：finger intervention 在跨 root 配对分析中未能稳定改变主物理指标。",
+    "next": "停止当前策略路线；不得用 sensing/网络容量抢救；仅可另行决定是否修 actuator/contact/control interface。",
+    "claims_controllability_p0_pass": false,
+    "allow_policy_training": false
+  },
+  "analysis": {
+    "any_causal_fork": false,
+    "fork_details": [],
+    "by_intervention": {
+      "demo_finger_replay": {
+        "per_metric": {
+          "trans_drift_max_m": {
+            "n": 8,
+            "mean": 0.0021296298227199547,
+            "ci95_lo": -0.0013365232706225843,
+            "ci95_hi": 0.007336125365067772,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "n": 8,
+            "mean": 0.08369767984196358,
+            "ci95_lo": -0.004900680231912267,
+            "ci95_hi": 0.20614885730235383,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "n": 8,
+            "mean": -0.03828125000000002,
+            "ci95_lo": -0.09845703125000006,
+            "ci95_hi": 0.0078125,
+            "excludes_zero": false,
+            "direction": "higher_better",
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "n": 8,
+            "mean": 0.0,
+            "ci95_lo": 0.0,
+            "ci95_hi": 0.0,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "n": 8,
+            "mean": -0.25,
+            "ci95_lo": -0.625,
+            "ci95_hi": 0.0,
+            "excludes_zero": false,
+            "direction": "higher_better",
+            "significant": false
+          }
+        },
+        "causal_fork": false,
+        "n_roots_compared": 8,
+        "n_episodes": 5
+      },
+      "calibrated_finger_intervention": {
+        "per_metric": {
+          "trans_drift_max_m": {
+            "n": 8,
+            "mean": -5.775291070149501e-05,
+            "ci95_lo": -0.004782859824202723,
+            "ci95_hi": 0.0046932478007755025,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "n": 8,
+            "mean": 0.006772866234027445,
+            "ci95_lo": -0.028183865821798416,
+            "ci95_hi": 0.040768054687979546,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "n": 8,
+            "mean": -0.0009765625000000139,
+            "ci95_lo": -0.0146484375,
+            "ci95_hi": 0.010766601562499976,
+            "excludes_zero": false,
+            "direction": "higher_better",
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "n": 8,
+            "mean": 0.0,
+            "ci95_lo": 0.0,
+            "ci95_hi": 0.0,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "n": 8,
+            "mean": 0.0,
+            "ci95_lo": 0.0,
+            "ci95_hi": 0.0,
+            "excludes_zero": false,
+            "direction": "higher_better",
+            "significant": false
+          }
+        },
+        "causal_fork": false,
+        "n_roots_compared": 8,
+        "n_episodes": 5
+      },
+      "random_finger_control": {
+        "per_metric": {
+          "trans_drift_max_m": {
+            "n": 8,
+            "mean": 0.0010979262549513532,
+            "ci95_lo": -0.004377886739128414,
+            "ci95_hi": 0.006820045940215829,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "rot_drift_max_rad": {
+            "n": 8,
+            "mean": 0.005628012114485459,
+            "ci95_lo": -0.022781322032624427,
+            "ci95_hi": 0.038727795286355206,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "contact_retention_vs_root_mean": {
+            "n": 8,
+            "mean": -0.03151041666666668,
+            "ci95_lo": -0.09401041666666668,
+            "ci95_hi": 0.0078125,
+            "excludes_zero": false,
+            "direction": "higher_better",
+            "significant": false
+          },
+          "object_dropped_proxy": {
+            "n": 8,
+            "mean": 0.0,
+            "ci95_lo": 0.0,
+            "ci95_hi": 0.0,
+            "excludes_zero": false,
+            "direction": "higher_worse",
+            "significant": false
+          },
+          "terminal_peg_ok": {
+            "n": 8,
+            "mean": 0.0,
+            "ci95_lo": 0.0,
+            "ci95_hi": 0.0,
+            "excludes_zero": false,
+            "direction": "higher_better",
+            "significant": false
+          }
+        },
+        "causal_fork": false,
+        "n_roots_compared": 8,
+        "n_episodes": 5
+      }
+    },
+    "n_roots": 8,
+    "n_episodes": 5
+  },
+  "guards": {
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "allow_policy_training": false,
+    "no_load_recalibration": true,
+    "no_pilot_write": true,
+    "tip_not_pass_criterion": true,
+    "single_geometry_diagnostic_only": true
+  },
+  "screened_reject_counts": {
+    "not_excited_under_hold_screen": 2,
+    "hold_screen_too_short": 4
+  }
+}
