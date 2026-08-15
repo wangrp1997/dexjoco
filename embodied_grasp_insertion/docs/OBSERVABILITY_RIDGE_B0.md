@@ -38,6 +38,13 @@
 
 - {"WRITE_IMPLEMENTATION_ENABLED": false, "evaluation_only": true, "allow_policy_training": false, "claims_observability_p0_pass": false, "no_policy_training": true, "no_new_collection": true, "no_pilot_write": true, "no_reopen_c0_c1": true}
 
+## B0 事后修正（2026-08-15，见 B1）
+
+- 「稳定优于 train-mean」仅基于点估计，**未**要求配对 bootstrap CI；旋转改善不可称为稳定。
+- privileged ceiling 输入含目标帧，近零属必然，只证明管线/指标未坏，不证明部署可学。
+- act44 含 wrist pose；同时刻 o2h 平移改善可能含运动学/脚本阶段代理，未必是抓持状态被观测。
+- 正式后续判定见 `docs/OBSERVABILITY_RIDGE_B1.md`。
+
 ## Next
 
 - 本轮结束；不自动进入下一模型。

@@ -1,0 +1,2396 @@
+{
+  "protocol": "P0-Obs-B1",
+  "pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1",
+  "pack_split_digest": "62fb8a60ff1ac5c64b15426e7fff96e99a1e117a67221b4139fc625dd5fef591",
+  "n_samples": 200,
+  "n_test_episodes": 15,
+  "single_geometry_only": true,
+  "target": {
+    "type": "future_o2h_drift",
+    "t_obs_index": 7,
+    "deltas": [
+      1,
+      8
+    ],
+    "translation": "o2h_t[t+d]-o2h_t[t]",
+    "rotation": "rotvec(R_t^{-1} R_{t+d})"
+  },
+  "formal_test": "paired_episode_bootstrap_CI_both_metrics_val_and_test",
+  "oracle_rule": "privileged history frames < t+delta only; includes t, excludes target",
+  "alpha_grid": [
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    10.0,
+    100.0
+  ],
+  "by_delta": {
+    "1": {
+      "train_mean": {
+        "condition": "train_mean",
+        "delta": 1,
+        "alpha_t": null,
+        "alpha_r": null,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0008431518805994919,
+              "translation_rmse_m": 0.0009528378838208211,
+              "rotation_geodesic_mae_deg": 0.3251740798748369,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0005961825548762111,
+              "translation_rmse_m": 0.0006454582698640317,
+              "rotation_geodesic_mae_deg": 0.22294490911154016,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0006052691002633096,
+              "translation_rmse_m": 0.0006333433389105104,
+              "rotation_geodesic_mae_deg": 0.22491612463685645,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "phase_mean": {
+        "condition": "phase_mean",
+        "delta": 1,
+        "alpha_t": null,
+        "alpha_r": null,
+        "phases": [
+          "early_grasp",
+          "transport"
+        ],
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0008386893814251609,
+              "translation_rmse_m": 0.0009471189717613234,
+              "rotation_geodesic_mae_deg": 0.32357481596151266,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0006021883074398913,
+              "translation_rmse_m": 0.0006441632705110744,
+              "rotation_geodesic_mae_deg": 0.22207826252404494,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0005878504225133664,
+              "translation_rmse_m": 0.0006112211685038304,
+              "rotation_geodesic_mae_deg": 0.21868785950892763,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "current_command": {
+        "condition": "current_command",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 7,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0008386199515162712,
+              "translation_rmse_m": 0.0009463375436721441,
+              "rotation_geodesic_mae_deg": 0.3145027337461569,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0007108646917713281,
+              "translation_rmse_m": 0.0007424076385684568,
+              "rotation_geodesic_mae_deg": 0.2452335119898982,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0006118959076334407,
+              "translation_rmse_m": 0.0006339708809094754,
+              "rotation_geodesic_mae_deg": 0.22613014925144717,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "time_index": {
+        "condition": "time_index",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 5,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0008367123009722028,
+              "translation_rmse_m": 0.0009452891371072535,
+              "rotation_geodesic_mae_deg": 0.32347189087353034,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0005993492295027532,
+              "translation_rmse_m": 0.00064301448059125,
+              "rotation_geodesic_mae_deg": 0.22254564752249123,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0005900827815406285,
+              "translation_rmse_m": 0.0006144854365773707,
+              "rotation_geodesic_mae_deg": 0.2204777699551744,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "A_H1": {
+        "condition": "A_H1",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 44,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0008067977682225831,
+              "translation_rmse_m": 0.0008937750276569801,
+              "rotation_geodesic_mae_deg": 0.3053107216848161,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0007387826392352563,
+              "translation_rmse_m": 0.0007672326685665895,
+              "rotation_geodesic_mae_deg": 0.2611233613001615,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0006360046588430648,
+              "translation_rmse_m": 0.0006626440194602202,
+              "rotation_geodesic_mae_deg": 0.24585059731874756,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "A_H8": {
+        "condition": "A_H8",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 352,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0007809652827383291,
+              "translation_rmse_m": 0.0008416680734499878,
+              "rotation_geodesic_mae_deg": 0.3088504989133102,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.001161089939844153,
+              "translation_rmse_m": 0.0012023067316232537,
+              "rotation_geodesic_mae_deg": 0.38190237791466386,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0007426333450332884,
+              "translation_rmse_m": 0.0007651210827078095,
+              "rotation_geodesic_mae_deg": 0.3095640085038249,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "B_H1": {
+        "condition": "B_H1",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 56,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0007776576289375469,
+              "translation_rmse_m": 0.0008552184781519315,
+              "rotation_geodesic_mae_deg": 0.2960956529258959,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0007296539247596126,
+              "translation_rmse_m": 0.0007623036460027287,
+              "rotation_geodesic_mae_deg": 0.26455788232513544,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0006947258411623638,
+              "translation_rmse_m": 0.0007261579445655468,
+              "rotation_geodesic_mae_deg": 0.2513153548465806,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "B_H8": {
+        "condition": "B_H8",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 448,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0007005709427221394,
+              "translation_rmse_m": 0.0007516064974394284,
+              "rotation_geodesic_mae_deg": 0.2762528950531624,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.001173616476233394,
+              "translation_rmse_m": 0.001221097672411639,
+              "rotation_geodesic_mae_deg": 0.4324733512178573,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0008046282773138529,
+              "translation_rmse_m": 0.0008368801615591287,
+              "rotation_geodesic_mae_deg": 0.32830727419672756,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "B_H8_shuffled_FT": {
+        "condition": "B_H8_shuffled_FT",
+        "delta": 1,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 448,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.000688985498719604,
+              "translation_rmse_m": 0.0007380551257036597,
+              "rotation_geodesic_mae_deg": 0.26902343557759295,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0011495510491899082,
+              "translation_rmse_m": 0.0011980477388909144,
+              "rotation_geodesic_mae_deg": 0.42428648580968414,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0008114431361744327,
+              "translation_rmse_m": 0.0008377639585817118,
+              "rotation_geodesic_mae_deg": 0.31289386356077886,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "privileged_o2h_causal_ceiling": {
+        "condition": "privileged_o2h_causal_ceiling",
+        "delta": 1,
+        "alpha_t": 0.001,
+        "alpha_r": 0.001,
+        "feature_dim": 48,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.00026733029384856156,
+              "translation_rmse_m": 0.0002935357812827286,
+              "rotation_geodesic_mae_deg": 0.1042285700531514,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0003993347070274274,
+              "translation_rmse_m": 0.00042373807875461486,
+              "rotation_geodesic_mae_deg": 0.140236622722056,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.00040138818690564295,
+              "translation_rmse_m": 0.0004261532779064053,
+              "rotation_geodesic_mae_deg": 0.15637684671779653,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      }
+    },
+    "8": {
+      "train_mean": {
+        "condition": "train_mean",
+        "delta": 8,
+        "alpha_t": null,
+        "alpha_r": null,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.005954529475519897,
+              "translation_rmse_m": 0.0063555014796913105,
+              "rotation_geodesic_mae_deg": 2.442604312794514,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0041118774917953,
+              "translation_rmse_m": 0.00436903363235961,
+              "rotation_geodesic_mae_deg": 1.4840832014814935,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.004143377507413855,
+              "translation_rmse_m": 0.004467735173274391,
+              "rotation_geodesic_mae_deg": 1.5012480587393664,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "phase_mean": {
+        "condition": "phase_mean",
+        "delta": 8,
+        "alpha_t": null,
+        "alpha_r": null,
+        "phases": [
+          "early_grasp",
+          "transport"
+        ],
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0060021764825740715,
+              "translation_rmse_m": 0.006467263014272595,
+              "rotation_geodesic_mae_deg": 2.486930081404734,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.004291843197997575,
+              "translation_rmse_m": 0.004472472133887963,
+              "rotation_geodesic_mae_deg": 1.569140508733816,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.00435652590740553,
+              "translation_rmse_m": 0.004666268902931061,
+              "rotation_geodesic_mae_deg": 1.5600311774637812,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "current_command": {
+        "condition": "current_command",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 7,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0058064022210178165,
+              "translation_rmse_m": 0.006216592916449017,
+              "rotation_geodesic_mae_deg": 2.379224955728518,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.004425276604971783,
+              "translation_rmse_m": 0.004634828564101727,
+              "rotation_geodesic_mae_deg": 1.493685793983873,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.004075926343969528,
+              "translation_rmse_m": 0.004394916576198129,
+              "rotation_geodesic_mae_deg": 1.4988573835421508,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "time_index": {
+        "condition": "time_index",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 5,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.005876898400220868,
+              "translation_rmse_m": 0.00634644539889611,
+              "rotation_geodesic_mae_deg": 2.440185811029961,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.004119329887691366,
+              "translation_rmse_m": 0.004303378631418709,
+              "rotation_geodesic_mae_deg": 1.5048672798830687,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.004204931306409346,
+              "translation_rmse_m": 0.004501623602018177,
+              "rotation_geodesic_mae_deg": 1.5059304706246006,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "A_H1": {
+        "condition": "A_H1",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 44,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.005548460799679658,
+              "translation_rmse_m": 0.00590478520565368,
+              "rotation_geodesic_mae_deg": 2.371739033052607,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.004411583829242469,
+              "translation_rmse_m": 0.004613170195625747,
+              "rotation_geodesic_mae_deg": 1.7528792896208927,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.004208224458403247,
+              "translation_rmse_m": 0.0044966128223538505,
+              "rotation_geodesic_mae_deg": 1.7003939599746722,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "A_H8": {
+        "condition": "A_H8",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 352,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0053484702940538266,
+              "translation_rmse_m": 0.005602136424770259,
+              "rotation_geodesic_mae_deg": 2.4206647104911596,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.005997888587412695,
+              "translation_rmse_m": 0.006201009985101308,
+              "rotation_geodesic_mae_deg": 2.5589017333623327,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.006320728943894576,
+              "translation_rmse_m": 0.006533014049379084,
+              "rotation_geodesic_mae_deg": 2.613233626833838,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "B_H1": {
+        "condition": "B_H1",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 56,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0052688108730958,
+              "translation_rmse_m": 0.0055760562238729595,
+              "rotation_geodesic_mae_deg": 2.2954710970142864,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.004921163446626424,
+              "translation_rmse_m": 0.0051515346480794835,
+              "rotation_geodesic_mae_deg": 1.8714237591986722,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.00441533722596048,
+              "translation_rmse_m": 0.004685306783689763,
+              "rotation_geodesic_mae_deg": 1.881926982768316,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "B_H8": {
+        "condition": "B_H8",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 448,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.0047600942589325155,
+              "translation_rmse_m": 0.004992515091245444,
+              "rotation_geodesic_mae_deg": 2.0811755978584148,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.007164892854891469,
+              "translation_rmse_m": 0.0074663104385728814,
+              "rotation_geodesic_mae_deg": 3.1554780642812554,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.005867348573080794,
+              "translation_rmse_m": 0.0061530881038906055,
+              "rotation_geodesic_mae_deg": 2.657383600799013,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "B_H8_shuffled_FT": {
+        "condition": "B_H8_shuffled_FT",
+        "delta": 8,
+        "alpha_t": 100.0,
+        "alpha_r": 100.0,
+        "feature_dim": 448,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.004733718601043192,
+              "translation_rmse_m": 0.004967787108049794,
+              "rotation_geodesic_mae_deg": 2.1057314756359857,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.007214830998083455,
+              "translation_rmse_m": 0.007479363015988613,
+              "rotation_geodesic_mae_deg": 3.279677188707657,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.006205926636979666,
+              "translation_rmse_m": 0.006478439664162556,
+              "rotation_geodesic_mae_deg": 2.5036806905511337,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      },
+      "privileged_o2h_causal_ceiling": {
+        "condition": "privileged_o2h_causal_ceiling",
+        "delta": 8,
+        "alpha_t": 1.0,
+        "alpha_r": 1.0,
+        "feature_dim": 48,
+        "splits": {
+          "train": {
+            "metrics": {
+              "translation_mae_m": 0.004803779793237105,
+              "translation_rmse_m": 0.005157522357134341,
+              "rotation_geodesic_mae_deg": 1.8872127319347753,
+              "n_episodes": 70,
+              "n_samples": 140
+            }
+          },
+          "val": {
+            "metrics": {
+              "translation_mae_m": 0.0037315606400466317,
+              "translation_rmse_m": 0.00392447918992238,
+              "rotation_geodesic_mae_deg": 1.3115366331263796,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          },
+          "test": {
+            "metrics": {
+              "translation_mae_m": 0.0030826932862643972,
+              "translation_rmse_m": 0.0033870287465991742,
+              "rotation_geodesic_mae_deg": 1.0539559040043651,
+              "n_episodes": 15,
+              "n_samples": 30
+            }
+          }
+        }
+      }
+    }
+  },
+  "verdicts_by_delta": {
+    "1": {
+      "delta": 1,
+      "overall_verdict": "ab_sensing_falsified",
+      "research_decision": "stop_ab_sensing_route",
+      "deploy_real_signal": [],
+      "ft_helps_claim": false,
+      "history_A_H8_vs_A_H1_test": {
+        "translation": {
+          "metric": "translation_mae_m",
+          "n_episodes": 15,
+          "mean_diff": 0.00010662868619022371,
+          "ci95_lo": 4.0410057109207636e-05,
+          "ci95_hi": 0.00018162007542859673,
+          "significantly_better": false,
+          "significantly_worse": true
+        },
+        "rotation": {
+          "metric": "rotation_geodesic_mae_deg",
+          "n_episodes": 15,
+          "mean_diff": 0.06371341118507731,
+          "ci95_lo": 0.029254859917757656,
+          "ci95_hi": 0.10213130929924659,
+          "significantly_better": false,
+          "significantly_worse": true
+        }
+      },
+      "paired_comparisons": {
+        "A_H1_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00014260008435904508,
+              "ci95_lo": -5.124573273748441e-05,
+              "ci95_hi": 0.00041860860961184554,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.03817845218862137,
+              "ci95_lo": -0.032011612497884416,
+              "ci95_hi": 0.14409714353632117,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00013659433179536495,
+              "ci95_lo": -5.7362929268003635e-05,
+              "ci95_hi": 0.0004022242695502433,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.03904509877611661,
+              "ci95_lo": -0.03135455972916577,
+              "ci95_hi": 0.13634057447697134,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 2.7917947463928007e-05,
+              "ci95_lo": -8.083554274783006e-05,
+              "ci95_hi": 0.00016135947394931404,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.015889849310263365,
+              "ci95_lo": -0.01623018137144857,
+              "ci95_hi": 0.05156602428915522,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00013943340973250284,
+              "ci95_lo": -5.355249971669605e-05,
+              "ci95_hi": 0.0004219279691431396,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.03857771377767028,
+              "ci95_lo": -0.0314925174893574,
+              "ci95_hi": 0.15794572330885454,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          }
+        },
+        "A_H1_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 3.0735558579755214e-05,
+              "ci95_lo": -0.00010611868239826294,
+              "ci95_hi": 0.0001850551749784884,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.020934472681891112,
+              "ci95_lo": -0.023325188664809742,
+              "ci95_hi": 0.07621136369280179,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 4.815423632969844e-05,
+              "ci95_lo": -9.163582059878352e-05,
+              "ci95_hi": 0.00019744864659998978,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.027162737809819912,
+              "ci95_lo": -0.016232149672495696,
+              "ci95_hi": 0.07573596136461123,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 2.4108751209624017e-05,
+              "ci95_lo": -7.674976488298977e-05,
+              "ci95_hi": 0.00015099548895617423,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.019720448067300413,
+              "ci95_lo": -0.011897909318678788,
+              "ci95_hi": 0.06117369994473517,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 4.592187730243624e-05,
+              "ci95_lo": -0.00011041068295763578,
+              "ci95_hi": 0.0001926745893712645,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.025372827363573144,
+              "ci95_lo": -0.018393209076147977,
+              "ci95_hi": 0.07594057054052221,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          }
+        },
+        "A_H8_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0005649073849679417,
+              "ci95_lo": 0.00013519533929572334,
+              "ci95_hi": 0.001005912519432936,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.15895746880312375,
+              "ci95_lo": 0.016521213305700704,
+              "ci95_hi": 0.35457912720893275,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0005589016324042615,
+              "ci95_lo": 0.00014218093242742878,
+              "ci95_hi": 0.0010560851187752338,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.15982411539061897,
+              "ci95_lo": 0.012743638899616277,
+              "ci95_hi": 0.3710030820506205,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0004502252480728247,
+              "ci95_lo": 0.0001160786107885577,
+              "ci95_hi": 0.0008431421459440434,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.13666886592476576,
+              "ci95_lo": 0.031230494665667352,
+              "ci95_hi": 0.2767972581270087,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0005617407103413997,
+              "ci95_lo": 0.00014961458710169154,
+              "ci95_hi": 0.0010704104546556733,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.15935673039217266,
+              "ci95_lo": 0.013269542896878978,
+              "ci95_hi": 0.38059152035000804,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "A_H8_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0001373642447699789,
+              "ci95_lo": -2.7604483281176205e-05,
+              "ci95_hi": 0.0003106411865159287,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.08464788386696843,
+              "ci95_lo": 0.01934652250107153,
+              "ci95_hi": 0.17299915514807587,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00015478292251992212,
+              "ci95_lo": -1.0467869150537859e-05,
+              "ci95_hi": 0.00032905962496991624,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.09087614899489722,
+              "ci95_lo": 0.02738506185971322,
+              "ci95_hi": 0.17665052049642965,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00013073743739984775,
+              "ci95_lo": -1.2242695749247107e-05,
+              "ci95_hi": 0.0002760743744411375,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.08343385925237773,
+              "ci95_lo": 0.026800300121774805,
+              "ci95_hi": 0.1631516542009918,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00015255056349266,
+              "ci95_lo": -6.560649428288252e-06,
+              "ci95_hi": 0.0003297059289638558,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.08908623854865044,
+              "ci95_lo": 0.02443110451495727,
+              "ci95_hi": 0.17334385021115634,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H1_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00013347136988340138,
+              "ci95_lo": -4.863040337263256e-05,
+              "ci95_hi": 0.0004273530780063852,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.0416129732135953,
+              "ci95_lo": -0.03020510766028767,
+              "ci95_hi": 0.1420539739259202,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00012746561731972122,
+              "ci95_lo": -5.3529826293019076e-05,
+              "ci95_hi": 0.00039834532968952507,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.04247961980109053,
+              "ci95_lo": -0.028846637353092692,
+              "ci95_hi": 0.14409778307963372,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 1.8789232988284277e-05,
+              "ci95_lo": -7.446218564503097e-05,
+              "ci95_hi": 0.00013317264394101732,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.019324370335237276,
+              "ci95_lo": -0.0190947820977579,
+              "ci95_hi": 0.059926825892477664,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00013030469525685914,
+              "ci95_lo": -4.515664447211609e-05,
+              "ci95_hi": 0.0004228921640192195,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.04201223480264422,
+              "ci95_lo": -0.032854110135443836,
+              "ci95_hi": 0.14446576887861187,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H1_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 8.94567408990542e-05,
+              "ci95_lo": -3.311522870220866e-05,
+              "ci95_hi": 0.00022916336555696038,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.026399230209724123,
+              "ci95_lo": -0.018523708019755027,
+              "ci95_hi": 0.0766757571572977,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00010687541864899744,
+              "ci95_lo": -1.7752799186397116e-05,
+              "ci95_hi": 0.00024412671025655144,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.03262749533765292,
+              "ci95_lo": -0.010734571525395498,
+              "ci95_hi": 0.08276566360034172,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 8.282993352892299e-05,
+              "ci95_lo": -1.3399060568459099e-05,
+              "ci95_hi": 0.00019674785471647028,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.02518520559513343,
+              "ci95_lo": -0.0048898069453115695,
+              "ci95_hi": 0.06323252729059195,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00010464305962173524,
+              "ci95_lo": -2.4592174665850903e-05,
+              "ci95_hi": 0.0002430118850128217,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.030837584891406162,
+              "ci95_lo": -0.012972321509088808,
+              "ci95_hi": 0.07555950685760268,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H8_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.000577433921357183,
+              "ci95_lo": 0.000232559454929843,
+              "ci95_hi": 0.001024322724974522,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.20952844210631716,
+              "ci95_lo": 0.06832215198223666,
+              "ci95_hi": 0.3901565514991549,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0005714281687935025,
+              "ci95_lo": 0.000214312880223012,
+              "ci95_hi": 0.0010268732636090525,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.21039508869381243,
+              "ci95_lo": 0.07248336819158048,
+              "ci95_hi": 0.4050531559007286,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0004627517844620657,
+              "ci95_lo": 0.00015057690615374582,
+              "ci95_hi": 0.0007479143119595218,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.1872398392279591,
+              "ci95_lo": 0.08536061278265529,
+              "ci95_hi": 0.3183000155986796,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0005742672467306406,
+              "ci95_lo": 0.00019638718190839407,
+              "ci95_hi": 0.0010196751396049427,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.2099277036953661,
+              "ci95_lo": 0.07256623271100364,
+              "ci95_hi": 0.40099215629522145,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H8_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00019935917705054355,
+              "ci95_lo": 4.515135509940958e-05,
+              "ci95_hi": 0.00035001808478508125,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.10339114955987115,
+              "ci95_lo": 0.02805168252256856,
+              "ci95_hi": 0.1870331707868508,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00021677785480048682,
+              "ci95_lo": 5.10241832756202e-05,
+              "ci95_hi": 0.0003693780777491054,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.10961941468779994,
+              "ci95_lo": 0.03433291554391436,
+              "ci95_hi": 0.18453447265125925,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00019273236968041238,
+              "ci95_lo": 5.228158286530414e-05,
+              "ci95_hi": 0.00034158777645157417,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.10217712494528046,
+              "ci95_lo": 0.029863429503244658,
+              "ci95_hi": 0.17973478167842966,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00021454549577322465,
+              "ci95_lo": 5.6886820326724494e-05,
+              "ci95_hi": 0.0003826044915236262,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.10782950424155319,
+              "ci95_lo": 0.040788119299155594,
+              "ci95_hi": 0.19001149138651371,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        }
+      },
+      "ft_paired_comparisons": {
+        "B_H8_vs_A_H8_val": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": 1.2526536389240985e-05,
+            "ci95_lo": -6.816836855100657e-05,
+            "ci95_hi": 9.214638783776084e-05,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.05057097330319343,
+            "ci95_lo": 0.01477453053616518,
+            "ci95_hi": 0.08754232020790542,
+            "significantly_better": false,
+            "significantly_worse": true
+          },
+          "both_sig_better": false
+        },
+        "B_H8_vs_B_H8_shuffled_FT_val": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": 2.4065427043485806e-05,
+            "ci95_lo": -3.6610521527311886e-05,
+            "ci95_hi": 7.723754280937334e-05,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.008186865408173209,
+            "ci95_lo": -0.024376121923763844,
+            "ci95_hi": 0.03289937197838265,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "both_sig_better": false
+        },
+        "B_H8_vs_A_H8_test": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": 6.199493228056467e-05,
+            "ci95_lo": -3.527384856239509e-05,
+            "ci95_hi": 0.00016159042588328627,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.018743265692902727,
+            "ci95_lo": -0.021140234776364283,
+            "ci95_hi": 0.05809047203887235,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "both_sig_better": false
+        },
+        "B_H8_vs_B_H8_shuffled_FT_test": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": -6.814858860579616e-06,
+            "ci95_lo": -8.396812148446723e-05,
+            "ci95_hi": 8.166356323149498e-05,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.015413410635948754,
+            "ci95_lo": -0.010974355814190989,
+            "ci95_hi": 0.04527387455838543,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "both_sig_better": false
+        }
+      },
+      "claims_observability_p0_pass": false,
+      "allow_policy_training": false
+    },
+    "8": {
+      "delta": 8,
+      "overall_verdict": "ab_sensing_falsified",
+      "research_decision": "stop_ab_sensing_route",
+      "deploy_real_signal": [],
+      "ft_helps_claim": false,
+      "history_A_H8_vs_A_H1_test": {
+        "translation": {
+          "metric": "translation_mae_m",
+          "n_episodes": 15,
+          "mean_diff": 0.002112504485491329,
+          "ci95_lo": 0.0007487605635349958,
+          "ci95_hi": 0.0042672868257874206,
+          "significantly_better": false,
+          "significantly_worse": true
+        },
+        "rotation": {
+          "metric": "rotation_geodesic_mae_deg",
+          "n_episodes": 15,
+          "mean_diff": 0.9128396668591648,
+          "ci95_lo": 0.36203957833794237,
+          "ci95_hi": 1.7080082491178332,
+          "significantly_better": false,
+          "significantly_worse": true
+        }
+      },
+      "paired_comparisons": {
+        "A_H1_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0002997063374471712,
+              "ci95_lo": -0.0005688191115952746,
+              "ci95_hi": 0.0012752712489090493,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.268796088139399,
+              "ci95_lo": -0.06974952301720087,
+              "ci95_hi": 0.6232784718088656,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00011974063124489581,
+              "ci95_lo": -0.0008998624713179216,
+              "ci95_hi": 0.0012303635214532835,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.18373878088707649,
+              "ci95_lo": -0.13491815948127087,
+              "ci95_hi": 0.5099866727097198,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": -1.3692775729312022e-05,
+              "ci95_lo": -0.0007691312476381259,
+              "ci95_hi": 0.0007247451396592622,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.2591934956370196,
+              "ci95_lo": -0.016265307784563355,
+              "ci95_hi": 0.5234877441216046,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00029225394155110436,
+              "ci95_lo": -0.0006556740340715017,
+              "ci95_hi": 0.001343886861930093,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.2480120097378239,
+              "ci95_lo": -0.09004183032527668,
+              "ci95_hi": 0.6006468160201098,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          }
+        },
+        "A_H1_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 6.484695098939072e-05,
+              "ci95_lo": -0.0005123642248068139,
+              "ci95_hi": 0.0006322841436621871,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.19914590123530604,
+              "ci95_lo": -0.14638628327241712,
+              "ci95_hi": 0.5349287304326791,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": -0.00014830144900228372,
+              "ci95_lo": -0.0006987796746800474,
+              "ci95_hi": 0.0004987188001864066,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.14036278251089132,
+              "ci95_lo": -0.16839162462946922,
+              "ci95_hi": 0.4654102098961425,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00013229811443371935,
+              "ci95_lo": -0.0003447699750468419,
+              "ci95_hi": 0.0006347795767789403,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.20153657643252196,
+              "ci95_lo": -0.1512290133237784,
+              "ci95_hi": 0.4878183152093189,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 3.293151993901423e-06,
+              "ci95_lo": -0.000549002781924804,
+              "ci95_hi": 0.0005894604722401211,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.19446348935007193,
+              "ci95_lo": -0.08258679427937159,
+              "ci95_hi": 0.52295276854614,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          }
+        },
+        "A_H8_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0018860110956173952,
+              "ci95_lo": 0.0004413849974642723,
+              "ci95_hi": 0.003497383845358133,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.074818531880839,
+              "ci95_lo": 0.4465373957212011,
+              "ci95_hi": 1.7776345593407428,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0017060453894151204,
+              "ci95_lo": 0.00023030514984508736,
+              "ci95_hi": 0.0034353218298551215,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.9897612246285165,
+              "ci95_lo": 0.36595085870715444,
+              "ci95_hi": 1.6933143979621978,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0015726119824409123,
+              "ci95_lo": 0.0005150041724626636,
+              "ci95_hi": 0.002652028206751097,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.0652159393784595,
+              "ci95_lo": 0.5215061654102152,
+              "ci95_hi": 1.744439694720965,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0018785586997213288,
+              "ci95_lo": 0.0004375331100050176,
+              "ci95_hi": 0.003675293063906035,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.054034453479264,
+              "ci95_lo": 0.4034133159636327,
+              "ci95_hi": 1.7775622917002536,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "A_H8_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0021773514364807193,
+              "ci95_lo": 0.0005559545423459935,
+              "ci95_hi": 0.004555468113421107,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.1119855680944708,
+              "ci95_lo": 0.3458207602762421,
+              "ci95_hi": 2.3055304309587106,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0019642030364890443,
+              "ci95_lo": 0.00026888329405166337,
+              "ci95_hi": 0.004150929806102257,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.0532024493700562,
+              "ci95_lo": 0.2758544229059367,
+              "ci95_hi": 2.2173138611563545,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.002244802599925049,
+              "ci95_lo": 0.00043458832903097724,
+              "ci95_hi": 0.0046154407343358145,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.1143762432916868,
+              "ci95_lo": 0.34756936710629377,
+              "ci95_hi": 2.191367060933947,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0021157976374852295,
+              "ci95_lo": 0.000419684733685944,
+              "ci95_hi": 0.004312438490971075,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.1073031562092366,
+              "ci95_lo": 0.3521552949854542,
+              "ci95_hi": 2.235938041453532,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H1_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0008092859548311254,
+              "ci95_lo": -0.0002052389559025824,
+              "ci95_hi": 0.0018815213400319583,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.3873405577171781,
+              "ci95_lo": 0.037910208699467984,
+              "ci95_hi": 0.7372767127780802,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0006293202486288501,
+              "ci95_lo": -0.0004503024472483446,
+              "ci95_hi": 0.001797745790106921,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.30228325046485555,
+              "ci95_lo": -0.029824960498093703,
+              "ci95_hi": 0.6583179657645539,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0004958868416546422,
+              "ci95_lo": -0.0005203033287045286,
+              "ci95_hi": 0.0015924856437182094,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.37773796521479863,
+              "ci95_lo": 0.026364873550963775,
+              "ci95_hi": 0.7208116382472783,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0008018335589350587,
+              "ci95_lo": -0.00023878748527546818,
+              "ci95_hi": 0.001843430394427658,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.3665564793156029,
+              "ci95_lo": 0.009777559026278871,
+              "ci95_hi": 0.686802948319916,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H1_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00027195971854662444,
+              "ci95_lo": -0.0003848655004828194,
+              "ci95_hi": 0.001073177329190361,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.3806789240289495,
+              "ci95_lo": -0.020797640333459683,
+              "ci95_hi": 0.77701638286383,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 5.881131855494991e-05,
+              "ci95_lo": -0.0006500397451668136,
+              "ci95_hi": 0.0008980612026190274,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.3218958053045348,
+              "ci95_lo": -0.07081588648195802,
+              "ci95_hi": 0.7127508497543718,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00033941088199095293,
+              "ci95_lo": -0.0003485778782244879,
+              "ci95_hi": 0.0010475719823135735,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.3830695992261654,
+              "ci95_lo": 0.04287303249681812,
+              "ci95_hi": 0.7448374848471324,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.00021040591955113518,
+              "ci95_lo": -0.000424292301714657,
+              "ci95_hi": 0.0009837282334724578,
+              "significantly_better": false,
+              "significantly_worse": false
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 0.3759965121437155,
+              "ci95_lo": 0.02126524979859097,
+              "ci95_hi": 0.7423750969201834,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H8_vs_proxies_val": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0030530153630961717,
+              "ci95_lo": 0.0012975986818771223,
+              "ci95_hi": 0.004959277629930303,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.6713948627997617,
+              "ci95_lo": 1.0224934621377102,
+              "ci95_hi": 2.3795020568291827,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0028730496568938964,
+              "ci95_lo": 0.0011817279463996807,
+              "ci95_hi": 0.004782993097147532,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.5863375555474393,
+              "ci95_lo": 0.9860860075313901,
+              "ci95_hi": 2.2764272583632725,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0027396162499196885,
+              "ci95_lo": 0.0012890929137647656,
+              "ci95_hi": 0.004324744039739728,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.6617922702973826,
+              "ci95_lo": 1.1438439431930285,
+              "ci95_hi": 2.334162678036679,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.003045562967200105,
+              "ci95_lo": 0.0013045129569416248,
+              "ci95_hi": 0.0051151008832841785,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.6506107843981868,
+              "ci95_lo": 1.0259188634002687,
+              "ci95_hi": 2.412064207947956,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        },
+        "B_H8_vs_proxies_test": {
+          "train_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0017239710656669384,
+              "ci95_lo": 0.00031374759948907396,
+              "ci95_hi": 0.0033554716206785715,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.156135542059647,
+              "ci95_lo": 0.33368224608506836,
+              "ci95_hi": 2.0811533471212456,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "phase_mean": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0015108226656752638,
+              "ci95_lo": 9.119564654163014e-05,
+              "ci95_hi": 0.003143906721236016,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.097352423335232,
+              "ci95_lo": 0.36281983416111996,
+              "ci95_hi": 2.02851709051287,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "current_command": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.0017914222291112668,
+              "ci95_lo": 0.00032795603691611135,
+              "ci95_hi": 0.003395786464300128,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.1585262172568627,
+              "ci95_lo": 0.4258917651204737,
+              "ci95_hi": 2.0861245382548383,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          },
+          "time_index": {
+            "translation": {
+              "metric": "translation_mae_m",
+              "n_episodes": 15,
+              "mean_diff": 0.001662417266671449,
+              "ci95_lo": 0.0003059042033107915,
+              "ci95_hi": 0.0032296239305581067,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "rotation": {
+              "metric": "rotation_geodesic_mae_deg",
+              "n_episodes": 15,
+              "mean_diff": 1.151453130174413,
+              "ci95_lo": 0.3668527343347136,
+              "ci95_hi": 2.1256587968562135,
+              "significantly_better": false,
+              "significantly_worse": true
+            },
+            "both_sig_better": false
+          }
+        }
+      },
+      "ft_paired_comparisons": {
+        "B_H8_vs_A_H8_val": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": 0.0011670042674787758,
+            "ci95_lo": 0.00029660469544899923,
+            "ci95_hi": 0.002063702887297987,
+            "significantly_better": false,
+            "significantly_worse": true
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.5965763309189229,
+            "ci95_lo": 0.4117218242828029,
+            "ci95_hi": 0.7749521375806546,
+            "significantly_better": false,
+            "significantly_worse": true
+          },
+          "both_sig_better": false
+        },
+        "B_H8_vs_B_H8_shuffled_FT_val": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": -4.993814319198409e-05,
+            "ci95_lo": -0.0004455799919748955,
+            "ci95_hi": 0.0002810915828439176,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": -0.12419912442640092,
+            "ci95_lo": -0.504918643938801,
+            "ci95_hi": 0.16148337783227867,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "both_sig_better": false
+        },
+        "B_H8_vs_A_H8_test": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": -0.000453380370813781,
+            "ci95_lo": -0.0023690350395366767,
+            "ci95_hi": 0.0010861121860147958,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.04414997396517602,
+            "ci95_lo": -0.3134644260342201,
+            "ci95_hi": 0.3917625970703877,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "both_sig_better": false
+        },
+        "B_H8_vs_B_H8_shuffled_FT_test": {
+          "translation": {
+            "metric": "translation_mae_m",
+            "n_episodes": 15,
+            "mean_diff": -0.0003385780638988716,
+            "ci95_lo": -0.0007843417685367619,
+            "ci95_hi": -2.116229317283256e-06,
+            "significantly_better": true,
+            "significantly_worse": false
+          },
+          "rotation": {
+            "metric": "rotation_geodesic_mae_deg",
+            "n_episodes": 15,
+            "mean_diff": 0.15370291024787963,
+            "ci95_lo": -0.021032711853134343,
+            "ci95_hi": 0.3701193047487346,
+            "significantly_better": false,
+            "significantly_worse": false
+          },
+          "both_sig_better": false
+        }
+      },
+      "claims_observability_p0_pass": false,
+      "allow_policy_training": false
+    }
+  },
+  "verdict": {
+    "overall_verdict": "ab_sensing_falsified",
+    "research_decision": "stop_ab_sensing_route",
+    "any_deploy_real_signal": false,
+    "any_ft_helps_claim": false,
+    "claims_observability_p0_pass": false,
+    "allow_policy_training": false,
+    "notes": "Real signal requires beating train_mean/phase_mean/current_command/time_index on BOTH translation and rotation via paired CI on val AND test. If falsified: stop A/B sensing route (no more Ridge/NN on act44+FT)."
+  },
+  "b0_addendum": {
+    "point_estimate_stable_was_too_strong": true,
+    "contemporaneous_ceiling_was_vacuous": true,
+    "act44_wrist_kinematics_caveat": true
+  },
+  "guards": {
+    "WRITE_IMPLEMENTATION_ENABLED": false,
+    "evaluation_only": true,
+    "allow_policy_training": false,
+    "claims_observability_p0_pass": false,
+    "no_policy_training": true,
+    "no_new_collection": true,
+    "no_pilot_write": true,
+    "no_complex_networks": true
+  },
+  "metrics_path": "data/manifests/observability_ridge_b1_metrics.json",
+  "report_path": "docs/OBSERVABILITY_RIDGE_B1.md"
+}

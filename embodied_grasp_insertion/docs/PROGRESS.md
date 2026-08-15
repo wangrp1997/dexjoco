@@ -3,10 +3,17 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**P0-Obs-B0 diagnostic_signal**（最小 Ridge 诊断完成）
-- 结论：A/B 弱优于 train-mean；**FT 无效**；**不宣称 Obs P0**；**禁止策略训练**
-- 报告：`docs/OBSERVABILITY_RIDGE_B0.md`；指标：`data/manifests/observability_ridge_b0_metrics.json`
-- 下一步：等人做继续/停止决策；不自动换复杂网络
+- 阶段：**P0-Obs-B1 ab_sensing_falsified** → **停止 A/B sensing 路线**
+- B0 事后修正：点估计「稳定」偏强；ceiling 含目标帧；wrist 运动学捷径可能
+- B1：未来 o2h 漂移 + 代理基线 + 配对 bootstrap → 无真实部署信号；FT 无效
+- `claims_observability_p0_pass=false`；`allow_policy_training=false`
+- 下一步：若继续项目，另授权触觉/视觉；**不再**调 Ridge/NN 救 A/B
+
+## 2026-08-15：P0-Obs-B1 Future-Drift Falsification
+
+- overall：`ab_sensing_falsified`；research_decision：`stop_ab_sensing_route`
+- 报告：`docs/OBSERVABILITY_RIDGE_B1.md`
+- 指标：`data/manifests/observability_ridge_b1_metrics.json`
 
 ## 2026-08-15：P0-Obs-B0 Minimal Ridge Diagnostic
 

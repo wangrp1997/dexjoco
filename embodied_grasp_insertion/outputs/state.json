@@ -1,8 +1,8 @@
 {
-  "phase": "p0_obs_b0_diagnostic_signal",
+  "phase": "p0_obs_b1_ab_sensing_falsified",
   "busy": false,
-  "updated_at": "2026-08-14T18:15:00Z",
-  "verdict": "diagnostic_signal",
+  "updated_at": "2026-08-15T01:40:00Z",
+  "verdict": "ab_sensing_falsified",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,7 @@
   "observability_feasibility_report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md",
   "observability_feasibility_manifest": "data/manifests/observability_dataset_feasibility_v1.json",
   "claims_observability_p0_pass": false,
-  "next_action": "human_decide_continue_or_stop_no_auto_next_model",
+  "next_action": "await_auth_finger_tactile_or_vision_or_stop_project_no_more_ab_ridge_nn",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -827,8 +827,10 @@
   "observability_eval_pack_report": "docs/OBSERVABILITY_EVAL_PACK_EXPORT.md",
   "observability_eval_pack_manifest": "data/manifests/observability_eval_pack_v1.json",
   "observability_eval_pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1",
-  "research_decision": "continue_candidate_sensing_signal",
+  "research_decision": "stop_ab_sensing_route",
   "observability_ridge_b0_report": "docs/OBSERVABILITY_RIDGE_B0.md",
   "observability_ridge_b0_metrics": "data/manifests/observability_ridge_b0_metrics.json",
-  "ft_helps_claim": false
+  "ft_helps_claim": false,
+  "observability_ridge_b1_report": "docs/OBSERVABILITY_RIDGE_B1.md",
+  "observability_ridge_b1_metrics": "data/manifests/observability_ridge_b1_metrics.json"
 }
