@@ -1,8 +1,8 @@
 {
-  "phase": "p0_c2_s1b_h2_controllability_exists",
+  "phase": "p0_c2_stage2_oracle_cannot_predict",
   "busy": false,
-  "updated_at": "2026-08-15T04:15:00Z",
-  "verdict": "h2_controllability_exists_heterogeneous",
+  "updated_at": "2026-08-15T04:52:00Z",
+  "verdict": "stage2_oracle_cannot_predict",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,7 @@
   "observability_feasibility_report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md",
   "observability_feasibility_manifest": "data/manifests/observability_dataset_feasibility_v1.json",
   "claims_observability_p0_pass": false,
-  "next_action": "await_human_auth_stage2_action_conditioned_h4",
+  "next_action": "await_human_after_stage2_B_no_stage3",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -827,7 +827,7 @@
   "observability_eval_pack_report": "docs/OBSERVABILITY_EVAL_PACK_EXPORT.md",
   "observability_eval_pack_manifest": "data/manifests/observability_eval_pack_v1.json",
   "observability_eval_pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1",
-  "research_decision": "enter_stage2_action_conditioned_eligible",
+  "research_decision": "stop_task_or_label_invalid",
   "observability_ridge_b0_report": "docs/OBSERVABILITY_RIDGE_B0.md",
   "observability_ridge_b0_metrics": "data/manifests/observability_ridge_b0_metrics.json",
   "ft_helps_claim": false,
@@ -844,8 +844,8 @@
     "large_collection",
     "audit_doc_sprawl"
   ],
-  "decision_tree": null,
-  "enter_stage2": false,
+  "decision_tree": "B",
+  "enter_stage2": true,
   "p0_c2_stage1_report": "docs/P0_C2_STAGE1.md",
   "p0_c2_stage1_manifest": "data/manifests/p0_c2_stage1_v1.json",
   "claims_controllability_p0_pass": false,
@@ -853,5 +853,9 @@
   "stage1_outputs_retained": "outputs/p0_c2_stage1_v1/",
   "enter_stage2_eligible": true,
   "p0_c2_s1b_report": "docs/P0_C2_S1B.md",
-  "p0_c2_s1b_manifest": "data/manifests/p0_c2_s1b_v1.json"
+  "p0_c2_s1b_manifest": "data/manifests/p0_c2_s1b_v1.json",
+  "enter_stage3": false,
+  "p0_c2_stage2_report": "docs/P0_C2_STAGE2.md",
+  "p0_c2_stage2_metrics": "data/manifests/p0_c2_stage2_metrics.json",
+  "stage2_data_limits": "no_ft_no_qdot_privilege_contact_only"
 }

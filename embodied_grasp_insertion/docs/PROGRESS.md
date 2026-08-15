@@ -3,10 +3,17 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**P0-C2-S1b** → `h2_controllability_exists_heterogeneous`
-- 关节确有运动（actuation_moved）；frozen+held-out 均有**存在性**物理分叉；Stage-2 **有资格但不自动开跑**
-- 决策树 A 仍撤回；不训策略；不转触觉/视觉；等人决定是否授权 Stage-2
-- 报告：`docs/P0_C2_S1B.md`；manifest：`data/manifests/p0_c2_s1b_v1.json`
+- 阶段：**P0-C2 Stage-2** → `stage2_oracle_cannot_predict`（决策树 **B**）
+- S1b：H2 可控性存在；Stage-2：现有 S1b 字段下 privilege(contact)+action **未能**稳定预测有符号后果
+- 数据边界：无 wrist FT / root qdot / o2h privilege 于 S1b 导出；已如实标注
+- **停**：不进 Stage-3；不训策略；等人决定（补字段另授权，或停此预测设定）
+- 报告：`docs/P0_C2_STAGE2.md`
+
+## 2026-08-15：P0-C2 Stage-2 Action-Conditioned
+
+- overall：`stage2_oracle_cannot_predict`；tree **B**；`stop_task_or_label_invalid`（相对现有导出 privilege）
+- 仅用 S1b JSON；Ridge；配对 bootstrap；enter_stage3=false
+- 报告：`docs/P0_C2_STAGE2.md`；manifest：`data/manifests/p0_c2_stage2_metrics.json`
 
 ## 2026-08-15：P0-C2-S1b Actuation/Fork Audit
 
