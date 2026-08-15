@@ -1,8 +1,8 @@
 {
-  "phase": "p0_c2_stage2_oracle_cannot_predict",
+  "phase": "project_frozen_low_roi",
   "busy": false,
-  "updated_at": "2026-08-15T04:52:00Z",
-  "verdict": "stage2_oracle_cannot_predict",
+  "updated_at": "2026-08-15T05:04:58Z",
+  "verdict": "project_frozen_low_roi",
   "real_write_authorized": false,
   "write_implementation_enabled": false,
   "acceptance_checklist": "docs/P0_ACCEPTANCE_CHECKLIST.md",
@@ -11,7 +11,7 @@
   "observability_feasibility_report": "docs/OBSERVABILITY_DATASET_FEASIBILITY.md",
   "observability_feasibility_manifest": "data/manifests/observability_dataset_feasibility_v1.json",
   "claims_observability_p0_pass": false,
-  "next_action": "await_human_after_stage2_B_no_stage3",
+  "next_action": "none_project_frozen",
   "prior_failures_reviewed": [
     {
       "family": "FutureStateTrajectoryConditionedActionDecoder",
@@ -827,7 +827,7 @@
   "observability_eval_pack_report": "docs/OBSERVABILITY_EVAL_PACK_EXPORT.md",
   "observability_eval_pack_manifest": "data/manifests/observability_eval_pack_v1.json",
   "observability_eval_pack_root": "/mnt/hdd/dexjoco/datasets/embodied_grasp_insertion/observability_eval_v1",
-  "research_decision": "stop_task_or_label_invalid",
+  "research_decision": "freeze_project_keep_artifacts",
   "observability_ridge_b0_report": "docs/OBSERVABILITY_RIDGE_B0.md",
   "observability_ridge_b0_metrics": "data/manifests/observability_ridge_b0_metrics.json",
   "ft_helps_claim": false,
@@ -835,15 +835,7 @@
   "observability_ridge_b1_metrics": "data/manifests/observability_ridge_b1_metrics.json",
   "b1_boundary": "stop_passive_act44_command_plus_wrist_ft_linear_forecast_only",
   "action_conditioned_observability_judged": false,
-  "frozen": [
-    "pilot_write",
-    "atomic_guard_expansion",
-    "policy_nn",
-    "b0_b1_retune",
-    "semantic_d",
-    "large_collection",
-    "audit_doc_sprawl"
-  ],
+  "frozen": true,
   "decision_tree": "B",
   "enter_stage2": true,
   "p0_c2_stage1_report": "docs/P0_C2_STAGE1.md",
@@ -857,5 +849,25 @@
   "enter_stage3": false,
   "p0_c2_stage2_report": "docs/P0_C2_STAGE2.md",
   "p0_c2_stage2_metrics": "data/manifests/p0_c2_stage2_metrics.json",
-  "stage2_data_limits": "no_ft_no_qdot_privilege_contact_only"
+  "stage2_data_limits": "no_ft_no_qdot_privilege_contact_only",
+  "h2_controllability_exists": true,
+  "stage2_status": "inconclusive_incomplete_export",
+  "stage2_tree_b_note": "oracle_fail_under_contact_only_privilege_not_full_o2h",
+  "claims_sim_insertion_impossible": false,
+  "frozen_no": [
+    "restage2",
+    "policy",
+    "tactile",
+    "vision",
+    "pilot",
+    "infra_expansion",
+    "auto_followup"
+  ],
+  "retain": [
+    "outputs/p0_c2_stage1_v1/",
+    "outputs/p0_c2_s1b_v1/",
+    "docs/P0_C2_S1B.md",
+    "docs/P0_C2_STAGE2.md"
+  ],
+  "freeze_doc": "docs/PROJECT_FREEZE.md"
 }

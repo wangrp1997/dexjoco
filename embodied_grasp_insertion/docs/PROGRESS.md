@@ -3,11 +3,18 @@
 ## 当前状态
 
 - 日期：2026-08-15
-- 阶段：**P0-C2 Stage-2** → `stage2_oracle_cannot_predict`（决策树 **B**）
-- S1b：H2 可控性存在；Stage-2：现有 S1b 字段下 privilege(contact)+action **未能**稳定预测有符号后果
-- 数据边界：无 wrist FT / root qdot / o2h privilege 于 S1b 导出；已如实标注
-- **停**：不进 Stage-3；不训策略；等人决定（补字段另授权，或停此预测设定）
-- 报告：`docs/P0_C2_STAGE2.md`
+- 阶段：**项目冻结** `project_frozen_low_roi`
+- **H2 可控性存在**（S1b：关节有动；frozen 7/8 + held-out 4/4 有存在性分叉）
+- Stage-2：**无结论/信息不充分**（在 S1b 导出字段下 privilege+action 未过门；导出缺 o2h/qdot/FT，不能写成“任务本质无效”）
+- **冻结**：不再补测 Stage-2、不训策略、不扩触觉/视觉/pilot/基础设施；不自动开后续实验
+- **不得声称**：仿真插孔本身不可实现
+- 保留：全部代码、报告、`outputs/p0_c2_stage1_v1/` 与 `outputs/p0_c2_s1b_v1/`
+
+## 2026-08-15：项目冻结（人工决策）
+
+- 最终状态：`project_frozen_low_roi`
+- 因继续投入性价比低而停止扩展；H2 存在；Stage-2 相对完整观测未决
+- 禁止：补测 S2 / policy / 触觉视觉 / pilot / 基建扩张 / 自动开实验
 
 ## 2026-08-15：P0-C2 Stage-2 Action-Conditioned
 
