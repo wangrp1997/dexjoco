@@ -1,0 +1,21 @@
+protocol: HandoffSupportRegionAudit
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+privhi_expand15: /mnt/hdd/dexjoco/outputs/reach_insert_rl/priv_hi_20260811_171433/eval_expand15/eval_summary.json
+privhi_holdout: /mnt/hdd/dexjoco/outputs/reach_insert_rl/priv_hi_20260811_171433/eval_holdout_best/eval_summary.json
+# Demo scan: all episodes in manifest (readonly replay to peg_lift_end + phase markers).
+demo_max_episodes: 100
+# Continuity / coverage gates (pre-registered).
+min_success_handoffs: 8
+nn_k: 3
+# Success region = percentile box of demo handoff tip/lat (and PrivHI successes).
+success_percentile_lo: 5
+success_percentile_hi: 95
+# Coverage: fraction of policy failures inside success tip-lat box.
+coverage_fail_inside_min: 0.50
+# Continuity: median kNN distance among success handoffs in tip-lat (meters);
+# must be finite and not explode vs characteristic scale 0.05m.
+max_success_knn_median_m: 0.08
+output_dir: outputs/handoff_support_audit
+manifest_path: data/manifests/handoff_support_audit.json
+report_path: docs/HANDOFF_SUPPORT_AUDIT_RESULT.md

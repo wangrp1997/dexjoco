@@ -1,0 +1,24 @@
+protocol: IntermediateEventLabelP0
+primary_results: outputs/handoff_perturb_recoverability_p0/results.json
+external_results: outputs/handoff_datagen_redesign_p0/results.json
+
+# Geometry-defined thresholds, frozen before this audit.
+events:
+  - {name: approach_100mm, tip_min_max_m: 0.10}
+  - {name: approach_60mm, tip_min_max_m: 0.06}
+  - {name: deep_20mm, tip_min_max_m: 0.02}
+  - {name: retained, require_retained: true}
+  - {name: retained_and_approach_60mm, require_retained: true, tip_min_max_m: 0.06}
+
+# A usable dense label must be non-degenerate and predictive in both frozen splits.
+prevalence_min: 0.15
+prevalence_max: 0.85
+min_group_n: 4
+min_insert_lift_primary: 0.25
+min_insert_lift_external: 0.20
+require_false_positive: true
+require_false_negative: true
+
+output_dir: outputs/intermediate_event_label_p0
+manifest_path: data/manifests/intermediate_event_label_p0.json
+report_path: docs/INTERMEDIATE_EVENT_LABEL_P0_RESULT.md

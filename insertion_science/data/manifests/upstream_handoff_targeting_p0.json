@@ -1,0 +1,12 @@
+{
+  "protocol": "UpstreamHandoffTargetingP0",
+  "utc": "2026-08-15T18:06:43Z",
+  "verdict": "fail_stop_handoff_direction",
+  "decision": "stop_handoff_direction",
+  "handoff_rate": 0.0,
+  "basin_hit_rate": 0.0,
+  "basin_insert_rate": 0.0,
+  "results": "/home/wangrenpeng/dexjoco/insertion_science/outputs/upstream_handoff_targeting_p0/results.json",
+  "report": "/home/wangrenpeng/dexjoco/insertion_science/docs/UPSTREAM_HANDOFF_TARGETING_P0_RESULT.md",
+  "smoke": false
+}

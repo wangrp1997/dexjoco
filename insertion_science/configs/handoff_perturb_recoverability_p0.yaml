@@ -1,0 +1,36 @@
+protocol: DemoHandoffPerturbRecoverabilityP0
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+# Inclusion (pre-registered): identity demo continuation must achieve insert_ok
+# under raw_flat + insert_ok-only termination (InsertHandoffEnv-matched).
+# Screened ep0..22: fail identity ≈ {0,2,11}; frozen OK pool below.
+episodes:
+  discovery: [1, 3, 4, 5]
+  held_out: [6, 7, 8, 9]
+char_len_m: 0.01785
+amplitude_scales: [0.0, 0.5, 1.0, 2.0]
+base:
+  tip_lat_m: 0.003
+  tip_along_m: 0.002
+  axis_rad: 0.04
+  o2h_trans_m: 0.002
+  finger_flex_rad: 0.03
+perturbations:
+  - {name: identity, kind: none}
+  - {name: tip_lat_px, kind: tip_lat, sign: [1.0, 0.0]}
+  - {name: tip_lat_nx, kind: tip_lat, sign: [-1.0, 0.0]}
+  - {name: tip_lat_py, kind: tip_lat, sign: [0.0, 1.0]}
+  - {name: tip_along_p, kind: tip_along, sign: 1.0}
+  - {name: tip_along_n, kind: tip_along, sign: -1.0}
+  - {name: axis_tx, kind: axis, axis: [1.0, 0.0, 0.0]}
+  - {name: axis_ty, kind: axis, axis: [0.0, 1.0, 0.0]}
+  - {name: o2h_shift_x, kind: o2h, axis: [1.0, 0.0, 0.0]}
+  - {name: finger_close, kind: finger, mode: close}
+min_baseline_insert_ok_rate: 0.75
+neighborhood_min_rate_at_0_5: 0.25
+monotone_slack: 0.15
+island_max_rate_at_0_5: 0.05
+max_continuation_steps: 800
+output_dir: outputs/handoff_perturb_recoverability_p0
+manifest_path: data/manifests/handoff_perturb_recoverability_p0.json
+report_path: docs/HANDOFF_PERTURB_RECOVERABILITY_P0_RESULT.md

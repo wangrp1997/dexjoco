@@ -1,0 +1,43 @@
+protocol: HandoffDatagenRedesignP0
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+recoverability_results: outputs/handoff_perturb_recoverability_p0/results.json
+boundary_results: outputs/handoff_recoverability_boundary_coverage_p0/results.json
+# Roots: identity-success episodes from recoverability P0.
+root_episodes: [1, 3, 4, 5, 6, 7, 8, 9]
+base:
+  tip_lat_m: 0.003
+  tip_along_m: 0.002
+  axis_rad: 0.04
+  o2h_trans_m: 0.002
+  finger_flex_rad: 0.03
+# Conservative limits from coverage P0; apply safety factor for generation.
+safety_factor: 0.5
+# After safety: tip_lat 0.5*0.5=0.25, tip_along 1.0*0.5=0.5, axis stays 0.
+in_basin_specs:
+  - {name: lat_px, kind: tip_lat, sign: [1.0, 0.0], scale_frac: [0.25, 1.0]}
+  - {name: lat_nx, kind: tip_lat, sign: [-1.0, 0.0], scale_frac: [0.25, 1.0]}
+  - {name: lat_py, kind: tip_lat, sign: [0.0, 1.0], scale_frac: [0.25, 1.0]}
+  - {name: along_p, kind: tip_along, sign: 1.0, scale_frac: [0.25, 1.0]}
+  - {name: along_n, kind: tip_along, sign: -1.0, scale_frac: [0.25, 1.0]}
+  - {name: o2h_x, kind: o2h, axis: [1.0, 0.0, 0.0], scale_frac: [0.25, 1.0]}
+# Samples per root in-basin (uniform scale_frac draw).
+n_in_per_root: 3
+out_basin_specs:
+  - {name: lat_px_far, kind: tip_lat, sign: [1.0, 0.0], scale: 2.0}
+  - {name: axis_tx_far, kind: axis, axis: [1.0, 0.0, 0.0], scale: 1.0}
+  - {name: along_p_far, kind: tip_along, sign: 1.0, scale: 2.0}
+n_out_per_root: 1  # one random out-spec per root
+max_continuation_steps: 800
+# Death gate
+in_basin_min_rate: 0.75
+out_basin_max_rate: 0.35
+min_rate_gap: 0.30
+min_accepted: 16
+# Coverage recheck (informational; archived fails vs accepted in-basin handoffs)
+archived_fail_globs:
+  - /mnt/hdd/dexjoco/outputs/reach_insert_rl/priv_chunk_bc_20260811_001849/eval_ach_p0/*_fail_*_traj.json
+outside_majority: 0.60
+output_dir: outputs/handoff_datagen_redesign_p0
+manifest_path: data/manifests/handoff_datagen_redesign_p0.json
+report_path: docs/HANDOFF_DATAGEN_REDESIGN_P0_RESULT.md

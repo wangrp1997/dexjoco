@@ -1,0 +1,44 @@
+protocol: ActiveContactProbeInformationP0
+seed: 0
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+horizon_probe_steps: 8
+perturb_steps: 2
+perturb_action_amplitude: 0.25
+probe_action_amplitude: 0.10
+ridge_alpha: 1.0
+shuffle_trials: 200
+early_termination_padding: terminal_sensor_with_done_bit
+
+directions:
+  - {name: world_px, action_index: 0, sign: 1.0}
+  - {name: world_nx, action_index: 0, sign: -1.0}
+  - {name: world_py, action_index: 1, sign: 1.0}
+  - {name: world_ny, action_index: 1, sign: -1.0}
+
+probe_sequence:
+  - {action_index: 0, sign: 1.0}
+  - {action_index: 0, sign: -1.0}
+  - {action_index: 1, sign: 1.0}
+  - {action_index: 1, sign: -1.0}
+  - {action_index: 0, sign: 1.0}
+  - {action_index: 0, sign: -1.0}
+  - {action_index: 1, sign: 1.0}
+  - {action_index: 1, sign: -1.0}
+
+discovery_roots:
+  - {episode_index: 4, frame: 484, phase: pre_insert}
+  - {episode_index: 14, frame: 517, phase: pre_insert}
+  - {episode_index: 18, frame: 415, phase: pre_insert}
+held_out_roots:
+  - {episode_index: 3, frame: 431, phase: pre_insert}
+  - {episode_index: 9, frame: 407, phase: pre_insert}
+  - {episode_index: 13, frame: 344, phase: pre_insert}
+
+min_sequence_accuracy: 0.58
+min_per_root_accuracy: 0.50
+min_gain_over_static: 0.17
+max_shuffle_mean_accuracy: 0.35
+
+output_dir: outputs/active_contact_probe_information_p0
+manifest_path: data/manifests/active_contact_probe_information_p0.json
+report_path: docs/ACTIVE_CONTACT_PROBE_INFORMATION_P0_RESULT.md

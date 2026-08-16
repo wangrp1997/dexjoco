@@ -1,0 +1,9 @@
+{
+  "protocol": "HandoffRecoverabilityBoundaryCoverageP0",
+  "utc": "2026-08-15T16:45:25Z",
+  "verdict": "branch1_fails_mostly_outside_boundary",
+  "decision": "redesign_handoff_data_generation",
+  "outside_frac": 0.9285714285714286,
+  "results": "/home/wangrenpeng/dexjoco/insertion_science/outputs/handoff_recoverability_boundary_coverage_p0/results.json",
+  "report": "/home/wangrenpeng/dexjoco/insertion_science/docs/HANDOFF_RECOVERABILITY_BOUNDARY_COVERAGE_P0_RESULT.md"
+}

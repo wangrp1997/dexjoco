@@ -1,0 +1,8 @@
+{
+  "protocol": "ActiveContactProbeInformationP0",
+  "utc": "2026-08-16T03:39:26Z",
+  "verdict": "fail_no_active_probe_information_gain",
+  "decision": "stop_active_probe_information_direction",
+  "results": "/home/wangrenpeng/dexjoco/insertion_science/outputs/active_contact_probe_information_p0/results.json",
+  "report": "/home/wangrenpeng/dexjoco/insertion_science/docs/ACTIVE_CONTACT_PROBE_INFORMATION_P0_RESULT.md"
+}

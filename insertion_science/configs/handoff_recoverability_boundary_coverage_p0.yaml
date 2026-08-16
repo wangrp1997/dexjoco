@@ -1,0 +1,28 @@
+protocol: HandoffRecoverabilityBoundaryCoverageP0
+seed: 0
+recoverability_results: outputs/handoff_perturb_recoverability_p0/results.json
+sidecar_dir: /mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly
+# Same base magnitudes as recoverability P0 (for equivalent-scale mapping).
+base:
+  tip_lat_m: 0.003
+  tip_along_m: 0.002
+  axis_rad: 0.04
+  o2h_trans_m: 0.002
+  finger_flex_rad: 0.03
+# Cell is inside boundary if held-out insert_ok rate >= this.
+inside_rate_min: 0.5
+# Prefer held_out rates; if a cell has < min_n, fall back to pooled discovery+held_out.
+min_n_held_out: 2
+# Frozen archived fail trajs (readonly handoff = traj[0]).
+archived_fail_globs:
+  - /mnt/hdd/dexjoco/outputs/reach_insert_rl/priv_chunk_bc_20260811_001849/eval_ach_p0/*_fail_*_traj.json
+# Demo episodes whose identity continuation fails insert_ok (from prior screen).
+demo_identity_fail_episodes: [0, 2, 11]
+# Gates
+outside_majority: 0.60
+# Branch-3 needs enough inside fails with a nearby success correction evidence.
+min_inside_with_pair: 4
+pair_feature_l2_max: 0.08  # tip/lat/along in meters (axis rad scaled into same vec)
+output_dir: outputs/handoff_recoverability_boundary_coverage_p0
+manifest_path: data/manifests/handoff_recoverability_boundary_coverage_p0.json
+report_path: docs/HANDOFF_RECOVERABILITY_BOUNDARY_COVERAGE_P0_RESULT.md

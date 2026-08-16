@@ -1,6 +1,6 @@
 {
-  "date": "2026-08-15",
-  "phase": "cross_geometry_affordance_p0_complete",
+  "date": "2026-08-16",
+  "phase": "active_contact_probe_information_p0_complete",
   "busy": false,
   "training_allowed": false,
   "collection_allowed": false,
@@ -8,12 +8,43 @@
   "compliance_line": {
     "status": "abandoned"
   },
-  "cross_geometry_affordance_p0": {
-    "pass": false,
-    "verdict": "fail_stop_affordance_direction",
-    "stop_direction": true,
-    "manifest": "data/manifests/cross_geometry_affordance_p0.json",
-    "report": "docs/CROSS_GEOMETRY_AFFORDANCE_P0_RESULT.md"
+  "handoff_recoverability_boundary_coverage_p0": {
+    "status": "done",
+    "verdict": "branch1_fails_mostly_outside_boundary",
+    "decision": "redesign_handoff_data_generation"
   },
-  "next_action": "review_stage_interface_and_data_support"
+  "handoff_datagen_redesign_p0": {
+    "status": "done",
+    "verdict": "fail_no_contrast",
+    "decision": "pause_boundary_not_operational",
+    "smoke": false
+  },
+  "next_action": "pause_no_admissible_candidate",
+  "project_status": "paused_no_admissible_candidate",
+  "handoff_direction": {
+    "status": "stopped",
+    "verdict": "fail_stop_handoff_direction",
+    "decision": "stop_handoff_direction"
+  },
+  "upstream_handoff_targeting_p0": {
+    "status": "done",
+    "verdict": "fail_stop_handoff_direction",
+    "decision": "stop_handoff_direction",
+    "smoke": false
+  },
+  "intermediate_event_label_p0": {
+    "status": "done",
+    "verdict": "fail_no_stable_intermediate_event_label",
+    "decision": "stop_dense_intermediate_label_direction",
+    "n_primary": 216,
+    "n_external": 32
+  },
+  "active_contact_probe_information_p0": {
+    "status": "done",
+    "verdict": "fail_no_active_probe_information_gain",
+    "decision": "stop_active_probe_information_direction",
+    "static_accuracy": 0.25,
+    "sequence_accuracy": 0.16666666666666666,
+    "shuffle_mean_accuracy": 0.24166666666666664
+  }
 }

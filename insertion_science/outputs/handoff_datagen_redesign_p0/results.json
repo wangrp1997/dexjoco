@@ -1,0 +1,2276 @@
+{
+  "protocol": "HandoffDatagenRedesignP0",
+  "utc": "2026-08-15T17:06:59Z",
+  "config": {
+    "protocol": "HandoffDatagenRedesignP0",
+    "seed": 0,
+    "sidecar_dir": "/mnt/hdd/dexjoco/interaction_sidecar/bimanual_assembly",
+    "recoverability_results": "outputs/handoff_perturb_recoverability_p0/results.json",
+    "boundary_results": "outputs/handoff_recoverability_boundary_coverage_p0/results.json",
+    "root_episodes": [
+      1,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "base": {
+      "tip_lat_m": 0.003,
+      "tip_along_m": 0.002,
+      "axis_rad": 0.04,
+      "o2h_trans_m": 0.002,
+      "finger_flex_rad": 0.03
+    },
+    "safety_factor": 0.5,
+    "in_basin_specs": [
+      {
+        "name": "lat_px",
+        "kind": "tip_lat",
+        "sign": [
+          1.0,
+          0.0
+        ],
+        "scale_frac": [
+          0.25,
+          1.0
+        ]
+      },
+      {
+        "name": "lat_nx",
+        "kind": "tip_lat",
+        "sign": [
+          -1.0,
+          0.0
+        ],
+        "scale_frac": [
+          0.25,
+          1.0
+        ]
+      },
+      {
+        "name": "lat_py",
+        "kind": "tip_lat",
+        "sign": [
+          0.0,
+          1.0
+        ],
+        "scale_frac": [
+          0.25,
+          1.0
+        ]
+      },
+      {
+        "name": "along_p",
+        "kind": "tip_along",
+        "sign": 1.0,
+        "scale_frac": [
+          0.25,
+          1.0
+        ]
+      },
+      {
+        "name": "along_n",
+        "kind": "tip_along",
+        "sign": -1.0,
+        "scale_frac": [
+          0.25,
+          1.0
+        ]
+      },
+      {
+        "name": "o2h_x",
+        "kind": "o2h",
+        "axis": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "scale_frac": [
+          0.25,
+          1.0
+        ]
+      }
+    ],
+    "n_in_per_root": 3,
+    "out_basin_specs": [
+      {
+        "name": "lat_px_far",
+        "kind": "tip_lat",
+        "sign": [
+          1.0,
+          0.0
+        ],
+        "scale": 2.0
+      },
+      {
+        "name": "axis_tx_far",
+        "kind": "axis",
+        "axis": [
+          1.0,
+          0.0,
+          0.0
+        ],
+        "scale": 1.0
+      },
+      {
+        "name": "along_p_far",
+        "kind": "tip_along",
+        "sign": 1.0,
+        "scale": 2.0
+      }
+    ],
+    "n_out_per_root": 1,
+    "max_continuation_steps": 800,
+    "in_basin_min_rate": 0.75,
+    "out_basin_max_rate": 0.35,
+    "min_rate_gap": 0.3,
+    "min_accepted": 16,
+    "archived_fail_globs": [
+      "/mnt/hdd/dexjoco/outputs/reach_insert_rl/priv_chunk_bc_20260811_001849/eval_ach_p0/*_fail_*_traj.json"
+    ],
+    "outside_majority": 0.6,
+    "output_dir": "outputs/handoff_datagen_redesign_p0",
+    "manifest_path": "data/manifests/handoff_datagen_redesign_p0.json",
+    "report_path": "docs/HANDOFF_DATAGEN_REDESIGN_P0_RESULT.md"
+  },
+  "limits_used": {
+    "tip_lat": 0.25,
+    "tip_along": 0.5,
+    "axis": 0.0,
+    "o2h": 0.5,
+    "finger": 1.0
+  },
+  "in_rows": [
+    {
+      "basin": "in",
+      "pert_name": "o2h_x",
+      "kind": "o2h",
+      "scale": 0.22617001766145137,
+      "perturb_meta": {
+        "kind": "o2h",
+        "scale": 0.22617001766145137,
+        "applied": true,
+        "local_delta_m": [
+          0.0004523400353229027,
+          0.0,
+          0.0
+        ],
+        "local_t_after": [
+          0.23091935764589716,
+          0.046547896911959395,
+          -0.10189534221749796
+        ]
+      },
+      "after_perturb": {
+        "tip_m": 0.18313036774945893,
+        "lat_m": 0.05092011353166146,
+        "along_m": 0.1759087064675803,
+        "axis_err_rad": 0.1487974470865343,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23093086449707886,
+          0.04651213657338788,
+          -0.10189338996599569
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 220,
+      "tip_min_m": 0.00415579116159607,
+      "term_reason": "insert_ok",
+      "episode_index": 1,
+      "root": {
+        "tip_m": 0.18370530416254108,
+        "lat_m": 0.05114918431744134,
+        "along_m": 0.1764409224031777,
+        "axis_err_rad": 0.14862342420721675,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23046701761057425,
+          0.046547896911959395,
+          -0.10189534221749796
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 306,
+        "peg_lift_end": 306,
+        "episode_index": 1
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_p",
+      "kind": "tip_along",
+      "scale": 0.14036507147607302,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.14036507147607302,
+        "applied": true,
+        "delta_world_m": [
+          7.034167677232744e-05,
+          1.155917171756619e-05,
+          0.00027152872264273183
+        ],
+        "dz": 0.00028073014295214603
+      },
+      "after_perturb": {
+        "tip_m": 0.18382417567932596,
+        "lat_m": 0.05104217892263705,
+        "along_m": 0.17659564805309547,
+        "axis_err_rad": 0.14937244671904748,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23023544589458758,
+          0.04661095152311037,
+          -0.10174017886199646
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 224,
+      "tip_min_m": 0.00309390310864547,
+      "term_reason": "insert_ok",
+      "episode_index": 1,
+      "root": {
+        "tip_m": 0.18370530416254108,
+        "lat_m": 0.05114918431744134,
+        "along_m": 0.1764409224031777,
+        "axis_err_rad": 0.14862342420721675,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23046701761057425,
+          0.046547896911959395,
+          -0.10189534221749796
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 306,
+        "peg_lift_end": 306,
+        "episode_index": 1
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_px",
+      "kind": "tip_lat",
+      "scale": 0.2149881698500511,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.2149881698500511,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.000644380879161906,
+          2.7431754406141532e-05
+        ],
+        "dx": 0.0006449645095501533,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.18354979640579255,
+        "lat_m": 0.05102563627410107,
+        "along_m": 0.1763148081747328,
+        "axis_err_rad": 0.14937244671904748,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23018875896415766,
+          0.046012545347476425,
+          -0.1021069471965502
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 219,
+      "tip_min_m": 0.004671909233740571,
+      "term_reason": "insert_ok",
+      "episode_index": 1,
+      "root": {
+        "tip_m": 0.18370530416254108,
+        "lat_m": 0.05114918431744134,
+        "along_m": 0.1764409224031777,
+        "axis_err_rad": 0.14862342420721675,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23046701761057425,
+          0.046547896911959395,
+          -0.10189534221749796
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 306,
+        "peg_lift_end": 306,
+        "episode_index": 1
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_p",
+      "kind": "tip_along",
+      "scale": 0.3524884159126924,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.3524884159126924,
+        "applied": true,
+        "delta_world_m": [
+          0.0001283366205565692,
+          -5.126114275583129e-05,
+          0.0006912990239238317
+        ],
+        "dz": 0.0007049768318253849
+      },
+      "after_perturb": {
+        "tip_m": 0.11655227407492483,
+        "lat_m": 0.01552994752382678,
+        "along_m": 0.11551299950688895,
+        "axis_err_rad": 0.14712632649136745,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13588324118927106,
+          0.0014648376422464393,
+          -0.18123643124897998
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 107,
+      "tip_min_m": 0.003383450694368722,
+      "term_reason": "insert_ok",
+      "episode_index": 3,
+      "root": {
+        "tip_m": 0.11589178596290946,
+        "lat_m": 0.015537398489021513,
+        "along_m": 0.11484552685270887,
+        "axis_err_rad": 0.14688544866456169,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13608122915613885,
+          0.0011455350707683745,
+          -0.18182235128827373
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 377,
+        "peg_lift_end": 377,
+        "episode_index": 3
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "o2h_x",
+      "kind": "o2h",
+      "scale": 0.3985612103689994,
+      "perturb_meta": {
+        "kind": "o2h",
+        "scale": 0.3985612103689994,
+        "applied": true,
+        "local_delta_m": [
+          0.0007971224207379987,
+          0.0,
+          0.0
+        ],
+        "local_t_after": [
+          0.13687835157687686,
+          0.0011455350707683745,
+          -0.18182235128827373
+        ]
+      },
+      "after_perturb": {
+        "tip_m": 0.11570364413030014,
+        "lat_m": 0.016018250261376533,
+        "along_m": 0.11458947884068625,
+        "axis_err_rad": 0.14703326120807103,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13693151078249055,
+          0.001084808353052862,
+          -0.18180094536330538
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 148,
+      "tip_min_m": 0.09284547015658008,
+      "term_reason": "demo_exhausted",
+      "episode_index": 3,
+      "root": {
+        "tip_m": 0.11589178596290946,
+        "lat_m": 0.015537398489021513,
+        "along_m": 0.11484552685270887,
+        "axis_err_rad": 0.14688544866456169,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13608122915613885,
+          0.0011455350707683745,
+          -0.18182235128827373
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 377,
+        "peg_lift_end": 377,
+        "episode_index": 3
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_p",
+      "kind": "tip_along",
+      "scale": 0.47565215892041307,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.47565215892041307,
+        "applied": true,
+        "delta_world_m": [
+          0.00017317899789195298,
+          -6.917240998517784e-05,
+          0.0009328473173722381
+        ],
+        "dz": 0.0009513043178408262
+      },
+      "after_perturb": {
+        "tip_m": 0.11679640566460112,
+        "lat_m": 0.015529917047816234,
+        "along_m": 0.115759326987736,
+        "axis_err_rad": 0.14712632649136745,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13582015838470127,
+          0.0015802677806801176,
+          -0.18102816777816608
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 109,
+      "tip_min_m": 0.003424318544003571,
+      "term_reason": "insert_ok",
+      "episode_index": 3,
+      "root": {
+        "tip_m": 0.11589178596290946,
+        "lat_m": 0.015537398489021513,
+        "along_m": 0.11484552685270887,
+        "axis_err_rad": 0.14688544866456169,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13608122915613885,
+          0.0011455350707683745,
+          -0.18182235128827373
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 377,
+        "peg_lift_end": 377,
+        "episode_index": 3
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_nx",
+      "kind": "tip_lat",
+      "scale": 0.06301346878190277,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.06301346878190277,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          0.00018826540839148706,
+          -1.7100036097538094e-05
+        ],
+        "dx": -0.0001890404063457083,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.17906993681966485,
+        "lat_m": 0.01495214004209411,
+        "along_m": 0.1784445996490532,
+        "axis_err_rad": 0.26681634757596023,
+        "contact_total": 5,
+        "o2h_t": [
+          0.11426213683526529,
+          0.03179170253094819,
+          -0.18384276060880264
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 211,
+      "tip_min_m": 0.0028988077673157866,
+      "term_reason": "insert_ok",
+      "episode_index": 4,
+      "root": {
+        "tip_m": 0.17904090891758806,
+        "lat_m": 0.01489896404537535,
+        "along_m": 0.1784199184500916,
+        "axis_err_rad": 0.2661933117887818,
+        "contact_total": 5,
+        "o2h_t": [
+          0.11408956827750176,
+          0.031711692541140354,
+          -0.18382058778955673
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 312,
+        "peg_lift_end": 312,
+        "episode_index": 4
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_n",
+      "kind": "tip_along",
+      "scale": 0.4465266037203385,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.4465266037203385,
+        "applied": true,
+        "delta_world_m": [
+          -4.955541367657824e-05,
+          -8.065848571225157e-05,
+          -0.0008880216782140122
+        ],
+        "dz": -0.0008930532074406769
+      },
+      "after_perturb": {
+        "tip_m": 0.1781900502457222,
+        "lat_m": 0.015071201818171138,
+        "along_m": 0.17755154815387542,
+        "axis_err_rad": 0.26681634757596023,
+        "contact_total": 4,
+        "o2h_t": [
+          0.11411731420568783,
+          0.03146473404548866,
+          -0.18468264055381273
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 242,
+      "tip_min_m": 0.09351688888007778,
+      "term_reason": "demo_exhausted",
+      "episode_index": 4,
+      "root": {
+        "tip_m": 0.17904090891758806,
+        "lat_m": 0.01489896404537535,
+        "along_m": 0.1784199184500916,
+        "axis_err_rad": 0.2661933117887818,
+        "contact_total": 5,
+        "o2h_t": [
+          0.11408956827750176,
+          0.031711692541140354,
+          -0.18382058778955673
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 312,
+        "peg_lift_end": 312,
+        "episode_index": 4
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_p",
+      "kind": "tip_along",
+      "scale": 0.39862079241122905,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.39862079241122905,
+        "applied": true,
+        "delta_world_m": [
+          4.423883841061299e-05,
+          7.200500310938818e-05,
+          0.0007927498655146663
+        ],
+        "dz": 0.0007972415848224581
+      },
+      "after_perturb": {
+        "tip_m": 0.17987434673663602,
+        "lat_m": 0.01507122141321433,
+        "along_m": 0.17924184292874443,
+        "axis_err_rad": 0.26681634757596023,
+        "contact_total": 5,
+        "o2h_t": [
+          0.11406014720719483,
+          0.03195134480898033,
+          -0.18306491425313956
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 210,
+      "tip_min_m": 0.0030132594563181763,
+      "term_reason": "insert_ok",
+      "episode_index": 4,
+      "root": {
+        "tip_m": 0.17904090891758806,
+        "lat_m": 0.01489896404537535,
+        "along_m": 0.1784199184500916,
+        "axis_err_rad": 0.2661933117887818,
+        "contact_total": 5,
+        "o2h_t": [
+          0.11408956827750176,
+          0.031711692541140354,
+          -0.18382058778955673
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 312,
+        "peg_lift_end": 312,
+        "episode_index": 4
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "o2h_x",
+      "kind": "o2h",
+      "scale": 0.44869209588120745,
+      "perturb_meta": {
+        "kind": "o2h",
+        "scale": 0.44869209588120745,
+        "applied": true,
+        "local_delta_m": [
+          0.000897384191762415,
+          0.0,
+          0.0
+        ],
+        "local_t_after": [
+          0.05038195146230389,
+          0.030647199791919433,
+          -0.18751221186887376
+        ]
+      },
+      "after_perturb": {
+        "tip_m": 0.13866440175274428,
+        "lat_m": 0.02067438427081003,
+        "along_m": 0.13711449876822526,
+        "axis_err_rad": 0.1815792674523625,
+        "contact_total": 5,
+        "o2h_t": [
+          0.05018911389069243,
+          0.030567725268528495,
+          -0.1875226040484484
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 158,
+      "tip_min_m": 0.003077752969000762,
+      "term_reason": "insert_ok",
+      "episode_index": 5,
+      "root": {
+        "tip_m": 0.13881489712081888,
+        "lat_m": 0.02117990294501063,
+        "along_m": 0.1371896023665195,
+        "axis_err_rad": 0.18168141640721602,
+        "contact_total": 5,
+        "o2h_t": [
+          0.04948456727054148,
+          0.030647199791919433,
+          -0.18751221186887376
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 351,
+        "peg_lift_end": 351,
+        "episode_index": 5
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_nx",
+      "kind": "tip_lat",
+      "scale": 0.1640239787967047,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.1640239787967047,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          0.0004920014718820344,
+          -8.327199326799227e-06
+        ],
+        "dx": -0.0004920719363901141,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.1387125931068917,
+        "lat_m": 0.02064139561675497,
+        "along_m": 0.13716820293759194,
+        "axis_err_rad": 0.18027758855665574,
+        "contact_total": 5,
+        "o2h_t": [
+          0.049972754539856196,
+          0.030723022233730548,
+          -0.18751322795348777
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 154,
+      "tip_min_m": 0.001792568353870841,
+      "term_reason": "insert_ok",
+      "episode_index": 5,
+      "root": {
+        "tip_m": 0.13881489712081888,
+        "lat_m": 0.02117990294501063,
+        "along_m": 0.1371896023665195,
+        "axis_err_rad": 0.18168141640721602,
+        "contact_total": 5,
+        "o2h_t": [
+          0.04948456727054148,
+          0.030647199791919433,
+          -0.18751221186887376
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 351,
+        "peg_lift_end": 351,
+        "episode_index": 5
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_px",
+      "kind": "tip_lat",
+      "scale": 0.14175385397456097,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.14175385397456097,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.00042520066463499383,
+          7.196585560524613e-06
+        ],
+        "dx": 0.00042526156192368295,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.1387907911037617,
+        "lat_m": 0.021161237053498008,
+        "along_m": 0.1371680916440554,
+        "axis_err_rad": 0.18027758855665574,
+        "contact_total": 6,
+        "o2h_t": [
+          0.049063752104086145,
+          0.030601135975356446,
+          -0.1875321768033819
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 147,
+      "tip_min_m": 0.004368761497373887,
+      "term_reason": "insert_ok",
+      "episode_index": 5,
+      "root": {
+        "tip_m": 0.13881489712081888,
+        "lat_m": 0.02117990294501063,
+        "along_m": 0.1371896023665195,
+        "axis_err_rad": 0.18168141640721602,
+        "contact_total": 5,
+        "o2h_t": [
+          0.04948456727054148,
+          0.030647199791919433,
+          -0.18751221186887376
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 351,
+        "peg_lift_end": 351,
+        "episode_index": 5
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_py",
+      "kind": "tip_lat",
+      "scale": 0.08580311434366825,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.08580311434366825,
+        "applied": true,
+        "delta_world_m": [
+          0.00025064753953065236,
+          -9.641759669723848e-07,
+          -5.860419073401024e-05
+        ],
+        "dx": 0.0,
+        "dy": 0.00025740934303100475
+      },
+      "after_perturb": {
+        "tip_m": 0.17554482833015175,
+        "lat_m": 0.029140760082489406,
+        "along_m": 0.17310922059769435,
+        "axis_err_rad": 0.36071749605524633,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1296679255319333,
+          0.012340820273175651,
+          -0.18052981729047407
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 164,
+      "tip_min_m": 0.0013787902408115723,
+      "term_reason": "insert_ok",
+      "episode_index": 6,
+      "root": {
+        "tip_m": 0.17565150026933984,
+        "lat_m": 0.029407067073959653,
+        "along_m": 0.1731723804571736,
+        "axis_err_rad": 0.3604206476211069,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1296465383916591,
+          0.012574074332154224,
+          -0.1805416308574375
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 311,
+        "peg_lift_end": 311,
+        "episode_index": 6
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_px",
+      "kind": "tip_lat",
+      "scale": 0.1882420777550557,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.1882420777550557,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.0005646498188893983,
+          9.289809795334635e-06
+        ],
+        "dx": 0.000564726233265167,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.17561975086479917,
+        "lat_m": 0.029588178702037702,
+        "along_m": 0.1731093179917641,
+        "axis_err_rad": 0.36071749605524633,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1290548138930131,
+          0.012425860223501216,
+          -0.18057495722275965
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 164,
+      "tip_min_m": 0.0008418221226702356,
+      "term_reason": "insert_ok",
+      "episode_index": 6,
+      "root": {
+        "tip_m": 0.17565150026933984,
+        "lat_m": 0.029407067073959653,
+        "along_m": 0.1731723804571736,
+        "axis_err_rad": 0.3604206476211069,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1296465383916591,
+          0.012574074332154224,
+          -0.1805416308574375
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 311,
+        "peg_lift_end": 311,
+        "episode_index": 6
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_p",
+      "kind": "tip_along",
+      "scale": 0.3557694168054702,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.3557694168054702,
+        "applied": true,
+        "delta_world_m": [
+          0.00016201743184152663,
+          1.1397421421412469e-05,
+          0.0006927538973552128
+        ],
+        "dz": 0.0007115388336109404
+      },
+      "after_perturb": {
+        "tip_m": 0.17628640169547918,
+        "lat_m": 0.029380802574089062,
+        "along_m": 0.173820779133477,
+        "axis_err_rad": 0.36071749605524633,
+        "contact_total": 4,
+        "o2h_t": [
+          0.12955868589150038,
+          0.012685277600667608,
+          -0.17986501436320082
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 165,
+      "tip_min_m": 0.0034805040399817355,
+      "term_reason": "insert_ok",
+      "episode_index": 6,
+      "root": {
+        "tip_m": 0.17565150026933984,
+        "lat_m": 0.029407067073959653,
+        "along_m": 0.1731723804571736,
+        "axis_err_rad": 0.3604206476211069,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1296465383916591,
+          0.012574074332154224,
+          -0.1805416308574375
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 311,
+        "peg_lift_end": 311,
+        "episode_index": 6
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_n",
+      "kind": "tip_along",
+      "scale": 0.4989537259209541,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.4989537259209541,
+        "applied": true,
+        "delta_world_m": [
+          -0.00015760769589550987,
+          0.00012905034855586973,
+          -0.0009768956465118102
+        ],
+        "dz": -0.0009979074518419082
+      },
+      "after_perturb": {
+        "tip_m": 0.16845829526362177,
+        "lat_m": 0.01712446857004066,
+        "along_m": 0.16758564752871974,
+        "axis_err_rad": 0.21029655163780062,
+        "contact_total": 4,
+        "o2h_t": [
+          0.2654165513026419,
+          0.0640490626425327,
+          -0.06330632902272385
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 141,
+      "tip_min_m": 0.003498304523693589,
+      "term_reason": "insert_ok",
+      "episode_index": 7,
+      "root": {
+        "tip_m": 0.1695228192347598,
+        "lat_m": 0.017003063458513643,
+        "along_m": 0.16866796229678352,
+        "axis_err_rad": 0.2101295143734413,
+        "contact_total": 4,
+        "o2h_t": [
+          0.2644610406370867,
+          0.06427516069875623,
+          -0.06311615244376012
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 404,
+        "peg_lift_end": 404,
+        "episode_index": 7
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_py",
+      "kind": "tip_lat",
+      "scale": 0.24640662602054314,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.24640662602054314,
+        "applied": true,
+        "delta_world_m": [
+          0.0007299419296726932,
+          1.5290265718375882e-05,
+          -0.00011574547594362756
+        ],
+        "dx": 0.0,
+        "dy": 0.0007392198780616294
+      },
+      "after_perturb": {
+        "tip_m": 0.16938460926669746,
+        "lat_m": 0.01645316121582802,
+        "along_m": 0.16858362546234726,
+        "axis_err_rad": 0.21029655163780062,
+        "contact_total": 4,
+        "o2h_t": [
+          0.2645195204593266,
+          0.06397365076364496,
+          -0.06245080928290119
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 139,
+      "tip_min_m": 0.00281366853279687,
+      "term_reason": "insert_ok",
+      "episode_index": 7,
+      "root": {
+        "tip_m": 0.1695228192347598,
+        "lat_m": 0.017003063458513643,
+        "along_m": 0.16866796229678352,
+        "axis_err_rad": 0.2101295143734413,
+        "contact_total": 4,
+        "o2h_t": [
+          0.2644610406370867,
+          0.06427516069875623,
+          -0.06311615244376012
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 404,
+        "peg_lift_end": 404,
+        "episode_index": 7
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_py",
+      "kind": "tip_lat",
+      "scale": 0.18446111430021556,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.18446111430021556,
+        "applied": true,
+        "delta_world_m": [
+          0.0005464378287889426,
+          1.1446362047597114e-05,
+          -8.664758660341512e-05
+        ],
+        "dx": 0.0,
+        "dy": 0.0005533833429006466
+      },
+      "after_perturb": {
+        "tip_m": 0.16940101760663964,
+        "lat_m": 0.016621413882465606,
+        "along_m": 0.16858360773902123,
+        "axis_err_rad": 0.21029655163780062,
+        "contact_total": 3,
+        "o2h_t": [
+          0.2645046957155942,
+          0.0640482991175603,
+          -0.06262034708998752
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 140,
+      "tip_min_m": 0.0033957621482510404,
+      "term_reason": "insert_ok",
+      "episode_index": 7,
+      "root": {
+        "tip_m": 0.1695228192347598,
+        "lat_m": 0.017003063458513643,
+        "along_m": 0.16866796229678352,
+        "axis_err_rad": 0.2101295143734413,
+        "contact_total": 4,
+        "o2h_t": [
+          0.2644610406370867,
+          0.06427516069875623,
+          -0.06311615244376012
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 404,
+        "peg_lift_end": 404,
+        "episode_index": 7
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "o2h_x",
+      "kind": "o2h",
+      "scale": 0.27084553399216393,
+      "perturb_meta": {
+        "kind": "o2h",
+        "scale": 0.27084553399216393,
+        "applied": true,
+        "local_delta_m": [
+          0.0005416910679843279,
+          0.0,
+          0.0
+        ],
+        "local_t_after": [
+          0.09697900131567516,
+          0.037759703795406205,
+          -0.20383960713072252
+        ]
+      },
+      "after_perturb": {
+        "tip_m": 0.15081999731979875,
+        "lat_m": 0.03993469800824656,
+        "along_m": 0.14543689718739342,
+        "axis_err_rad": 0.2530675298932821,
+        "contact_total": 5,
+        "o2h_t": [
+          0.09693047497912705,
+          0.03778022718943091,
+          -0.20385938400186457
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 172,
+      "tip_min_m": 0.0018394567272215574,
+      "term_reason": "insert_ok",
+      "episode_index": 8,
+      "root": {
+        "tip_m": 0.15105834017490696,
+        "lat_m": 0.04034780595496653,
+        "along_m": 0.1455701764346144,
+        "axis_err_rad": 0.25328020576907984,
+        "contact_total": 6,
+        "o2h_t": [
+          0.09643731024769084,
+          0.037759703795406205,
+          -0.20383960713072252
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 305,
+        "peg_lift_end": 305,
+        "episode_index": 8
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_n",
+      "kind": "tip_along",
+      "scale": 0.1756611893834042,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.1756611893834042,
+        "applied": true,
+        "delta_world_m": [
+          -0.00011581375508401299,
+          1.8077534317314013e-05,
+          -0.0003311914713707395
+        ],
+        "dz": -0.0003513223787668084
+      },
+      "after_perturb": {
+        "tip_m": 0.15054760479363793,
+        "lat_m": 0.04019442053913935,
+        "along_m": 0.1450826986433752,
+        "axis_err_rad": 0.2534859789608827,
+        "contact_total": 6,
+        "o2h_t": [
+          0.09642308112773063,
+          0.037743913758362106,
+          -0.20419187265064384
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 185,
+      "tip_min_m": 0.002060975017051256,
+      "term_reason": "insert_ok",
+      "episode_index": 8,
+      "root": {
+        "tip_m": 0.15105834017490696,
+        "lat_m": 0.04034780595496653,
+        "along_m": 0.1455701764346144,
+        "axis_err_rad": 0.25328020576907984,
+        "contact_total": 6,
+        "o2h_t": [
+          0.09643731024769084,
+          0.037759703795406205,
+          -0.20383960713072252
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 305,
+        "peg_lift_end": 305,
+        "episode_index": 8
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "along_p",
+      "kind": "tip_along",
+      "scale": 0.3220078709283972,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 0.3220078709283972,
+        "applied": true,
+        "delta_world_m": [
+          0.0002123003995915626,
+          -3.313827236161978e-05,
+          0.0006071133922073432
+        ],
+        "dz": 0.0006440157418567945
+      },
+      "after_perturb": {
+        "tip_m": 0.1515069639837157,
+        "lat_m": 0.040194115322250604,
+        "along_m": 0.14607803668672675,
+        "axis_err_rad": 0.2534859789608827,
+        "contact_total": 5,
+        "o2h_t": [
+          0.09646040192959156,
+          0.03779884624196436,
+          -0.20319875253990163
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 170,
+      "tip_min_m": 0.0011466220974335744,
+      "term_reason": "insert_ok",
+      "episode_index": 8,
+      "root": {
+        "tip_m": 0.15105834017490696,
+        "lat_m": 0.04034780595496653,
+        "along_m": 0.1455701764346144,
+        "axis_err_rad": 0.25328020576907984,
+        "contact_total": 6,
+        "o2h_t": [
+          0.09643731024769084,
+          0.037759703795406205,
+          -0.20383960713072252
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 305,
+        "peg_lift_end": 305,
+        "episode_index": 8
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_py",
+      "kind": "tip_lat",
+      "scale": 0.15359412978096046,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.15359412978096046,
+        "applied": true,
+        "delta_world_m": [
+          0.0004363389615239293,
+          -2.0931333040356737e-06,
+          -0.00014806869952061163
+        ],
+        "dx": 0.0,
+        "dy": 0.00046078238934288136
+      },
+      "after_perturb": {
+        "tip_m": 0.18489378035110152,
+        "lat_m": 0.04925897509875215,
+        "along_m": 0.178211286818643,
+        "axis_err_rad": 0.49978997508740636,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1736347793330178,
+          0.02727883238092507,
+          -0.201864311267826
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 143,
+      "tip_min_m": 0.0019778265712836742,
+      "term_reason": "insert_ok",
+      "episode_index": 9,
+      "root": {
+        "tip_m": 0.1850908993758032,
+        "lat_m": 0.04961991788636548,
+        "along_m": 0.17831574284051305,
+        "axis_err_rad": 0.4991592481016044,
+        "contact_total": 5,
+        "o2h_t": [
+          0.1733982323829792,
+          0.02767220005325947,
+          -0.20199053899905417
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 299,
+        "peg_lift_end": 299,
+        "episode_index": 9
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_nx",
+      "kind": "tip_lat",
+      "scale": 0.22927896894043753,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.22927896894043753,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          0.0006877681908567644,
+          -9.72244985199091e-06
+        ],
+        "dx": -0.0006878369068213126,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.18503879722099648,
+        "lat_m": 0.04979982675984211,
+        "along_m": 0.1782114841880178,
+        "axis_err_rad": 0.49978997508740636,
+        "contact_total": 5,
+        "o2h_t": [
+          0.17402946126824498,
+          0.02798665197158892,
+          -0.20203359687794056
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 144,
+      "tip_min_m": 0.0037053132330139454,
+      "term_reason": "insert_ok",
+      "episode_index": 9,
+      "root": {
+        "tip_m": 0.1850908993758032,
+        "lat_m": 0.04961991788636548,
+        "along_m": 0.17831574284051305,
+        "axis_err_rad": 0.4991592481016044,
+        "contact_total": 5,
+        "o2h_t": [
+          0.1733982323829792,
+          0.02767220005325947,
+          -0.20199053899905417
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 299,
+        "peg_lift_end": 299,
+        "episode_index": 9
+      }
+    },
+    {
+      "basin": "in",
+      "pert_name": "lat_px",
+      "kind": "tip_lat",
+      "scale": 0.12958659938295067,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 0.12958659938295067,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.00038872096044729445,
+          5.495049196239505e-06
+        ],
+        "dx": 0.000388759798148852,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.18500470507007719,
+        "lat_m": 0.0496739090272697,
+        "along_m": 0.17821123147779414,
+        "axis_err_rad": 0.49978997508740636,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1730772494189858,
+          0.02749110094652585,
+          -0.2019512425165378
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 144,
+      "tip_min_m": 0.002270734893664715,
+      "term_reason": "insert_ok",
+      "episode_index": 9,
+      "root": {
+        "tip_m": 0.1850908993758032,
+        "lat_m": 0.04961991788636548,
+        "along_m": 0.17831574284051305,
+        "axis_err_rad": 0.4991592481016044,
+        "contact_total": 5,
+        "o2h_t": [
+          0.1733982323829792,
+          0.02767220005325947,
+          -0.20199053899905417
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 299,
+        "peg_lift_end": 299,
+        "episode_index": 9
+      }
+    }
+  ],
+  "out_rows": [
+    {
+      "basin": "out",
+      "pert_name": "lat_px_far",
+      "kind": "tip_lat",
+      "scale": 2.0,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 2.0,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.00599457058136125,
+          0.00025519315249089753
+        ],
+        "dx": 0.006,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.1835982954972914,
+        "lat_m": 0.05120296098780465,
+        "along_m": 0.17631389699584177,
+        "axis_err_rad": 0.14937244671904748,
+        "contact_total": 7,
+        "o2h_t": [
+          0.22781320637631716,
+          0.041643489701411726,
+          -0.1040930256864322
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 250,
+      "tip_min_m": 0.10131198142664123,
+      "term_reason": "demo_exhausted",
+      "episode_index": 1,
+      "root": {
+        "tip_m": 0.18370530416254108,
+        "lat_m": 0.05114918431744134,
+        "along_m": 0.1764409224031777,
+        "axis_err_rad": 0.14862342420721675,
+        "contact_total": 5,
+        "o2h_t": [
+          0.23046701761057425,
+          0.046547896911959395,
+          -0.10189534221749796
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 306,
+        "peg_lift_end": 306,
+        "episode_index": 1
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "axis_tx_far",
+      "kind": "axis",
+      "scale": 1.0,
+      "perturb_meta": {
+        "kind": "axis",
+        "scale": 1.0,
+        "applied": true,
+        "world_axis": [
+          0.0,
+          -0.9972620330341636,
+          -0.073948884160391
+        ],
+        "angle_rad": 0.04
+      },
+      "after_perturb": {
+        "tip_m": 0.1158871654342815,
+        "lat_m": 0.015859020568357435,
+        "along_m": 0.11479689157567997,
+        "axis_err_rad": 0.1526479703707358,
+        "contact_total": 7,
+        "o2h_t": [
+          0.13606378099190397,
+          0.0011344824122780865,
+          -0.18183247079054446
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 148,
+      "tip_min_m": 0.11143999809149568,
+      "term_reason": "demo_exhausted",
+      "episode_index": 3,
+      "root": {
+        "tip_m": 0.11589178596290946,
+        "lat_m": 0.015537398489021513,
+        "along_m": 0.11484552685270887,
+        "axis_err_rad": 0.14688544866456169,
+        "contact_total": 8,
+        "o2h_t": [
+          0.13608122915613885,
+          0.0011455350707683745,
+          -0.18182235128827373
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 377,
+        "peg_lift_end": 377,
+        "episode_index": 3
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "lat_px_far",
+      "kind": "tip_lat",
+      "scale": 2.0,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 2.0,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.00597540214912137,
+          0.0005427422558413151
+        ],
+        "dx": 0.006,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.17949996490604875,
+        "lat_m": 0.019435578749374745,
+        "along_m": 0.17844465540637441,
+        "axis_err_rad": 0.26681634757596023,
+        "contact_total": 3,
+        "o2h_t": [
+          0.10853190645683637,
+          0.029504154686971804,
+          -0.18335716219135334
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 242,
+      "tip_min_m": 0.10185068319839302,
+      "term_reason": "demo_exhausted",
+      "episode_index": 4,
+      "root": {
+        "tip_m": 0.17904090891758806,
+        "lat_m": 0.01489896404537535,
+        "along_m": 0.1784199184500916,
+        "axis_err_rad": 0.2661933117887818,
+        "contact_total": 5,
+        "o2h_t": [
+          0.11408956827750176,
+          0.031711692541140354,
+          -0.18382058778955673
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 312,
+        "peg_lift_end": 312,
+        "episode_index": 4
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "lat_px_far",
+      "kind": "tip_lat",
+      "scale": 2.0,
+      "perturb_meta": {
+        "kind": "tip_lat",
+        "scale": 2.0,
+        "applied": true,
+        "delta_world_m": [
+          0.0,
+          -0.005999140802355892,
+          0.00010153636544959273
+        ],
+        "dx": 0.006,
+        "dy": 0.0
+      },
+      "after_perturb": {
+        "tip_m": 0.13939494215337403,
+        "lat_m": 0.024820348534052676,
+        "along_m": 0.13716741530076543,
+        "axis_err_rad": 0.18027758855665574,
+        "contact_total": 3,
+        "o2h_t": [
+          0.043539642466416714,
+          0.029860419528305877,
+          -0.18764733108702752
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 158,
+      "tip_min_m": 0.0985592240711541,
+      "term_reason": "peg_lost_abort",
+      "episode_index": 5,
+      "root": {
+        "tip_m": 0.13881489712081888,
+        "lat_m": 0.02117990294501063,
+        "along_m": 0.1371896023665195,
+        "axis_err_rad": 0.18168141640721602,
+        "contact_total": 5,
+        "o2h_t": [
+          0.04948456727054148,
+          0.030647199791919433,
+          -0.18751221186887376
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 351,
+        "peg_lift_end": 351,
+        "episode_index": 5
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "axis_tx_far",
+      "kind": "axis",
+      "scale": 1.0,
+      "perturb_meta": {
+        "kind": "axis",
+        "scale": 1.0,
+        "applied": true,
+        "world_axis": [
+          0.0,
+          -0.9998646877526357,
+          0.016450112015555345
+        ],
+        "angle_rad": 0.04
+      },
+      "after_perturb": {
+        "tip_m": 0.17549832110546276,
+        "lat_m": 0.029849966215826477,
+        "along_m": 0.17294114498747065,
+        "axis_err_rad": 0.39449097504338393,
+        "contact_total": 6,
+        "o2h_t": [
+          0.12959658218148024,
+          0.012585109902627935,
+          -0.18056844724216758
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": false,
+      "steps": 193,
+      "tip_min_m": 0.1218219142487952,
+      "term_reason": "demo_exhausted",
+      "episode_index": 6,
+      "root": {
+        "tip_m": 0.17565150026933984,
+        "lat_m": 0.029407067073959653,
+        "along_m": 0.1731723804571736,
+        "axis_err_rad": 0.3604206476211069,
+        "contact_total": 4,
+        "o2h_t": [
+          0.1296465383916591,
+          0.012574074332154224,
+          -0.1805416308574375
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 311,
+        "peg_lift_end": 311,
+        "episode_index": 6
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "along_p_far",
+      "kind": "tip_along",
+      "scale": 2.0,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 2.0,
+        "applied": true,
+        "delta_world_m": [
+          0.0006317527566493355,
+          -0.0005172838355607924,
+          0.003915776537027296
+        ],
+        "dz": 0.004
+      },
+      "after_perturb": {
+        "tip_m": 0.17343111654861,
+        "lat_m": 0.017125074393280242,
+        "along_m": 0.17258355489043709,
+        "axis_err_rad": 0.21029655163780062,
+        "contact_total": 3,
+        "o2h_t": [
+          0.26062852934466635,
+          0.06515854105751405,
+          -0.06239914531816929
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 144,
+      "tip_min_m": 0.0035171665089196863,
+      "term_reason": "insert_ok",
+      "episode_index": 7,
+      "root": {
+        "tip_m": 0.1695228192347598,
+        "lat_m": 0.017003063458513643,
+        "along_m": 0.16866796229678352,
+        "axis_err_rad": 0.2101295143734413,
+        "contact_total": 4,
+        "o2h_t": [
+          0.2644610406370867,
+          0.06427516069875623,
+          -0.06311615244376012
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 404,
+        "peg_lift_end": 404,
+        "episode_index": 7
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "along_p_far",
+      "kind": "tip_along",
+      "scale": 2.0,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 2.0,
+        "applied": true,
+        "delta_world_m": [
+          0.001318603790518962,
+          -0.00020582274753767446,
+          0.0037707984618943866
+        ],
+        "dz": 0.004
+      },
+      "after_perturb": {
+        "tip_m": 0.1547449875282473,
+        "lat_m": 0.040193086229124535,
+        "along_m": 0.14943402068433095,
+        "axis_err_rad": 0.2534859789608827,
+        "contact_total": 5,
+        "o2h_t": [
+          0.09658623657909546,
+          0.037984062246867574,
+          -0.19985024675173033
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 170,
+      "tip_min_m": 0.0024481796979968183,
+      "term_reason": "insert_ok",
+      "episode_index": 8,
+      "root": {
+        "tip_m": 0.15105834017490696,
+        "lat_m": 0.04034780595496653,
+        "along_m": 0.1455701764346144,
+        "axis_err_rad": 0.25328020576907984,
+        "contact_total": 6,
+        "o2h_t": [
+          0.09643731024769084,
+          0.037759703795406205,
+          -0.20383960713072252
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 305,
+        "peg_lift_end": 305,
+        "episode_index": 8
+      }
+    },
+    {
+      "basin": "out",
+      "pert_name": "along_p_far",
+      "kind": "tip_along",
+      "scale": 2.0,
+      "perturb_meta": {
+        "kind": "tip_along",
+        "scale": 2.0,
+        "applied": true,
+        "delta_world_m": [
+          0.0012854961188985727,
+          5.353999787069021e-05,
+          0.0037874309494596355
+        ],
+        "dz": 0.004
+      },
+      "after_perturb": {
+        "tip_m": 0.18887212102748027,
+        "lat_m": 0.04971630884280674,
+        "along_m": 0.18221132256928083,
+        "axis_err_rad": 0.49978997508740636,
+        "contact_total": 5,
+        "o2h_t": [
+          0.17321469324351468,
+          0.028707722669448724,
+          -0.19812343962727258
+        ],
+        "peg_ok": true,
+        "insert_ok": false
+      },
+      "insert_ok": true,
+      "steps": 143,
+      "tip_min_m": 0.0036693419277692924,
+      "term_reason": "insert_ok",
+      "episode_index": 9,
+      "root": {
+        "tip_m": 0.1850908993758032,
+        "lat_m": 0.04961991788636548,
+        "along_m": 0.17831574284051305,
+        "axis_err_rad": 0.4991592481016044,
+        "contact_total": 5,
+        "o2h_t": [
+          0.1733982323829792,
+          0.02767220005325947,
+          -0.20199053899905417
+        ],
+        "peg_ok": true,
+        "insert_ok": false,
+        "frame": 299,
+        "peg_lift_end": 299,
+        "episode_index": 9
+      }
+    }
+  ],
+  "accepted_handoffs": [
+    {
+      "tip_m": 0.18313036774945893,
+      "lat_m": 0.05092011353166146,
+      "along_m": 0.1759087064675803,
+      "axis_err_rad": 0.1487974470865343,
+      "contact_total": 5,
+      "o2h_t": [
+        0.23093086449707886,
+        0.04651213657338788,
+        -0.10189338996599569
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 1,
+      "pert_name": "o2h_x",
+      "scale": 0.22617001766145137
+    },
+    {
+      "tip_m": 0.18382417567932596,
+      "lat_m": 0.05104217892263705,
+      "along_m": 0.17659564805309547,
+      "axis_err_rad": 0.14937244671904748,
+      "contact_total": 5,
+      "o2h_t": [
+        0.23023544589458758,
+        0.04661095152311037,
+        -0.10174017886199646
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 1,
+      "pert_name": "along_p",
+      "scale": 0.14036507147607302
+    },
+    {
+      "tip_m": 0.18354979640579255,
+      "lat_m": 0.05102563627410107,
+      "along_m": 0.1763148081747328,
+      "axis_err_rad": 0.14937244671904748,
+      "contact_total": 5,
+      "o2h_t": [
+        0.23018875896415766,
+        0.046012545347476425,
+        -0.1021069471965502
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 1,
+      "pert_name": "lat_px",
+      "scale": 0.2149881698500511
+    },
+    {
+      "tip_m": 0.11655227407492483,
+      "lat_m": 0.01552994752382678,
+      "along_m": 0.11551299950688895,
+      "axis_err_rad": 0.14712632649136745,
+      "contact_total": 8,
+      "o2h_t": [
+        0.13588324118927106,
+        0.0014648376422464393,
+        -0.18123643124897998
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 3,
+      "pert_name": "along_p",
+      "scale": 0.3524884159126924
+    },
+    {
+      "tip_m": 0.11679640566460112,
+      "lat_m": 0.015529917047816234,
+      "along_m": 0.115759326987736,
+      "axis_err_rad": 0.14712632649136745,
+      "contact_total": 8,
+      "o2h_t": [
+        0.13582015838470127,
+        0.0015802677806801176,
+        -0.18102816777816608
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 3,
+      "pert_name": "along_p",
+      "scale": 0.47565215892041307
+    },
+    {
+      "tip_m": 0.17906993681966485,
+      "lat_m": 0.01495214004209411,
+      "along_m": 0.1784445996490532,
+      "axis_err_rad": 0.26681634757596023,
+      "contact_total": 5,
+      "o2h_t": [
+        0.11426213683526529,
+        0.03179170253094819,
+        -0.18384276060880264
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 4,
+      "pert_name": "lat_nx",
+      "scale": 0.06301346878190277
+    },
+    {
+      "tip_m": 0.17987434673663602,
+      "lat_m": 0.01507122141321433,
+      "along_m": 0.17924184292874443,
+      "axis_err_rad": 0.26681634757596023,
+      "contact_total": 5,
+      "o2h_t": [
+        0.11406014720719483,
+        0.03195134480898033,
+        -0.18306491425313956
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 4,
+      "pert_name": "along_p",
+      "scale": 0.39862079241122905
+    },
+    {
+      "tip_m": 0.13866440175274428,
+      "lat_m": 0.02067438427081003,
+      "along_m": 0.13711449876822526,
+      "axis_err_rad": 0.1815792674523625,
+      "contact_total": 5,
+      "o2h_t": [
+        0.05018911389069243,
+        0.030567725268528495,
+        -0.1875226040484484
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 5,
+      "pert_name": "o2h_x",
+      "scale": 0.44869209588120745
+    },
+    {
+      "tip_m": 0.1387125931068917,
+      "lat_m": 0.02064139561675497,
+      "along_m": 0.13716820293759194,
+      "axis_err_rad": 0.18027758855665574,
+      "contact_total": 5,
+      "o2h_t": [
+        0.049972754539856196,
+        0.030723022233730548,
+        -0.18751322795348777
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 5,
+      "pert_name": "lat_nx",
+      "scale": 0.1640239787967047
+    },
+    {
+      "tip_m": 0.1387907911037617,
+      "lat_m": 0.021161237053498008,
+      "along_m": 0.1371680916440554,
+      "axis_err_rad": 0.18027758855665574,
+      "contact_total": 6,
+      "o2h_t": [
+        0.049063752104086145,
+        0.030601135975356446,
+        -0.1875321768033819
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 5,
+      "pert_name": "lat_px",
+      "scale": 0.14175385397456097
+    },
+    {
+      "tip_m": 0.17554482833015175,
+      "lat_m": 0.029140760082489406,
+      "along_m": 0.17310922059769435,
+      "axis_err_rad": 0.36071749605524633,
+      "contact_total": 4,
+      "o2h_t": [
+        0.1296679255319333,
+        0.012340820273175651,
+        -0.18052981729047407
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 6,
+      "pert_name": "lat_py",
+      "scale": 0.08580311434366825
+    },
+    {
+      "tip_m": 0.17561975086479917,
+      "lat_m": 0.029588178702037702,
+      "along_m": 0.1731093179917641,
+      "axis_err_rad": 0.36071749605524633,
+      "contact_total": 4,
+      "o2h_t": [
+        0.1290548138930131,
+        0.012425860223501216,
+        -0.18057495722275965
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 6,
+      "pert_name": "lat_px",
+      "scale": 0.1882420777550557
+    },
+    {
+      "tip_m": 0.17628640169547918,
+      "lat_m": 0.029380802574089062,
+      "along_m": 0.173820779133477,
+      "axis_err_rad": 0.36071749605524633,
+      "contact_total": 4,
+      "o2h_t": [
+        0.12955868589150038,
+        0.012685277600667608,
+        -0.17986501436320082
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 6,
+      "pert_name": "along_p",
+      "scale": 0.3557694168054702
+    },
+    {
+      "tip_m": 0.16845829526362177,
+      "lat_m": 0.01712446857004066,
+      "along_m": 0.16758564752871974,
+      "axis_err_rad": 0.21029655163780062,
+      "contact_total": 4,
+      "o2h_t": [
+        0.2654165513026419,
+        0.0640490626425327,
+        -0.06330632902272385
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 7,
+      "pert_name": "along_n",
+      "scale": 0.4989537259209541
+    },
+    {
+      "tip_m": 0.16938460926669746,
+      "lat_m": 0.01645316121582802,
+      "along_m": 0.16858362546234726,
+      "axis_err_rad": 0.21029655163780062,
+      "contact_total": 4,
+      "o2h_t": [
+        0.2645195204593266,
+        0.06397365076364496,
+        -0.06245080928290119
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 7,
+      "pert_name": "lat_py",
+      "scale": 0.24640662602054314
+    },
+    {
+      "tip_m": 0.16940101760663964,
+      "lat_m": 0.016621413882465606,
+      "along_m": 0.16858360773902123,
+      "axis_err_rad": 0.21029655163780062,
+      "contact_total": 3,
+      "o2h_t": [
+        0.2645046957155942,
+        0.0640482991175603,
+        -0.06262034708998752
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 7,
+      "pert_name": "lat_py",
+      "scale": 0.18446111430021556
+    },
+    {
+      "tip_m": 0.15081999731979875,
+      "lat_m": 0.03993469800824656,
+      "along_m": 0.14543689718739342,
+      "axis_err_rad": 0.2530675298932821,
+      "contact_total": 5,
+      "o2h_t": [
+        0.09693047497912705,
+        0.03778022718943091,
+        -0.20385938400186457
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 8,
+      "pert_name": "o2h_x",
+      "scale": 0.27084553399216393
+    },
+    {
+      "tip_m": 0.15054760479363793,
+      "lat_m": 0.04019442053913935,
+      "along_m": 0.1450826986433752,
+      "axis_err_rad": 0.2534859789608827,
+      "contact_total": 6,
+      "o2h_t": [
+        0.09642308112773063,
+        0.037743913758362106,
+        -0.20419187265064384
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 8,
+      "pert_name": "along_n",
+      "scale": 0.1756611893834042
+    },
+    {
+      "tip_m": 0.1515069639837157,
+      "lat_m": 0.040194115322250604,
+      "along_m": 0.14607803668672675,
+      "axis_err_rad": 0.2534859789608827,
+      "contact_total": 5,
+      "o2h_t": [
+        0.09646040192959156,
+        0.03779884624196436,
+        -0.20319875253990163
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 8,
+      "pert_name": "along_p",
+      "scale": 0.3220078709283972
+    },
+    {
+      "tip_m": 0.18489378035110152,
+      "lat_m": 0.04925897509875215,
+      "along_m": 0.178211286818643,
+      "axis_err_rad": 0.49978997508740636,
+      "contact_total": 4,
+      "o2h_t": [
+        0.1736347793330178,
+        0.02727883238092507,
+        -0.201864311267826
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 9,
+      "pert_name": "lat_py",
+      "scale": 0.15359412978096046
+    },
+    {
+      "tip_m": 0.18503879722099648,
+      "lat_m": 0.04979982675984211,
+      "along_m": 0.1782114841880178,
+      "axis_err_rad": 0.49978997508740636,
+      "contact_total": 5,
+      "o2h_t": [
+        0.17402946126824498,
+        0.02798665197158892,
+        -0.20203359687794056
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 9,
+      "pert_name": "lat_nx",
+      "scale": 0.22927896894043753
+    },
+    {
+      "tip_m": 0.18500470507007719,
+      "lat_m": 0.0496739090272697,
+      "along_m": 0.17821123147779414,
+      "axis_err_rad": 0.49978997508740636,
+      "contact_total": 4,
+      "o2h_t": [
+        0.1730772494189858,
+        0.02749110094652585,
+        -0.2019512425165378
+      ],
+      "peg_ok": true,
+      "insert_ok": false,
+      "episode_index": 9,
+      "pert_name": "lat_px",
+      "scale": 0.12958659938295067
+    }
+  ],
+  "judgment": {
+    "verdict": "fail_no_contrast",
+    "decision": "pause_boundary_not_operational",
+    "reason": "in=0.917 out=0.375 gap=0.542 checks={'in_basin_rate_ok': True, 'out_basin_rate_ok': False, 'gap_ok': True, 'min_accepted_ok': True}",
+    "in_basin_rate": 0.9166666666666666,
+    "out_basin_rate": 0.375,
+    "gap": 0.5416666666666666,
+    "n_in": 24,
+    "n_out": 8,
+    "n_accepted": 22,
+    "checks": {
+      "in_basin_rate_ok": true,
+      "out_basin_rate_ok": false,
+      "gap_ok": true,
+      "min_accepted_ok": true
+    },
+    "coverage_recheck": {
+      "outside_frac": 0.9090909090909091,
+      "n": 11,
+      "n_outside": 10,
+      "n_roots": 22
+    }
+  },
+  "smoke": false
+}

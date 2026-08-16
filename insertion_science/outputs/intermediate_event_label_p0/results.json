@@ -1,0 +1,415 @@
+{
+  "protocol": "IntermediateEventLabelP0",
+  "utc": "2026-08-16T03:24:19Z",
+  "config": {
+    "protocol": "IntermediateEventLabelP0",
+    "primary_results": "outputs/handoff_perturb_recoverability_p0/results.json",
+    "external_results": "outputs/handoff_datagen_redesign_p0/results.json",
+    "events": [
+      {
+        "name": "approach_100mm",
+        "tip_min_max_m": 0.1
+      },
+      {
+        "name": "approach_60mm",
+        "tip_min_max_m": 0.06
+      },
+      {
+        "name": "deep_20mm",
+        "tip_min_max_m": 0.02
+      },
+      {
+        "name": "retained",
+        "require_retained": true
+      },
+      {
+        "name": "retained_and_approach_60mm",
+        "require_retained": true,
+        "tip_min_max_m": 0.06
+      }
+    ],
+    "prevalence_min": 0.15,
+    "prevalence_max": 0.85,
+    "min_group_n": 4,
+    "min_insert_lift_primary": 0.25,
+    "min_insert_lift_external": 0.2,
+    "require_false_positive": true,
+    "require_false_negative": true,
+    "output_dir": "outputs/intermediate_event_label_p0",
+    "manifest_path": "data/manifests/intermediate_event_label_p0.json",
+    "report_path": "docs/INTERMEDIATE_EVENT_LABEL_P0_RESULT.md"
+  },
+  "events": [
+    {
+      "name": "approach_100mm",
+      "spec": {
+        "name": "approach_100mm",
+        "tip_min_max_m": 0.1
+      },
+      "split_stats": {
+        "discovery": {
+          "n": 108,
+          "n_event": 86,
+          "n_not_event": 22,
+          "prevalence": 0.7962962962962963,
+          "insert_rate_event": 0.6162790697674418,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.6162790697674418,
+          "false_positive": 33,
+          "false_negative": 0
+        },
+        "held_out": {
+          "n": 108,
+          "n_event": 86,
+          "n_not_event": 22,
+          "prevalence": 0.7962962962962963,
+          "insert_rate_event": 0.5232558139534884,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.5232558139534884,
+          "false_positive": 41,
+          "false_negative": 0
+        }
+      },
+      "split_checks": {
+        "discovery": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        },
+        "held_out": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        }
+      },
+      "pooled_primary": {
+        "n": 216,
+        "n_event": 172,
+        "n_not_event": 44,
+        "prevalence": 0.7962962962962963,
+        "insert_rate_event": 0.5697674418604651,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.5697674418604651,
+        "false_positive": 74,
+        "false_negative": 0
+      },
+      "external": {
+        "n": 32,
+        "n_event": 28,
+        "n_not_event": 4,
+        "prevalence": 0.875,
+        "insert_rate_event": 0.8928571428571429,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.8928571428571429,
+        "false_positive": 3,
+        "false_negative": 0
+      },
+      "pooled_checks": {
+        "false_positive_ok": true,
+        "false_negative_ok": false,
+        "external_lift_ok": true,
+        "external_groups_ok": true
+      },
+      "pass": false
+    },
+    {
+      "name": "approach_60mm",
+      "spec": {
+        "name": "approach_60mm",
+        "tip_min_max_m": 0.06
+      },
+      "split_stats": {
+        "discovery": {
+          "n": 108,
+          "n_event": 56,
+          "n_not_event": 52,
+          "prevalence": 0.5185185185185185,
+          "insert_rate_event": 0.9464285714285714,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.9464285714285714,
+          "false_positive": 3,
+          "false_negative": 0
+        },
+        "held_out": {
+          "n": 108,
+          "n_event": 46,
+          "n_not_event": 62,
+          "prevalence": 0.42592592592592593,
+          "insert_rate_event": 0.9782608695652174,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.9782608695652174,
+          "false_positive": 1,
+          "false_negative": 0
+        }
+      },
+      "split_checks": {
+        "discovery": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        },
+        "held_out": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        }
+      },
+      "pooled_primary": {
+        "n": 216,
+        "n_event": 102,
+        "n_not_event": 114,
+        "prevalence": 0.4722222222222222,
+        "insert_rate_event": 0.9607843137254902,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.9607843137254902,
+        "false_positive": 4,
+        "false_negative": 0
+      },
+      "external": {
+        "n": 32,
+        "n_event": 25,
+        "n_not_event": 7,
+        "prevalence": 0.78125,
+        "insert_rate_event": 1.0,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 1.0,
+        "false_positive": 0,
+        "false_negative": 0
+      },
+      "pooled_checks": {
+        "false_positive_ok": true,
+        "false_negative_ok": false,
+        "external_lift_ok": true,
+        "external_groups_ok": true
+      },
+      "pass": false
+    },
+    {
+      "name": "deep_20mm",
+      "spec": {
+        "name": "deep_20mm",
+        "tip_min_max_m": 0.02
+      },
+      "split_stats": {
+        "discovery": {
+          "n": 108,
+          "n_event": 54,
+          "n_not_event": 54,
+          "prevalence": 0.5,
+          "insert_rate_event": 0.9814814814814815,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.9814814814814815,
+          "false_positive": 1,
+          "false_negative": 0
+        },
+        "held_out": {
+          "n": 108,
+          "n_event": 45,
+          "n_not_event": 63,
+          "prevalence": 0.4166666666666667,
+          "insert_rate_event": 1.0,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 1.0,
+          "false_positive": 0,
+          "false_negative": 0
+        }
+      },
+      "split_checks": {
+        "discovery": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        },
+        "held_out": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        }
+      },
+      "pooled_primary": {
+        "n": 216,
+        "n_event": 99,
+        "n_not_event": 117,
+        "prevalence": 0.4583333333333333,
+        "insert_rate_event": 0.98989898989899,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.98989898989899,
+        "false_positive": 1,
+        "false_negative": 0
+      },
+      "external": {
+        "n": 32,
+        "n_event": 25,
+        "n_not_event": 7,
+        "prevalence": 0.78125,
+        "insert_rate_event": 1.0,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 1.0,
+        "false_positive": 0,
+        "false_negative": 0
+      },
+      "pooled_checks": {
+        "false_positive_ok": true,
+        "false_negative_ok": false,
+        "external_lift_ok": true,
+        "external_groups_ok": true
+      },
+      "pass": false
+    },
+    {
+      "name": "retained",
+      "spec": {
+        "name": "retained",
+        "require_retained": true
+      },
+      "split_stats": {
+        "discovery": {
+          "n": 108,
+          "n_event": 101,
+          "n_not_event": 7,
+          "prevalence": 0.9351851851851852,
+          "insert_rate_event": 0.5247524752475248,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.5247524752475248,
+          "false_positive": 48,
+          "false_negative": 0
+        },
+        "held_out": {
+          "n": 108,
+          "n_event": 103,
+          "n_not_event": 5,
+          "prevalence": 0.9537037037037037,
+          "insert_rate_event": 0.4368932038834951,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.4368932038834951,
+          "false_positive": 58,
+          "false_negative": 0
+        }
+      },
+      "split_checks": {
+        "discovery": {
+          "prevalence_ok": false,
+          "groups_ok": true,
+          "lift_ok": true
+        },
+        "held_out": {
+          "prevalence_ok": false,
+          "groups_ok": true,
+          "lift_ok": true
+        }
+      },
+      "pooled_primary": {
+        "n": 216,
+        "n_event": 204,
+        "n_not_event": 12,
+        "prevalence": 0.9444444444444444,
+        "insert_rate_event": 0.4803921568627451,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.4803921568627451,
+        "false_positive": 106,
+        "false_negative": 0
+      },
+      "external": {
+        "n": 32,
+        "n_event": 31,
+        "n_not_event": 1,
+        "prevalence": 0.96875,
+        "insert_rate_event": 0.8064516129032258,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.8064516129032258,
+        "false_positive": 6,
+        "false_negative": 0
+      },
+      "pooled_checks": {
+        "false_positive_ok": true,
+        "false_negative_ok": false,
+        "external_lift_ok": true,
+        "external_groups_ok": false
+      },
+      "pass": false
+    },
+    {
+      "name": "retained_and_approach_60mm",
+      "spec": {
+        "name": "retained_and_approach_60mm",
+        "require_retained": true,
+        "tip_min_max_m": 0.06
+      },
+      "split_stats": {
+        "discovery": {
+          "n": 108,
+          "n_event": 56,
+          "n_not_event": 52,
+          "prevalence": 0.5185185185185185,
+          "insert_rate_event": 0.9464285714285714,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.9464285714285714,
+          "false_positive": 3,
+          "false_negative": 0
+        },
+        "held_out": {
+          "n": 108,
+          "n_event": 46,
+          "n_not_event": 62,
+          "prevalence": 0.42592592592592593,
+          "insert_rate_event": 0.9782608695652174,
+          "insert_rate_not_event": 0.0,
+          "insert_lift": 0.9782608695652174,
+          "false_positive": 1,
+          "false_negative": 0
+        }
+      },
+      "split_checks": {
+        "discovery": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        },
+        "held_out": {
+          "prevalence_ok": true,
+          "groups_ok": true,
+          "lift_ok": true
+        }
+      },
+      "pooled_primary": {
+        "n": 216,
+        "n_event": 102,
+        "n_not_event": 114,
+        "prevalence": 0.4722222222222222,
+        "insert_rate_event": 0.9607843137254902,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 0.9607843137254902,
+        "false_positive": 4,
+        "false_negative": 0
+      },
+      "external": {
+        "n": 32,
+        "n_event": 25,
+        "n_not_event": 7,
+        "prevalence": 0.78125,
+        "insert_rate_event": 1.0,
+        "insert_rate_not_event": 0.0,
+        "insert_lift": 1.0,
+        "false_positive": 0,
+        "false_negative": 0
+      },
+      "pooled_checks": {
+        "false_positive_ok": true,
+        "false_negative_ok": false,
+        "external_lift_ok": true,
+        "external_groups_ok": true
+      },
+      "pass": false
+    }
+  ],
+  "judgment": {
+    "verdict": "fail_no_stable_intermediate_event_label",
+    "decision": "stop_dense_intermediate_label_direction",
+    "reason": "no preregistered event passed split, non-copy, and external gates",
+    "passed_events": [],
+    "n_primary": 216,
+    "n_discovery": 108,
+    "n_held_out": 108,
+    "n_external": 32
+  }
+}

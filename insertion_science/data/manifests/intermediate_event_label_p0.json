@@ -1,0 +1,9 @@
+{
+  "protocol": "IntermediateEventLabelP0",
+  "utc": "2026-08-16T03:24:19Z",
+  "verdict": "fail_no_stable_intermediate_event_label",
+  "decision": "stop_dense_intermediate_label_direction",
+  "passed_events": [],
+  "results": "/home/wangrenpeng/dexjoco/insertion_science/outputs/intermediate_event_label_p0/results.json",
+  "report": "/home/wangrenpeng/dexjoco/insertion_science/docs/INTERMEDIATE_EVENT_LABEL_P0_RESULT.md"
+}

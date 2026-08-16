@@ -1,0 +1,16 @@
+{
+  "protocol": "DemoHandoffPerturbRecoverabilityP0",
+  "utc": "2026-08-15T12:29:55Z",
+  "verdict": "branch1_continuous_recoverable_neighborhood",
+  "decision": "neighborhood_exists_study_coverage",
+  "baseline_insert_ok_rate": 1.0,
+  "held_out_nonid_rate_by_scale": {
+    "0.5": 0.6111111111111112,
+    "1.0": 0.3611111111111111,
+    "2.0": 0.2777777777777778
+  },
+  "n_rows": 224,
+  "results": "/home/wangrenpeng/dexjoco/insertion_science/outputs/handoff_perturb_recoverability_p0/results.json",
+  "report": "/home/wangrenpeng/dexjoco/insertion_science/docs/HANDOFF_PERTURB_RECOVERABILITY_P0_RESULT.md",
+  "smoke": false
+}

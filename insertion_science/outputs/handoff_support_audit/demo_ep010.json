@@ -1,0 +1,62 @@
+{
+  "episode_index": 10,
+  "peg_lift_end": 323,
+  "n_steps_scanned": 326,
+  "first_peg_ok": {
+    "frame": 280,
+    "tip_m": 0.2900047078230758,
+    "lat_m": 0.29000069397528855,
+    "along_m": -0.0015257959732649922,
+    "axis_err_rad": 0.21337682562446217,
+    "contact_total": 4,
+    "o2h_t": [
+      0.268610378617773,
+      0.06703434830120714,
+      -0.062128697665089425
+    ],
+    "o2h_rv": [
+      -0.33125553574841726,
+      -1.403863917617246,
+      0.34691609657687045
+    ]
+  },
+  "transport": {
+    "frame": 300,
+    "tip_m": 0.15357102020630922,
+    "lat_m": 0.09360540791030927,
+    "along_m": 0.1217459878628842,
+    "axis_err_rad": 0.06080857268573625,
+    "contact_total": 4,
+    "o2h_drift_trans_m": 0.0036824186556585824,
+    "o2h_drift_rot_rad": 0.029028882131179334,
+    "contact_retention": 1.0
+  },
+  "handoff": {
+    "frame": 323,
+    "tip_m": 0.16977080189577776,
+    "lat_m": 0.0501579709163632,
+    "along_m": 0.1621921779980855,
+    "axis_err_rad": 0.15179729463391156,
+    "contact_total": 4,
+    "o2h_t": [
+      0.26400733274399607,
+      0.063209695366312,
+      -0.07403613783010775
+    ],
+    "o2h_rv": [
+      -0.30536122663538523,
+      -1.3467235966681927,
+      0.2953495698507425
+    ],
+    "o2h_drift_trans_m": 0.013326782532629105,
+    "o2h_drift_rot_rad": 0.079693853597128,
+    "contact_retention": 1.0,
+    "peg_ok": true
+  },
+  "transport_max_o2h_drift_trans_m": 0.014641253973292311,
+  "transport_max_o2h_drift_rot_rad": 0.08537358987247978,
+  "peg_contact_absent_steps": 0,
+  "demo_insert_ok_seen": false,
+  "demo_is_success_trajectory": true,
+  "source": "demo_sidecar"
+}

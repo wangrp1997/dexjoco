@@ -87,4 +87,9 @@ held-out geometry 上预测局部接触约束或可行微运动方向；若连�
 
 1. ~~Candidate A（Controller Compliance）~~：已放弃动态 compliance。
 2. ~~Candidate B（Cross-Geometry Contact-Affordance）~~：**P0 失败，停止该方向**。
-3. 下一步：审查阶段接口与数据支持；禁止宣称仿真插孔不可解；仍禁策略训练。
+3. ~~Candidate C（Dense Intermediate Event Label）~~：**P0 失败，停止该方向**。
+4. ~~Candidate D（Active Contact Probe Information）~~：**P0 失败，停止该方向**。
+5. handoff/阶段接口审查：最终门失败，已停止该方向。
+
+当前没有剩余已准入候选；Insertion Science 当前轮暂停。禁止把“候选耗尽”表述为
+仿真插孔不可解，也禁止回到换模型、扩数据或抢救旧项目。

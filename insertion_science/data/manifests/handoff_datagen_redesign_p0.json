@@ -1,0 +1,12 @@
+{
+  "protocol": "HandoffDatagenRedesignP0",
+  "utc": "2026-08-15T17:06:59Z",
+  "verdict": "fail_no_contrast",
+  "decision": "pause_boundary_not_operational",
+  "in_basin_rate": 0.9166666666666666,
+  "out_basin_rate": 0.375,
+  "n_accepted": 22,
+  "results": "/home/wangrenpeng/dexjoco/insertion_science/outputs/handoff_datagen_redesign_p0/results.json",
+  "report": "/home/wangrenpeng/dexjoco/insertion_science/docs/HANDOFF_DATAGEN_REDESIGN_P0_RESULT.md",
+  "smoke": false
+}

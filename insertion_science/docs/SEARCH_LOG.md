@@ -1,5 +1,12 @@
 # Search Log
 
+## 2026-08-16：Active contact sequence / contact manifold
+
+- 检索到 `Efficient Active Pose Estimation via Contact Manifold Exploration`（arXiv:2505.19215）。
+- 只借用“固定 primitive contact sequence 是否增加状态信息”的问题，不迁移其控制算法。
+- 本地转化为 `Active Contact Probe Information P0`；episode-held-out sequence accuracy
+  低于 static，方向已停止。
+
 - 日期：2026-08-15
 - 状态：`first_pass_complete`
 - 范围：控制接口、接触状态、阶段可行域、跨几何装配语义。
