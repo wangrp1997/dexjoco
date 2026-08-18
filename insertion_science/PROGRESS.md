@@ -67,3 +67,10 @@
 2. `training_allowed=false`、`collection_allowed=false`。
 3. 不抢救 compliance / affordance / handoff / dense-event / active-probe 失败方向。
 4. 仅当出现新的外部科学假设，且能证明不重复禁区并可低算力证伪时，才允许重开 shortlist。
+
+## 2026-08-17：旁路实验 Privileged Snap-Servo（非 shortlist）
+
+- 新目录：`/home/wangrenpeng/dexjoco/priv_snap_insert/`
+- 用户指定：demo→抓后锁 o2h + 手指不动 + 特权伺服（非训策略）
+- G1 过；G2 3/8 未过；见 `priv_snap_insert/docs/RESULT_P0.md`
+- 不改变 Insertion Science 暂停状态 / 不开放训练

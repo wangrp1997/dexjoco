@@ -123,11 +123,15 @@ def replay_episode(
 
     left_qpos_adr = raw_env._allegro_dof_left_ids
     right_qpos_adr = raw_env._allegro_dof_right_ids
+    def _dofadr0(joint_name: str) -> int:
+        # MuJoCo 3.4+: joint.dofadr is ndarray shape (1,), not a Python int.
+        return int(np.asarray(model.joint(joint_name).dofadr).reshape(-1)[0])
+
     left_qvel_adr = np.asarray(
-        [int(model.joint(n).dofadr) for n in raw_env._allegro_joint_left_names], dtype=int
+        [_dofadr0(n) for n in raw_env._allegro_joint_left_names], dtype=int
     )
     right_qvel_adr = np.asarray(
-        [int(model.joint(n).dofadr) for n in raw_env._allegro_joint_right_names], dtype=int
+        [_dofadr0(n) for n in raw_env._allegro_joint_right_names], dtype=int
     )
     tray_id = model.body(TRAY_BODY).id
     peg_id = model.body(PEG_BODY).id

@@ -64,7 +64,8 @@ def restore_robot_proprio(raw_env, parts, *, settle_steps: int = 80) -> None:
     ):
         for n in name_list:
             j = model.joint(n)
-            data.qvel[int(j.dofadr)] = 0.0
+            # MuJoCo 3.4+: dofadr is ndarray (1,), not a scalar.
+            data.qvel[int(np.asarray(j.dofadr).reshape(-1)[0])] = 0.0
 
     right23 = np.concatenate([tcp[:7], grip[:16]], axis=0)
     left23 = np.concatenate([tcp[7:14], grip[16:32]], axis=0)

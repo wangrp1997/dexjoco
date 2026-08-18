@@ -189,10 +189,12 @@ def replay_pose_sequence(
     peg_id = int(model.body(PEG_BODY).id)
 
     left_qvel_adr = np.asarray(
-        [int(model.joint(n).dofadr) for n in raw._allegro_joint_left_names], dtype=int
+        [int(np.asarray(model.joint(n).dofadr).reshape(-1)[0]) for n in raw._allegro_joint_left_names],
+        dtype=int,
     )
     right_qvel_adr = np.asarray(
-        [int(model.joint(n).dofadr) for n in raw._allegro_joint_right_names], dtype=int
+        [int(np.asarray(model.joint(n).dofadr).reshape(-1)[0]) for n in raw._allegro_joint_right_names],
+        dtype=int,
     )
 
     frames: list[_FrameRecord] = []
