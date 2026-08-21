@@ -18,7 +18,7 @@ from lerobot.datasets.lerobot_dataset import LeRobotDataset
 from lerobot.utils.constants import ACTION, OBS_IMAGES, OBS_STATE
 from zarr import Array, Group
 
-from ..episode_common import find_first_non_static_frame
+from ..episode_common import find_first_non_static_frame, should_skip_init_hold_hand_frame
 from ..process_protocol import DoneMsg, ErrorMsg, InitMsg, ProgressBar, ProgressMsg
 from ..utils import dict_to_slice, normalize_array_shape, pad_to_dim, terminate_process
 
@@ -403,7 +403,11 @@ def _merge_datasets_worker_impl(
                     start_idx = find_first_non_static_frame(
                         episode_data[selected_action_key]
                     )
-                    if start_idx < n_steps and np.all(
+                    if should_skip_init_hold_hand_frame(
+                        episode_data[selected_action_key][start_idx:]
+                    ):
+                        start_idx += 1
+                    elif start_idx < n_steps and np.all(
                         episode_data[selected_action_key][start_idx] == 0
                     ):
                         start_idx += 1

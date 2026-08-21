@@ -18,7 +18,7 @@ from lerobot.utils.constants import ACTION, OBS_IMAGES, OBS_STATE
 from dataclasses import dataclass
 from zarr import Array, Group
 
-from ..episode_common import find_first_non_static_frame
+from ..episode_common import find_first_non_static_frame, should_skip_init_hold_hand_frame
 from ..process_protocol import DoneMsg, ErrorMsg, InitMsg, ProgressBar, ProgressMsg
 from ..utils import dict_to_slice, normalize_array_shape, terminate_process
 
@@ -299,7 +299,13 @@ def _merge_episode_worker_impl(
                 start_idx = find_first_non_static_frame(
                     episode_data[selected_action_key]
                 )
-                if start_idx < n_steps and np.all(
+                # Prefer hand-hold detection over exact all-zero action: absolute
+                # rotvecs are nonzero at rest, so the old check almost never fired.
+                if should_skip_init_hold_hand_frame(
+                    episode_data[selected_action_key][start_idx:]
+                ):
+                    start_idx += 1
+                elif start_idx < n_steps and np.all(
                     episode_data[selected_action_key][start_idx] == 0
                 ):
                     start_idx += 1
