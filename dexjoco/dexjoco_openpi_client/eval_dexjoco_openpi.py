@@ -248,6 +248,7 @@ def main(
     output: Path | None = None,
     checkpoint: Path | None = None,
     render_mode: Literal["rgb_array", "human"] = "rgb_array",
+    action_horizon: int = 30,
     replan_ratio: float = 0.8,
     episodes: int = 50,
     pad_state_dim46: bool = False,
@@ -272,7 +273,13 @@ def main(
     robot_type = cfg["robot_type"]
     dual_arm = robot_type == "dual_arm"
     prompt = cfg["prompt"]
-    action_horizon = 30  # the policy trained on
+    if action_horizon <= 0:
+        raise ValueError(f"action_horizon must be positive, got {action_horizon}")
+    print(
+        f"action_horizon={action_horizon}, replan_ratio={replan_ratio}, "
+        f"replan_threshold={replan_ratio * action_horizon:.1f}",
+        flush=True,
+    )
 
     # Record password input only for iPad tasks unless explicitly configured.
     if record_pressed_digits is None:
