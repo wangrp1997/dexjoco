@@ -5,6 +5,7 @@ __pycache__/
 .vscode/
 
 /outputs
+/dexjoco/outputs/
 /checkpoints
 /datasets
 /_replay_test/
