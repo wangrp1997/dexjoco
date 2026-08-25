@@ -8,12 +8,108 @@ os.environ.setdefault("MUJOCO_GL", "egl")
 
 import mujoco
 import numpy as np
+import torch
 
 from .env import BimanualPhysicsRLEnv
 from .causal import CausalAssemblyController
+from .keypose import _peg_visual_features
+from .student import (
+    StudentNet,
+    RecurrentStudentNet,
+    _loss,
+    _normalization,
+    absolute_to_action,
+    action_to_absolute,
+    action_to_residual,
+    public_observation,
+    residual_to_action,
+)
 
 
 class EnvironmentSmokeTest(unittest.TestCase):
+    def test_pose_only_loss_ignores_hand_error(self):
+        prediction = torch.zeros(1, 1, 44)
+        target = prediction.clone()
+        target[..., 6:22] = 100.0
+        target[..., 28:44] = 100.0
+        self.assertEqual(float(_loss(prediction, target, hand_weight=0.0)), 0.0)
+
+    def test_training_normalization_respects_start_step(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "episode.npz"
+            np.savez(path, state=np.arange(4, dtype=np.float32)[:, None])
+            mean, std = _normalization([path], "state", 1e-4, start_step=2)
+            sliced = Path(directory) / "sliced.npz"
+            np.savez(
+                sliced,
+                state=np.arange(2, 4, dtype=np.float32)[:, None],
+                first_step=np.asarray(2),
+            )
+            sliced_mean, sliced_std = _normalization(
+                [sliced], "state", 1e-4, start_step=2
+            )
+        np.testing.assert_allclose(mean, [2.5])
+        np.testing.assert_allclose(std, [0.5])
+        np.testing.assert_allclose(sliced_mean, mean)
+        np.testing.assert_allclose(sliced_std, std)
+
+    def test_peg_visual_features_use_rgb_only(self):
+        images = np.zeros((3, 32, 32, 3), dtype=np.uint8)
+        images[0, 8:16, 12:20] = (255, 200, 0)
+        features = _peg_visual_features(images)
+        self.assertEqual(features.shape, (60,))
+        self.assertTrue(np.isfinite(features).all())
+        self.assertEqual(features[0], 1.0)
+        self.assertEqual(features[20], 0.0)
+
+    def test_student_observation_drops_privileged_state_tail(self):
+        obs = {
+            "state": np.arange(61, dtype=np.float32),
+            "ego": np.zeros((8, 8, 3), dtype=np.uint8),
+            "wrist_left": np.ones((8, 8, 3), dtype=np.uint8),
+            "wrist_right": np.full((8, 8, 3), 2, dtype=np.uint8),
+        }
+        images, state = public_observation(obs)
+        self.assertEqual(images.shape, (3, 8, 8, 3))
+        np.testing.assert_array_equal(state, np.arange(46, dtype=np.float32))
+
+    def test_student_relative_action_round_trip(self):
+        state = np.zeros(46, dtype=np.float32)
+        state[[3, 10]] = 1.0
+        residual = np.linspace(-0.02, 0.02, 44, dtype=np.float32)
+        action = residual_to_action(state, residual)
+        np.testing.assert_allclose(action_to_residual(state, action), residual, atol=1e-7)
+
+    def test_student_action_chunk_shape(self):
+        model = StudentNet(action_horizon=4).eval()
+        with torch.inference_mode():
+            output = model(
+                torch.zeros(1, 3, 3, 64, 64),
+                torch.zeros(1, 46),
+                torch.zeros(1, 44),
+            )
+        self.assertEqual(tuple(output.shape), (1, 4, 44))
+
+    def test_student_absolute_action_round_trip(self):
+        state = np.zeros(46, dtype=np.float32)
+        state[[3, 10]] = 1.0
+        residual = np.linspace(-0.02, 0.02, 44, dtype=np.float32)
+        action = residual_to_action(state, residual)
+        np.testing.assert_allclose(
+            absolute_to_action(action_to_absolute(action)), action, atol=1e-7
+        )
+
+    def test_recurrent_student_shape(self):
+        model = RecurrentStudentNet().eval()
+        with torch.inference_mode():
+            output, hidden = model(
+                torch.zeros(1, 2, 3, 3, 64, 64),
+                torch.zeros(1, 2, 46),
+                torch.zeros(1, 2, 44),
+            )
+        self.assertEqual(tuple(output.shape), (1, 2, 44))
+        self.assertEqual(tuple(hidden.shape), (1, 1, 256))
+
     def test_causal_mode_exposes_only_three_physical_gains(self):
         env = BimanualPhysicsRLEnv(seed=5, causal_templates="unused")
         try:
