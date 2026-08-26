@@ -32,6 +32,12 @@ class DexJoCoConfig:
     base_img_name: str | None = None
     wrist_left_img_name: str | None = None
     wrist_right_img_name: str | None = None
+    # Optional overrides (e.g. insert-segment continue-FT).
+    weight_loader_path: str | None = None
+    num_train_steps: int | None = None
+    save_interval: int | None = None
+    warmup_steps: int | None = None
+    checkpoint_subdir: str | None = None
 
 
 TrainConfigs: list[DexJoCoConfig] = [
@@ -41,6 +47,18 @@ TrainConfigs: list[DexJoCoConfig] = [
         checkpoint_base_dir=f"{CKPTS_ROOT}",
         data_root=Path(f"{DATASET_ROOT}/bimanual_assembly"),
         single_arm=False,
+    ),
+    # Insert-segment continue-FT from official DexJoCo assembly LoRA ckpt.
+    DexJoCoConfig(
+        name="bimanual_assembly_insert_ft",
+        checkpoint_base_dir="/mnt/hdd/dexjoco/checkpoints/pi05_insert_ft",
+        data_root=Path("/mnt/hdd/dexjoco/datasets/bimanual_assembly_insert_ft_mix"),
+        single_arm=False,
+        weight_loader_path="/home/wangrenpeng/dexjoco/checkpoints/pi05_dexjoco_ckpt/bimanual_assembly/params",
+        num_train_steps=8000,
+        save_interval=2000,
+        warmup_steps=500,
+        checkpoint_subdir="bimanual_assembly_insert_ft",
     ),
     DexJoCoConfig(
         name="bimanual_microwave_cook",
@@ -247,6 +265,11 @@ def make_dual_arm_config(cfg: DexJoCoConfig):
     from .config import DualArmDataConfig  # noqa: PLC0415
     from .config import TrainConfig  # noqa: PLC0415
 
+    weight_path = cfg.weight_loader_path or PRETRAINED_MODEL_ACTION_DIM_44_PATH
+    num_steps = cfg.num_train_steps if cfg.num_train_steps is not None else DUAL_ARM_STEPS
+    save_interval = cfg.save_interval if cfg.save_interval is not None else 10000
+    warmup_steps = cfg.warmup_steps if cfg.warmup_steps is not None else 10_000
+
     return TrainConfig(
         name=cfg.name,
         exp_name=cfg.name + datetime.now().strftime("%Y%m%d"),  # noqa: DTZ005
@@ -269,7 +292,7 @@ def make_dual_arm_config(cfg: DexJoCoConfig):
         batch_size=BATCH_SIZE,
         num_workers=4,
         lr_schedule=_optimizer.CosineDecaySchedule(
-            warmup_steps=10_000,
+            warmup_steps=warmup_steps,
             peak_lr=5e-5,
             decay_steps=1_000_000,
             decay_lr=5e-5,
@@ -284,11 +307,12 @@ def make_dual_arm_config(cfg: DexJoCoConfig):
             max_token_len=250,
         ).get_freeze_filter(),
         ema_decay=None,
-        weight_loader=weight_loaders.CheckpointWeightLoader(PRETRAINED_MODEL_ACTION_DIM_44_PATH),
-        num_train_steps=DUAL_ARM_STEPS,
-        save_interval=10000,
+        weight_loader=weight_loaders.CheckpointWeightLoader(weight_path),
+        num_train_steps=num_steps,
+        save_interval=save_interval,
         wandb_enabled=WANDB_ENABLED,
         checkpoint_base_dir=cfg.checkpoint_base_dir,
+        checkpoint_subdir=cfg.checkpoint_subdir,
     )
 
 
