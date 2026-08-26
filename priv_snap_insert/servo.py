@@ -312,6 +312,16 @@ def seat_success(feat: dict, *, insert_ok: bool) -> bool:
     return geometric_seat_ok(feat)
 
 
+def transfer_seat_ready(feat: dict) -> bool:
+    """Rim-aligned enough to open hand and privilege-pin peg into hole."""
+    return (
+        float(feat["lat_err"]) <= 0.012
+        and float(feat["axis_err"]) <= 0.20
+        and float(feat["tip_dist"]) <= 0.035
+        and float(feat["along"]) <= 0.040
+    )
+
+
 def release_hold_ok(feat: dict, *, insert_ok: bool) -> bool:
     """After opening the hand: peg stays in hole (may be deeper than tip_dist 8mm)."""
     if geometric_seat_ok(feat):

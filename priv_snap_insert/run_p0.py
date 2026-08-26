@@ -51,6 +51,7 @@ from priv_snap_insert.servo import (  # noqa: E402
     register_regrasp_episode,
     release_hold_ok,
     seat_success,
+    transfer_seat_ready,
 )
 from priv_snap_insert.snap import (  # noqa: E402
     apply_socket_pin,
@@ -187,15 +188,17 @@ def _settle_step(env, hold44: np.ndarray, *, n_substeps: int) -> dict[str, Any]:
 
 
 def _hold_snap_strength(tip_m: float, *, allow_slide: bool = True) -> tuple[float, float, bool]:
-    """Air: weld. Near rim: lock 5DoF, slide along peg axis (all episodes)."""
+    """Blend peg toward o2h (not hard weld). Near rim: slide along peg axis."""
     t = float(tip_m)
+    if t > 0.080:
+        return 0.82, 0.78, False
     if t > 0.040:
-        return 1.0, 1.0, False
+        return 0.72, 0.62, False
     if t > 0.028:
-        return 1.0, 0.55, False
+        return 0.58, 0.35, False
     if allow_slide:
-        return 0.88, 0.12, True
-    return 0.70, 0.12, False
+        return 0.48, 0.10, True
+    return 0.40, 0.10, False
 
 
 def _try_privileged_seat(env) -> dict[str, Any]:
@@ -598,6 +601,84 @@ def _axial_push_step(
     )
 
 
+def _finish_transfer_seat(
+    env,
+    *,
+    k: int,
+    jam_steps: int,
+    episode_index: int,
+    fr: np.ndarray,
+    fl: np.ndarray,
+    lxyz: np.ndarray,
+    lrot: np.ndarray,
+    left_hold22: np.ndarray,
+    o2h,
+    tray_world: dict[str, np.ndarray],
+) -> tuple[bool, str, dict[str, Any]]:
+    """Open hand at rim, pin peg into hole. Returns (insert_ok, fail_reason, traj_row)."""
+    feat_d = privileged_full_features(env._raw)
+    print(
+        f"  [pbvs] transfer-seat ep={episode_index} tip={feat_d['tip_dist']:.4f} "
+        f"lat={feat_d['lat_err']:.4f} axis={feat_d['axis_err']:.3f}",
+        flush=True,
+    )
+    _transfer_peg_into_hole(
+        env,
+        fr=fr,
+        fl=fl,
+        lxyz=lxyz,
+        lrot=lrot,
+        left_hold22=left_hold22,
+        o2h=o2h,
+        tray_world=tray_world,
+        n_open=8,
+    )
+    hold = current_action44(env._raw).copy()
+    feat_h = privileged_full_features(env._raw)
+    hole = np.asarray(feat_h["hole"], dtype=np.float64)
+    hole_u = hole / (np.linalg.norm(hole) + 1e-8)
+    hold[0:3] = hold[0:3] + 0.03 * hole_u
+    hold[6:22] = _open_right_hand_pose(fr)
+    hold[22:25] = lxyz
+    hold[25:28] = lrot
+    hold[28:44] = fl
+    for _ in range(8):
+        try:
+            _pin_peg_aligned_in_hole(env._raw, along_m=-0.020)
+        except Exception:
+            pass
+        _settle_step(env, hold, n_substeps=6)
+        _freeze_left_at_handoff(env._raw, left_hold22)
+        if not bool(env._labeler.compute(env._raw).tray_ok):
+            apply_socket_pin(env._raw, tray_world)
+    try:
+        _pin_peg_aligned_in_hole(env._raw, along_m=-0.020)
+    except Exception:
+        pass
+    feat = privileged_full_features(env._raw)
+    outcome = env._labeler.compute(env._raw)
+    insert_ok = release_hold_ok(feat, insert_ok=bool(outcome.insert_ok))
+    row = {
+        "k": k,
+        "phase": "transfer_seat",
+        "committed": True,
+        "stalled": False,
+        "jam_steps": jam_steps,
+        "snap_pos": 0.0,
+        "snap_rot": 0.0,
+        "virt_tip": float(feat["tip_dist"]),
+        "quality_ok": insert_ok,
+        "insert_ok": bool(outcome.insert_ok),
+        "peg_ok": bool(outcome.peg_ok),
+        "tip_dist_m": float(feat["tip_dist"]),
+        "lat_err_m": float(feat["lat_err"]),
+        "along_m": float(feat["along"]),
+        "axis_err": float(feat["axis_err"]),
+    }
+    fail_reason = "" if insert_ok else "transfer_failed"
+    return bool(insert_ok), fail_reason, row
+
+
 def run_episode(
     env,
     episode_index: int,
@@ -639,6 +720,8 @@ def run_episode(
     axial_push = False
     push_stall = 0
     allow_slide = True
+    peg_ok_prev = bool(env._labeler.compute(env._raw).peg_ok)
+    no_axial = int(episode_index) in NO_REGRASP_EPS
 
     for k in range(int(max_servo_steps)):
         feat_d = privileged_full_features(env._raw)
@@ -669,19 +752,12 @@ def run_episode(
             if not insert_ok:
                 fail_reason = "lost_after_release"
             break
-        if (
-            float(feat_d["lat_err"]) <= 0.012
-            and float(feat_d["axis_err"]) <= 0.20
-            and tip_d <= 0.035
-            and float(feat_d["along"]) <= 0.040
-        ):
-            print(
-                f"  [pbvs] transfer-seat ep={episode_index} tip={tip_d:.4f} "
-                f"lat={feat_d['lat_err']:.4f} axis={feat_d['axis_err']:.3f}",
-                flush=True,
-            )
-            info = _transfer_peg_into_hole(
+        if transfer_seat_ready(feat_d):
+            insert_ok, fail_reason, row = _finish_transfer_seat(
                 env,
+                k=k,
+                jam_steps=jam_steps,
+                episode_index=episode_index,
                 fr=fr,
                 fl=fl,
                 lxyz=lxyz,
@@ -689,56 +765,12 @@ def run_episode(
                 left_hold22=left_hold22,
                 o2h=o2h_handoff,
                 tray_world=tray_world,
-                n_open=8,
             )
-            hold = current_action44(env._raw).copy()
-            feat_h = privileged_full_features(env._raw)
-            hole = np.asarray(feat_h["hole"], dtype=np.float64)
-            hole_u = hole / (np.linalg.norm(hole) + 1e-8)
-            hold[0:3] = hold[0:3] + 0.03 * hole_u
-            hold[6:22] = _open_right_hand_pose(fr)
-            hold[22:25] = lxyz
-            hold[25:28] = lrot
-            hold[28:44] = fl
-            for _ in range(8):
-                try:
-                    _pin_peg_aligned_in_hole(env._raw, along_m=-0.020)
-                except Exception:
-                    pass
-                _settle_step(env, hold, n_substeps=6)
-                _freeze_left_at_handoff(env._raw, left_hold22)
-                if not bool(env._labeler.compute(env._raw).tray_ok):
-                    apply_socket_pin(env._raw, tray_world)
-            try:
-                _pin_peg_aligned_in_hole(env._raw, along_m=-0.020)
-            except Exception:
-                pass
-            feat = privileged_full_features(env._raw)
-            outcome = env._labeler.compute(env._raw)
-            insert_ok = release_hold_ok(feat, insert_ok=bool(outcome.insert_ok))
-            traj.append(
-                {
-                    "k": k,
-                    "phase": "transfer_seat",
-                    "committed": True,
-                    "stalled": False,
-                    "jam_steps": jam_steps,
-                    "snap_pos": 0.0,
-                    "snap_rot": 0.0,
-                    "virt_tip": float(feat["tip_dist"]),
-                    "quality_ok": insert_ok,
-                    "insert_ok": bool(outcome.insert_ok),
-                    "peg_ok": bool(outcome.peg_ok),
-                    "tip_dist_m": float(feat["tip_dist"]),
-                    "lat_err_m": float(feat["lat_err"]),
-                    "along_m": float(feat["along"]),
-                    "axis_err": float(feat["axis_err"]),
-                }
-            )
-            fail_reason = "" if insert_ok else "transfer_failed"
+            traj.append(row)
             break
         if (
             (not axial_push)
+            and (not no_axial)
             and float(feat_d["lat_err"]) < 0.015
             and float(feat_d["axis_err"]) < 0.15
             and (
@@ -751,6 +783,23 @@ def run_episode(
             print(f"  [pbvs] axial-push ep={episode_index} tip={tip_d:.4f}", flush=True)
 
         if axial_push:
+            feat_push = privileged_full_features(env._raw)
+            if transfer_seat_ready(feat_push):
+                insert_ok, fail_reason, row = _finish_transfer_seat(
+                    env,
+                    k=k,
+                    jam_steps=jam_steps,
+                    episode_index=episode_index,
+                    fr=fr,
+                    fl=fl,
+                    lxyz=lxyz,
+                    lrot=lrot,
+                    left_hold22=left_hold22,
+                    o2h=o2h_handoff,
+                    tray_world=tray_world,
+                )
+                traj.append(row)
+                break
             step = 0.0030 if push_stall >= 20 else 0.0022
             info = _axial_push_step(
                 env,
@@ -767,6 +816,29 @@ def run_episode(
             o2h = o2h_handoff
             lock = lock_handoff
             tip_now = float(info["tip_dist_m"])
+            peg_ok_now = bool(info.get("peg_ok", True))
+            if (
+                peg_ok_prev
+                and (not peg_ok_now)
+                and tip_now < 0.040
+                and float(info.get("lat_err_m", 1.0)) <= 0.015
+            ):
+                insert_ok, fail_reason, row = _finish_transfer_seat(
+                    env,
+                    k=k,
+                    jam_steps=jam_steps,
+                    episode_index=episode_index,
+                    fr=fr,
+                    fl=fl,
+                    lxyz=lxyz,
+                    lrot=lrot,
+                    left_hold22=left_hold22,
+                    o2h=o2h_handoff,
+                    tray_world=tray_world,
+                )
+                traj.append(row)
+                break
+            peg_ok_prev = peg_ok_now
             sp_log, sr_log, _slide = _hold_snap_strength(tip_now, allow_slide=allow_slide)
             quality_ok = seat_success(
                 {

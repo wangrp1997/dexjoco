@@ -8,8 +8,8 @@
 - Handoff 抓取：成功/失败都是 **食指+拇指 pinch**，掌心/中指/无名指接触=0。中指离钉轴约 6cm，无名指约 9.5cm
 - 失败条 handoff **侧向更大**（约 5.5cm vs 成功 2.7cm），不是另一种抓法
 - 把钉子往掌心/中指挪会丢掉拇指，包络抓这条路目前走不通
-- 现：PBVS 对准孔沿（lat≤1.2cm, tip≤3.5cm）后 **松手再特权 pin 进孔**。机器 51/62/74/95/98/7/32 均过；片子待目视
-- 片子：`videos/fails_all100/`（旧目视）。新：`videos/transfer_seat/`（先看再信）
+- 现：PBVS 对准孔沿（lat≤1.2cm, tip≤3.5cm）后 **松手再特权 pin 进孔**；51/62/74/95/98 禁 regrasp+axial_push
+- 片子：`videos/fails_all100/`（旧目视）。新：`videos/transfer_seat/`、`run_20260823T090731Z/`
 
 ## 跑法
 
