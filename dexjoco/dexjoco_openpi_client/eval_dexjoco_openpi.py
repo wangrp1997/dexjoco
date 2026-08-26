@@ -1,13 +1,14 @@
 """Evaluate PI 0.5 policies on DexJoCo simulation environments."""
 
 import multiprocessing as mp
+import json
 import os
 import random
 import shutil
 import signal
 import sys
 import time
-from collections import deque
+from collections import Counter, deque
 from dataclasses import dataclass
 from multiprocessing.synchronize import Event as MpEvent
 from pathlib import Path
@@ -27,6 +28,7 @@ from scipy.spatial.transform import Rotation as R
 from dexjoco_lerobot_client.eval_config import default_eval_output_dir
 
 from .dexjoco_openpi_env import DexJoCoOpenPIEnv
+from .assembly_failure_diagnostics import AssemblyFailureTracker
 
 # pi0.5 bimanual_assembly: ego.mp4 capped at 1500 policy frames (~50 s @ 30 Hz).
 EVAL_MAX_VIDEO_FRAMES = 1500
@@ -379,6 +381,7 @@ def main(
     try:
         inference_proc.start()
         num_success = 0
+        episode_diagnostics = []
 
         for ep in range(episodes):
             print(f"Episode {ep + 1}/{episodes}")
@@ -393,6 +396,11 @@ def main(
 
             env.reset()
             hybrid.on_reset(env.env)
+            failure_tracker = None
+            if env_name == "bimanual_assembly":
+                from hybrid_insert import get_raw_env
+
+                failure_tracker = AssemblyFailureTracker(get_raw_env(env.env))
             if regrasp_hook is not None:
                 regrasp_hook.reset_episode(env.env)
 
@@ -431,6 +439,8 @@ def main(
             while True:
                 if regrasp_hook is not None and regrasp_hook.is_busy():
                     recovery_done = regrasp_hook.step_recovery(env, timestamp=timestamp)
+                    if failure_tracker is not None:
+                        failure_tracker.observe()
                     timestamp += 1
                     raw_images = env.get_raw_images()
                     _append_video_frames(video_writers, raw_images, video_frame_count)
@@ -475,6 +485,9 @@ def main(
                 else:
                     pressed_digits = env.stay(continue_stay=in_stay_state)
                     in_stay_state = True
+
+                if failure_tracker is not None:
+                    failure_tracker.observe()
 
                 if record_pressed_digits and pressed_digits:
                     password.append(pressed_digits)
@@ -538,6 +551,29 @@ def main(
             else:
                 final_video_dir = output_dir / f"episode_{ep:02d}_{result_suffix}"
             video_dir.rename(final_video_dir)
+            if failure_tracker is not None:
+                diagnostics = {
+                    "episode_index": ep,
+                    **failure_tracker.finalize(success=env.is_success),
+                }
+            else:
+                diagnostics = {
+                    "episode_index": ep,
+                    "success": bool(env.is_success),
+                    "failure_reason": "success" if env.is_success else "task_failure",
+                    "highest_stage": "success" if env.is_success else "unknown",
+                }
+            episode_diagnostics.append(diagnostics)
+            (final_video_dir / "diagnostics.json").write_text(
+                json.dumps(diagnostics, indent=2, sort_keys=True) + "\n",
+                encoding="utf-8",
+            )
+            if not env.is_success:
+                print(
+                    f"  failure_reason={diagnostics['failure_reason']} "
+                    f"highest_stage={diagnostics['highest_stage']}",
+                    flush=True,
+                )
 
             # Drain in-flight work before starting the next episode.
             while True:
@@ -554,6 +590,23 @@ def main(
             f"\nSuccess rate: {num_success}/{episodes} ({100 * num_success / episodes:.1f}%)"
         )
         (output_dir / f"success_rate_{num_success}_{episodes}.txt").touch()
+        evaluation_summary = {
+            "successes": num_success,
+            "episodes": episodes,
+            "success_rate": num_success / max(1, episodes),
+            "failure_counts": dict(
+                Counter(
+                    row["failure_reason"]
+                    for row in episode_diagnostics
+                    if not row["success"]
+                )
+            ),
+            "episode_diagnostics": episode_diagnostics,
+        }
+        (output_dir / "evaluation_summary.json").write_text(
+            json.dumps(evaluation_summary, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
+        )
 
     finally:
         # Shut down worker and release multiprocessing resources.
