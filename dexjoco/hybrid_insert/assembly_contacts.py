@@ -16,6 +16,7 @@ class AssemblyOutcome:
     tray_ok: bool
     peg_ok: bool
     insert_ok: bool
+    peg_tray_contact_count: int
     tray_contact_count: int
     peg_contact_count: int
 
@@ -107,6 +108,7 @@ class AssemblyContactLabeler:
         tray_count = 0
         peg_count = 0
         insert_count = 0
+        peg_tray_count = 0
 
         for i in range(int(data.ncon)):
             contact = data.contact[i]
@@ -117,6 +119,8 @@ class AssemblyContactLabeler:
                 tray_count += 1
             if self._geom_pair_in_sets(g1, g2, self._peg_geom_ids, self._right_hand_geom_ids):
                 peg_count += 1
+            if self._geom_pair_in_sets(g1, g2, self._peg_geom_ids, self._tray_geom_ids):
+                peg_tray_count += 1
             if (g1 == self._insert_geom_id and g2 in self._peg_geom_ids) or (
                 g2 == self._insert_geom_id and g1 in self._peg_geom_ids
             ):
@@ -128,6 +132,7 @@ class AssemblyContactLabeler:
             tray_ok=tray_contact and self._lifted(raw_env, self._tray_body_id, self._tray_rest_z),
             peg_ok=peg_contact and self._lifted(raw_env, self._peg_body_id, self._peg_rest_z),
             insert_ok=insert_count > 0,
+            peg_tray_contact_count=peg_tray_count,
             tray_contact_count=tray_count,
             peg_contact_count=peg_count,
         )

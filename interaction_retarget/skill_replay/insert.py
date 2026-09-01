@@ -278,18 +278,18 @@ def demo_replay_to_pre_insert(
     if labeler is not None:
         labeler.reset_reference(raw_env)
 
+    # Always policy env.step (not raw_env.step): the two paths leave different
+    # handoff states — video_cb must not switch dynamics (PCI batch vs smoke).
     if video_cb is not None:
         obs = env.observation(raw_env._compute_observation())
         video_cb(obs)
 
     limit = min(len(actions), int(stop_frame) + 1)
     for frame_idx in range(limit):
+        action46 = zarr_action_to_policy46(actions[frame_idx])
+        obs, _, _, _, _ = env.step(action46.astype(np.float32))
         if video_cb is not None:
-            action46 = zarr_action_to_policy46(actions[frame_idx])
-            obs, _, _, _, _ = env.step(action46.astype(np.float32))
             video_cb(obs)
-        else:
-            raw_env.step(raw_flat_to_dict(actions[frame_idx]))
     return limit - 1
 
 

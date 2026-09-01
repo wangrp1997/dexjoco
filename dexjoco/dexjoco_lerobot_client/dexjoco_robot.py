@@ -36,7 +36,9 @@ class DexJoCoRobot(Robot):
             self.observation_features_cfg = cfg["observation_features"]
             self.action_features_cfg = cfg["action_features"]
             self.single_arm = cfg["single_arm"]
+            self.right_arm_action_only = bool(cfg.get("right_arm_action_only", False))
             self.model_env_image_map = cfg.get("model_env_image_map")
+        self._left_arm_hold22: np.ndarray | None = None
 
         self.done = False
         self.success = False
@@ -127,10 +129,25 @@ class DexJoCoRobot(Robot):
     def get_observation(self) -> RobotObservation:
         return self.observation
 
+    def set_left_arm_hold22(self, left22: np.ndarray) -> None:
+        hold = np.asarray(left22, dtype=np.float64).reshape(-1).copy()
+        if hold.shape[0] != 22:
+            raise ValueError(f"left hold must be 22-dim, got {hold.shape[0]}")
+        self._left_arm_hold22 = hold
+
     @check_if_not_connected
     @override
     def send_action(self, action: RobotAction) -> RobotAction:
         action_array = np.array([float(action[k]) for k in self.action_features.keys()])
+
+        if (
+            not self.single_arm
+            and self.right_arm_action_only
+            and action_array.shape[0] == 22
+        ):
+            if self._left_arm_hold22 is None:
+                raise RuntimeError("right_arm_action_only policy requires set_left_arm_hold22()")
+            action_array = np.concatenate([action_array, self._left_arm_hold22], dtype=np.float64)
 
         if self.hybrid_insert is not None and self.hybrid_insert.enabled:
             if not self.hybrid_insert.active:
