@@ -4,6 +4,12 @@ __pycache__/
 .DS_Store
 .vscode/
 
+# Local / merge junk (do not track)
+*.orig
+outputs_view/
+dexjoco/run_meta.json
+**/run_meta.json
+
 /outputs
 /dexjoco/outputs/
 /checkpoints
