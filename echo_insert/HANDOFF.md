@@ -1,60 +1,62 @@
-# ECHO-Insert 交接说明
+# ECHO-Insert Handoff
 
-## 目标
+## Goal
 
-保留能量与安全层，实现真正的螺旋搜孔。不得使用 MuJoCo 中真实的
-peg/socket 位姿来对齐 peg 或将其移动到孔中心。
+Implement a real spiral hole search with the energy/safety layer retained. Do
+not use true MuJoCo peg/socket poses to align or center the peg.
 
-## 当前进展
+## Current Status
 
-- 符合约束的完整任务评估：`0/0`，尚未执行。
-- 回归测试：`43 passed`。
-- 控制器现在会持续执行同一个阿基米德螺旋候选动作；旧的 `2 mm`
-  假入口判据不会再中断螺旋。
-- 当前参数：路径步长 `0.2 mm`、圈距 `1.0 mm`、轴向预载 `1.5 N`、
-  最大扭矩顺应步长 `0.5 mrad`、最大搜索半径 `12 mm`。
-- 每个螺旋动作仍需通过优化器的能量、工作空间、力、扭矩和正功安全检查。
+- Compliant full-task evaluation: `0/0` (not run).
+- Tests: `43 passed`.
+- The controller now continuously executes one Archimedean spiral candidate;
+  the old 2 mm false-entry switch no longer interrupts the spiral.
+- Current spiral parameters: 0.2 mm path step, 1.0 mm pitch, 1.5 N axial
+  preload, 0.5 mrad maximum torque-compliance step, 12 mm maximum radius.
+- Every spiral action still passes the optimizer energy, workspace, force,
+  torque, and positive-work safety checks.
 
-## 重要结果
+## Important Result
 
-`v55` 达到了原生成功 `1/1`，并保持孔底连续接触 `30` 步，但它不是
-有效的螺旋搜孔结果。该回合使用了直接 demo handoff，并读取真实 MuJoCo
-peg/socket 几何，在 ECHO 接管前完成了 peg 对齐和孔中心定位。因此它只能
-证明“特权对齐后能够插入”，不能证明螺旋自主找到了孔。
+`v55` reached native success `1/1` and 30 consecutive bottom-contact steps,
+but it is not a valid spiral-search result. It used direct demo handoff plus
+true MuJoCo peg/socket geometry to align and center the peg before ECHO took
+over. It only proves that insertion works after privileged alignment.
 
-视频：
+Video:
 `/mnt/hdd/dexjoco/outputs/echo_insert_surface_handoff_spiral_video_v55_ep0_20260827/ep00/ego.mp4`
 
-## 尚未解决的核心问题
+## Main Unresolved Problem
 
-手腕能够执行设定的螺旋，但 peg 会在右手中滑动和倾斜，因此 peg 本体
-没有跟随手腕画出相同轨迹。此前手腕持续完成了约 `10.8 mm` 半径的螺旋，
-但仍未产生原生插入成功。
+The wrist follows the commanded spiral, but the peg slips and tilts inside the
+right hand. Therefore the peg body does not trace the same spiral. A continuous
+10.8 mm wrist spiral was observed without native insertion.
 
-## 下一步
+## Next Steps
 
-1. 在目标运行中禁用特权预接触对齐和孔中心定位。
-2. 只使用允许的公共输入和预先声明的开环手指预载，让抓取足够刚性；
-   不得根据真实接触或物体位姿调参。
-3. 使用可部署观测验证手腕的小幅运动确实传递给 peg，不得读取 MuJoCo
-   `xpos`、`xmat` 或真实接触。
-4. 运行带能量层的持续螺旋。只根据持续的公共轴向位移和力下降判断入口，
-   确认后冻结 XY 并直线插入。
-5. 先运行无视频测试；只有原生 `info["succeed"]` 成功后，才补录一次 ego 视频。
+1. Disable privileged precontact alignment/centering for the target run.
+2. Make the grasp rigid using only approved public inputs and a predeclared
+   open-loop finger preload; do not tune it from true contact or object pose.
+3. Verify that a small wrist motion is transferred to the peg using deployable
+   observations, not MuJoCo `xpos`, `xmat`, or contact truth.
+4. Run the continuous energy-layer spiral. Detect entry only from sustained
+   public axial displacement plus force reduction, then freeze XY and insert.
+5. Run without video first; after native `info["succeed"]`, reproduce once with
+   ego video.
 
-## 关键文件
+## Key Files
 
-- `controller.py`：螺旋生成和动作执行。
-- `optimizer.py`：能量模型、候选安全检查和螺旋参数。
-- `run_demo_handoff.py`：诊断运行器，目前仍包含特权路径。
-- `DISCUSSION.md`：截至 v55 的实验记录。
+- `controller.py`: spiral generation and action execution.
+- `optimizer.py`: energy model, candidate safety, and spiral parameters.
+- `run_demo_handoff.py`: diagnostic runner; currently contains privileged paths.
+- `DISCUSSION.md`: experiment history through v55.
 
-## 验证命令
+## Verification
 
 ```bash
 /home/wangrenpeng/miniconda3/bin/conda run -n dexjoco \
   python -m pytest -q echo_insert/tests
 ```
 
-只有原生 `info["succeed"]` 为真时才能报告成功。特权诊断结果必须与符合
-约束的结果分开统计和汇报。
+Do not report success unless native `info["succeed"]` is true. Keep privileged
+diagnostics separate from eligible results.

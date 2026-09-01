@@ -168,11 +168,17 @@ def lerobot_image_map(camera_mapping: dict[str, str], dual_arm: bool) -> dict[st
     }
 
 
-def build_lerobot_robot_config(eval_cfg: dict[str, Any]) -> dict[str, Any]:
+def build_lerobot_robot_config(
+    eval_cfg: dict[str, Any],
+    *,
+    action_dim: int | None = None,
+    right_arm_action_only: bool = False,
+) -> dict[str, Any]:
     dual_arm = eval_cfg["robot_type"] == "dual_arm"
     image_map = lerobot_image_map(eval_cfg["camera_mapping"], dual_arm)
     state_dim = 46 if dual_arm else 23
-    action_dim = 44 if dual_arm else 22
+    if action_dim is None:
+        action_dim = 44 if dual_arm else 22
 
     return {
         "observation_features": {
@@ -181,13 +187,36 @@ def build_lerobot_robot_config(eval_cfg: dict[str, Any]) -> dict[str, Any]:
         },
         "action_features": [{"action": action_dim}],
         "single_arm": not dual_arm,
+        "right_arm_action_only": bool(right_arm_action_only),
         "model_env_image_map": image_map,
         "task": eval_cfg["prompt"],
     }
 
 
-def write_robot_config_yaml(eval_cfg: dict[str, Any], path: Path) -> None:
-    robot_cfg = build_lerobot_robot_config(eval_cfg)
+def action_dim_from_checkpoint(checkpoint: Path) -> int:
+    config_path = checkpoint / "config.json"
+    if not config_path.exists():
+        raise FileNotFoundError(f"checkpoint must contain config.json: {checkpoint}")
+    with open(config_path, "r") as f:
+        cfg = json.load(f)
+    shape = cfg.get("output_features", {}).get("action", {}).get("shape")
+    if not shape:
+        raise KeyError(f"checkpoint missing output_features.action.shape: {checkpoint}")
+    return int(shape[0])
+
+
+def write_robot_config_yaml(
+    eval_cfg: dict[str, Any],
+    path: Path,
+    *,
+    action_dim: int | None = None,
+    right_arm_action_only: bool = False,
+) -> None:
+    robot_cfg = build_lerobot_robot_config(
+        eval_cfg,
+        action_dim=action_dim,
+        right_arm_action_only=right_arm_action_only,
+    )
     with open(path, "w") as f:
         yaml.safe_dump(robot_cfg, f, sort_keys=False)
 

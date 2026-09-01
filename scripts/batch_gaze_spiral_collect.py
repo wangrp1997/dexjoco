@@ -30,9 +30,13 @@ from eval_hybrid_openpi_success import _approach, _manifest
 from hybrid_insert.assembly_contacts import AssemblyContactLabeler
 from interaction_retarget.constants import default_sidecar_dir
 from interaction_retarget.io.zarr_io import load_zarr_episode
-from interaction_retarget.sim.replay import make_assembly_env
+from interaction_retarget.sim.replay import make_assembly_env, rotvec_dual_arm_to_policy
 from interaction_retarget.sim.settle import read_arm_action
-from interaction_retarget.skill_replay.insert import _insert_geometry, demo_replay_to_pre_insert
+from interaction_retarget.skill_replay.insert import (
+    _insert_geometry,
+    demo_replay_to_pre_insert,
+    dual_arm23_to_action44,
+)
 from pose_insert.pre_insert import resolve_peg_lift_end_frame
 from retrieval_cerebellum.spatial_visual_supervision import CameraCalibration
 from smoke_gaze_scan_collect import (
@@ -87,6 +91,66 @@ def _project_ego(raw, *, hole_opening_offset_m: float) -> dict:
     }
 
 
+def _stop_frame_candidates(entry: dict, sidecar_dir: Path) -> list[int]:
+    """Primary peg_lift_end, then earlier lift frames if grasp is fragile."""
+    primary = int(resolve_peg_lift_end_frame(entry, sidecar_dir))
+    timing = entry.get("timing") or {}
+    pls = timing.get("peg_lift_start")
+    cands = [primary]
+    if pls is not None:
+        pls = int(pls)
+        early = pls + 25
+        mid = pls + max(20, (primary - pls) // 2)
+        for frame in (early, mid):
+            if 0 < frame < primary and frame not in cands:
+                cands.append(frame)
+    return cands
+
+
+def _settle_hold(
+    env,
+    raw,
+    left_hold: np.ndarray,
+    right_hand_hold: np.ndarray,
+    *,
+    steps: int = 20,
+) -> None:
+    """Hold both arms (lock right fingers) before privileged approach."""
+    right = np.asarray(read_arm_action(raw, "right"), dtype=np.float64).copy()
+    right[7:23] = np.asarray(right_hand_hold, dtype=np.float64)
+    for _ in range(int(steps)):
+        policy44 = dual_arm23_to_action44(left_hold, right)
+        action46 = rotvec_dual_arm_to_policy(np.asarray(policy44, dtype=np.float64).reshape(44))
+        env.step(action46.astype(np.float32))
+
+
+def _replay_approach(
+    env,
+    raw,
+    labeler: AssemblyContactLabeler,
+    entry: dict,
+    initial_state,
+    stop_frame: int,
+) -> tuple[str | None, int | None]:
+    demo_replay_to_pre_insert(
+        env,
+        raw,
+        zarr_path=entry["zarr_path"],
+        stop_frame=int(stop_frame),
+        initial_state=initial_state,
+        labeler=labeler,
+    )
+    if not bool(labeler.compute(raw).peg_ok):
+        return "peg_lost_after_replay", None
+    left0 = np.asarray(read_arm_action(raw, "left"), dtype=np.float64).copy()
+    right0 = np.asarray(read_arm_action(raw, "right"), dtype=np.float64).copy()
+    _settle_hold(env, raw, left0, right0[7:23].copy())
+    fail = _approach(env, raw, labeler, left0, right0[7:23].copy())
+    if fail:
+        return fail, None
+    return None, int(stop_frame)
+
+
 def _episode_done(ep_dir: Path, expected_frames: int) -> bool:
     meta = ep_dir / "meta.json"
     labels = ep_dir / "labels.parquet"
@@ -117,27 +181,38 @@ def collect_episode(
         return {"episode_index": ep, "status": "skipped", "num_frames": expected}
 
     peg_lift_end = resolve_peg_lift_end_frame(entry, SIDECAR)
+    stop_candidates = _stop_frame_candidates(entry, SIDECAR)
     seed = ep
     env = make_assembly_env(seed=seed, randomize=False, render_mode="rgb_array")
     raw = env.unwrapped
     labeler = AssemblyContactLabeler(raw)
     rows: list[dict] = []
+    used_stop_frame: int | None = None
+    approach_attempts: list[dict] = []
 
     try:
         _, _, initial_state = load_zarr_episode(Path(entry["zarr_path"]))
-        demo_replay_to_pre_insert(
-            env,
-            raw,
-            zarr_path=entry["zarr_path"],
-            stop_frame=int(peg_lift_end),
-            initial_state=initial_state,
-            labeler=labeler,
-        )
-        left0 = np.asarray(read_arm_action(raw, "left"), dtype=np.float64).copy()
-        right0 = np.asarray(read_arm_action(raw, "right"), dtype=np.float64).copy()
-        fail = _approach(env, raw, labeler, left0, right0[7:23].copy())
-        if fail:
-            return {"episode_index": ep, "status": "fail_approach", "reason": fail}
+        fail_reason = "peg_lost_approach"
+        for stop_frame in stop_candidates:
+            attempt_fail, ok_stop = _replay_approach(
+                env, raw, labeler, entry, initial_state, stop_frame
+            )
+            approach_attempts.append(
+                {"stop_frame": int(stop_frame), "fail": attempt_fail}
+            )
+            if ok_stop is not None:
+                used_stop_frame = ok_stop
+                fail_reason = ""
+                break
+            fail_reason = attempt_fail or fail_reason
+
+        if used_stop_frame is None:
+            return {
+                "episode_index": ep,
+                "status": "fail_approach",
+                "reason": fail_reason,
+                "attempts": approach_attempts,
+            }
 
         left_now = np.asarray(read_arm_action(raw, "left"), dtype=np.float64).copy()
         right_now = np.asarray(read_arm_action(raw, "right"), dtype=np.float64).copy()
@@ -190,6 +265,9 @@ def collect_episode(
             "episode_index": ep,
             "seed": seed,
             "zarr_path": str(entry["zarr_path"]),
+            "peg_lift_end": int(peg_lift_end),
+            "stop_frame_used": int(used_stop_frame),
+            "approach_attempts": approach_attempts,
             "num_frames": len(rows),
             "camera": "ego",
             "format": "jpeg",

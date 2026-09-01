@@ -17,6 +17,24 @@ def heatmap_peak(hm: np.ndarray) -> tuple[float, float]:
     return float(x), float(y)
 
 
+def overlay_attention(
+    rgb: np.ndarray,
+    attn: np.ndarray,
+    *,
+    alpha: float = 0.45,
+    cmap: int = cv2.COLORMAP_JET,
+) -> np.ndarray:
+    """Blend RGB with a single-channel attention map."""
+    a = np.asarray(attn, dtype=np.float32)
+    if a.max() > a.min():
+        a = (a - a.min()) / (a.max() - a.min())
+    heat = cv2.applyColorMap((a * 255).astype(np.uint8), cmap)
+    heat = cv2.cvtColor(heat, cv2.COLOR_BGR2RGB)
+    out = rgb.astype(np.float32)
+    out = (1.0 - alpha) * out + alpha * heat.astype(np.float32)
+    return np.clip(out, 0, 255).astype(np.uint8)
+
+
 def heatmap(sigma: float, w: int, h: int, points, d: int = 3) -> np.ndarray:
     s = int(sigma * d)
     hm = np.zeros((h, w), dtype=np.float32)

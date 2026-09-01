@@ -37,10 +37,33 @@ FPS = 30
 IMAGE_SHAPE = (640, 640, 3)
 
 
-def _discover_successes(root: Path) -> list[Path]:
-    rx = re.compile(r"episode_\d+_success")
-    eps = [p for p in root.iterdir() if p.is_dir() and rx.fullmatch(p.name)]
-    return sorted(eps, key=lambda p: p.name)
+def _episode_sort_key(path: Path) -> tuple[int, int]:
+    """pi05 ``episode_NNNN_success`` first, then ``episode_demo_NN_success``."""
+    name = path.name
+    m_demo = re.fullmatch(r"episode_demo_(\d+)_success", name)
+    if m_demo:
+        return (1, int(m_demo.group(1)))
+    m_pi = re.fullmatch(r"episode_(\d+)_success", name)
+    if m_pi:
+        return (0, int(m_pi.group(1)))
+    return (2, 0)
+
+
+def _discover_successes(
+    root: Path,
+    *,
+    include_pi05: bool = True,
+    include_demo: bool = True,
+) -> list[Path]:
+    eps: list[Path] = []
+    for p in root.iterdir():
+        if not p.is_dir():
+            continue
+        if include_pi05 and re.fullmatch(r"episode_\d+_success", p.name):
+            eps.append(p)
+        elif include_demo and re.fullmatch(r"episode_demo_\d+_success", p.name):
+            eps.append(p)
+    return sorted(eps, key=_episode_sort_key)
 
 
 def _build_features() -> dict:
@@ -135,23 +158,38 @@ def main() -> int:
     p.add_argument(
         "--out-dir",
         type=Path,
-        default=Path("/mnt/hdd/dexjoco/datasets/bimanual_assembly_force_smoke"),
+        default=Path("/mnt/hdd/dexjoco/datasets/bimanual_assembly_insert_force_lerobot_mix854"),
+    )
+    p.add_argument(
+        "--repo-id",
+        type=str,
+        default="bimanual_assembly_insert_force_lerobot_mix854",
     )
     p.add_argument("--max-episodes", type=int, default=None)
+    p.add_argument("--no-pi05", action="store_true", help="skip episode_NNNN_success")
+    p.add_argument("--no-demo", action="store_true", help="skip episode_demo_NN_success")
     args = p.parse_args()
 
-    episodes = _discover_successes(args.raw_root)
+    episodes = _discover_successes(
+        args.raw_root,
+        include_pi05=not args.no_pi05,
+        include_demo=not args.no_demo,
+    )
     if args.max_episodes is not None:
         episodes = episodes[: args.max_episodes]
     if not episodes:
-        raise SystemExit(f"no episode_*_success under {args.raw_root}")
+        raise SystemExit(f"no episode_*_success / episode_demo_*_success under {args.raw_root}")
+
+    n_pi = sum(1 for p in episodes if re.fullmatch(r"episode_\d+_success", p.name))
+    n_demo = len(episodes) - n_pi
+    print(f"[export] discovered {len(episodes)} episodes (pi05={n_pi} demo={n_demo})", flush=True)
 
     if args.out_dir.exists():
         shutil.rmtree(args.out_dir)
     label_dir = args.out_dir / "force_labels"
 
     dataset = LeRobotDataset.create(
-        repo_id="bimanual_assembly_force_smoke",
+        repo_id=args.repo_id,
         fps=FPS,
         features=_build_features(),
         root=args.out_dir,
@@ -197,15 +235,20 @@ def main() -> int:
             label_file=str(merged) if merged is not None else "",
             seed_base=-1,
             randomize=False,
-            notes="Force-aligned pi05+hybrid insert collect; sidecar from trajectory.npz (not replay).",
+            notes=(
+                f"Force-aligned insert collect pi05={n_pi} demo={n_demo}; "
+                "sidecar from trajectory.npz (not replay)."
+            ),
         ),
     )
 
     summary = {
-        "dataset": "bimanual_assembly_force_smoke",
+        "dataset": args.repo_id,
         "lerobot_version": "v3",
         "prompt": PROMPT,
         "n_episodes": len(results),
+        "n_pi05": n_pi,
+        "n_demo": n_demo,
         "n_frames_total": global_index,
         "raw_root": str(args.raw_root),
         "out_dir": str(args.out_dir),
