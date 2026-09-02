@@ -64,6 +64,8 @@ interaction_retarget/
 - `scripts/validate_grasp_random.py` — **随机物体位姿** IK + approach + repair
 - `scripts/vis_interaction_mesh.py` — 从 sidecar 生成交互式 3D HTML
 
+插孔前 handoff（demo → `peg_lift_end` + 出视频）：见 [`skill_replay/HANDOFF.md`](skill_replay/HANDOFF.md)。
+
 ## 表示（对齐 TopoRetarget）
 
 每只手–物体一对：
